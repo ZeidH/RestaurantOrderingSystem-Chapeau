@@ -29,7 +29,13 @@ namespace Main
 
         private void Chapeau_Form_Load(object sender, EventArgs e)
         {
-
+            Panel order_panel = new Panel();
+            order_panel.Size = new Size(3000, 2000);
+            order_panel.BackColor = Color.Blue;
+            Controls.Add(order_panel);
+            Button button = new Button();
+            button.BackColor = Color.Gray;
+            order_panel.Controls.Add(button);
         }
     }
 }

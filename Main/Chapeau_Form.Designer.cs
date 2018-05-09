@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1072, 536);
             this.Name = "Chapeau_Form";
             this.Text = "Chapeau";
             this.Load += new System.EventHandler(this.Chapeau_Form_Load);
