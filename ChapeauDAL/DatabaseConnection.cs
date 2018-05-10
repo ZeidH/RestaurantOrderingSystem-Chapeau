@@ -11,7 +11,7 @@ namespace ChapeauDAL
 {
     class DatabaseConnection
     {
-        private SqlConnection openConnectionDB()
+        private SqlConnection OpenConnectionDB()
         {
             //Connection string with creditentials from App.Config
             string connString = ConfigurationManager
@@ -27,13 +27,13 @@ namespace ChapeauDAL
             //If exception> write the details in the ErrorLog and throw e
             catch (Exception e)
             {
-                writeErrorLog(e);
+                WriteErrorLog(e);
                 throw e;
             }
         }
 
         //Create new file or if it exists, write the exception message, stacktrace, date time
-        public void writeErrorLog(Exception e)
+        private void WriteErrorLog(Exception e)
         {
             string logPath = @"..\ErrorLog.txt";
 
