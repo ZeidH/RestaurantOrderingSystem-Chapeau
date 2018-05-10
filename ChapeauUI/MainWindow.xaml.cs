@@ -23,6 +23,8 @@ namespace ChapeauUI
         public MainWindow()
         {
             InitializeComponent();
+            //Initialize on Login Page
+            Main.Content = new Login_UI();
         }
     }
 }

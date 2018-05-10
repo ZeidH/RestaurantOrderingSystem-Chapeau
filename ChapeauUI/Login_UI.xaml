@@ -9,6 +9,6 @@
       Title="Login_UI">
 
     <Grid>
-        
+        <Label Content="This is login" />
     </Grid>
 </Page>
