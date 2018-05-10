@@ -54,9 +54,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Kitchenview_UI.xaml.cs">
+      <DependentUpon>Kitchenview_UI.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tableview_UI.xaml.cs">
       <DependentUpon>Tableview_UI.xaml</DependentUpon>
     </Compile>
+    <Page Include="Kitchenview_UI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Login_UI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
