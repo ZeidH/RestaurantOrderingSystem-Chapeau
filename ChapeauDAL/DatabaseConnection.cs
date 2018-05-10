@@ -16,40 +16,20 @@ namespace ChapeauDAL
             //Connection string with creditentials from App.Config
             string connString = ConfigurationManager
                 .ConnectionStrings["ChapeauDatabase"].ConnectionString;
-
+            SqlConnection connection = new SqlConnection(connString);
             //Try to open connection to the database
             try
             {
-                SqlConnection connection = new SqlConnection(connString);
                 connection.Open();
-                return connection;
             }
             //If exception> write the details in the ErrorLog and throw e
             catch (Exception e)
             {
-                WriteErrorLog(e);
-                throw e;
-            }
-        }
+                ErrorFilePrint print = new ErrorFilePrint();
+                print.ErrorLog(e);
 
-        //Create new file or if it exists, write the exception message, stacktrace, date time
-        private void WriteErrorLog(Exception e)
-        {
-            string logPath = @"..\ErrorLog.txt";
-
-            if (!File.Exists(logPath))
-            {
-                File.Create(logPath).Dispose();
             }
-            using (StreamWriter sw = File.AppendText(logPath))
-            {
-                sw.WriteLine("=============Error Logging ===========‿︵‿︵(ಥ﹏ಥ)‿︵‿︵");
-                sw.WriteLine("===========Start============= " + DateTime.Now);
-                sw.WriteLine("Error Message: " + e.Message);
-                sw.WriteLine("Stack Trace: " + e.StackTrace);
-                sw.WriteLine("===========End============= ┬──┬ ノ( ゜-゜ノ)");
-                sw.WriteLine();
-            }
+            return connection;
         }
     }
 }
