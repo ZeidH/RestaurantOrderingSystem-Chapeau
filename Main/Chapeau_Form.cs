@@ -31,6 +31,7 @@ namespace Main
         {
             Panel order_panel = new Panel();
             order_panel.Size = new Size(3000, 2000);
+
         }
     }
 }
