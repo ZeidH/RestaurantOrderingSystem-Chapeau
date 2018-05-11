@@ -9,9 +9,11 @@ using System.Configuration;
 
 namespace ChapeauDAL
 {
-    class DatabaseConnection
+    class Connection
     {
-        private SqlConnection OpenConnectionDB()
+        protected StringBuilder sb = new StringBuilder();
+
+        protected SqlConnection OpenConnectionDB()
         {
             //Connection string with creditentials from App.Config
             string connString = ConfigurationManager
