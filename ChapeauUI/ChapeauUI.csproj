@@ -78,7 +78,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Base_UI.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -89,8 +89,8 @@
     <Compile Include="Login_UI.xaml.cs">
       <DependentUpon>Login_UI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Base_UI.xaml.cs">
+      <DependentUpon>Base_UI.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Orderview_UI.xaml">
@@ -136,10 +136,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ChapeauDAL\ChapeauDAL.csproj">
-      <Project>{5c8bda73-f134-4af6-bb41-dbe88eba2615}</Project>
-      <Name>ChapeauDAL</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ChapeauLogic\ChapeauLogic.csproj">
       <Project>{715fc326-1104-4e49-8df2-a36e0458067d}</Project>
       <Name>ChapeauLogic</Name>

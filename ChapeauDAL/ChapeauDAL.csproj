@@ -41,9 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connection.cs" />
+    <Compile Include="Base.cs" />
     <Compile Include="ErrorFilePrint.cs" />
-    <Compile Include="Payment_DAL.cs" />
+    <Compile Include="Payment_DAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

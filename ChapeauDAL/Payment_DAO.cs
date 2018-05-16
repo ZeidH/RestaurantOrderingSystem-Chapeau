@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace ChapeauDAL
 {
-    class Payment_DAL : Connection
+    class Payment_DAO : Base
     {
         private void Db_Payment()
         {
