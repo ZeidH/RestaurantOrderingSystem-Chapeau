@@ -9,7 +9,7 @@ using System.Configuration;
 
 namespace ChapeauDAL
 {
-    class Base
+    public class Base
     {
         protected StringBuilder sb = new StringBuilder();
 
