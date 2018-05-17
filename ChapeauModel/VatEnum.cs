@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace ChapeauModel
 {
-    class Payment_Model
+    enum Vat
     {
+        Low, High
     }
 }
