@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using ChapeauModel;
 
 namespace ChapeauDAL
 {
-    class Orderview_DAO : Connection
+    class Orderview_DAO : Base
     {
         private void Db_add_item(int order_id, string item_comment, DateTime order_time, OrderStatus order_status, int item_amount, int item_id)
         {
