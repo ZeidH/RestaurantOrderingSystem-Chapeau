@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Base.cs" />
     <Compile Include="ErrorFilePrint.cs" />
+	<Compile Include="Orderview_DAO.cs" />
     <Compile Include="Payment_DAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
