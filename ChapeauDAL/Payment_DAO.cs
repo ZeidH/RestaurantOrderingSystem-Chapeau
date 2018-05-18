@@ -8,18 +8,15 @@ using ChapeauModel;
 
 namespace ChapeauDAL
 {
+    //Also inherit Customer and Item
     public class Payment_DAO : Base
     {
-        public Payment_DAO(int order_id)
-        {
-            Db_Payment(order_id);
-        }
-        private void Db_Payment(int order_id)
+        private void SetTip(int order_id, float tip)
         {
             SqlConnection connection = OpenConnectionDB();
 
-            //Query - Get all the names and which room they are in
-            sb.Append("SELECT item_id AS order_items FROM ORDER_LIST WHERE order_id = @order_id");
+            //Query - Insert the tip into the database
+            sb.Append("INSERT INTO PAYMENT VALUES(@tip) WHERE order_id = @order_id");
 
             string sql = sb.ToString();
 
@@ -27,18 +24,46 @@ namespace ChapeauDAL
             using (SqlCommand command = new SqlCommand(sql, connection))
             {
                 command.Parameters.Add("@order_id", System.Data.SqlDbType.Int).Value = order_id;
-                SqlDataReader reader = command.ExecuteReader();
-                while (reader.Read())
-                {
-                    ReadInfoQuery(reader);
-                }
-                reader.Close();
+                command.Parameters.Add("@tip", System.Data.SqlDbType.Float).Value = tip;
+                command.ExecuteNonQuery();
             }
             connection.Close();
         }
-        private void ReadInfoQuery(SqlDataReader reader)
+        private void SetPayMethod(int order_id, PayMethod method)
         {
-            //Read and put in model
+            SqlConnection connection = OpenConnectionDB();
+
+            //Query - Insert the type of payment method into the database
+            sb.Append("INSERT INTO PAYMENT VALUES(@method) WHERE order_id = @order_id");
+
+            string sql = sb.ToString();
+
+            //Execute Query
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@order_id", System.Data.SqlDbType.Int).Value = order_id;
+                command.Parameters.Add("@method", System.Data.SqlDbType.SmallInt).Value = method;
+                command.ExecuteNonQuery();
+            }
+            connection.Close();
+        }
+        private void SetComment(int order_id, string comment)
+        {
+            SqlConnection connection = OpenConnectionDB();
+
+            //Query - Insert the order_comment into the database
+            sb.Append("INSERT INTO PAYMENT VALUES(@comment) WHERE order_id = @order_id");
+
+            string sql = sb.ToString();
+
+            //Execute Query
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.Add("@order_id", System.Data.SqlDbType.Int).Value = order_id;
+                command.Parameters.Add("@comment", System.Data.SqlDbType.NVarChar).Value = comment;
+                command.ExecuteNonQuery();
+            }
+            connection.Close();
         }
     }
 }
