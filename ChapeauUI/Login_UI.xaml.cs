@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ChapeauLogic;
 
 namespace ChapeauUI
 {
@@ -23,6 +24,12 @@ namespace ChapeauUI
         public Login_UI()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Order_Service ser = new Order_Service();
+            ser.Test();
         }
     }
 }

@@ -9,6 +9,8 @@
       Title="Login_UI">
 
     <Grid>
-        <Label Content="This is login" />
+        <Label >
+            <Button Content="Button" Width="75" Click="Button_Click"/>
+        </Label>
     </Grid>
 </Page>
