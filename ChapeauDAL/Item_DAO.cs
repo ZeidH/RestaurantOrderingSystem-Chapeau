@@ -11,7 +11,7 @@ namespace ChapeauDAL
 {
     public class Item_DAO : Order_DAO
     {
-        public void Db_add_item(Item item)
+        public void Db_add_item(Item_Model item)
         {
             string query = string.Format("INSERT INTO ORDER_LIST (order_id, item_comment, order_time, order_status, item_amount, item_id) " +
                     "VALUES(@orderid, @itemcomment, @ordertime, @orderstatus, @itemamount, @itemid)");
@@ -44,7 +44,7 @@ namespace ChapeauDAL
             ExecuteEditQuery(query, sqlParameters);
         }
 
-        public void Db_update_stock(Item item)
+        public void Db_update_stock(Item_Model item)
         {
             string query = string.Format("UPDATE ITEM SET item_stock = item_stock - @itemamount WHERE item_id = @itemid");
             SqlParameter[] sqlParameters = new SqlParameter[2];
@@ -62,7 +62,7 @@ namespace ChapeauDAL
 
         public DataTable Db_select_items(int order_id)
         {
-            string query = string.Format("SELECT order_id, item_comment, order_time, order_status, item_amount, item_id FROM [ORDER] WHERE order_id = @orderid");
+            string query = string.Format("SELECT order_id, item_comment, order_time, order_status, item_amount, item_id FROM [ORDER_LIST] WHERE order_id = @orderid");
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
             {

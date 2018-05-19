@@ -87,27 +87,5 @@ namespace ChapeauDAL
             }
             return dataTable;
         }
-
-        //to be deleted
-        protected SqlConnection OpenConnectionDB()
-        {
-            //Connection string with creditentials from App.Config
-            string connString = ConfigurationManager
-                .ConnectionStrings["ChapeauDatabase"].ConnectionString;
-            SqlConnection connection = new SqlConnection(connString);
-            //Try to open connection to the database
-            try
-            {
-                connection.Open();
-            }
-            //If exception> write the details in the ErrorLog and throw e
-            catch (Exception e)
-            {
-                ErrorFilePrint print = new ErrorFilePrint();
-                print.ErrorLog(e);
-
-            }
-            return connection;
-        }
     }
 }

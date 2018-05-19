@@ -17,16 +17,6 @@ namespace ChapeauLogic
 
             return splittedPrice;
         }
-
-        //Display order items method
-        public void GetItems(int order_id)
-        {
-            //create model instance
-            //send order_id to db
-            //retrieve info from model
-            // return
-
-        }
         //Insert payment method
         public void InsertPayment(int order_id, float order_price, float order_tip, PayMethod method)
         {

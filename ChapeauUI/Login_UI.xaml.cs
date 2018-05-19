@@ -28,8 +28,6 @@ namespace ChapeauUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Order_Service ser = new Order_Service();
-            ser.Test();
         }
     }
 }

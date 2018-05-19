@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Item_Service.cs" />
-    <Compile Include="ListViewGenerator.cs" />
     <Compile Include="Order_Service.cs" />
     <Compile Include="Payment_Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="DinnerEnum.cs" />
     <Compile Include="DrinkEnum.cs" />
+    <Compile Include="Item_Model.cs" />
     <Compile Include="LunchEnum.cs" />
     <Compile Include="OccupationEnum.cs" />
     <Compile Include="OrderStatusEnum.cs" />

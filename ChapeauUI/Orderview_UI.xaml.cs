@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using ChapeauLogic;
+using ChapeauModel;
+
 
 namespace ChapeauUI
 {
@@ -23,6 +27,11 @@ namespace ChapeauUI
         public Orderview_UI()
         {
             InitializeComponent();
+            //Testing 
+            Item_Service item = new Item_Service();
+            int number = 4;
+            DataTable Table = item.GetItems(number);
+            TestView.DataContext = Table.DefaultView;
         }
     }
 }

@@ -6,22 +6,19 @@ using System.Threading.Tasks;
 using ChapeauModel;
 using ChapeauDAL;
 using System.Configuration;
-using System.Windows.Forms;
 using System.Data;
 
 namespace ChapeauLogic
 {
-    public class Item_Service : ListViewGenerator
+    public class Item_Service
     {
-        public ListView ListView(int order_id)
+        public DataTable GetItems(int order_id)
         {
-            ChapeauDAL.Item_DAO item_DAO = new Item_DAO();
-            DataTable dataTable = new DataTable();
-            dataTable = item_DAO.Db_select_items(order_id);
+            Item_DAO item_DAO = new Item_DAO();
+            DataTable dataTable = item_DAO.Db_select_items(order_id);
+            return dataTable;
 
-            ListView items = CreateTable(dataTable);
-
-            return items;
+            //order_id, item_comment, order_time, order_status, item_amount, item_id
         }
     }
 }
