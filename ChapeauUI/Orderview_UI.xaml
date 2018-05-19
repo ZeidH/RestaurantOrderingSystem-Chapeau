@@ -9,6 +9,18 @@
       Title="Orderview_UI">
 
     <Grid>
-        
+        <ListView x:Name="TestView" HorizontalAlignment="Left" Height="305" Margin="168,87,0,0" VerticalAlignment="Top" Width="554"
+                  ItemsSource="{Binding Path=Table}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Item id" DisplayMemberBinding="{Binding Path=item_id}"/>
+                    <GridViewColumn Header="Order time" DisplayMemberBinding="{Binding Path=order_time}"/>
+                    <GridViewColumn Header="Order status" DisplayMemberBinding="{Binding Path=order_status}"/>
+                    <GridViewColumn Header="Item amount" DisplayMemberBinding="{Binding Path=item_amount}"/>
+                    <GridViewColumn Header="Item comment" DisplayMemberBinding="{Binding Path=item_comment}"/>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>
