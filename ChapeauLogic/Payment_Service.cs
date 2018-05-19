@@ -8,7 +8,7 @@ using ChapeauDAL;
 
 namespace ChapeauLogic
 {
-    class Payment_Service
+    public class Payment_Service
     {
         //Split method
         public float SplitPrice(float price, int customers)
