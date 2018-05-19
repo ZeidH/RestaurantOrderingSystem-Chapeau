@@ -8,11 +8,11 @@ namespace ChapeauModel
 {
     public struct Order
     {
-        public float price { get; set; }
-        public string item { get; set; }
-        public Lunch lunchCategory { get; set; }
-        public Dinner dinnerCategory { get; set; }
-        public Drink drinkCategory { get; set; }
+        public float Price { get; set; }
+        public string Item { get; set; }
+        public Lunch LunchCategory { get; set; }
+        public Dinner DinnerCategory { get; set; }
+        public Drink DrinkCategory { get; set; }
 
     }
     //public float Tip { get; set; }

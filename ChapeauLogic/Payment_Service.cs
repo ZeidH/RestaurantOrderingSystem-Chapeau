@@ -35,6 +35,7 @@ namespace ChapeauLogic
             //call db
             //finish
         }
+        //Insert Comment of the order
         public void InsertComment(int order_id, string comment)
         {
 
