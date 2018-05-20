@@ -25,7 +25,7 @@ namespace ChapeauLogic
                 Order_time = DateTime.Now,
                 Order_status = OrderStatus.Processing,
                 Item_amount = 1,
-                Item_id = item_id
+                Item_id = item_id,
             };
             return item;
         }

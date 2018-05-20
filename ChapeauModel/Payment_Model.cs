@@ -9,6 +9,7 @@ namespace ChapeauModel
     public class Payment
     {
         //int order_id, float order_price, float order_tip, PayMethod method
+
         public int Order_id { get; set; }
         public float Price{ get; set; }
         public float Tip { get; set; }

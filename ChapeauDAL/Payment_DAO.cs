@@ -39,5 +39,18 @@ namespace ChapeauDAL
 
             ExecuteEditQuery(query, sqlParameters);
         }
+        public DataTable Db_Get_Drink_Details(int item_id, Item item)
+        {
+            string query = string.Format("SELECT drink_vat FROM DRINK WHERE drink_id = @item_id");
+
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@item_id", SqlDbType.Int)
+            {
+                Value = item_id
+            };
+
+            DataTable table = ExecuteSelectQuery(query, sqlParameters);
+            return table;
+        }
     }
 }

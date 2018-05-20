@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ChapeauModel
 {
     public class Item
@@ -14,6 +15,16 @@ namespace ChapeauModel
         public OrderStatus Order_status { get; set; }
         public int Item_amount { get; set; }
         public int Item_id { get; set; }
+        public Vat DrinkVat { get; set; }
+
+
+
+        //public Drink DrinkType { get; set; }
+        //public Lunch LunchType { get; set; }
+        //public Dinner DinnerType { get; set; }
 
     }
 }
+        
+    
+

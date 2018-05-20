@@ -47,7 +47,6 @@
     <Compile Include="MenuEnum.cs" />
     <Compile Include="OccupationEnum.cs" />
     <Compile Include="OrderStatusEnum.cs" />
-    <Compile Include="OrderList_Model.cs" />
     <Compile Include="Order_Model.cs" />
     <Compile Include="Payment_Model.cs" />
     <Compile Include="PayMethodEnum.cs" />
