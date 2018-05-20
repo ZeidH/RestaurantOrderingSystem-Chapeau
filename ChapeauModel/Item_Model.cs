@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChapeauModel
 {
-    public class Item_Model
+    public class Item
     {
         public int Order_id { get; set; }
         public string Item_comment { get; set; }
