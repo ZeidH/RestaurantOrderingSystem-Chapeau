@@ -23,8 +23,18 @@ namespace ChapeauDAL
             {
                 Value = emp_id
             };
-
             ExecuteEditQuery(query, sqlParameters);
+        }
+
+        public DataTable Db_select_order(int order_id)
+        {
+            string query = string.Format("SELECT order_id, order_comment, table_id, emp_id FROM [ORDER] WHERE order_id = @orderid");
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
+            {
+                Value = order_id
+            };
+            return ExecuteSelectQuery(query, sqlParameters);
         }
 
         public void Db_delete_order(int order_id)
@@ -35,7 +45,6 @@ namespace ChapeauDAL
             {
                 Value = order_id
             };
-
             ExecuteEditQuery(query, sqlParameters);
         }
     }

@@ -38,6 +38,7 @@ namespace ChapeauDAL
         protected void ExecuteEditQuery(String query, SqlParameter[] sqlParameters)
         {
             SqlCommand command = new SqlCommand();
+
             try
             {
                 command.Connection = OpenConnection();
@@ -57,7 +58,7 @@ namespace ChapeauDAL
             }
         }
 
-                            /* For Select Queries */
+        /* For Select Queries */
         /// <summary>
         /// This returns a so called "DataTable", All the data retrieved from db will be stored in this table.
         /// There's no need to put data into a model or anything. Just use the DataTable to fill the ListView using Binding Path in the XAML.
@@ -68,6 +69,7 @@ namespace ChapeauDAL
             DataTable dataTable = new DataTable();
             dataTable = null;
             DataSet dataSet = new DataSet();
+
             try
             {
                 command.Connection = OpenConnection();
