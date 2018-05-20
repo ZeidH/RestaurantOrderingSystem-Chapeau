@@ -28,10 +28,13 @@ namespace ChapeauUI
         public Orderview_UI()
         {
             InitializeComponent();
+            //Menu menu, int category
             //Testing 
             Item_Service item = new Item_Service();
-            int number = 4;
-            DataTable Table = item.GetItems(number);
+            MenuCategory menu = MenuCategory.Dinner;
+            Dinner dinner = Dinner.Desserts;
+            //int number = 4;
+            DataTable Table = item.GetMenu(menu, (int)dinner);
             TestView.DataContext = Table.DefaultView;
         }
     }
