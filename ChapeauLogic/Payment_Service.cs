@@ -8,7 +8,7 @@ using ChapeauDAL;
 
 namespace ChapeauLogic
 {
-    class Payment_Service
+    class Payment_Service : Item_Service
     {
         //Split method
         public float SplitPrice(float price, int customers)
@@ -17,18 +17,20 @@ namespace ChapeauLogic
 
             return splittedPrice;
         }
-        //Insert payment method
-        public void InsertPayment(int order_id, float order_price, float order_tip, PayMethod method)
+        public void InsertPayment(int order_id, float order_price, float order_tip, PayMethod method, string comment)
         {
-            //insert values in model
+            //Insert data into Payment Model 
+            Payment payment = new Payment
+            {
+                Order_id = order_id,
+                Price = order_price,
+                Tip = order_tip,
+                Method = method,
+                Comment = comment
+            };
 
-            //call db
-            //finish
-        }
-        //Insert Comment of the order
-        public void InsertComment(int order_id, string comment)
-        {
-
+            Payment_DAO db_Payment = new Payment_DAO();
+            db_Payment.SetPayment(payment);
         }
     }
 }

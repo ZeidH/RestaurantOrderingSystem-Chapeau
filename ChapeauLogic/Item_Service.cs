@@ -17,8 +17,6 @@ namespace ChapeauLogic
             Item_DAO item_DAO = new Item_DAO();
             DataTable dataTable = item_DAO.Db_select_items(order_id);
             return dataTable;
-
-            //order_id, item_comment, order_time, order_status, item_amount, item_id
         }
     }
 }

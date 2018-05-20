@@ -24,6 +24,7 @@ namespace ChapeauUI
     /// </summary>
     public partial class Orderview_UI : Page
     {
+
         public Orderview_UI()
         {
             InitializeComponent();
