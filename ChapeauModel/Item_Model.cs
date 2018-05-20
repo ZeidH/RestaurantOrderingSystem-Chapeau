@@ -13,6 +13,9 @@ namespace ChapeauModel
         public DateTime Order_time { get; set; }
         public OrderStatus Order_status { get; set; }
         public int Item_amount { get; set; }
+        public float Item_cost { get; set; }
+        public int Item_stock { get; set; }
+        public MenuCategory Item_category { get; set; }
         public int Item_id { get; set; }
 
     }

@@ -45,11 +45,11 @@ namespace ChapeauDAL
 
         public void Db_update_stock(Item item)
         {
-            string query = string.Format("UPDATE ITEM SET item_stock = item_stock - @itemamount WHERE item_id = @itemid");
+            string query = string.Format("UPDATE ITEM SET item_stock = @itemstock WHERE item_id = @itemid");
             SqlParameter[] sqlParameters = new SqlParameter[2];
-            sqlParameters[0] = new SqlParameter("@itemamount", SqlDbType.Int)
+            sqlParameters[0] = new SqlParameter("@itemstock", SqlDbType.Int)
             {
-                Value = item.Item_amount
+                Value = item.Item_stock
             };
             sqlParameters[1] = new SqlParameter("@itemid", SqlDbType.Int)
             {
@@ -71,6 +71,7 @@ namespace ChapeauDAL
 
         public DataTable Db_select_items(int order_id)
         {
+            //price, vat, dinnerlunchdrink,  
             string query = string.Format("SELECT order_id, item_comment, order_time, order_status, item_amount, item_id FROM [ORDER_LIST] WHERE order_id = @orderid");
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
