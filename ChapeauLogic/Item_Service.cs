@@ -17,13 +17,13 @@ namespace ChapeauLogic
             Item item = new Item
             {
                 Order_id = order_id,
-                Item_comment = item_comment,
+                Comment = item_comment,
                 Order_time = DateTime.Now,
                 Order_status = OrderStatus.Processing,
-                Item_amount = 1,
-                Item_cost = item_cost,
-                Item_stock = item_stock-1,
-                Item_category = menuCategory,
+                Amount = 1,
+                Cost = item_cost,
+                Stock = item_stock-1,
+                Category = menuCategory,
                 Item_id = item_id
             };
             return item;
@@ -34,30 +34,30 @@ namespace ChapeauLogic
             float total_cost = 0;
             foreach (Item item in items)
             {
-                total_cost += item.Item_cost;
+                total_cost += item.Cost;
             }
             return total_cost;
         }
 
         public Item IncreaseAmount(Item item)
         {
-            if (item.Item_stock <= 0)
+            if (item.Stock <= 0)
             {
                 throw new Exception("This item is out of stock!");
             }
-            item.Item_amount++;
-            item.Item_stock--;
+            item.Amount++;
+            item.Stock--;
             return item;
         }
 
         public Item DecreaseAmount(Item item)
         {
-            if (item.Item_amount <= 1)
+            if (item.Amount <= 1)
             {
                 throw new Exception("This item is already at it's minimum amount!");
             }
-            item.Item_amount--;
-            item.Item_stock++;
+            item.Amount--;
+            item.Stock++;
             return item;
         }
 
@@ -67,29 +67,26 @@ namespace ChapeauLogic
             return items;
         }
 
+        private Item_DAO item_DAO = new Item_DAO();
         public void AddItem(Item item)
         {
-            Item_DAO item_DAO = new Item_DAO();
             item_DAO.Db_add_item(item);
         }
 
         public DataTable GetItems(int order_id)
         {
-            Item_DAO item_DAO = new Item_DAO();
             DataTable dataTable = item_DAO.Db_select_items(order_id);
             return dataTable;
         }
 
         public DataTable GetStatus(int order_id)
         {
-            Item_DAO item_DAO = new Item_DAO();
             DataTable dataTable = item_DAO.Db_select_status(order_id);
             return dataTable;
         }
 
         public DataTable GetMenu(MenuCategory menu, int category)
         {
-            Item_DAO item_DAO = new Item_DAO();
             DataTable dataTable = item_DAO.Db_select_menu_items(menu, category);
             return dataTable;
         }

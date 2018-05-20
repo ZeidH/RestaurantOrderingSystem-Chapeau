@@ -11,6 +11,8 @@ namespace ChapeauLogic
 {
     class Payment_Service : Item_Service
     {
+        const double VAT21 = 1.21;
+        const double VAT6 = 1.06;
         //Split method
         public float SplitPrice(float price, int customers)
         {
@@ -18,44 +20,58 @@ namespace ChapeauLogic
 
             return splittedPrice;
         }
-        public void InsertPayment(int order_id, float order_price, float order_tip, PayMethod method, string comment)
+        public Payment SetPayment(int order_id, List<Item> order, float tip, PayMethod method, string comment)
         {
-            //Insert data into Payment Model 
-            Payment payment = new Payment
+            Payment payment = new Payment()
             {
                 Order_id = order_id,
-                Price = order_price,
-                Tip = order_tip,
+                Tip = tip,
                 Method = method,
                 Comment = comment
             };
+            GetTotalPrice(order, payment);
 
-            Payment_DAO db_Payment = new Payment_DAO();
-            db_Payment.SetPayment(payment);
+            return payment;
+
+        }
+        private Payment_DAO payment_DAO = new Payment_DAO();
+        public void InsertPayment(Payment payment)
+        {
+            payment_DAO.Db_set_payment(payment);
         }
 
-
-        //idk
-        public List<Item> GetVatPrice(List<Item> order)
+        private Payment GetTotalPrice(List<Item> order, Payment payment)
         {
             foreach (Item item in order)
             {
                 if (item.Category == MenuCategory.Drinks)
                 {
-                    Payment_DAO payment = new Payment_DAO();
-
-                    DataTable table = payment.Db_Get_Drink_Details(item.Item_id, item);
-                    ReadTable(table, item);
+                    GetVatPrice(item, payment);
+                }
+                else
+                {
+                    payment.Price += item.Cost;
                 }
             }
-            return order;
-
+            return payment;
         }
-        private void ReadTable(DataTable table, Item item)
+
+        private void GetVatPrice(Item item, Payment payment)
         {
+            DataTable table = payment_DAO.Db_get_drink_vat(item.Item_id, item);
             foreach (DataRow dr in table.Rows)
             {
-                item.DrinkVat = (Vat)dr["drink_vat"];
+                Vat DrinkVat = (Vat)dr["drink_vat"];
+                if (DrinkVat == Vat.High)
+                {
+                    payment.Vat += item.Cost * (float)VAT21;
+                    payment.Price += payment.Vat;
+                }
+                else
+                {
+                    payment.Vat += item.Cost * (float)VAT6;
+                    payment.Price += payment.Vat;
+                }
             }
         }
     }

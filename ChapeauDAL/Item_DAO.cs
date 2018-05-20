@@ -16,27 +16,27 @@ namespace ChapeauDAL
             string query = string.Format("INSERT INTO ORDER_LIST (order_id, item_comment, order_time, order_status, item_amount, item_id) " +
                     "VALUES(@orderid, @itemcomment, @ordertime, @orderstatus, @itemamount, @itemid)");
             SqlParameter[] sqlParameters = new SqlParameter[6];
-            sqlParameters[0] = new SqlParameter("@orderid", System.Data.SqlDbType.Int)
+            sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
             {
                 Value = item.Order_id
             };
-            sqlParameters[1] = new SqlParameter("@itemcomment", System.Data.SqlDbType.Int)
+            sqlParameters[1] = new SqlParameter("@itemcomment", SqlDbType.Int)
             {
-                Value = item.Item_comment
+                Value = item.Comment
             };
-            sqlParameters[2] = new SqlParameter("@ordertime", System.Data.SqlDbType.Int)
+            sqlParameters[2] = new SqlParameter("@ordertime", SqlDbType.Int)
             {
                 Value = item.Order_time
             };
-            sqlParameters[3] = new SqlParameter("@orderstatus", System.Data.SqlDbType.Int)
+            sqlParameters[3] = new SqlParameter("@orderstatus", SqlDbType.Int)
             {
                 Value = item.Order_status
             };
-            sqlParameters[4] = new SqlParameter("@itemamount", System.Data.SqlDbType.Int)
+            sqlParameters[4] = new SqlParameter("@itemamount", SqlDbType.Int)
             {
-                Value = item.Item_amount
+                Value = item.Amount
             };
-            sqlParameters[5] = new SqlParameter("@itemid", System.Data.SqlDbType.Int)
+            sqlParameters[5] = new SqlParameter("@itemid", SqlDbType.Int)
             {
                 Value = item.Item_id
             };
@@ -49,7 +49,7 @@ namespace ChapeauDAL
             SqlParameter[] sqlParameters = new SqlParameter[2];
             sqlParameters[0] = new SqlParameter("@itemstock", SqlDbType.Int)
             {
-                Value = item.Item_stock
+                Value = item.Stock
             };
             sqlParameters[1] = new SqlParameter("@itemid", SqlDbType.Int)
             {
