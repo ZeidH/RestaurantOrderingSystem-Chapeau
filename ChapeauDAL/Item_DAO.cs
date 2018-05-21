@@ -71,7 +71,6 @@ namespace ChapeauDAL
 
         public DataTable Db_select_items(int order_id)
         {
-            //price, vat, dinnerlunchdrink,  
             string query = string.Format("SELECT order_id, item_comment, order_time, order_status, item_amount, item_id FROM [ORDER_LIST] WHERE order_id = @orderid");
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)

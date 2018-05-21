@@ -90,5 +90,45 @@ namespace ChapeauLogic
             DataTable dataTable = item_DAO.Db_select_menu_items(menu, category);
             return dataTable;
         }
+
+        public int FindCategory(string source, MenuCategory menu)
+        {
+            string[] splitted = source.Split(' ');
+            int sub_category = 0;
+            switch (splitted[1])
+            {
+                case "Beers":
+                    sub_category = (int)Drink.Beers;
+                    break;
+                case "HotDrinks":
+                    sub_category = (int)Drink.HotDrinks;
+                    break;
+                case "SoftDrinks":
+                    sub_category = (int)Drink.SoftDrinks;
+                    break;
+                case "Wines":
+                    sub_category = (int)Drink.Wines;
+                    break;
+                case "Desserts":
+                    sub_category = (int)Dinner.Desserts;
+                    break;
+                case "Mains":
+                    sub_category = (int)Dinner.Mains;
+                    break;
+                case "Starters":
+                    sub_category = (int)Dinner.Starters;
+                    break;
+                case "Bites":
+                    sub_category = (int)Lunch.Bites;
+                    break;
+                case "Main":
+                    sub_category = (int)Lunch.Main;
+                    break;
+                case "Specials":
+                    sub_category = (int)Lunch.Specials;
+                    break;
+            }
+            return sub_category;
+        }
     }
 }

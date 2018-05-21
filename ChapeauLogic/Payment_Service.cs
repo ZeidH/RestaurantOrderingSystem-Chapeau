@@ -44,7 +44,7 @@ namespace ChapeauLogic
         {
             foreach (Item item in order)
             {
-                if (item.Category == MenuCategory.Drinks)
+                if (item.Category == MenuCategory.Drink)
                 {
                     GetVatPrice(item, payment);
                 }

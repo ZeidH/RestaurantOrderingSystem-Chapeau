@@ -8,6 +8,6 @@ namespace ChapeauModel
 {
     public enum MenuCategory
     {
-        Lunch, Dinner, Drinks
+        Lunch, Dinner, Drink
     }
 }
