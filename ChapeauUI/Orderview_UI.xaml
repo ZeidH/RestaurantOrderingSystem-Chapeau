@@ -13,7 +13,7 @@
                   ItemsSource="{Binding Path=Table}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Item id" DisplayMemberBinding="{Binding Path=item_id}"/>
+                    <GridViewColumn Header="item id" DisplayMemberBinding="{Binding Path=item_id}"/>
                     <GridViewColumn Header="Order time" DisplayMemberBinding="{Binding Path=order_time}"/>
                     <GridViewColumn Header="Order status" DisplayMemberBinding="{Binding Path=order_status}"/>
                     <GridViewColumn Header="Item amount" DisplayMemberBinding="{Binding Path=item_amount}"/>

@@ -34,8 +34,8 @@ namespace ChapeauUI
             MenuCategory menu = MenuCategory.Dinner;
             Dinner dinner = Dinner.Desserts;
             //int number = 4;
-            DataTable Table = item.GetMenu(menu, (int)dinner);
-            TestView.DataContext = Table.DefaultView;
+            DataTable table = item.GetMenu(menu, (int)dinner);
+            TestView.DataContext = table.DefaultView;
         }
     }
 }

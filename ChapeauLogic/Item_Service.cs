@@ -18,7 +18,7 @@ namespace ChapeauLogic
             {
                 Order_id = order_id,
                 Comment = item_comment,
-                Order_time = DateTime.Now,
+                Order_time = DateTime.Now.ToString("yyyyMMddHHmmss"),
                 Order_status = OrderStatus.Processing,
                 Amount = 1,
                 Cost = item_cost,
