@@ -16,5 +16,10 @@ namespace ChapeauModel
         public float Tip { get; set; }
         public PayMethod Method { get; set; }
         public string Comment { get; set; }
+
+        public Payment()
+        {
+            Price = 0;
+        }
     }
 }

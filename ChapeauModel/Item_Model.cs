@@ -11,13 +11,13 @@ namespace ChapeauModel
     {
         public int Order_id { get; set; }
         public string Comment { get; set; }
-        public DateTime Order_time { get; set; }
+        public string Order_time { get; set; }
         public OrderStatus Order_status { get; set; }
-        public int Amount { get; set; }
-        public float Cost { get; set; }
+        public int Amount { get; set; } 
+        public float Cost { get; set; } 
         public int Stock { get; set; }
-        public MenuCategory Category { get; set; }
-        public int Item_id { get; set; }
+        public MenuCategory Category { get; set; } 
+        public int Item_id { get; set; } 
 
 
 

@@ -51,6 +51,7 @@
     <Compile Include="Payment_Model.cs" />
     <Compile Include="PayMethodEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Singleton.cs" />
     <Compile Include="TableStatusEnum.cs" />
     <Compile Include="VatEnum.cs" />
   </ItemGroup>

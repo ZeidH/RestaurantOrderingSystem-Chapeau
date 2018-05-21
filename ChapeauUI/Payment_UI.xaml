@@ -9,6 +9,22 @@
       Title="Payment_UI">
 
     <Grid>
-        
+        <ListView x:Name="Receipt_LV" HorizontalAlignment="Left" Height="243" Margin="415,34,0,0" VerticalAlignment="Top" Width="348"
+                  ItemsSource="{Binding Path=Table}" Grid.Column="1000">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Quantity" Width="50" DisplayMemberBinding="{Binding Path=item_amount}"/>
+                    <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Path=item_name}"/>
+                    <GridViewColumn Header="Price" Width="50" DisplayMemberBinding="{Binding Path=item_cost}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="Btn_Payment_Finish" Content="Finalize" HorizontalAlignment="Left" Margin="554,346,0,0" VerticalAlignment="Top" Width="131" Height="44" Click="Btn_Payment_Finish_Click"/>
+        <TextBox x:Name="Tip_Box" HorizontalAlignment="Left" Height="23" Margin="301,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61"/>
+        <RadioButton x:Name="Pin_rBtn" Content="Pin" HorizontalAlignment="Left" Margin="84,194,0,0" VerticalAlignment="Top" Checked="Pin_rBtn_Checked" />
+        <RadioButton x:Name="Credit_rBtn" Content="Credit" HorizontalAlignment="Left" Margin="84,214,0,0" VerticalAlignment="Top" Checked="Credit_rBtn_Checked"/>
+        <RadioButton x:Name="Cash_rBtn" Content="Cash" HorizontalAlignment="Left" Margin="84,239,0,0" VerticalAlignment="Top" Checked="Cash_rBtn_Checked"/>
+        <TextBox x:Name="Comment_Box" HorizontalAlignment="Left" Height="23" Margin="168,367,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61"/>
+        <Button x:Name="Btn_Split" Content="Split" HorizontalAlignment="Left" Margin="114,84,0,0" VerticalAlignment="Top" Width="92" Height="28" Click="Btn_Split_Click"/>
     </Grid>
 </Page>

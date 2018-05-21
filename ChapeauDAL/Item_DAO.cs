@@ -20,15 +20,15 @@ namespace ChapeauDAL
             {
                 Value = item.Order_id
             };
-            sqlParameters[1] = new SqlParameter("@itemcomment", SqlDbType.Int)
+            sqlParameters[1] = new SqlParameter("@itemcomment", SqlDbType.NVarChar)
             {
                 Value = item.Comment
             };
-            sqlParameters[2] = new SqlParameter("@ordertime", SqlDbType.Int)
+            sqlParameters[2] = new SqlParameter("@ordertime", SqlDbType.DateTime)
             {
                 Value = item.Order_time
             };
-            sqlParameters[3] = new SqlParameter("@orderstatus", SqlDbType.Int)
+            sqlParameters[3] = new SqlParameter("@orderstatus", SqlDbType.SmallInt)
             {
                 Value = item.Order_status
             };
@@ -70,7 +70,7 @@ namespace ChapeauDAL
         }
 
         public DataTable Db_select_items(int order_id)
-        {
+        {  
             string query = string.Format("SELECT order_id, item_comment, order_time, order_status, item_amount, item_id FROM [ORDER_LIST] WHERE order_id = @orderid");
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
