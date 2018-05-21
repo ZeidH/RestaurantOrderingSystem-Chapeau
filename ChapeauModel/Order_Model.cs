@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ChapeauModel;
 namespace ChapeauModel
 {
-    public struct Order
+    public class Order
     {
         public float Price { get; set; }
         public string Item { get; set; }
@@ -15,6 +15,8 @@ namespace ChapeauModel
         public Drink DrinkCategory { get; set; }
 
     }
+
+
     //public float Tip { get; set; }
     //public PayMethod PaymentMethod { get; set; }
 }

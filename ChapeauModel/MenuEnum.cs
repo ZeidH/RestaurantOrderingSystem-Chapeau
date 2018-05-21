@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ChapeauModel
 {
-    public class OrderList
+    public enum MenuCategory
     {
-        public List<Order> Order_List { get; set; }
+        Lunch, Dinner, Drinks
     }
 }

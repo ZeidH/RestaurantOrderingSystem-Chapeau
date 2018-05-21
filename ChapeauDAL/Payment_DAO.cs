@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Data;
 using ChapeauModel;
 
 namespace ChapeauDAL
@@ -11,59 +12,45 @@ namespace ChapeauDAL
     //Also inherit Customer and Item
     public class Payment_DAO : Base
     {
-        private void SetTip(int order_id, float tip)
+        public void Db_set_payment(Payment payment)
         {
-            SqlConnection connection = OpenConnectionDB();
-
-            //Query - Insert the tip into the database
-            sb.Append("INSERT INTO PAYMENT VALUES(@tip) WHERE order_id = @order_id");
-
-            string sql = sb.ToString();
-
-            //Execute Query
-            using (SqlCommand command = new SqlCommand(sql, connection))
+            string query = string.Format("INSERT INTO PAYMENT VALUES(@tip, @price, @method, @comment) WHERE order_id = @orderid");
+            SqlParameter[] sqlParameters = new SqlParameter[5];
+            sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
             {
-                command.Parameters.Add("@order_id", System.Data.SqlDbType.Int).Value = order_id;
-                command.Parameters.Add("@tip", System.Data.SqlDbType.Float).Value = tip;
-                command.ExecuteNonQuery();
-            }
-            connection.Close();
+                Value = payment.Order_id
+            };
+            sqlParameters[1] = new SqlParameter("@tip", SqlDbType.Float)
+            {
+                Value = payment.Tip
+            };
+            sqlParameters[2] = new SqlParameter("@price", SqlDbType.Float)
+            {
+                Value = payment.Price
+            };
+            sqlParameters[3] = new SqlParameter("@method", SqlDbType.SmallInt)
+            {
+                Value = payment.Method
+            };
+            sqlParameters[4] = new SqlParameter("@comment", SqlDbType.NVarChar)
+            {
+                Value = payment.Comment
+            };
+
+            ExecuteEditQuery(query, sqlParameters);
         }
-        private void SetPayMethod(int order_id, PayMethod method)
+        public DataTable Db_get_drink_vat(int item_id, Item item)
         {
-            SqlConnection connection = OpenConnectionDB();
+            string query = string.Format("SELECT drink_vat FROM DRINK WHERE drink_id = @item_id");
 
-            //Query - Insert the type of payment method into the database
-            sb.Append("INSERT INTO PAYMENT VALUES(@method) WHERE order_id = @order_id");
-
-            string sql = sb.ToString();
-
-            //Execute Query
-            using (SqlCommand command = new SqlCommand(sql, connection))
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@item_id", SqlDbType.Int)
             {
-                command.Parameters.Add("@order_id", System.Data.SqlDbType.Int).Value = order_id;
-                command.Parameters.Add("@method", System.Data.SqlDbType.SmallInt).Value = method;
-                command.ExecuteNonQuery();
-            }
-            connection.Close();
-        }
-        private void SetComment(int order_id, string comment)
-        {
-            SqlConnection connection = OpenConnectionDB();
+                Value = item_id
+            };
 
-            //Query - Insert the order_comment into the database
-            sb.Append("INSERT INTO PAYMENT VALUES(@comment) WHERE order_id = @order_id");
-
-            string sql = sb.ToString();
-
-            //Execute Query
-            using (SqlCommand command = new SqlCommand(sql, connection))
-            {
-                command.Parameters.Add("@order_id", System.Data.SqlDbType.Int).Value = order_id;
-                command.Parameters.Add("@comment", System.Data.SqlDbType.NVarChar).Value = comment;
-                command.ExecuteNonQuery();
-            }
-            connection.Close();
+            DataTable table = ExecuteSelectQuery(query, sqlParameters);
+            return table;
         }
     }
 }

@@ -12,6 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
+using ChapeauLogic;
+using ChapeauModel;
+
 
 namespace ChapeauUI
 {
@@ -20,9 +24,18 @@ namespace ChapeauUI
     /// </summary>
     public partial class Orderview_UI : Page
     {
+
         public Orderview_UI()
         {
             InitializeComponent();
+            //Menu menu, int category
+            //Testing 
+            Item_Service item = new Item_Service();
+            MenuCategory menu = MenuCategory.Dinner;
+            Dinner dinner = Dinner.Desserts;
+            //int number = 4;
+            DataTable Table = item.GetMenu(menu, (int)dinner);
+            TestView.DataContext = Table.DefaultView;
         }
     }
 }

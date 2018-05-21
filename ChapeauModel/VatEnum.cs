@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChapeauModel
 {
-    enum Vat
+    public enum Vat
     {
         Low, High
     }

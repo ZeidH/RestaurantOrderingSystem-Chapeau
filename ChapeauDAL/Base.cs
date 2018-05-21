@@ -6,32 +6,91 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Data;
 
 namespace ChapeauDAL
 {
     public class Base
     {
-        protected StringBuilder sb = new StringBuilder();
+        private SqlDataAdapter adapter;
+        private SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ChapeauDatabase"].ConnectionString);
 
-        protected SqlConnection OpenConnectionDB()
+        public Base()
         {
-            //Connection string with creditentials from App.Config
-            string connString = ConfigurationManager
-                .ConnectionStrings["ChapeauDatabase"].ConnectionString;
-            SqlConnection connection = new SqlConnection(connString);
-            //Try to open connection to the database
+            adapter = new SqlDataAdapter();
+        }
+
+        private SqlConnection OpenConnection()
+        {
+            if (conn.State == ConnectionState.Closed || conn.State == ConnectionState.Broken)
+            {
+                conn.Open();
+            }
+            return conn;
+        }
+
+        private void CloseConnection()
+        {
+            conn.Close();
+        }
+
+        //For Insert/Update/Delete Queries
+        protected void ExecuteEditQuery(String query, SqlParameter[] sqlParameters)
+        {
+            SqlCommand command = new SqlCommand();
+
             try
             {
-                connection.Open();
+                command.Connection = OpenConnection();
+                command.CommandText = query;
+                command.Parameters.AddRange(sqlParameters);
+                adapter.InsertCommand = command;
+                command.ExecuteNonQuery();
             }
-            //If exception> write the details in the ErrorLog and throw e
-            catch (Exception e)
+            catch (SqlException e)
             {
                 ErrorFilePrint print = new ErrorFilePrint();
                 print.ErrorLog(e);
-
             }
-            return connection;
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
+        /* For Select Queries */
+        /// <summary>
+        /// This returns a so called "DataTable", All the data retrieved from db will be stored in this table.
+        /// There's no need to put data into a model or anything. Just use the DataTable to fill the ListView using Binding Path in the XAML.
+        /// </summary>
+        protected DataTable ExecuteSelectQuery(String query, SqlParameter[] sqlParameters)
+        {
+            SqlCommand command = new SqlCommand();
+            DataTable dataTable = new DataTable();
+            dataTable = null;
+            DataSet dataSet = new DataSet();
+
+            try
+            {
+                command.Connection = OpenConnection();
+                command.CommandText = query;
+                command.Parameters.AddRange(sqlParameters);
+                command.ExecuteNonQuery();
+                adapter.SelectCommand = command;
+                adapter.Fill(dataSet);
+                dataTable = dataSet.Tables[0];
+            }
+            catch (SqlException e)
+            {
+                ErrorFilePrint print = new ErrorFilePrint();
+                print.ErrorLog(e);
+                return null;
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return dataTable;
         }
     }
 }
