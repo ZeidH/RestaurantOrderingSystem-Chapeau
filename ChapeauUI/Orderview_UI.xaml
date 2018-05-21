@@ -11,12 +11,12 @@
     <Grid>
         <Label x:Name="Lbl_new_order" Content="New order" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="347" BorderThickness="0" Background="{x:Null}" FontSize="25"/>
         <Button x:Name="Btn_return" Content="X" HorizontalAlignment="Left" Margin="316,0,0,0" VerticalAlignment="Top" Width="31" Height="26" Background="#FFFF7070" Cursor="Hand" Click="Btn_return_Click"/>
-        <ListView x:Name="Listbox_order" HorizontalAlignment="Left" Height="312" Margin="0,48,0,0" VerticalAlignment="Top" Width="347">
+        <ListView x:Name="Listview_order" HorizontalAlignment="Left" Height="312" Margin="0,48,0,0" VerticalAlignment="Top" Width="347" SelectionChanged="Listview_order_SelectionChanged">
             <ListView.View>
                 <GridView ColumnHeaderStringFormat="" AllowsColumnReorder="False">
-                    <GridViewColumn Header="Item name" DisplayMemberBinding="{Binding Path=item_id}" Width="220"/>
-                    <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Path=item_id}" Width="60"/>
-                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=item_id}" Width="65"/>
+                    <GridViewColumn Header="Item name" DisplayMemberBinding="{Binding Path=Name}" Width="220"/>
+                    <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Path=Amount}" Width="60"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=Cost}" Width="65"/>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
@@ -30,10 +30,10 @@
         <Button x:Name="Btn_drinks" Content="Drinks" HorizontalAlignment="Left" Margin="655,0,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_drinks_Click"/>
         <Button x:Name="Btn_dinner" Content="Dinner" HorizontalAlignment="Left" Margin="505,1,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_dinner_Click"/>
         <Button x:Name="Btn_lunch" Content="Lunch" HorizontalAlignment="Left" Margin="355,1,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_lunch_Click"/>
-        <Button x:Name="Btn_add_order_item" Content="Add" HorizontalAlignment="Left" Margin="689,395,0,0" VerticalAlignment="Top" Width="111" Height="50" Background="#FFC8E7F4"/>
+        <Button x:Name="Btn_add_order_item" Content="Add" HorizontalAlignment="Left" Margin="689,395,0,0" VerticalAlignment="Top" Width="111" Height="50" Background="#FFC8E7F4" Click="Btn_add_order_item_Click"/>
         <TextBox x:Name="Txt_comments" HorizontalAlignment="Left" Height="23" Margin="437,421,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"/>
         <Label x:Name="Lbl_comments" Content="Comments:" HorizontalAlignment="Left" Margin="437,395,0,0" VerticalAlignment="Top" Width="104"/>
-        <ListView x:Name="Listview_menu" HorizontalAlignment="Left" Height="254" Margin="355,106,0,0" VerticalAlignment="Top" Width="445" ItemsSource="{Binding Path=Table}">
+        <ListView x:Name="Listview_menu" HorizontalAlignment="Left" Height="254" Margin="355,106,0,0" VerticalAlignment="Top" Width="445" ItemsSource="{Binding Path=Table}" SelectionChanged="Listview_menu_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Item name" DisplayMemberBinding="{Binding Path=item_name}" Width="365"/>

@@ -18,8 +18,8 @@ namespace ChapeauLogic
             {
                 Order_id = order_id,
                 Comment = item_comment,
-                Order_time = DateTime.Now.ToString("yyyyMMddHHmmss"),
-                Order_status = OrderStatus.Processing,
+                Time = DateTime.Now.ToString("yyyyMMddHHmmss"),
+                Status = OrderStatus.Processing,
                 Amount = 1,
                 Cost = item_cost,
                 Stock = item_stock-1,
@@ -39,7 +39,7 @@ namespace ChapeauLogic
             return total_cost;
         }
 
-        public Item IncreaseAmount(Item item)
+        public void IncreaseAmount(Item item)
         {
             if (item.Stock <= 0)
             {
@@ -47,10 +47,9 @@ namespace ChapeauLogic
             }
             item.Amount++;
             item.Stock--;
-            return item;
         }
 
-        public Item DecreaseAmount(Item item)
+        public void DecreaseAmount(Item item)
         {
             if (item.Amount <= 1)
             {
@@ -58,7 +57,6 @@ namespace ChapeauLogic
             }
             item.Amount--;
             item.Stock++;
-            return item;
         }
 
         public List<Item> DeleteOrderItem(List<Item> items, int item_id)
