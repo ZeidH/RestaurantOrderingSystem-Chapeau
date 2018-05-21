@@ -43,7 +43,7 @@ namespace ChapeauLogic
 
                 if (!dr.IsNull("drink_category"))
                 {
-                    item.Category = MenuCategory.Drinks;
+                    item.Category = MenuCategory.Drink;
                 }
                 else if (!dr.IsNull("lunch_category"))
                 {
