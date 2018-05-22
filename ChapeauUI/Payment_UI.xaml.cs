@@ -95,7 +95,7 @@ namespace ChapeauUI
             this.method = method;
         }
 
-        //What exactly does this need to do...? Ask nymp
+        //What exactly does this need to do...? Ask Nymp/Erwin/Gerwin
         private void Btn_Split_Click(object sender, RoutedEventArgs e){
             float splitted = payment_Logic.SplitPrice(payment_Model.Price, customer_count);
             total_price.Content = $"Total Price: {splitted} x{customer_count}";

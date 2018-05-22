@@ -9,7 +9,7 @@ using ChapeauDAL;
 
 namespace ChapeauLogic
 {
-    public class Payment_Service : Item_Service
+    public class Payment_Service
     {
         const double VAT21 = 1.21;
         const double VAT6 = 1.06;
