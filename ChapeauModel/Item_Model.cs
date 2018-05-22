@@ -12,7 +12,7 @@ namespace ChapeauModel
         public int Order_id { get; set; }
         public string Name { get; set; }
         public string Comment { get; set; }
-        public string Time { get; set; }
+        public DateTime Time { get; set; }
         public OrderStatus Status { get; set; }
         public int Amount { get; set; } 
         public float Cost { get; set; } 
