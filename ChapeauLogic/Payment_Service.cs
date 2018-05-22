@@ -80,7 +80,7 @@ namespace ChapeauLogic
                 }
                 else
                 {
-                    payment.Price += item.Cost;
+                    payment.Price += item.Cost * item.Amount;
                 }
             }
         }
@@ -90,17 +90,16 @@ namespace ChapeauLogic
             DataTable table = payment_DAO.Db_get_drink_vat(item.Item_id, item);
             foreach (DataRow dr in table.Rows)
             {
-                Vat DrinkVat = (Vat)dr["drink_vat"];
-                if (DrinkVat == Vat.High)
+                int DrinkVat = int.Parse(dr["drink_vat"].ToString());
+                if ((Vat)DrinkVat == Vat.High)
                 {
-                    payment.Vat += item.Cost * (float)VAT21;
-                    payment.Price += payment.Vat;
+                    payment.Vat += (item.Cost * (float)VAT21) - (item.Cost * item.Amount);
                 }
                 else
                 {
-                    payment.Vat += item.Cost * (float)VAT6;
-                    payment.Price += payment.Vat;
+                    payment.Vat += (item.Cost * (float)VAT6) - (item.Cost * item.Amount);
                 }
+                payment.Price += (payment.Vat * item.Amount) + item.Cost;
             }
         }
     }
