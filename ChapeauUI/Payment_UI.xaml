@@ -9,7 +9,7 @@
       Title="Payment_UI">
 
     <Grid>
-        <ListView x:Name="Receipt_LV" HorizontalAlignment="Left" Height="243" Margin="415,34,0,0" VerticalAlignment="Top" Width="348"
+        <ListView x:Name="receipt_ListView" HorizontalAlignment="Left" Height="243" Margin="415,34,0,0" VerticalAlignment="Top" Width="348"
                   ItemsSource="{Binding Path=Table}" Grid.Column="1000">
             <ListView.View>
                 <GridView>
@@ -19,12 +19,12 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="Btn_Payment_Finish" Content="Finalize" HorizontalAlignment="Left" Margin="447,307,0,0" VerticalAlignment="Top" Width="285" Height="103" Click="Btn_Payment_Finish_Click" Background="#FFA0DD96"/>
-        <TextBox x:Name="Tip_Box" HorizontalAlignment="Left" Height="23" Margin="143,313,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61"/>
+        <Button x:Name="btn_Payment_Finish" Content="Finalize" HorizontalAlignment="Left" Margin="447,307,0,0" VerticalAlignment="Top" Width="285" Height="103" Click="Btn_Payment_Finish_Click" Background="#FFA0DD96"/>
+        <TextBox x:Name="tip_Box" HorizontalAlignment="Left" Height="23" Margin="143,313,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="61"/>
         <RadioButton x:Name="Pin_rBtn" Content="Pin" HorizontalAlignment="Left" Margin="33,201,0,0" VerticalAlignment="Top" Checked="Pin_rBtn_Checked" />
         <RadioButton x:Name="Credit_rBtn" Content="Credit" HorizontalAlignment="Left" Margin="33,221,0,0" VerticalAlignment="Top" Checked="Credit_rBtn_Checked"/>
         <RadioButton x:Name="Cash_rBtn" Content="Cash" HorizontalAlignment="Left" Margin="33,241,0,0" VerticalAlignment="Top" Checked="Cash_rBtn_Checked"/>
-        <TextBox x:Name="Comment_Box" HorizontalAlignment="Left" Height="23" Margin="142,360,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
+        <TextBox x:Name="comment_Box" HorizontalAlignment="Left" Height="23" Margin="142,360,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
         <Button x:Name="Btn_Split" Content="Split" HorizontalAlignment="Left" Margin="33,114,0,0" VerticalAlignment="Top" Width="92" Height="28" Click="Btn_Split_Click" Background="#FF03B8C2"/>
 
         <Label Content="Tip: " HorizontalAlignment="Left" Margin="105,310,0,0" VerticalAlignment="Top"/>

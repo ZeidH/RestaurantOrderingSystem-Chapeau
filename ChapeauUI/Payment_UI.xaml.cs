@@ -42,7 +42,7 @@ namespace ChapeauUI
         {
             // Get receipt from db and display
             DataTable dataTable = payment_Logic.GetReceipt(order_id);
-            Receipt_LV.DataContext = dataTable.DefaultView;
+            receipt_ListView.DataContext = dataTable.DefaultView;
 
             // Process the data and fill the model + calc price
             order = payment_Logic.ReadTable(dataTable);
@@ -51,16 +51,16 @@ namespace ChapeauUI
             // Display price on the labels
             total_price.Content = $"Total Price: {payment_Model.Price.ToString("0.00")}";
             vat_price.Content = $"Vat Price: {payment_Model.Vat.ToString("0.00")}";
-            Btn_Payment_Finish.IsEnabled = false;
-            Tip_Box.IsEnabled = false;
+            btn_Payment_Finish.IsEnabled = false;
+            tip_Box.IsEnabled = false;
         }
 
 
         private void Btn_Payment_Finish_Click(object sender, RoutedEventArgs e)
         {
             // Get information from textboxes
-            float tip = float.Parse(Tip_Box.Text);
-            string comment = Comment_Box.Text;
+            float tip = float.Parse(tip_Box.Text);
+            string comment = comment_Box.Text;
 
             // Fill the model with information then send information to db
             payment_Logic.SetPayment(payment_Model, order_id, tip, method, comment);
@@ -73,22 +73,22 @@ namespace ChapeauUI
         private void Pin_rBtn_Checked(object sender, RoutedEventArgs e)
         {
             PayMethodCheck(PayMethod.Pin);
-            Btn_Payment_Finish.IsEnabled = true;
-            Tip_Box.IsEnabled = false;
+            btn_Payment_Finish.IsEnabled = true;
+            tip_Box.IsEnabled = false;
         }
 
         private void Credit_rBtn_Checked(object sender, RoutedEventArgs e)
         {
             PayMethodCheck(PayMethod.Credit);
-            Btn_Payment_Finish.IsEnabled = true;
-            Tip_Box.IsEnabled = false;
+            btn_Payment_Finish.IsEnabled = true;
+            tip_Box.IsEnabled = false;
         }
 
         private void Cash_rBtn_Checked(object sender, RoutedEventArgs e)
         {
             PayMethodCheck(PayMethod.Cash);
-            Btn_Payment_Finish.IsEnabled = true;          
-            Tip_Box.IsEnabled = true;                      
+            btn_Payment_Finish.IsEnabled = true;          
+            tip_Box.IsEnabled = true;                      
         }
 
         private void PayMethodCheck(PayMethod method){
