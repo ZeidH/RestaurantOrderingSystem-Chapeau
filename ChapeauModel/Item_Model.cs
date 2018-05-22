@@ -10,9 +10,10 @@ namespace ChapeauModel
     public class Item
     {
         public int Order_id { get; set; }
+        public string Name { get; set; }
         public string Comment { get; set; }
-        public string Order_time { get; set; }
-        public OrderStatus Order_status { get; set; }
+        public DateTime Time { get; set; }
+        public OrderStatus Status { get; set; }
         public int Amount { get; set; } 
         public float Cost { get; set; } 
         public int Stock { get; set; }

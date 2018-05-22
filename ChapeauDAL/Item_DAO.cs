@@ -26,11 +26,11 @@ namespace ChapeauDAL
             };
             sqlParameters[2] = new SqlParameter("@ordertime", SqlDbType.DateTime)
             {
-                Value = item.Order_time
+                Value = item.Time
             };
             sqlParameters[3] = new SqlParameter("@orderstatus", SqlDbType.SmallInt)
             {
-                Value = item.Order_status
+                Value = item.Status
             };
             sqlParameters[4] = new SqlParameter("@itemamount", SqlDbType.Int)
             {

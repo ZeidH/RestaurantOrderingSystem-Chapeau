@@ -12,21 +12,18 @@ namespace ChapeauLogic
 {
     public class Item_Service
     {
-        public Item NewOrderItem(int item_id, string item_comment, int order_id, float item_cost, int item_stock, MenuCategory menuCategory)
+        private Item_DAO item_DAO = new Item_DAO();
+        public void NewOrderItem(List<Item> items)
         {
-            Item item = new Item
+            foreach (Item item in items)
             {
-                Order_id = order_id,
-                Comment = item_comment,
-                Order_time = DateTime.Now.ToString("yyyyMMddHHmmss"),
-                Order_status = OrderStatus.Processing,
-                Amount = 1,
-                Cost = item_cost,
-                Stock = item_stock-1,
-                Category = menuCategory,
-                Item_id = item_id
-            };
-            return item;
+                item.Time = DateTime.Now;
+                if (item.Comment == null)
+                {
+                    item.Comment = "";
+                }
+                item_DAO.Db_add_item(item);
+            }
         }
 
         public float TotalCost(List<Item> items)
@@ -39,38 +36,34 @@ namespace ChapeauLogic
             return total_cost;
         }
 
-        public Item IncreaseAmount(Item item)
+        public void IncreaseAmount(Item item)
         {
             if (item.Stock <= 0)
             {
                 throw new Exception("This item is out of stock!");
             }
+            float price = item.Cost/item.Amount;
             item.Amount++;
             item.Stock--;
-            return item;
+            item.Cost = price * item.Amount;
         }
 
-        public Item DecreaseAmount(Item item)
+        public void DecreaseAmount(Item item)
         {
             if (item.Amount <= 1)
             {
                 throw new Exception("This item is already at it's minimum amount!");
             }
+            float price = item.Cost / item.Amount;
             item.Amount--;
             item.Stock++;
-            return item;
+            item.Cost = price * item.Amount;
         }
 
-        public List<Item> DeleteOrderItem(List<Item> items, int item_id)
+        public List<Item> DeleteOrderItem(List<Item> items, Item item)
         {
-            items.RemoveAt(item_id);
+            items.Remove(item);
             return items;
-        }
-
-        private Item_DAO item_DAO = new Item_DAO();
-        public void AddItem(Item item)
-        {
-            item_DAO.Db_add_item(item);
         }
 
         public DataTable GetItems(int order_id)
@@ -91,6 +84,15 @@ namespace ChapeauLogic
             return dataTable;
         }
 
+        public float GetTotalCost(List<Item> items)
+        {
+            float total_cost = 0;
+            foreach (Item item in items)
+            {
+                total_cost += item.Cost;
+            }
+            return total_cost;
+        }
         public int FindCategory(string source, MenuCategory menu)
         {
             string[] splitted = source.Split(' ');
