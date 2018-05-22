@@ -27,7 +27,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Item name" DisplayMemberBinding="{Binding Path=item_name}" Width="365"/>
-                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=item_cost}" Width="80"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=item_cost, StringFormat=N2}" Width="80"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -39,11 +39,11 @@
                 </Style>
             </StackPanel.Resources>
         </StackPanel>
-        <DataGrid x:Name="DataGrid_order" HorizontalAlignment="Left" Height="306" Margin="0,54,0,0" VerticalAlignment="Top" Width="347" AutoGenerateColumns="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" AlternationCount="1" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGrid_order_SelectionChanged" AlternatingRowBackground="#FFEAFBFF">
+        <DataGrid x:Name="DataGrid_order" HorizontalAlignment="Left" Height="306" Margin="0,54,0,0" VerticalAlignment="Top" Width="347" AutoGenerateColumns="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" AlternationCount="1" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGrid_order_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Name}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Item name" SortDirection="Descending" Width="230"/>
                 <DataGridTextColumn Binding="{Binding Path=Amount}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Quantity" SortDirection="Descending"/>
-                <DataGridTextColumn Binding="{Binding Path=Cost}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Price" SortDirection="Descending" Width="59"/>
+                <DataGridTextColumn Binding="{Binding Path=Cost, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Price" SortDirection="Descending" Width="59"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

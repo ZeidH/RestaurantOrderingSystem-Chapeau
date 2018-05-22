@@ -179,7 +179,7 @@ namespace ChapeauUI
                 {
                     item.IncreaseAmount(order[i]);
                     DataGrid_order.Items.Refresh();
-                    Lbl_total_price.Content = item.GetTotalCost(order).ToString();
+                    Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
                     Txt_comments.Text = "";
                     Btn_complete_order.IsEnabled = true;
                     return;
@@ -187,7 +187,7 @@ namespace ChapeauUI
             }
             order.Add(order_item);
             DataGrid_order.Items.Add(order[order.Count - 1]);
-            Lbl_total_price.Content = item.GetTotalCost(order).ToString();
+            Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
             Txt_comments.Text = "";
             Btn_complete_order.IsEnabled = true;
             Listview_menu.UnselectAll();
@@ -201,7 +201,7 @@ namespace ChapeauUI
         private void Btn_increase_item_Click(object sender, RoutedEventArgs e)
         {
             item.IncreaseAmount(order_item);
-            Lbl_total_price.Content = item.GetTotalCost(order).ToString();
+            Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
             DataGrid_order.Items.Refresh();
             if (order_item.Stock == 0)
             {
@@ -213,7 +213,7 @@ namespace ChapeauUI
         private void Btn_decrease_item_Click(object sender, RoutedEventArgs e)
         {
             item.DecreaseAmount(order_item);
-            Lbl_total_price.Content = item.GetTotalCost(order).ToString();
+            Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
             DataGrid_order.Items.Refresh();
             if (order_item.Amount == 1)
             {
@@ -262,7 +262,7 @@ namespace ChapeauUI
         {
             DataGrid_order.Items.Remove(order_item);
             order = item.DeleteOrderItem(order, order_item);
-            Lbl_total_price.Content = item.GetTotalCost(order).ToString();
+            Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
             Btn_complete_order.IsEnabled = true;
             if (order.Count == 0)
             {
