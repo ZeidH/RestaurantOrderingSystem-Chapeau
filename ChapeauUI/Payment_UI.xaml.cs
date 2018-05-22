@@ -49,8 +49,8 @@ namespace ChapeauUI
             payment_Logic.GetTotalPrice(order, payment_Model);
 
             // Display price on the labels
-            total_price.Content = $"Total Price: {payment_Model.Price}";
-            vat_price.Content = $"Vat Price: {payment_Model.Vat}";
+            total_price.Content = $"Total Price: {payment_Model.Price.ToString("0.00")}";
+            vat_price.Content = $"Vat Price: {payment_Model.Vat.ToString("0.00")}";
             Btn_Payment_Finish.IsEnabled = false;
             Tip_Box.IsEnabled = false;
         }
@@ -98,7 +98,7 @@ namespace ChapeauUI
         //What exactly does this need to do...? Ask Nymp/Erwin/Gerwin
         private void Btn_Split_Click(object sender, RoutedEventArgs e){
             float splitted = payment_Logic.SplitPrice(payment_Model.Price, customer_count);
-            total_price.Content = $"Total Price: {splitted} x{customer_count}";
+            total_price.Content = $"Total Price: {splitted.ToString("0.00")} x{customer_count}";
         }
     }
 }
