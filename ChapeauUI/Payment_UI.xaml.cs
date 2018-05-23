@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Data;
 using ChapeauLogic;
 using ChapeauModel;
@@ -29,6 +19,7 @@ namespace ChapeauUI
         private int order_id;
         private PayMethod method;
         private int customer_count;
+
         public Payment_UI(int order_id, int customer_count)
         {
             InitializeComponent();
@@ -54,7 +45,6 @@ namespace ChapeauUI
             btn_Payment_Finish.IsEnabled = false;
             tip_Box.IsEnabled = false;
         }
-
 
         private void Btn_Payment_Finish_Click(object sender, RoutedEventArgs e)
         {
