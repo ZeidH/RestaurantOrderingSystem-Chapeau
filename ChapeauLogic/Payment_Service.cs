@@ -30,57 +30,59 @@ namespace ChapeauLogic
             payment.Comment = comment;
         }
 
-        public List<int> GetOrderItemID(int order_id, List<Item> menu)
+        public List<OrderItem> GetOrderItem(int order_id)
         {
-            List<int> order_itemId = payment_DAO.Db_select_order_items(order_id);
+            List<OrderItem> order_itemId = payment_DAO.Db_select_order_items(order_id);
             return order_itemId;
 
         }
-        public List<Item> GetReceipt(List<Item> menu, List<int> order_itemId)
+        public void GetReceipt(List<Item> menu, List<OrderItem> orderItem)
         {
-            List<Item> receipt = new List<Item>();
-
             //Get the items that apply to the customers orders
-            for (int i = 0; i < order_itemId.Count; i++)
+            for (int i = 0; i < orderItem.Count; i++)
             {
-                receipt.Add(menu[order_itemId[i]]);
-            }
+                if (orderItem[i].Item.Item_id == menu[i].Item_id)
+                {
+                    orderItem[i].Item = menu[i];
+                }
 
-            return receipt;
+            }
         }
+
         public void InsertPayment(Payment payment)
         {
             payment_DAO.Db_set_payment(payment);
         }
 
-        public void GetTotalPrice(List<Item> order, Payment payment)
+        public void GetTotalPrice(List<OrderItem> order)
         {
-            foreach (Item item in order)
+            Payment payment = new Payment();
+            foreach (OrderItem orderItem in order)
             {
-                if (item.Category == MenuCategory.Drink)
+                if (orderItem.Item.Category == MenuCategory.Drink)
                 {
-                    GetVatPrice(item, payment);
+                    GetVatPrice(orderItem, payment);
                 }
                 else
                 {
-                    payment.Price += item.Cost * item.Amount;
+                    payment.Price += orderItem.Item.Cost * orderItem.Amount;
                 }
             }
         }
 
-        private void GetVatPrice(Item item, Payment payment)
+        private void GetVatPrice(OrderItem orderItem, Payment payment)
         {
-            Vat vat = payment_DAO.Db_get_drink_vat(item.Item_id, item);
-            
+            Vat vat = payment_DAO.Db_get_drink_vat(orderItem.Item.Item_id);
+
             if (vat == Vat.High)
             {
-                payment.Vat += (item.Cost * (float)VAT21) - (item.Cost * item.Amount);
+                payment.Vat += (orderItem.Item.Cost * (float)VAT21) - (orderItem.Item.Cost * orderItem.Amount);
             }
             else
             {
-                payment.Vat += (item.Cost * (float)VAT6) - (item.Cost * item.Amount);
+                payment.Vat += (orderItem.Item.Cost * (float)VAT6) - (orderItem.Item.Cost * orderItem.Amount);
             }
-            payment.Price += (payment.Vat * item.Amount) + item.Cost;
+            payment.Price += (payment.Vat * orderItem.Amount) + orderItem.Item.Cost;
         }
     }
 

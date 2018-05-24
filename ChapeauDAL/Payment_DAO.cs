@@ -39,7 +39,7 @@ namespace ChapeauDAL
 
             //ExecuteEditQuery(query, sqlParameters);
         }
-        public Vat Db_get_drink_vat(int item_id, Item item)
+        public Vat Db_get_drink_vat(int item_id)
         {
             string query = string.Format("SELECT drink_vat FROM DRINK WHERE drink_id = @item_id");
 
@@ -63,10 +63,10 @@ namespace ChapeauDAL
         }
 
         //Where to place?
-        public List<int> Db_select_order_items(int order_id)
+        public List<OrderItem> Db_select_order_items(int order_id)
         {
             //change query
-            string query = string.Format("SELECT item_id FROM ORDER_LIST WHERE order_id = @orderid");
+            string query = string.Format("SELECT item_id, item_amount, item_comment FROM ORDER_LIST WHERE order_id = @orderid");
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
             {
@@ -75,14 +75,25 @@ namespace ChapeauDAL
             return ReadOrder(ExecuteSelectQuery(query, sqlParameters));
         }
 
-        private List<int> ReadOrder(DataTable dataTable)
-        {
-            List<int> order = new List<int>();
+        private List<OrderItem> ReadOrder(DataTable dataTable)
+        { 
+            List<OrderItem> orderItems = new List<OrderItem>();
             foreach (DataRow dr in dataTable.Rows)
             {
-                order.Add((int)dr["item_id"]);
+                Item item = new Item();
+                item.Item_id = (int)dr["item_id"];
+
+                OrderItem orderItem = new OrderItem
+                {
+                    Item = item,
+                    Amount = (int)dr["item_amount"],
+                    Comment = dr["item_comment"].ToString()
+                };
+
+                orderItems.Add(orderItem);
+               
             }
-            return order;
+            return orderItems;
         }
 
         ////change query

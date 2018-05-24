@@ -15,7 +15,7 @@ namespace ChapeauUI
     {
         private Payment payment_Model = new Payment();
         private Payment_Service payment_Logic = new Payment_Service();
-        private List<Item> order;
+        private List<OrderItem> order;
         private List<Item> menu;
         private int order_id;
         private PayMethod method;
@@ -34,12 +34,12 @@ namespace ChapeauUI
         private void FillReceipt(int order_id)
         {
             // Get receipt from db and display
-            List<int> order_itemId = payment_Logic.GetOrderItemID(order_id, menu);
-            order = payment_Logic.GetReceipt(menu, order_itemId);
+            order = payment_Logic.GetOrderItem(order_id);
+            payment_Logic.GetReceipt(menu, order);
             receipt_ListView.DataContext = order;
-
+            //order = payment_Logic.CreateOrderItem(order_item);
             // Process the data and fill the model + calc price
-            payment_Logic.GetTotalPrice(order, payment_Model);
+            payment_Logic.GetTotalPrice(order);
 
             // Display price on the labels
             total_price.Content = $"Total Price: {payment_Model.Price.ToString("0.00")}";
