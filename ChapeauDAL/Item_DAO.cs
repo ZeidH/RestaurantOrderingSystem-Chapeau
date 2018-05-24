@@ -16,43 +16,64 @@ namespace ChapeauDAL
     {
         public void Db_add_item(List<OrderItem> orderItems)
         {
-            TransactionScope ts = BeginTransaction();
+            SqlTransaction tran = OpenConnection().BeginTransaction();
             string query = string.Format("INSERT INTO ORDER_LIST (order_id, item_comment, order_time, order_status, item_amount, item_id) " +
             "VALUES(@orderid, @itemcomment, @ordertime, @orderstatus, @itemamount, @itemid)");
-            foreach (OrderItem orderItem in orderItems)
+            try
             {
-                SqlParameter[] sqlParameter = new SqlParameter[6];
-                sqlParameter[0] = new SqlParameter("@orderid", SqlDbType.Int)
+                foreach (OrderItem orderItem in orderItems)
                 {
-                    Value = orderItem.Item.Order_id
-                };
-                sqlParameter[1] = new SqlParameter("@itemcomment", SqlDbType.NVarChar)
-                {
-                    Value = orderItem.Comment
-                };
-                sqlParameter[2] = new SqlParameter("@ordertime", SqlDbType.DateTime)
-                {
-                    Value = orderItem.Time
-                };
-                sqlParameter[3] = new SqlParameter("@orderstatus", SqlDbType.SmallInt)
-                {
-                    Value = orderItem.Status
-                };
-                sqlParameter[4] = new SqlParameter("@itemamount", SqlDbType.Int)
-                {
-                    Value = orderItem.Amount
-                };
-                sqlParameter[5] = new SqlParameter("@itemid", SqlDbType.Int)
-                {
-                    Value = orderItem.Item.Item_id
-                };
-                ExecuteEditQuery(query, sqlParameter);
-                Db_update_stock(orderItem);
+                    SqlParameter[] sqlParameter = new SqlParameter[6];
+                    sqlParameter[0] = new SqlParameter("@orderid", SqlDbType.Int)
+                    {
+                        Value = orderItem.Item.Order_id
+                    };
+                    sqlParameter[1] = new SqlParameter("@itemcomment", SqlDbType.NVarChar)
+                    {
+                        Value = orderItem.Comment
+                    };
+                    sqlParameter[2] = new SqlParameter("@ordertime", SqlDbType.DateTime)
+                    {
+                        Value = orderItem.Time
+                    };
+                    sqlParameter[3] = new SqlParameter("@orderstatus", SqlDbType.SmallInt)
+                    {
+                        Value = orderItem.Status
+                    };
+                    sqlParameter[4] = new SqlParameter("@itemamount", SqlDbType.Int)
+                    {
+                        Value = orderItem.Amount
+                    };
+                    sqlParameter[5] = new SqlParameter("@itemid", SqlDbType.Int)
+                    {
+                        Value = orderItem.Item.Item_id
+                    };
+                    ExecuteEditQuery(query, sqlParameter, tran);
+                    Db_update_stock(orderItem, tran);
+                }
             }
-            EndTransaction(ts);
+            catch (Exception e)
+            {
+                try
+                {
+                tran.Rollback();
+                }
+                catch (Exception)
+                {
+                    
+                ErrorFilePrint print = new ErrorFilePrint();
+                print.ErrorLog(e);
+                    throw;
+                }
+
+                ErrorFilePrint print2 = new ErrorFilePrint();
+                print2.ErrorLog(e);
+                throw;
+            }
+            tran.Commit();
         }
 
-        public void Db_update_stock(OrderItem orderItem)
+        public void Db_update_stock(OrderItem orderItem, SqlTransaction sqlTransaction)
         {
             string query = string.Format("UPDATE ITEM SET item_stock = @itemstock WHERE item_id = @itemid");
             SqlParameter[] sqlParameters = new SqlParameter[2];
@@ -64,7 +85,7 @@ namespace ChapeauDAL
             {
                 Value = orderItem.Item.Item_id
             };
-            ExecuteEditQuery(query, sqlParameters);
+            ExecuteEditQuery(query, sqlParameters, sqlTransaction);
         }
 
         //remove

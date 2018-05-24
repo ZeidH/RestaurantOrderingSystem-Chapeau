@@ -21,7 +21,7 @@ namespace ChapeauDAL
             adapter = new SqlDataAdapter();
         }
 
-        private SqlConnection OpenConnection()
+        protected SqlConnection OpenConnection()
         {
             if (conn.State == ConnectionState.Closed || conn.State == ConnectionState.Broken)
             {
@@ -47,19 +47,17 @@ namespace ChapeauDAL
         }
 
         //For Insert/Update/Delete Queries
-        protected void ExecuteEditQuery(String query, SqlParameter[] sqlParameters)
+        protected void ExecuteEditQuery(String query, SqlParameter[] sqlParameters, SqlTransaction sqlTransaction)
         {
-            SqlCommand command = new SqlCommand();
+            SqlCommand command = new SqlCommand(query, conn, sqlTransaction);
 
             try
             {
-                command.Connection = OpenConnection();
-                command.CommandText = query;
                 command.Parameters.AddRange(sqlParameters);
                 adapter.InsertCommand = command;
                 command.ExecuteNonQuery();
             }
-            catch (SqlException e)
+            catch (Exception e)
             {
                 ErrorFilePrint print = new ErrorFilePrint();
                 print.ErrorLog(e);
