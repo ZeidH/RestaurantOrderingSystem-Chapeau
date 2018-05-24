@@ -13,6 +13,7 @@ namespace ChapeauLogic
     {
         const double VAT21 = 1.21;
         const double VAT6 = 1.06;
+        private Payment_DAO payment_DAO = new Payment_DAO();
         //Split method
         public float SplitPrice(float price, int customers)
         {
@@ -27,43 +28,25 @@ namespace ChapeauLogic
             payment.Tip = tip;
             payment.Method = method;
             payment.Comment = comment;
+        }
+
+        public List<int> GetOrderItemID(int order_id, List<Item> menu)
+        {
+            List<int> order_itemId = payment_DAO.Db_select_order_items(order_id);
+            return order_itemId;
 
         }
-        public List<Item> ReadTable(DataTable table)
+        public List<Item> GetReceipt(List<Item> menu, List<int> order_itemId)
         {
-            List<Item> order = new List<Item>();
-            foreach (DataRow dr in table.Rows)
+            List<Item> receipt = new List<Item>();
+
+            //Get the items that apply to the customers orders
+            for (int i = 0; i < order_itemId.Count; i++)
             {
-                Item item = new Item
-                {
-                    Item_id = int.Parse(dr["item_id"].ToString()),
-                    Cost = float.Parse(dr["item_cost"].ToString()),
-                    Amount = int.Parse(dr["item_amount"].ToString())
-                };
-
-                if (!dr.IsNull("drink_category"))
-                {
-                    item.Category = MenuCategory.Drink;
-                }
-                else if (!dr.IsNull("lunch_category"))
-                {
-                    item.Category = MenuCategory.Lunch;
-                }
-                else if(!dr.IsNull("dinner_category"))
-                {
-                    item.Category = MenuCategory.Dinner;
-                }
-                order.Add(item);
+                receipt.Add(menu[order_itemId[i]]);
             }
-            return order;
-        }
-        private Payment_DAO payment_DAO = new Payment_DAO();
 
-        public DataTable GetReceipt(int order_id)
-        {
-            DataTable table = payment_DAO.Db_select_item_receipt(order_id);
-
-            return table;
+            return receipt;
         }
         public void InsertPayment(Payment payment)
         {
@@ -87,20 +70,47 @@ namespace ChapeauLogic
 
         private void GetVatPrice(Item item, Payment payment)
         {
-            DataTable table = payment_DAO.Db_get_drink_vat(item.Item_id, item);
-            foreach (DataRow dr in table.Rows)
+            Vat vat = payment_DAO.Db_get_drink_vat(item.Item_id, item);
+            
+            if (vat == Vat.High)
             {
-                int DrinkVat = int.Parse(dr["drink_vat"].ToString());
-                if ((Vat)DrinkVat == Vat.High)
-                {
-                    payment.Vat += (item.Cost * (float)VAT21) - (item.Cost * item.Amount);
-                }
-                else
-                {
-                    payment.Vat += (item.Cost * (float)VAT6) - (item.Cost * item.Amount);
-                }
-                payment.Price += (payment.Vat * item.Amount) + item.Cost;
+                payment.Vat += (item.Cost * (float)VAT21) - (item.Cost * item.Amount);
             }
+            else
+            {
+                payment.Vat += (item.Cost * (float)VAT6) - (item.Cost * item.Amount);
+            }
+            payment.Price += (payment.Vat * item.Amount) + item.Cost;
         }
     }
+
+    //public List<Item> ReadTable(DataTable table)
+    //{
+    //    List<Item> order = new List<Item>();
+    //    foreach (DataRow dr in table.Rows)
+    //    {
+    //        Item item = new Item
+    //        {
+    //            Item_id = int.Parse(dr["item_id"].ToString()),
+    //            Cost = float.Parse(dr["item_cost"].ToString()),
+    //            Amount = int.Parse(dr["item_amount"].ToString())
+    //        };
+
+    //        if (!dr.IsNull("drink_category"))
+    //        {
+    //            item.Category = MenuCategory.Drink;
+    //        }
+    //        else if (!dr.IsNull("lunch_category"))
+    //        {
+    //            item.Category = MenuCategory.Lunch;
+    //        }
+    //        else if(!dr.IsNull("dinner_category"))
+    //        {
+    //            item.Category = MenuCategory.Dinner;
+    //        }
+    //        order.Add(item);
+    //    }
+    //    return order;
+    //}
 }
+

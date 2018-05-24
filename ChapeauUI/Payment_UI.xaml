@@ -10,12 +10,12 @@
 
     <Grid>
         <ListView x:Name="receipt_ListView" HorizontalAlignment="Left" Height="243" Margin="415,34,0,0" VerticalAlignment="Top" Width="348"
-                  ItemsSource="{Binding Path=Table}" Grid.Column="1000">
+                  ItemsSource="{Binding Path=order}" Grid.Column="1000">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Quantity" Width="50" DisplayMemberBinding="{Binding Path=item_amount}"/>
-                    <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Path=item_name}"/>
-                    <GridViewColumn Header="Price" Width="50" DisplayMemberBinding="{Binding Path=item_cost, StringFormat=N2}"/>
+                    <GridViewColumn Header="Quantity" Width="50" DisplayMemberBinding="{Binding Path=Amount}"/>
+                    <GridViewColumn Header="Name" Width="150" DisplayMemberBinding="{Binding Path=Name}"/>
+                    <GridViewColumn Header="Price" Width="50" DisplayMemberBinding="{Binding Path=Cost, StringFormat=N2}"/>
                 </GridView>
             </ListView.View>
         </ListView>

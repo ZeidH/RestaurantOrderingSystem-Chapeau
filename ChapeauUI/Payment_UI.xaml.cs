@@ -16,15 +16,17 @@ namespace ChapeauUI
         private Payment payment_Model = new Payment();
         private Payment_Service payment_Logic = new Payment_Service();
         private List<Item> order;
+        private List<Item> menu;
         private int order_id;
         private PayMethod method;
         private int customer_count;
 
-        public Payment_UI(int order_id, int customer_count)
+        public Payment_UI(int order_id, int customer_count, List<Item> menu)
         {
             InitializeComponent();
             this.customer_count = customer_count;
             this.order_id = order_id;
+            this.menu = menu;
             FillReceipt(this.order_id);
             lbl_order.Content = $"Order ID: {order_id}";
         }
@@ -32,11 +34,11 @@ namespace ChapeauUI
         private void FillReceipt(int order_id)
         {
             // Get receipt from db and display
-            DataTable dataTable = payment_Logic.GetReceipt(order_id);
-            receipt_ListView.DataContext = dataTable.DefaultView;
+            List<int> order_itemId = payment_Logic.GetOrderItemID(order_id, menu);
+            order = payment_Logic.GetReceipt(menu, order_itemId);
+            receipt_ListView.DataContext = order;
 
             // Process the data and fill the model + calc price
-            order = payment_Logic.ReadTable(dataTable);
             payment_Logic.GetTotalPrice(order, payment_Model);
 
             // Display price on the labels

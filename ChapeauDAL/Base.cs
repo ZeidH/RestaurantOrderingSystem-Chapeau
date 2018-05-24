@@ -61,7 +61,7 @@ namespace ChapeauDAL
         /* For Select Queries */
         /// <summary>
         /// This returns a so called "DataTable", All the data retrieved from db will be stored in this table.
-        /// There's no need to put data into a model or anything. Just use the DataTable to fill the ListView using Binding Path in the XAML.
+        /// You will need to read off the information in the datatable and store it in your model. DataTable does NOT leave DAL layer.
         /// </summary>
         protected DataTable ExecuteSelectQuery(String query, SqlParameter[] sqlParameters)
         {
