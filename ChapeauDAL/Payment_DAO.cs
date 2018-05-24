@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.Transactions;
 using ChapeauModel;
 
 namespace ChapeauDAL
@@ -39,49 +40,56 @@ namespace ChapeauDAL
 
             //ExecuteEditQuery(query, sqlParameters);
         }
-        public Vat Db_get_drink_vat(int item_id)
-        {
-            string query = string.Format("SELECT drink_vat FROM DRINK WHERE drink_id = @item_id");
-
-            SqlParameter[] sqlParameters = new SqlParameter[1];
-            sqlParameters[0] = new SqlParameter("@item_id", SqlDbType.Int)
-            {
-                Value = item_id
-            };
-
-            return ReadVat(ExecuteSelectQuery(query, sqlParameters));
-        }
-
-        private Vat ReadVat(DataTable table)
-        {
-            Vat vat = Vat.High;
-            foreach (DataRow dr in table.Rows)
-            {
-                vat = (Vat)dr["drink_vat"];
-            }
-            return vat;
-        }
 
         //Where to place?
         public List<OrderItem> Db_select_order_items(int order_id)
         {
             //change query
-            string query = string.Format("SELECT item_id, item_amount, item_comment FROM ORDER_LIST WHERE order_id = @orderid");
+            string query = string.Format("SELECT i.item_id, i.item_name, i.item_cost, o.item_amount, d.drink_category, l.lunch_category, di.dinner_category, o.item_comment, d.drink_vat " +
+                                     "FROM((ITEM as i left JOIN drink as d on i.item_id = d.drink_id) " +
+                                     "left join LUNCH as l on i.item_id = l.lunch_id) " +
+                                     "left join dinner as di on i.item_id = di.dinner_id " +
+                                     "JOIN ORDER_LIST AS o on o.item_id = i.item_id " +
+                                     "WHERE order_id = @orderid ORDER BY item_id");
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
             {
                 Value = order_id
             };
-            return ReadOrder(ExecuteSelectQuery(query, sqlParameters));
+            return ReadOrder(ExecuteSelectQuery(query, sqlParameters), order_id);
         }
 
-        private List<OrderItem> ReadOrder(DataTable dataTable)
+        private List<OrderItem> ReadOrder(DataTable dataTable, int order_id)
         { 
             List<OrderItem> orderItems = new List<OrderItem>();
             foreach (DataRow dr in dataTable.Rows)
             {
-                Item item = new Item();
-                item.Item_id = (int)dr["item_id"];
+                Item item = new Item
+                {
+                    Item_id = (int)dr["item_id"],
+                    Name = dr["item_name"].ToString(),
+                    Cost = (float)(double)dr["item_cost"],
+                    Order_id = order_id
+                };
+                if (!dr.IsNull("drink_category"))
+                {
+                    item.Category = MenuCategory.Drink;
+                    item.DrinkSubCategory = (Drink)Int16.Parse(dr["drink_category"].ToString());
+                }
+                if (!dr.IsNull("lunch_category"))
+                {
+                    item.Category = MenuCategory.Lunch;
+                    item.LunchSubCategory = (Lunch)Int16.Parse(dr["lunch_category"].ToString());
+                }
+                if (!dr.IsNull("dinner_category"))
+                {
+                    item.Category = MenuCategory.Dinner;
+                    item.DinnerSubCategory = (Dinner)Int16.Parse(dr["dinner_category"].ToString());
+                }
+                if (!dr.IsNull("drink_vat"))
+                {
+                    item.Vat = (Vat)Int16.Parse(dr["drink_vat"].ToString());
+                }
 
                 OrderItem orderItem = new OrderItem
                 {
@@ -96,12 +104,29 @@ namespace ChapeauDAL
             return orderItems;
         }
 
+        //public Vat Db_get_drink_vat(int item_id)
+        //{
+        //    string query = string.Format("SELECT drink_vat FROM DRINK WHERE drink_id = @item_id");
+
+        //    SqlParameter[] sqlParameters = new SqlParameter[1];
+        //    sqlParameters[0] = new SqlParameter("@item_id", SqlDbType.Int)
+        //    {
+        //        Value = item_id
+        //    };
+
+        //    return ReadVat(ExecuteSelectQuery(query, sqlParameters));
+        //}
+
+        //private Vat ReadVat(DataTable table)
+        //{
+        //    Vat vat = Vat.High;
+        //    foreach (DataRow dr in table.Rows)
+        //    {
+        //        vat = (Vat)Int16.Parse(dr["drink_vat"].ToString());
+        //    }
+        //    return vat;
+        //}
         ////change query
-        //string query = string.Format("SELECT i.item_id, i.item_name, i.item_cost, o.item_amount, d.drink_category, l.lunch_category, di.dinner_category " +
-        //                             "FROM((ITEM as i left JOIN drink as d on i.item_id = d.drink_id) " +
-        //                             "left join LUNCH as l on i.item_id = l.lunch_id) " +
-        //                             "left join dinner as di on i.item_id = di.dinner_id " +
-        //                             "JOIN ORDER_LIST AS o on o.item_id = i.item_id " +
-        //                             "WHERE order_id = @orderid");
+
     }
 }

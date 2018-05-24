@@ -17,8 +17,8 @@ namespace ChapeauModel
         public int Item_id { get; set; }
         public Drink? DrinkSubCategory { get; set; }
         public Lunch? LunchSubCategory { get; set; }
-
         public Dinner? DinnerSubCategory { get; set; }
+        public Vat? Vat { get; set; }
     }
 }
 
