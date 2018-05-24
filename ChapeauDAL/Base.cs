@@ -15,9 +15,10 @@ namespace ChapeauDAL
     {
         private SqlDataAdapter adapter;
         private SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ChapeauDatabase"].ConnectionString);
-
+        private ErrorFilePrint print;
         public Base()
         {
+            print = new ErrorFilePrint();
             adapter = new SqlDataAdapter();
         }
 
@@ -59,7 +60,6 @@ namespace ChapeauDAL
             }
             catch (Exception e)
             {
-                ErrorFilePrint print = new ErrorFilePrint();
                 print.ErrorLog(e);
             }
             finally
@@ -71,7 +71,7 @@ namespace ChapeauDAL
         /* For Select Queries */
         /// <summary>
         /// This returns a so called "DataTable", All the data retrieved from db will be stored in this table.
-        /// There's no need to put data into a model or anything. Just use the DataTable to fill the ListView using Binding Path in the XAML.
+        /// You will need to read off the information in the datatable and store it in your model. DataTable does NOT leave DAL layer.
         /// </summary>
         protected DataTable ExecuteSelectQuery(String query, SqlParameter[] sqlParameters)
         {
@@ -92,7 +92,6 @@ namespace ChapeauDAL
             }
             catch (SqlException e)
             {
-                ErrorFilePrint print = new ErrorFilePrint();
                 print.ErrorLog(e);
                 return null;
             }

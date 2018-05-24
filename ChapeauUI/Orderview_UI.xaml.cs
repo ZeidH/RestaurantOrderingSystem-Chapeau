@@ -152,38 +152,36 @@ namespace ChapeauUI
         {
             AddToOrder();
         }
-        //private void Btn_increase_item_Click(object sender, RoutedEventArgs e)
-        //{
-        //    item_logic.IncreaseAmount(orderItem);
-        //    lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
-        //    dataGrid_order.Items.Refresh();
-        //    if (order_item.Stock == 0)
-        //    {
-        //        btn_increase_item.IsEnabled = false;
-        //        btn_increase_item.Content = "  no\nstock";
-        //    }
-        //    btn_decrease_item.IsEnabled = true;
-        //}
-        //private void Btn_decrease_item_Click(object sender, RoutedEventArgs e)
-        //{
-        //    item_logic.DecreaseAmount(order_item);
-        //    lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
-        //    dataGrid_order.Items.Refresh();
-        //    if (order_item.Amount == 1)
-        //    {
-        //        btn_decrease_item.IsEnabled = false;
-        //    }
-        //    if (!btn_increase_item.IsEnabled)
-        //    {
-        //        btn_increase_item.IsEnabled = true;
-        //        btn_increase_item.Content = "+";
-        //    }
-        //}
+        private void Btn_increase_item_Click(object sender, RoutedEventArgs e)
+        {
+            item_logic.IncreaseAmount(order[selected_order_index]);
+            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+            dataGrid_order.Items.Refresh();
+            if (order[selected_order_index].Item.Stock == 0)
+            {
+                btn_increase_item.IsEnabled = false;
+                btn_increase_item.Content = "  no\nstock";
+            }
+            btn_decrease_item.IsEnabled = true;
+        }
+        private void Btn_decrease_item_Click(object sender, RoutedEventArgs e)
+        {
+            item_logic.DecreaseAmount(order[selected_order_index]);
+            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+            dataGrid_order.Items.Refresh();
+            if (order[selected_order_index].Amount == 1)
+            {
+                btn_decrease_item.IsEnabled = false;
+            }
+            if (!btn_increase_item.IsEnabled)
+            {
+                btn_increase_item.IsEnabled = true;
+                btn_increase_item.Content = "+";
+            }
+        }
 
         private void DataGrid_order_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //DataRowView row = (DataRowView)listview_menu.SelectedItems[0];
-            //item_id = (int)row["item_id"];
             if ((Item)dataGrid_order.SelectedItem == null)
             {
                 btn_decrease_item.IsEnabled = false;

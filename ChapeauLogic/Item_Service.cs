@@ -102,18 +102,19 @@ namespace ChapeauLogic
 
         public List<Item> GetSubMenu(List<Item> menu, string subCategory)
         {
+            string[] splitted = subCategory.Split(' ');
             List<Item> subMenu = new List<Item>();
             for (int i = 0; i < menu.Count; i++)
             {
-                if (Enum.IsDefined(typeof(Lunch), subCategory) && menu[i].LunchSubCategory != null)
+                if (splitted[1] == menu[i].LunchSubCategory.ToString())
                 {
                     subMenu.Add(menu[i]);
                 }
-                else if (Enum.IsDefined(typeof(Dinner), subCategory) && menu[i].DinnerSubCategory != null)
+                else if (Enum.IsDefined(typeof(Dinner), splitted[1]) && menu[i].DinnerSubCategory != null)
                 {
                     subMenu.Add(menu[i]);
                 }
-                else if (Enum.IsDefined(typeof(Drink), subCategory) && menu[i].DrinkSubCategory != null)
+                else if (Enum.IsDefined(typeof(Drink), splitted[1]) && menu[i].DrinkSubCategory != null)
                 {
                     subMenu.Add(menu[i]);
                 }
