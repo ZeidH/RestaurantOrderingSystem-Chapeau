@@ -23,7 +23,7 @@ namespace ChapeauDAL
             {
                 Value = emp_id
             };
-            ExecuteEditQuery(query, sqlParameters);
+            //ExecuteEditQuery(query, sqlParameters);
         }
 
         public DataTable Db_select_order(int order_id)
@@ -45,7 +45,7 @@ namespace ChapeauDAL
             {
                 Value = order_id
             };
-            ExecuteEditQuery(query, sqlParameters);
+            //ExecuteEditQuery(query, sqlParameters);
         }
     }
 }

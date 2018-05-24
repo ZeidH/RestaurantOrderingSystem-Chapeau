@@ -37,7 +37,7 @@ namespace ChapeauDAL
                 Value = payment.Comment
             };
 
-            ExecuteEditQuery(query, sqlParameters);
+            //ExecuteEditQuery(query, sqlParameters);
         }
         public Vat Db_get_drink_vat(int item_id, Item item)
         {

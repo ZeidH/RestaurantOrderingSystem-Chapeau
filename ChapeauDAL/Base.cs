@@ -7,6 +7,7 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Transactions;
 
 namespace ChapeauDAL
 {
@@ -33,6 +34,17 @@ namespace ChapeauDAL
         private void CloseConnection()
         {
             conn.Close();
+        }
+
+        protected TransactionScope BeginTransaction()
+        {
+            TransactionScope ts = new TransactionScope();
+            return ts;
+        }
+
+        protected void EndTransaction(TransactionScope ts)
+        {
+            ts.Complete();
         }
 
         //For Insert/Update/Delete Queries

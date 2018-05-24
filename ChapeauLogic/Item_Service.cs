@@ -13,16 +13,23 @@ namespace ChapeauLogic
     public class Item_Service
     {
         private Item_DAO item_DAO = new Item_DAO();
-        public void NewOrderItem(List<Item> items)
+        public void CompleteOrder(List<OrderItem> orderItems)
         {
-            foreach (Item item in items)
+            DateTime date = DateTime.Now;
+            foreach (OrderItem item in orderItems)
             {
-                item.Time = DateTime.Now;
-                if (item.Comment == null)
-                {
-                    item.Comment = "";
-                }
-                item_DAO.Db_add_item(item);
+                AddFinalProperties(item, date);
+            }
+            item_DAO.Db_add_item(orderItems);
+        }
+
+        private void AddFinalProperties(OrderItem orderItem, DateTime date)
+        {
+            orderItem.Time = date;
+            orderItem.Status = OrderStatus.Processing;
+            if (orderItem.Comment == null)
+            {
+                orderItem.Comment = "";
             }
         }
 
@@ -36,101 +43,137 @@ namespace ChapeauLogic
             return total_cost;
         }
 
-        public void IncreaseAmount(Item item)
+        public void IncreaseAmount(OrderItem orderItem)
         {
-            if (item.Stock <= 0)
+            if (orderItem.Item.Stock <= 0)
             {
                 throw new Exception("This item is out of stock!");
             }
-            float price = item.Cost/item.Amount;
-            item.Amount++;
-            item.Stock--;
-            item.Cost = price * item.Amount;
+            //calculate in gridview
+            orderItem.Amount++;
+            orderItem.Item.Stock--;
         }
 
-        public void DecreaseAmount(Item item)
+        public void DecreaseAmount(OrderItem orderItem)
         {
-            if (item.Amount <= 1)
+            if (orderItem.Amount <= 1)
             {
                 throw new Exception("This item is already at it's minimum amount!");
             }
-            float price = item.Cost / item.Amount;
-            item.Amount--;
-            item.Stock++;
-            item.Cost = price * item.Amount;
+            //calculate in gridview
+            orderItem.Amount--;
+            orderItem.Item.Stock++;
         }
 
-        public List<Item> DeleteOrderItem(List<Item> items, Item item)
+        public List<OrderItem> DeleteOrderItem(List<OrderItem> order, OrderItem orderItem)
         {
-            items.Remove(item);
-            return items;
+            order.Remove(orderItem);
+            return order;
         }
 
-        public DataTable GetItems(int order_id)
+        //public DataTable GetItems(int order_id)
+        //{
+        //    DataTable dataTable = item_DAO.Db_select_items(order_id);
+        //    return dataTable;
+        //}
+
+        //public DataTable GetStatus(int order_id)
+        //{
+        //    DataTable dataTable = item_DAO.Db_select_status(order_id);
+        //    return dataTable;
+        //}
+
+        public List<Item> ReadMenu()
         {
-            DataTable dataTable = item_DAO.Db_select_items(order_id);
-            return dataTable;
+            List<Item> menu = item_DAO.Db_select_meu();
+            return menu;
         }
 
-        public DataTable GetStatus(int order_id)
-        {
-            DataTable dataTable = item_DAO.Db_select_status(order_id);
-            return dataTable;
-        }
-
-        public DataTable GetMenu(MenuCategory menu, int category)
-        {
-            DataTable dataTable = item_DAO.Db_select_menu_items(menu, category);
-            return dataTable;
-        }
-
-        public float GetTotalCost(List<Item> items)
+        public float GetTotalCost(List<OrderItem> items)
         {
             float total_cost = 0;
-            foreach (Item item in items)
+            foreach (OrderItem orderItem in items)
             {
-                total_cost += item.Cost;
+                //Maybe use payment? vat?
+                total_cost += orderItem.Item.Cost * orderItem.Amount;
             }
             return total_cost;
         }
-        public int FindCategory(string source, MenuCategory menu)
+
+        public List<Item> GetSubMenu(List<Item> menu, string subCategory)
         {
-            string[] splitted = source.Split(' ');
-            int sub_category = 0;
-            switch (splitted[1])
+            List<Item> subMenu = new List<Item>();
+            for (int i = 0; i < menu.Count; i++)
             {
-                case "Beers":
-                    sub_category = (int)Drink.Beers;
-                    break;
-                case "HotDrinks":
-                    sub_category = (int)Drink.HotDrinks;
-                    break;
-                case "SoftDrinks":
-                    sub_category = (int)Drink.SoftDrinks;
-                    break;
-                case "Wines":
-                    sub_category = (int)Drink.Wines;
-                    break;
-                case "Desserts":
-                    sub_category = (int)Dinner.Desserts;
-                    break;
-                case "Mains":
-                    sub_category = (int)Dinner.Mains;
-                    break;
-                case "Starters":
-                    sub_category = (int)Dinner.Starters;
-                    break;
-                case "Bites":
-                    sub_category = (int)Lunch.Bites;
-                    break;
-                case "Main":
-                    sub_category = (int)Lunch.Main;
-                    break;
-                case "Specials":
-                    sub_category = (int)Lunch.Specials;
-                    break;
+                if (Enum.IsDefined(typeof(Lunch), subCategory) && menu[i].LunchSubCategory != null)
+                {
+                    subMenu.Add(menu[i]);
+                }
+                else if (Enum.IsDefined(typeof(Dinner), subCategory) && menu[i].DinnerSubCategory != null)
+                {
+                    subMenu.Add(menu[i]);
+                }
+                else if (Enum.IsDefined(typeof(Drink), subCategory) && menu[i].DrinkSubCategory != null)
+                {
+                    subMenu.Add(menu[i]);
+                }
             }
-            return sub_category;
+            return subMenu;
         }
+
+        public bool CheckStock(Item item)
+        {
+            return item.Stock > 0;
+        }
+
+        public bool CheckAmount(int amount)
+        {
+            return amount > 1;
+        }
+
+        public bool CheckOrderCount(List<OrderItem> order)
+        {
+            return order.Count > 0;
+        }
+
+        //public int FindCategory(string source, MenuCategory menu)
+        //{
+        //    string[] splitted = source.Split(' ');
+        //    int sub_category = 0;
+        //    switch (splitted[1])
+        //    {
+        //        case "Beers":
+        //            sub_category = (int)Drink.Beers;
+        //            break;
+        //        case "HotDrinks":
+        //            sub_category = (int)Drink.HotDrinks;
+        //            break;
+        //        case "SoftDrinks":
+        //            sub_category = (int)Drink.SoftDrinks;
+        //            break;
+        //        case "Wines":
+        //            sub_category = (int)Drink.Wines;
+        //            break;
+        //        case "Desserts":
+        //            sub_category = (int)Dinner.Desserts;
+        //            break;
+        //        case "Mains":
+        //            sub_category = (int)Dinner.Mains;
+        //            break;
+        //        case "Starters":
+        //            sub_category = (int)Dinner.Starters;
+        //            break;
+        //        case "Bites":
+        //            sub_category = (int)Lunch.Bites;
+        //            break;
+        //        case "Main":
+        //            sub_category = (int)Lunch.Main;
+        //            break;
+        //        case "Specials":
+        //            sub_category = (int)Lunch.Specials;
+        //            break;
+        //    }
+        //    return sub_category;
+        //}
     }
 }
