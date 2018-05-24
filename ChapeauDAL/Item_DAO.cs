@@ -119,23 +119,23 @@ namespace ChapeauDAL
                 {
                     Item_id = (int)dr["item_id"],
                     Name = dr["item_name"].ToString(),
-                    Cost = (float)dr["item_cost"],
+                    Cost = (float)(double)dr["item_cost"],
                     Stock = (int)dr["item_stock"],
                 };
                 if (!dr.IsNull("drink_category"))
                 {
                     item.Category = MenuCategory.Drink;
-                    item.DrinkSubCategory = (Drink)dr["drink_category"];
+                    item.DrinkSubCategory = (Drink)Int16.Parse(dr["drink_category"].ToString());
                 }
                 if (!dr.IsNull("lunch_category"))
                 {
                     item.Category = MenuCategory.Lunch;
-                    item.LunchSubCategory = (Lunch)dr["Lunch_category"];
+                    item.LunchSubCategory = (Lunch)Int16.Parse(dr["lunch_category"].ToString());
                 }
                 if (!dr.IsNull("dinner_category"))
                 {
                     item.Category = MenuCategory.Drink;
-                    item.DinnerSubCategory = (Dinner)dr["dinner_category"];
+                    item.DinnerSubCategory = (Dinner)Int16.Parse(dr["dinner_category"].ToString());
                 }
                 menu.Add(item);
             }

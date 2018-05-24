@@ -24,9 +24,6 @@ namespace ChapeauUI
         {
             InitializeComponent();
             //Initialize on Login Page     
-            Main.Content = new Orderview_UI(3);
-            //Initialize on Login Page
-            //Send menu
             Main.Content = new Orderview_UI(4);
         }
     }

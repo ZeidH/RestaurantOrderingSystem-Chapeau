@@ -21,12 +21,14 @@ namespace ChapeauUI
         private PayMethod method;
         private int customer_count;
 
-        public Payment_UI(int order_id, int customer_count, List<Item> menu)
+        public Payment_UI(int order_id, int customer_count)
         {
             InitializeComponent();
             this.customer_count = customer_count;
             this.order_id = order_id;
-            this.menu = menu;
+            Item_Service order = new Item_Service();
+            this.menu = order.ReadMenu();
+            //this.menu = menu;
             FillReceipt(this.order_id);
             lbl_order.Content = $"Order ID: {order_id}";
         }
