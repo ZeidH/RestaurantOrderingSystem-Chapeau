@@ -11,22 +11,19 @@ namespace ChapeauLogic
 {
     public class Order_Service
     {
+        Order_DAO order_DAO = new Order_DAO();
         public void InsertOrder(int emp_id, int table_id)
         {
-            //globlly do this
-            Order_DAO order_DAO = new Order_DAO();
             order_DAO.Db_add_order(table_id, emp_id);
         }
 
         public void DeleteOrder(int order_id)
         {
-            Order_DAO order_DAO = new Order_DAO();
             order_DAO.Db_delete_order(order_id);
         }
 
         public DataTable GetOrder(int order_id)
         {
-            Order_DAO order_DAO = new Order_DAO();
             DataTable dataTable = order_DAO.Db_select_order(order_id);
             return dataTable;
         }

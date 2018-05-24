@@ -16,7 +16,6 @@ namespace ChapeauDAL
     {
         public void Db_add_item(List<OrderItem> orderItems)
         {
-            SqlTransaction tran = OpenConnection().BeginTransaction();
             string query = string.Format("INSERT INTO ORDER_LIST (order_id, item_comment, order_time, order_status, item_amount, item_id) " +
             "VALUES(@orderid, @itemcomment, @ordertime, @orderstatus, @itemamount, @itemid)");
             try
@@ -48,32 +47,20 @@ namespace ChapeauDAL
                     {
                         Value = orderItem.Item.Item_id
                     };
-                    ExecuteEditQuery(query, sqlParameter, tran);
-                    Db_update_stock(orderItem, tran);
+                    ExecuteEditQuery(query, sqlParameter);
+                    Db_update_stock(orderItem);
                 }
             }
             catch (Exception e)
             {
-                try
-                {
-                tran.Rollback();
-                }
-                catch (Exception)
-                {
-                    
                 ErrorFilePrint print = new ErrorFilePrint();
                 print.ErrorLog(e);
-                    throw;
-                }
-
-                ErrorFilePrint print2 = new ErrorFilePrint();
-                print2.ErrorLog(e);
                 throw;
             }
-            tran.Commit();
+
         }
 
-        public void Db_update_stock(OrderItem orderItem, SqlTransaction sqlTransaction)
+        public void Db_update_stock(OrderItem orderItem)
         {
             string query = string.Format("UPDATE ITEM SET item_stock = @itemstock WHERE item_id = @itemid");
             SqlParameter[] sqlParameters = new SqlParameter[2];
@@ -85,43 +72,8 @@ namespace ChapeauDAL
             {
                 Value = orderItem.Item.Item_id
             };
-            ExecuteEditQuery(query, sqlParameters, sqlTransaction);
+            ExecuteEditQuery(query, sqlParameters);
         }
-
-        //remove
-        //public DataTable Db_select_status(int order_id)
-        //{
-        //    string query = string.Format("SELECT order_id, order_status FROM [ORDER_LIST] WHERE order_id = @orderid");
-        //    SqlParameter[] sqlParameters = new SqlParameter[1];
-        //    sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
-        //    {
-        //        Value = order_id
-        //    };
-        //    return ExecuteSelectQuery(query, sqlParameters);
-        //}
-
-        //public DataTable Db_select_items(int order_id)
-        //{  
-        //    string query = string.Format("SELECT order_id, item_comment, order_time, order_status, item_amount, item_id FROM [ORDER_LIST] WHERE order_id = @orderid");
-        //    SqlParameter[] sqlParameters = new SqlParameter[1];
-        //    sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
-        //    {
-        //        Value = order_id
-        //    };
-        //    return ExecuteSelectQuery(query, sqlParameters);
-        //}
-
-        //public DataTable Db_select_menu_items(MenuCategory menu, int category)
-        //{
-        //    string query = string.Format($"SELECT i.item_id, i.item_name, i.item_cost, i.item_stock, x.{@menu}_category " +
-        //        $"FROM ITEM AS i LEFT JOIN {@menu} AS x ON i.item_id = x.{@menu}_id WHERE x.{@menu}_category = @category");
-        //    SqlParameter[] sqlParameters = new SqlParameter[1];
-        //    sqlParameters[0] = new SqlParameter("@category", SqlDbType.SmallInt)
-        //    {
-        //        Value = category
-        //    };
-        //    return ExecuteSelectQuery(query, sqlParameters);
-        //}
 
         public List<Item> Db_select_meu()
         {

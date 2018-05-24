@@ -13,5 +13,16 @@ namespace ChapeauModel
         public DateTime Time { get; set; }
         public OrderStatus Status { get; set; }
         public int Amount { get; set; }
+        public float TotalPrice { get { return (this.Item.Cost * this.Amount); } }
+        public string NameAndComment
+        {
+            get
+            {
+                if (Comment != "")
+                { return string.Format("{0}\n Comment: {1}", Item.Name, Comment); }
+                else
+                { return string.Format("{0}", Item.Name); }
+            }
+        }
     }
 }

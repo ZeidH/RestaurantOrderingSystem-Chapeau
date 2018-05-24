@@ -7,7 +7,6 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
-using System.Transactions;
 
 namespace ChapeauDAL
 {
@@ -36,29 +35,20 @@ namespace ChapeauDAL
             conn.Close();
         }
 
-        protected TransactionScope BeginTransaction()
-        {
-            TransactionScope ts = new TransactionScope();
-            return ts;
-        }
-
-        protected void EndTransaction(TransactionScope ts)
-        {
-            ts.Complete();
-        }
-
         //For Insert/Update/Delete Queries
-        protected void ExecuteEditQuery(String query, SqlParameter[] sqlParameters, SqlTransaction sqlTransaction)
+        protected void ExecuteEditQuery(String query, SqlParameter[] sqlParameters)
         {
-            SqlCommand command = new SqlCommand(query, conn, sqlTransaction);
+            SqlCommand command = new SqlCommand();
 
             try
             {
+                command.Connection = OpenConnection();
+                command.CommandText = query;
                 command.Parameters.AddRange(sqlParameters);
                 adapter.InsertCommand = command;
                 command.ExecuteNonQuery();
             }
-            catch (Exception e)
+            catch (SqlException e)
             {
                 print.ErrorLog(e);
             }
@@ -67,6 +57,7 @@ namespace ChapeauDAL
                 CloseConnection();
             }
         }
+
 
         /* For Select Queries */
         /// <summary>

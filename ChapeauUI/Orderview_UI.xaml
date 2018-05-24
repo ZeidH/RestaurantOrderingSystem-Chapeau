@@ -23,7 +23,7 @@
         <Button x:Name="btn_add_order_item" Content="Add" HorizontalAlignment="Left" Margin="689,395,0,0" VerticalAlignment="Top" Width="111" Height="50" Background="#FFC8E7F4" Click="Btn_add_order_item_Click" IsEnabled="False"/>
         <TextBox x:Name="txt_comments" HorizontalAlignment="Left" Height="23" Margin="446,420,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"/>
         <Label x:Name="lbl_comments" Content="Comments:" HorizontalAlignment="Left" Margin="446,395,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.7,0.648"/>
-        <ListView x:Name="listview_menu" HorizontalAlignment="Left" Height="254" Margin="355,106,0,0" VerticalAlignment="Top" Width="445" ItemsSource="{Binding Path=subMenu}" SelectionChanged="Listview_menu_SelectionChanged" MouseDoubleClick="Listview_menu_MouseDoubleClick">
+        <ListView x:Name="listview_menu" HorizontalAlignment="Left" Height="254" Margin="355,106,0,0" VerticalAlignment="Top" Width="445" ItemsSource="{Binding subMenu}" SelectionChanged="Listview_menu_SelectionChanged" MouseDoubleClick="Listview_menu_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Item name" DisplayMemberBinding="{Binding Path=Name}" Width="365"/>
@@ -39,11 +39,12 @@
                 </Style>
             </StackPanel.Resources>
         </StackPanel>
-        <DataGrid x:Name="dataGrid_order" HorizontalAlignment="Left" Height="306" Margin="0,54,0,0" VerticalAlignment="Top" Width="347" AutoGenerateColumns="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" AlternationCount="1" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGrid_order_SelectionChanged" Background="White">
+        <DataGrid x:Name="dataGrid_order" HorizontalAlignment="Left" Height="306" Margin="0,54,0,0" VerticalAlignment="Top" Width="347" AutoGenerateColumns="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" AlternationCount="1" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGrid_order_SelectionChanged" Background="White" CanUserResizeColumns="False" CanUserReorderColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=Name}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Item name" SortDirection="Descending" Width="230"/>
-                <DataGridTextColumn Binding="{Binding Path=Amount}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Quantity" SortDirection="Descending"/>
-                <DataGridTextColumn Binding="{Binding Path=Cost, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Price" SortDirection="Descending" Width="59"/>
+
+                <DataGridTextColumn Binding="{Binding Path=NameAndComment}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Item name" SortDirection="Descending" Width="230"/>
+                <DataGridTextColumn Binding="{Binding Path=Amount}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Quantity" SortDirection="Descending" Width="56"/>
+                <DataGridTextColumn Binding="{Binding Path=TotalPrice, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Price" SortDirection="Descending" Width="59"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
