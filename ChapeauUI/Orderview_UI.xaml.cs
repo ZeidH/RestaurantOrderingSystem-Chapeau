@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
 using System.Data;
 using ChapeauLogic;
 using ChapeauModel;
@@ -26,253 +17,218 @@ namespace ChapeauUI
     public partial class Orderview_UI : Page
     {
         private int order_id;
-        private MenuCategory category;
-        private Item_Service item = new Item_Service();
-        private Item order_item;
-        private List<Item> order = new List<Item>();
-        //private Item order_item = new Item();
+        //private MenuCategory category;
+        private Item_Service item_logic = new Item_Service();
+        private int selected_menu_item_id;
+        private int selected_order_index;
+        private List<OrderItem> order = new List<OrderItem>();
+        private List<Item> menu = new List<Item>();
 
         public Orderview_UI(int order_id)
         {
             this.order_id = order_id;
+            menu = item_logic.ReadMenu();
             InitializeComponent();
         }
 
+        //return to table view
         private void Btn_return_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Tableview_UI());
         }
 
+        //Make the subcategory buttons according to the menu category
         private void Btn_lunch_Click(object sender, RoutedEventArgs e)
         {
-            category = MenuCategory.Lunch;
-            StackPanel_sub_category.Children.Clear();
+            ClearStackPanelChildren();
             foreach (Lunch sub_category in Enum.GetValues(typeof(Lunch)))
             {
-                Button button = new Button
-                {
-                    Content = sub_category,
-                    Name = $"{sub_category}"
-                };
-                StackPanel_sub_category.Children.Add(button);
+                CreateSubCategoryButtons(sub_category.ToString());
             }
-            int amount = StackPanel_sub_category.Children.Count;
-            double width = StackPanel_sub_category.Width / amount;
-
-            foreach (Button button in StackPanel_sub_category.Children)
-            {
-                button.Width = width - 2;
-                button.Click += new RoutedEventHandler(ButtonLunch_Click);
-            }
+            SizeStackPanelChildren();
         }
-
         private void Btn_dinner_Click(object sender, RoutedEventArgs e)
         {
-            category = MenuCategory.Dinner;
-            StackPanel_sub_category.Children.Clear();
+            ClearStackPanelChildren();
             foreach (Dinner sub_category in Enum.GetValues(typeof(Dinner)))
             {
-                Button button = new Button
-                {
-                    Content = sub_category,
-                    Name = $"{sub_category}"
-                };
-                StackPanel_sub_category.Children.Add(button);
+                CreateSubCategoryButtons(sub_category.ToString());
             }
-            int amount = StackPanel_sub_category.Children.Count;
-            double width = StackPanel_sub_category.Width / amount;
-
-            foreach (Button button in StackPanel_sub_category.Children)
-            {
-                button.Width = width - 2;
-                button.Click += new RoutedEventHandler(ButtonDinner_Click);
-            }
+            SizeStackPanelChildren();
         }
-
         private void Btn_drinks_Click(object sender, RoutedEventArgs e)
         {
-            category = MenuCategory.Drink;
-            StackPanel_sub_category.Children.Clear();
+            ClearStackPanelChildren();
             foreach (Drink sub_category in Enum.GetValues(typeof(Drink)))
             {
-                Button button = new Button
-                {
-                    Content = sub_category,
-                    Name = "Btn_" + $"{sub_category}",
-                };
-                StackPanel_sub_category.Children.Add(button);
-
+                CreateSubCategoryButtons(sub_category.ToString());
             }
-            int amount = StackPanel_sub_category.Children.Count;
-            double width = StackPanel_sub_category.Width / amount;
+            SizeStackPanelChildren();
+        }
 
+        private void SizeStackPanelChildren()
+        {
+            double buttonWidth = StackPanel_sub_category.Width / StackPanel_sub_category.Children.Count;
             foreach (Button button in StackPanel_sub_category.Children)
             {
-                button.Width = width - 2;
-                button.Click += new RoutedEventHandler(ButtonDrink_Click);
+                button.Click += new RoutedEventHandler(ButtonSubCategory_Click);
+                button.Width = buttonWidth - 2;
             }
         }
 
-        private void ButtonDrink_Click(object sender, RoutedEventArgs e)
+        private void CreateSubCategoryButtons(string sub_category)
         {
-            LoadMenu(e);
+            Button button = new Button
+            {
+                Content = sub_category,
+                Name = sub_category
+            };
+            StackPanel_sub_category.Children.Add(button);
+            button.Click += new RoutedEventHandler(ButtonSubCategory_Click);
         }
 
-        private void ButtonDinner_Click(object sender, RoutedEventArgs e)
+        private void ClearStackPanelChildren()
         {
-            LoadMenu(e);
+            StackPanel_sub_category.Children.Clear();
         }
 
-        private void ButtonLunch_Click(object sender, RoutedEventArgs e)
+        private void ButtonSubCategory_Click(object sender, RoutedEventArgs e)
         {
-            LoadMenu(e);
-        }
-
-        private void LoadMenu(RoutedEventArgs e)
-        {
-            int sub_category = item.FindCategory(e.Source.ToString(), category);
-            DataTable dataTable = item.GetMenu(category, sub_category);
-            Listview_menu.DataContext = dataTable.DefaultView;
+            List<Item> subMenu = item_logic.GetSubMenu(menu, e.Source.ToString());
+            listview_menu.DataContext = subMenu;
         }
 
         private void Listview_menu_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            AddToOrder();
+            if (listview_menu.SelectedItem != null)
+            {
+                AddToOrder();
+            }
         }
 
         private void Listview_menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            foreach (DataRowView item in Listview_menu.SelectedItems)
-            {
-                order_item = new Item
-                {
-                    Item_id = (int)item.Row.ItemArray[0],
-                    Name = item.Row.ItemArray[1].ToString(),
-                    Category = category,
-                    Amount = 1,
-                    Cost = (float)(double)item.Row.ItemArray[2],
-                    Stock = (int)item.Row.ItemArray[3] - 1,
-                    Order_id = order_id
-                };
-                if (order_item.Stock < 0)
-                {
-                    Btn_add_order_item.IsEnabled = false;
-                    Btn_add_order_item.Content = "no stock!";
-                    return;
-                }
-            }
-            Btn_add_order_item.Content = "Add";
-            Btn_add_order_item.IsEnabled = true;
+            DataRowView row = (DataRowView)listview_menu.SelectedItems[0];
+            selected_menu_item_id = (int)row["item_id"];
+            btn_add_order_item.IsEnabled = item_logic.CheckStock(menu[selected_menu_item_id]);
         }
 
         private void AddToOrder()
         {
-            if (Txt_comments.Text != "")
+            OrderItem orderItem = new OrderItem();
+            orderItem.Item = menu[selected_menu_item_id];
+
+            if (txt_comments.Text != "")
             {
-                order_item.Name += "\n Comment: " + Txt_comments.Text;
-                order_item.Comment = Txt_comments.Text;
+                menu[selected_menu_item_id].Name += "\n Comment: " + txt_comments.Text;
+                orderItem.Comment = txt_comments.Text;
             }
 
             for (int i = 0; i < order.Count; i++)
             {
-                if (order[i].Name == order_item.Name)
+                if (order[i].Item.Name == menu[selected_menu_item_id].Name)
                 {
-                    item.IncreaseAmount(order[i]);
-                    DataGrid_order.Items.Refresh();
-                    Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
-                    Txt_comments.Text = "";
-                    Btn_complete_order.IsEnabled = true;
+                    item_logic.IncreaseAmount(orderItem);
+                    dataGrid_order.Items.Refresh();
+                    UpdateOrder();
                     return;
                 }
             }
-            order.Add(order_item);
-            DataGrid_order.Items.Add(order[order.Count - 1]);
-            Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
-            Txt_comments.Text = "";
-            Btn_complete_order.IsEnabled = true;
-            Listview_menu.UnselectAll();
-            Btn_add_order_item.IsEnabled = false;
+            order.Add(orderItem);
+            dataGrid_order.Items.Add(order[order.Count - 1]);
+            UpdateOrder();
+            btn_add_order_item.IsEnabled = false;
+        }
+
+        private void UpdateOrder()
+        {
+            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+            txt_comments.Text = "";
+            btn_complete_order.IsEnabled = true;
+            listview_menu.UnselectAll();
         }
 
         private void Btn_add_order_item_Click(object sender, RoutedEventArgs e)
         {
             AddToOrder();
         }
-        private void Btn_increase_item_Click(object sender, RoutedEventArgs e)
-        {
-            item.IncreaseAmount(order_item);
-            Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
-            DataGrid_order.Items.Refresh();
-            if (order_item.Stock == 0)
-            {
-                Btn_increase_item.IsEnabled = false;
-                Btn_increase_item.Content = "  no\nstock";
-            }
-            Btn_decrease_item.IsEnabled = true;
-        }
-        private void Btn_decrease_item_Click(object sender, RoutedEventArgs e)
-        {
-            item.DecreaseAmount(order_item);
-            Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
-            DataGrid_order.Items.Refresh();
-            if (order_item.Amount == 1)
-            {
-                Btn_decrease_item.IsEnabled = false;
-            }
-            if (!Btn_increase_item.IsEnabled)
-            {
-                Btn_increase_item.IsEnabled = true;
-                Btn_increase_item.Content = "+";
-            }
-        }
+        //private void Btn_increase_item_Click(object sender, RoutedEventArgs e)
+        //{
+        //    item_logic.IncreaseAmount(orderItem);
+        //    lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+        //    dataGrid_order.Items.Refresh();
+        //    if (order_item.Stock == 0)
+        //    {
+        //        btn_increase_item.IsEnabled = false;
+        //        btn_increase_item.Content = "  no\nstock";
+        //    }
+        //    btn_decrease_item.IsEnabled = true;
+        //}
+        //private void Btn_decrease_item_Click(object sender, RoutedEventArgs e)
+        //{
+        //    item_logic.DecreaseAmount(order_item);
+        //    lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+        //    dataGrid_order.Items.Refresh();
+        //    if (order_item.Amount == 1)
+        //    {
+        //        btn_decrease_item.IsEnabled = false;
+        //    }
+        //    if (!btn_increase_item.IsEnabled)
+        //    {
+        //        btn_increase_item.IsEnabled = true;
+        //        btn_increase_item.Content = "+";
+        //    }
+        //}
 
         private void DataGrid_order_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if ((Item)DataGrid_order.SelectedItem == null)
+            //DataRowView row = (DataRowView)listview_menu.SelectedItems[0];
+            //item_id = (int)row["item_id"];
+            if ((Item)dataGrid_order.SelectedItem == null)
             {
-                Btn_decrease_item.IsEnabled = false;
-                Btn_increase_item.IsEnabled = false;
-                Btn_remove_item.IsEnabled = false;
-                Btn_complete_order.IsEnabled = false;
+                btn_decrease_item.IsEnabled = false;
+                btn_increase_item.IsEnabled = false;
+                btn_remove_item.IsEnabled = false;
+                btn_complete_order.IsEnabled = false;
                 return;
             }
-            order_item = (Item)DataGrid_order.SelectedItem;
-            Btn_remove_item.IsEnabled = true;
-            if (order_item.Amount > 1)
+
+            DataRowView row = (DataRowView)dataGrid_order.SelectedItem;
+            selected_menu_item_id = (int)row["item_id"];
+            for (int i = 0; i < order.Count; i++)
             {
-                Btn_decrease_item.IsEnabled = true;
-            }
-            else
-            {
-                Btn_decrease_item.IsEnabled = false;
-            }
-            if (order_item.Stock > 1)
-            {
-                Btn_increase_item.IsEnabled = true;
-                Btn_increase_item.Content = "+";
-            }
-            else
-            {
-                Btn_increase_item.IsEnabled = false;
-                Btn_increase_item.Content = "  no\nstock";
+                if (order[i].Item.Item_id == selected_menu_item_id)
+                {
+                    selected_order_index = i;
+                    btn_decrease_item.IsEnabled = item_logic.CheckAmount(order[i].Amount);
+
+                    if (order[i].Item.Stock > 1)
+                    {
+                        btn_increase_item.IsEnabled = true;
+                        btn_increase_item.Content = "+";
+                    }
+                    else
+                    {
+                        btn_increase_item.IsEnabled = false;
+                        btn_increase_item.Content = "  no\nstock";
+                    }
+                    //enable remove button?
+                    break;
+                }
             }
         }
 
         private void Btn_remove_item_Click(object sender, RoutedEventArgs e)
         {
-            DataGrid_order.Items.Remove(order_item);
-            order = item.DeleteOrderItem(order, order_item);
-            Lbl_total_price.Content = item.GetTotalCost(order).ToString("0.00");
-            Btn_complete_order.IsEnabled = true;
-            if (order.Count == 0)
-            {
-                Btn_complete_order.IsEnabled = false;
-            }
+            dataGrid_order.Items.Remove(selected_order_index);
+            order = item_logic.DeleteOrderItem(order, order[selected_order_index]);
+            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+            btn_complete_order.IsEnabled = item_logic.CheckOrderCount(order);
         }
 
         private void Btn_complete_order_Click(object sender, RoutedEventArgs e)
         {
-            item.NewOrderItem(order);
+            item_logic.CompleteOrder(order);
             NavigationService.Navigate(new Tableview_UI());
         }
 

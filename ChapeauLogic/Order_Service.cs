@@ -13,6 +13,7 @@ namespace ChapeauLogic
     {
         public void InsertOrder(int emp_id, int table_id)
         {
+            //globlly do this
             Order_DAO order_DAO = new Order_DAO();
             order_DAO.Db_add_order(table_id, emp_id);
         }
