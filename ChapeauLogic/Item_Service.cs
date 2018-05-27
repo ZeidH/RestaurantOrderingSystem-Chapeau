@@ -111,11 +111,20 @@ namespace ChapeauLogic
             return order.Count > 0;
         }
 
-        //An other way
-        //public bool CheckOrderStock(int stock)
-        //{
-        //    return stock > 1;
-        //}
+        public List<bool> CheckOrderStock(List<Item> subMenuItems)
+        {
+            List<bool> op = new List<bool>();
+            for (int i = 0; i < subMenuItems.Count; i++)
+            {
+                if (subMenuItems[i].Stock > 0)
+                {
+                    op.Add(true);
+                    continue;
+                }
+                op.Add(false);
+            }
+            return op;
+        }
 
         //remove
         public float GetTotalCost(List<OrderItem> items)

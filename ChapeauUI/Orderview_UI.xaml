@@ -9,18 +9,18 @@
       Title="Orderview_UI">
 
     <Grid>
-        <Label x:Name="lbl_new_order" Content="New order" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="347" BorderThickness="0" Background="{x:Null}" FontSize="25"/>
+        <Label x:Name="lbl_new_order" Content="New order" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="131" BorderThickness="0" Background="{x:Null}" FontSize="25"/>
         <Button x:Name="btn_return" Content="X" HorizontalAlignment="Left" Margin="316,0,0,0" VerticalAlignment="Top" Width="31" Height="26" Background="#FFFF7070" Cursor="Hand" Click="Btn_return_Click"/>
-        <Label x:Name="lbl_total_price_text" Content="Total price:" HorizontalAlignment="Left" Margin="0,360,0,0" VerticalAlignment="Top" Height="34" Width="183" Background="{x:Null}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lbl_total_price" Content="" Margin="183,360,0,0" VerticalAlignment="Top" Height="34" Width="164" Background="{x:Null}" HorizontalAlignment="Left"/>
-        <Button x:Name="btn_increase_item" Content="+" HorizontalAlignment="Left" Margin="0,394,0,0" VerticalAlignment="Top" Width="63" Height="51" Background="#FFC8E7F4" Click="Btn_increase_item_Click" IsEnabled="False"/>
-        <Button x:Name="btn_decrease_item" Content="-" HorizontalAlignment="Left" Margin="68,394,0,0" VerticalAlignment="Top" Width="63" Height="51" Background="#FFC8E7F4" Click="Btn_decrease_item_Click" IsEnabled="False"/>
-        <Button x:Name="btn_remove_item" Content="Remove" HorizontalAlignment="Left" Margin="136,394,0,0" VerticalAlignment="Top" Width="63" Height="51" Background="#FFFA7E7E" Click="Btn_remove_item_Click" IsEnabled="False"/>
-        <Button x:Name="btn_complete_order" Content="Complete order" HorizontalAlignment="Left" Margin="204,394,0,0" VerticalAlignment="Top" Width="143" Height="51" Background="#FFA0DD96" IsEnabled="False" Click="Btn_complete_order_Click"/>
-        <Button x:Name="btn_drinks" Content="Drinks" HorizontalAlignment="Left" Margin="655,0,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_drinks_Click"/>
-        <Button x:Name="btn_dinner" Content="Dinner" HorizontalAlignment="Left" Margin="505,1,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_dinner_Click"/>
-        <Button x:Name="btn_lunch" Content="Lunch" HorizontalAlignment="Left" Margin="355,1,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_lunch_Click"/>
-        <Button x:Name="btn_add_order_item" Content="Add" HorizontalAlignment="Left" Margin="689,395,0,0" VerticalAlignment="Top" Width="111" Height="50" Background="#FFC8E7F4" Click="Btn_add_order_item_Click" IsEnabled="False"/>
+        <Label x:Name="lbl_total_price_text" Content="Total price (inc. VAT) :" HorizontalAlignment="Left" Margin="154,360,0,0" VerticalAlignment="Top" Height="34" Width="135" Background="{x:Null}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_total_price" Content="" Margin="289,360,0,0" Height="34" Width="58" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
+        <Button x:Name="btn_increase_item" Content="+" HorizontalAlignment="Left" Margin="0,394,0,0" VerticalAlignment="Top" Width="63" Height="51" Background="#FFC8E7F4" Click="Btn_increase_item_Click" IsEnabled="False" Cursor="Hand"/>
+        <Button x:Name="btn_decrease_item" Content="-" HorizontalAlignment="Left" Margin="68,394,0,0" VerticalAlignment="Top" Width="63" Height="51" Background="#FFC8E7F4" Click="Btn_decrease_item_Click" IsEnabled="False" Cursor="Hand"/>
+        <Button x:Name="btn_remove_item" Content="Remove" HorizontalAlignment="Left" Margin="136,394,0,0" VerticalAlignment="Top" Width="63" Height="51" Background="#FFFA7E7E" Click="Btn_remove_item_Click" IsEnabled="False" Cursor="Hand"/>
+        <Button x:Name="btn_complete_order" Content="Complete order" HorizontalAlignment="Left" Margin="204,394,0,0" VerticalAlignment="Top" Width="143" Height="51" Background="#FFA0DD96" IsEnabled="False" Click="Btn_complete_order_Click" Cursor="Hand"/>
+        <Button x:Name="btn_drinks" Content="Drinks" HorizontalAlignment="Left" Margin="655,0,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_drinks_Click" Cursor="Hand"/>
+        <Button x:Name="btn_dinner" Content="Dinner" HorizontalAlignment="Left" Margin="505,1,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_dinner_Click" Cursor="Hand"/>
+        <Button x:Name="btn_lunch" Content="Lunch" HorizontalAlignment="Left" Margin="355,1,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_lunch_Click" Cursor="Hand"/>
+        <Button x:Name="btn_add_order_item" Content="Add" HorizontalAlignment="Left" Margin="689,395,0,0" VerticalAlignment="Top" Width="111" Height="50" Background="#FFC8E7F4" Click="Btn_add_order_item_Click" IsEnabled="False" Cursor="Hand"/>
         <TextBox x:Name="txt_comments" HorizontalAlignment="Left" Height="23" Margin="446,420,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"/>
         <Label x:Name="lbl_comments" Content="Comments:" HorizontalAlignment="Left" Margin="446,395,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.7,0.648"/>
         <ListView x:Name="listview_menu" HorizontalAlignment="Left" Height="254" Margin="355,106,0,0" VerticalAlignment="Top" Width="445" ItemsSource="{Binding subMenu}" SelectionChanged="Listview_menu_SelectionChanged" MouseDoubleClick="Listview_menu_MouseDoubleClick">
@@ -35,7 +35,7 @@
         <StackPanel x:Name="StackPanel_sub_category" HorizontalAlignment="Center" Height="47" Margin="355,54,0,0" VerticalAlignment="Top" Width="445" Orientation="Horizontal">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}">
-                    <Setter Property="Margin" Value="1,0,1,0"/>
+                    <Setter Property="Margin" Value="0,0,4,0"/>
                 </Style>
             </StackPanel.Resources>
         </StackPanel>
@@ -47,5 +47,6 @@
                 <DataGridTextColumn Binding="{Binding Path=TotalPrice, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Price" SortDirection="Descending" Width="59"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="" HorizontalAlignment="Left" Margin="154,1,0,0" VerticalAlignment="Top" Height="48" Width="157" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25"/>
     </Grid>
 </Page>

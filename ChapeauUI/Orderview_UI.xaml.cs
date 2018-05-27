@@ -4,10 +4,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using System.Windows.Media.Animation;
 using System.Data;
 using ChapeauLogic;
 using ChapeauModel;
-
+using System.Windows.Media;
 
 namespace ChapeauUI
 {
@@ -81,9 +82,14 @@ namespace ChapeauUI
             Button button = new Button
             {
                 Content = sub_category,
-                Name = sub_category
+                Cursor = Cursors.Hand,
+                Name = sub_category,
+                Opacity = 0
+
             };
             StackPanel_sub_category.Children.Add(button);
+            DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromMilliseconds(600));
+            button.BeginAnimation(Button.OpacityProperty, animation);
             button.Click += new RoutedEventHandler(ButtonSubCategory_Click);
         }
 
@@ -94,9 +100,13 @@ namespace ChapeauUI
 
         private void ButtonSubCategory_Click(object sender, RoutedEventArgs e)
         {
+            Cursor = Cursors.AppStarting;
             listview_menu.ItemsSource = null;
             List<Item> subMenu = item_logic.GetSubMenu(menu, e.Source.ToString());
+            List<bool> op = item_logic.CheckOrderStock(subMenu);
             listview_menu.ItemsSource = subMenu;
+
+            Cursor = Cursors.Arrow;
         }
 
         private void Listview_menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -148,7 +158,9 @@ namespace ChapeauUI
 
         private void UpdateOrder()
         {
-            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+            Payment_Service payment_logic = new Payment_Service();
+            Payment payment = payment_logic.GetTotalPrice(order);
+            lbl_total_price.Content = payment.Price.ToString("0.00€");
             txt_comments.Text = "";
             btn_complete_order.IsEnabled = true;
             listview_menu.UnselectAll();

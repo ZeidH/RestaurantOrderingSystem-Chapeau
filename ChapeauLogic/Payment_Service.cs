@@ -32,9 +32,9 @@ namespace ChapeauLogic
             {
                 return payment_DAO.Db_select_order_items(order_id);
             }
-            catch (Exception exp)
+            catch (Exception)
             {
-                throw exp;
+                throw;
             }
 
 
