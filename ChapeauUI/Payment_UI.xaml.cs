@@ -41,8 +41,6 @@ namespace ChapeauUI
             vat_price.Content = $"Vat Price: {payment.Vat.ToString("0.00 €")}";
             //btn_Payment_Finish.IsEnabled = false; for testing
             tip_Box.IsEnabled = false;
-            Payment_Split split = new Payment_Split(payment);
-            test_panel.Children.Add(split);
         }
 
         private void Btn_Payment_Finish_Click(object sender, RoutedEventArgs e)
@@ -95,7 +93,31 @@ namespace ChapeauUI
         //What exactly does this need to do...? Ask Nymp/Erwin/Gerwin
         private void Btn_Split_Click(object sender, RoutedEventArgs e)
         {
-            total_price.Content = $"Total Price: {payment_Logic.SplitPrice(payment.Price, payment.CustomerCount).ToString("0.00")} x{payment.CustomerCount}";
+            //total_price.Content = $"Total Price: {payment_Logic.SplitPrice(payment.Price, payment.CustomerCount).ToString("0.00")} x{payment.CustomerCount}";
+            SplitPanel();
+        }
+        private void SplitPanel()
+        {
+            Payment_Split split = new Payment_Split(payment);
+            test_panel.Children.Add(split);
+            Btn_Split.Visibility = Visibility.Hidden;
+            Btn_Undo_Split.Visibility = Visibility.Visible;
+            btn_even_split.Visibility = Visibility.Visible;
+        }
+
+
+        private void Btn_Undo_Split_Click(object sender, RoutedEventArgs e)
+        {
+            test_panel.Children.Clear();
+            Btn_Undo_Split.Visibility = Visibility.Hidden;
+            btn_even_split.Visibility = Visibility.Hidden;
+            Btn_Split.Visibility = Visibility.Visible;
+        }
+
+        private void Btn_even_split_Click(object sender, RoutedEventArgs e)
+        {
+            test_panel.Children.Clear();
+            SplitPanel();
         }
     }
 }

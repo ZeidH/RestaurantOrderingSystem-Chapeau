@@ -5,12 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChapeauUI"
         mc:Ignorable="d"
-        Title="Chapeau" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="781*"/>
-            <ColumnDefinition Width="13*"/>
-        </Grid.ColumnDefinitions>
+        Title="Chapeau" Height="434.279" Width="697.818">
+    <Grid Margin="0,0,3.2,4.8">
+
         <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
 
     </Grid>

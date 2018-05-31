@@ -5,44 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChapeauUI"
              
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid x:Name="btnGrid" Margin="0,0,130,96.6">
+             mc:Ignorable="d" Height="356.55" Width="693.61">
+    <Grid x:Name="btnGrid" Margin="0,0,-0.4,-0.2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="168" />
+            <ColumnDefinition Width="35"/>
+            <ColumnDefinition Width="38" />
+            <ColumnDefinition Width="35"/>
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="33"/>
+            <RowDefinition Height="33" />
+            <RowDefinition Height="33" />
         </Grid.RowDefinitions>
         <!-- X:Name Convention: Always index number on 3rd word -> Example: lbl_name_index -->
-        <StackPanel Grid.Column="0" Grid.RowSpan="4" x:Name="stackpanel_Guest_Price" HorizontalAlignment="Left" VerticalAlignment="Top" Width="336" Height="200">
-            <Label Grid.Column="0" Grid.Row="0" x:Name="lbl_guest_0" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Height="41" Width="310"/>
-            <Label Grid.Column="0" Grid.Row="1" x:Name="lbl_guest_1" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Height="41" Width="310"/>
-            <Label Grid.Column="0" Grid.Row="2" x:Name="lbl_guest_2" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Height="41" Width="310"/>
-            <Label Grid.Column="0" Grid.Row="3" x:Name="lbl_guest_3" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,0" VerticalAlignment="Top" Height="41" Width="310"/>
+        <StackPanel Grid.Column="0" x:Name="stackpanel_Guest_Price" HorizontalAlignment="Left" VerticalAlignment="Top" Width="168" Height="282" Grid.RowSpan="5">
+            <Label Grid.Column="0" Grid.Row="0" x:Name="lbl_guest_0" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
+            <Label Grid.Column="0" Grid.Row="1" x:Name="lbl_guest_1" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
+            <Label Grid.Column="0" Grid.Row="2" x:Name="lbl_guest_2" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
+            <Label Grid.Column="0" Grid.Row="3" x:Name="lbl_guest_3" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Label}">
                     <Setter Property="Margin" Value="0,3,0,3"/>
                 </Style>
             </StackPanel.Resources>
         </StackPanel>
-
-
-        <!--<StackPanel Name="stackpanel_Guest_Btn" HorizontalAlignment="Center" Height="199" Width="320" Margin="336,1,0,0">
-            <StackPanel.Resources>
-                <Style TargetType="{x:Type Button}">
-                    <Setter Property="Margin" Value="1,3,1,3"/>
-                </Style>
-            </StackPanel.Resources>
-        </StackPanel>-->
 
     </Grid>
 
