@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -62,6 +64,9 @@
     </Compile>
     <Compile Include="Orderview_UI.xaml.cs">
       <DependentUpon>Orderview_UI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Payment_Split.xaml.cs">
+      <DependentUpon>Payment_Split.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tableview_UI.xaml.cs">
       <DependentUpon>Tableview_UI.xaml</DependentUpon>
@@ -94,6 +99,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Orderview_UI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Payment_Split.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,5 +154,6 @@
       <Name>ChapeauModel</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

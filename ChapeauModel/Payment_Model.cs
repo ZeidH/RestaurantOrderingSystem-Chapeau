@@ -14,11 +14,21 @@ namespace ChapeauModel
         public float Price{ get; set; }
         public float Vat { get; set; }
         public float Tip { get; set; }
-        public PayMethod Method { get; set; }
+        public PayMethod? Method { get; set; }
         public string Comment { get; set; }
-
-        public Payment()
+        public int CustomerCount { get; set; }
+        public float SplittedPrice
         {
+            get
+            {
+                return Price / CustomerCount;
+            }
+        }
+
+        public Payment(int nrOfCustomers, int order_id)
+        {
+            this.Order_id = order_id;
+            this.CustomerCount = nrOfCustomers;
             Price = 0;
         }
     }
