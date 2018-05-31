@@ -62,6 +62,9 @@
     <Compile Include="Kitchenview_UI.xaml.cs">
       <DependentUpon>Kitchenview_UI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\OrderList.xaml.cs">
+      <DependentUpon>OrderList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Orderview_UI.xaml.cs">
       <DependentUpon>Orderview_UI.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\OrderList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Orderview_UI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

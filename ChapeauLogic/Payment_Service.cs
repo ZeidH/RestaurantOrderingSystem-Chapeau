@@ -13,10 +13,7 @@ namespace ChapeauLogic
     {
         private Payment_DAO payment_DAO = new Payment_DAO();
 
-        public float SplitPrice(float price, int customers)
-        {
-            return price / customers;
-        }
+        // Main Payment View
 
         public void SetPayment(Payment payment, float tip, string comment)
         {
@@ -58,6 +55,8 @@ namespace ChapeauLogic
             }
             return payment;
         }
+
+        // UserControl Payment_Split
 
         public void CalculateGuestPrice(int i, List<float> guestPrice, float change, int id)
         {

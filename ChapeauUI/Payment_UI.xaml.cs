@@ -17,7 +17,6 @@ namespace ChapeauUI
     {
         private Payment payment;
         private Payment_Service payment_Logic = new Payment_Service();
-        //private int customer_count;
 
         public Payment_UI(int order_id, int customer_count)
         {
@@ -29,29 +28,31 @@ namespace ChapeauUI
 
         private void FillReceipt()
         {
- 
-            // Get receipt from db and display
-            receipt_ListView.ItemsSource = payment_Logic.GetReceipt(payment.Order_id);
 
-            // Process the data and fill the model + calc price
+            //Get listview from UserControls
+            OrderList orderList = new OrderList(payment);
+            order_list.Children.Add(orderList);
+            //// Process the data and fill the model + calc price
             payment = payment_Logic.GetTotalPrice(payment_Logic.GetReceipt(payment.Order_id), payment);
 
             // Display price on the labels
             total_price.Content = $"Total Price: {payment.Price.ToString("0.00 €")}";
             vat_price.Content = $"Vat Price: {payment.Vat.ToString("0.00 €")}";
-            //btn_Payment_Finish.IsEnabled = false; for testing
+            btn_Payment_Finish.IsEnabled = false;
             tip_Box.IsEnabled = false;
         }
 
         private void Btn_Payment_Finish_Click(object sender, RoutedEventArgs e)
         {
             // Radio button animation if user click finish when r button is not clicked.
-            if (payment.Method == null)
-            {
-                DoubleAnimation animation = new DoubleAnimation(2, new Duration(TimeSpan.FromSeconds(1.5)));
-                Pin_rBtn.BeginAnimation(WidthProperty, animation);
-                return;
-            }
+            //if (payment.Method == null)
+            //{
+            //    DoubleAnimation animation = new DoubleAnimation(2, new Duration(TimeSpan.FromSeconds(1.5)));
+            //    Pin_rBtn.BeginAnimation(WidthProperty, animation);
+            //    return;
+            //}
+            //Another time...
+
             float tip = 0;
 
             // Get information from textboxes
@@ -74,7 +75,7 @@ namespace ChapeauUI
         {
 
             PayMethodCheck(payment_Logic.GetPayMethod((sender as RadioButton).Content.ToString()));
-            //btn_Payment_Finish.IsEnabled = true; for testing
+            btn_Payment_Finish.IsEnabled = true;
         }
 
         private void PayMethodCheck(PayMethod method)
@@ -93,7 +94,6 @@ namespace ChapeauUI
         //What exactly does this need to do...? Ask Nymp/Erwin/Gerwin
         private void Btn_Split_Click(object sender, RoutedEventArgs e)
         {
-            //total_price.Content = $"Total Price: {payment_Logic.SplitPrice(payment.Price, payment.CustomerCount).ToString("0.00")} x{payment.CustomerCount}";
             SplitPanel();
         }
         private void SplitPanel()
