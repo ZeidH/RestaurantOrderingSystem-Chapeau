@@ -48,7 +48,7 @@ namespace ChapeauDAL
                         Value = orderItem.Item.Item_id
                     };
                     ExecuteEditQuery(query, sqlParameter);
-                    Db_update_stock(orderItem);
+                    //Db_update_stock(orderItem);
                 }
             }
             catch (Exception e)
@@ -58,6 +58,56 @@ namespace ChapeauDAL
                 throw;
             }
 
+        }
+
+        public int Db_verify_stock(Item item)
+        {
+            string query = string.Format("SELECT item_stock FROM ITEM where item_id = @itemid");
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@itemid", SqlDbType.Int)
+            {
+                Value = item.Item_id
+            };
+            try
+            {
+                return VerifyStock(ExecuteSelectQuery(query, sqlParameters));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private int VerifyStock(DataTable dataTable)
+        {
+            int stock = (int)dataTable.Rows[0]["item_stock"];
+            return stock;
+        }
+
+        public List<int> Db_refresh_stock()
+        {
+            string query = "SELECT item_stock FROM ITEM";
+            SqlParameter[] sqlParameters = new SqlParameter[0];
+            try
+            {
+                return RefreshStock(ExecuteSelectQuery(query, sqlParameters));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private List<int> RefreshStock(DataTable dataTable)
+        {
+            List<int> stocks = new List<int>();
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                int stock = (int)dr["item_stock"];          
+                stocks.Add(stock);
+            }
+            return stocks;
         }
 
         public void Db_update_stock(OrderItem orderItem)
@@ -91,7 +141,6 @@ namespace ChapeauDAL
             }
 
         }
-
         private List<Item> ReadMenu(DataTable dataTable)
         {
             List<Item> menu = new List<Item>();
@@ -117,12 +166,43 @@ namespace ChapeauDAL
                 }
                 if (!dr.IsNull("dinner_category"))
                 {
-                    item.Category = MenuCategory.Drink;
+                    item.Category = MenuCategory.Dinner;
                     item.DinnerSubCategory = (Dinner)Int16.Parse(dr["dinner_category"].ToString());
                 }
                 menu.Add(item);
             }
             return menu;
+        }
+
+        public bool Db_select_meat_type(int item_id)
+        {
+            string query = "SELECT has_meat_type FROM dinner where dinner_id = @itemid";
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@itemid", SqlDbType.Int)
+            {
+                Value = item_id
+            };
+            try
+            {
+                return ReadMeatType(ExecuteSelectQuery(query, sqlParameters));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private bool ReadMeatType(DataTable dataTable)
+        {
+            if ((bool)dataTable.Rows[0]["has_meat_type"] == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
     }
 }

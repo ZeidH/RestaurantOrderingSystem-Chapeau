@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enumerations\CookingLevelEnum.cs" />
     <Compile Include="Enumerations\DinnerEnum.cs" />
     <Compile Include="Enumerations\DrinkEnum.cs" />
     <Compile Include="Item_Model.cs" />

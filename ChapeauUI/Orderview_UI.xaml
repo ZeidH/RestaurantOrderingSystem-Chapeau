@@ -5,48 +5,121 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ChapeauUI"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Orderview_UI">
+      d:DesignHeight="481" d:DesignWidth="800"
+      Title="Orderview_UI" Width="688" Height="400">
 
-    <Grid>
-        <Label x:Name="lbl_new_order" Content="New order" HorizontalAlignment="Left" VerticalAlignment="Top" Height="48" Width="131" BorderThickness="0" Background="{x:Null}" FontSize="25"/>
-        <Button x:Name="btn_return" Content="X" HorizontalAlignment="Left" Margin="316,0,0,0" VerticalAlignment="Top" Width="31" Height="26" Background="#FFFF7070" Cursor="Hand" Click="Btn_return_Click"/>
-        <Label x:Name="lbl_total_price_text" Content="Total price (inc. VAT) :" HorizontalAlignment="Left" Margin="154,360,0,0" VerticalAlignment="Top" Height="34" Width="135" Background="{x:Null}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lbl_total_price" Content="" Margin="289,360,0,0" Height="34" Width="58" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center"/>
-        <Button x:Name="btn_increase_item" Content="+" HorizontalAlignment="Left" Margin="0,394,0,0" VerticalAlignment="Top" Width="63" Height="51" Background="#FFC8E7F4" Click="Btn_increase_item_Click" IsEnabled="False" Cursor="Hand"/>
-        <Button x:Name="btn_decrease_item" Content="-" HorizontalAlignment="Left" Margin="68,394,0,0" VerticalAlignment="Top" Width="63" Height="51" Background="#FFC8E7F4" Click="Btn_decrease_item_Click" IsEnabled="False" Cursor="Hand"/>
-        <Button x:Name="btn_remove_item" Content="Remove" HorizontalAlignment="Left" Margin="136,394,0,0" VerticalAlignment="Top" Width="63" Height="51" Background="#FFFA7E7E" Click="Btn_remove_item_Click" IsEnabled="False" Cursor="Hand"/>
-        <Button x:Name="btn_complete_order" Content="Complete order" HorizontalAlignment="Left" Margin="204,394,0,0" VerticalAlignment="Top" Width="143" Height="51" Background="#FFA0DD96" IsEnabled="False" Click="Btn_complete_order_Click" Cursor="Hand"/>
-        <Button x:Name="btn_drinks" Content="Drinks" HorizontalAlignment="Left" Margin="655,0,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_drinks_Click" Cursor="Hand"/>
-        <Button x:Name="btn_dinner" Content="Dinner" HorizontalAlignment="Left" Margin="505,1,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_dinner_Click" Cursor="Hand"/>
-        <Button x:Name="btn_lunch" Content="Lunch" HorizontalAlignment="Left" Margin="355,1,0,0" VerticalAlignment="Top" Width="145" Height="48" Click="Btn_lunch_Click" Cursor="Hand"/>
-        <Button x:Name="btn_add_order_item" Content="Add" HorizontalAlignment="Left" Margin="689,395,0,0" VerticalAlignment="Top" Width="111" Height="50" Background="#FFC8E7F4" Click="Btn_add_order_item_Click" IsEnabled="False" Cursor="Hand"/>
-        <TextBox x:Name="txt_comments" HorizontalAlignment="Left" Height="23" Margin="446,420,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"/>
-        <Label x:Name="lbl_comments" Content="Comments:" HorizontalAlignment="Left" Margin="446,395,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.7,0.648"/>
-        <ListView x:Name="listview_menu" HorizontalAlignment="Left" Height="254" Margin="355,106,0,0" VerticalAlignment="Top" Width="445" ItemsSource="{Binding subMenu}" SelectionChanged="Listview_menu_SelectionChanged" MouseDoubleClick="Listview_menu_MouseDoubleClick">
+    <Grid Margin="0,0,0,-95" Height="495" VerticalAlignment="Top" Width="688">
+
+        <Label x:Name="lbl_new_order" Content="New order" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="131" BorderThickness="0" Background="{x:Null}" FontSize="22" Margin="10,3,0,0" FontFamily="Arial" FontWeight="Bold"/>
+        <Button x:Name="btn_return" Content="X" Foreground="White" HorizontalAlignment="Left" Margin="283,3,0,0" VerticalAlignment="Top" Width="31" Height="26" Background="#FFCE3827" Cursor="Hand" Click="Btn_return_Click" BorderBrush="#FF595959" FontFamily="Maiandra GD" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_total_price_text" Content="Total price (inc. VAT) :" HorizontalAlignment="Left" Margin="103,316,0,0" VerticalAlignment="Top" Height="24" Width="135" Background="{x:Null}" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Arial"/>
+        <Label x:Name="lbl_total_price" Content="" Margin="255,316,0,0" Height="24" Width="58" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" FontFamily="Arial"/>
+        <Button x:Name="btn_increase_item" Content="+" Foreground="White" HorizontalAlignment="Left" Margin="10,344,0,0" VerticalAlignment="Top" Width="55" Height="45" Background="#FFC7CBCF" Click="Btn_increase_item_Click" IsEnabled="False" Cursor="Hand" FontFamily="Arial" FontSize="20" FontWeight="Bold" VerticalContentAlignment="Center"/>
+        <Button x:Name="btn_decrease_item" Content="-" Foreground="White" HorizontalAlignment="Left" Margin="70,344,0,0" VerticalAlignment="Top" Width="55" Height="45" Background="#FFC7CBCF" Click="Btn_decrease_item_Click" IsEnabled="False" Cursor="Hand" FontFamily="Arial" FontSize="20" FontWeight="Bold"/>
+        <Button x:Name="btn_remove_item" Content="DEL" Foreground="White" HorizontalAlignment="Left" Margin="130,344,0,0" VerticalAlignment="Top" Width="55" Height="45" Background="#FFCE3827" Click="Btn_remove_item_Click" IsEnabled="False" Cursor="Hand" FontFamily="Arial" FontWeight="Bold"/>
+        <Button x:Name="btn_complete_order" Content="CONFIRM" Foreground="White" HorizontalAlignment="Left" Margin="190,344,0,0" VerticalAlignment="Top" Width="124" Height="45" Background="#FF697C49" IsEnabled="False" Click="Btn_complete_order_Click" Cursor="Hand" FontFamily="Arial" FontSize="14" FontWeight="Bold"/>
+        <Button x:Name="btn_drinks" Content="Drinks" HorizontalAlignment="Left" Margin="563,3,0,0" VerticalAlignment="Top" Width="115" Height="45" Click="Btn_drinks_Click" Cursor="Hand" Background="#FFC7CBCF" FontFamily="Arial"/>
+        <Button x:Name="btn_dinner" Content="Dinner" HorizontalAlignment="Left" Margin="441,3,0,0" VerticalAlignment="Top" Width="115" Height="45" Click="Btn_dinner_Click" Cursor="Hand" Background="#FFC7CBCF" FontFamily="Arial"/>
+        <Button x:Name="btn_lunch" Content="Lunch" HorizontalAlignment="Left" Margin="319,3,0,0" VerticalAlignment="Top" Width="115" Height="45" Click="Btn_lunch_Click" Cursor="Hand" Background="#FFC7CBCF" FontFamily="Arial"/>
+        <Button x:Name="btn_add_order_item" Content="ADD" Foreground="White" HorizontalAlignment="Left" Margin="598,344,0,0" VerticalAlignment="Top" Width="80" Height="45" Background="#FFE8A83A" Click="Btn_add_order_item_Click" IsEnabled="False" Cursor="Hand" FontFamily="Arial" FontWeight="Bold"/>
+        <TextBox x:Name="txt_comments" HorizontalAlignment="Left" Height="23" Margin="352,366,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" FontFamily="Arial"/>
+        <Label x:Name="lbl_comments" Content="Comments:" HorizontalAlignment="Left" Margin="352,310,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.7,0.648" FontFamily="Arial"/>
+        <ListView x:Name="listview_menu" HorizontalAlignment="Left" Height="185" Margin="319,101,0,0" VerticalAlignment="Top" Width="359" ItemsSource="{Binding subMenu}" SelectionChanged="Listview_menu_SelectionChanged" MouseDoubleClick="Listview_menu_MouseDoubleClick" Background="#FFECF0F1" FontFamily="Arial" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="Black">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="White"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Path=Stock}" Value="0">
+                            <Setter Property="Background" Value="#C7CBCF"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Item name" DisplayMemberBinding="{Binding Path=Name}" Width="365"/>
-                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=Cost, StringFormat=N2}" Width="80"/>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="Item name" DisplayMemberBinding="{Binding Path=Name}" Width="280"/>
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Path=Cost, StringFormat=N2}" Width="79"/>
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <StackPanel x:Name="StackPanel_sub_category" HorizontalAlignment="Center" Height="47" Margin="355,54,0,0" VerticalAlignment="Top" Width="445" Orientation="Horizontal">
+        <StackPanel x:Name="StackPanel_sub_category" HorizontalAlignment="Center" Height="43" Margin="319,53,10,0" VerticalAlignment="Top" Width="355" Orientation="Horizontal">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}">
-                    <Setter Property="Margin" Value="0,0,4,0"/>
+                    <Setter Property="Margin" Value="3,0,3,0"/>
                 </Style>
             </StackPanel.Resources>
         </StackPanel>
-        <DataGrid x:Name="dataGrid_order" HorizontalAlignment="Left" Height="306" Margin="0,54,0,0" VerticalAlignment="Top" Width="347" AutoGenerateColumns="False" HorizontalGridLinesBrush="Gray" VerticalGridLinesBrush="Gray" AlternationCount="1" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGrid_order_SelectionChanged" Background="White" CanUserResizeColumns="False" CanUserReorderColumns="False">
+        <DataGrid x:Name="dataGrid_order" HorizontalAlignment="Left" Height="235" Margin="10,51,0,0" VerticalAlignment="Top" Width="304" AutoGenerateColumns="False" HorizontalGridLinesBrush="#FFB1B1B1" VerticalGridLinesBrush="#FFC8C8C8" AlternationCount="1" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGrid_order_SelectionChanged" Background="#FFECF0F1" CanUserResizeColumns="False" CanUserReorderColumns="False" BorderBrush="Gray" RowBackground="#FFECF0F1" GridLinesVisibility="None" FontFamily="Arial" SelectionMode="Single" AreRowDetailsFrozen="True" HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Style.Triggers>
+                        <Trigger Property="DataGridCell.IsSelected" Value="True">
+                            <Setter Property="Background" Value="White" />
+                            <Setter Property="Foreground" Value="Black"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
-
-                <DataGridTextColumn Binding="{Binding Path=NameAndComment}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Item name" SortDirection="Descending" Width="230"/>
-                <DataGridTextColumn Binding="{Binding Path=Amount}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Quantity" SortDirection="Descending" Width="56"/>
-                <DataGridTextColumn Binding="{Binding Path=TotalPrice, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Price" SortDirection="Descending" Width="59"/>
+                <DataGridTextColumn Binding="{Binding Path=NameAndComment}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Item name" SortDirection="Descending" Width="200" FontFamily="Arial">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="BorderBrush" Value="DarkGray"/>
+                            <Setter Property="BorderThickness" Value="1,0,1,1"/>
+                            <Setter Property="Padding" Value="77,3,0,3"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=Amount}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Quantity" SortDirection="Descending" Width="50" FontFamily="Arial">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="BorderBrush" Value="DarkGray"/>
+                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                            <Setter Property="Padding" Value="3,3,0,3"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=TotalPrice, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" ClipboardContentBinding="{x:Null}" Header="Price" SortDirection="Descending" Width="53" FontFamily="Arial">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="BorderBrush" Value="DarkGray"/>
+                            <Setter Property="BorderThickness" Value="0,0,1,1"/>
+                            <Setter Property="Padding" Value="12,3,0,3"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="" HorizontalAlignment="Left" Margin="154,1,0,0" VerticalAlignment="Top" Height="48" Width="157" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25"/>
+        <Label x:Name="lbl_table_nr" Content="" HorizontalAlignment="Left" Margin="154,3,0,0" VerticalAlignment="Top" Height="38" Width="117" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="20" FontFamily="Arial"/>
+
+        <Border BorderThickness="0" Grid.Row="0"
+                
+        CornerRadius="0,0,5,5" BorderBrush="Black" Background="#949494" Margin="10,286,374,185" RenderTransformOrigin="0.5,0.5" Height="24">
+
+        </Border>
+        <Label x:Name="lbl_amount_drinks" Content="" Margin="20,287,648,184" Background="{x:Null}" FontFamily="Arial" FontWeight="Bold" Foreground="White" HorizontalContentAlignment="Center" Width="20" Height="24" FontSize="11" />
+        <Label x:Name="lbl_amount_customers" Content="" Margin="32,287,631,184" Background="{x:Null}" FontFamily="Arial" Foreground="White" FontWeight="Bold" Height="24" FontSize="11" Width="25"/>
+        <Label Content="Drinks" HorizontalAlignment="Left" Margin="57,287,0,0" VerticalAlignment="Top" Height="24" Width="47" Foreground="White" FontFamily="Arial"/>
+
+        <Label x:Name="lbl_amount_lunch" Content="" Margin="117,287,551,184" Background="{x:Null}" FontFamily="Arial" FontWeight="Bold" Foreground="White" Width="20" Height="24" FontSize="11" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_amount_customers_Copy" Content="{Binding customer_count, StringFormat=/{0}}" Margin="129,287,533,184" Background="{x:Null}" FontFamily="Arial" Foreground="White" FontWeight="Bold" Width="26" Height="24" FontSize="11"/>
+        <Label Content="Lunch" HorizontalAlignment="Left" Margin="155,287,0,0" VerticalAlignment="Top" Height="24" Width="43" Foreground="White" FontFamily="Arial"/>
+
+        <Label x:Name="lbl_amount_dinner" Content="" Margin="218,287,450,184" Background="{x:Null}" FontFamily="Arial" FontWeight="Bold" Foreground="White" Width="20" Height="24" FontSize="11" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_amount_customers_Copy1" Content="" Margin="230,287,433,184" Background="{x:Null}" FontFamily="Arial" Foreground="White" FontWeight="Bold" Width="25" Height="24" FontSize="11"/>
+        <Label Content="Dinner" HorizontalAlignment="Left" Margin="255,287,0,0" VerticalAlignment="Top" Height="24" Width="48" Foreground="White" FontFamily="Arial"/>
+        <WrapPanel x:Name="wrappanel_meat_comment" HorizontalAlignment="Left" Height="27" Margin="352,334,0,134" VerticalAlignment="Center" Width="226"/>
+        <WrapPanel x:Name="wrappanel_sub_category" HorizontalAlignment="Left" Height="43" Margin="303,273,0,0" VerticalAlignment="Top" Width="359"/>
+
     </Grid>
 </Page>

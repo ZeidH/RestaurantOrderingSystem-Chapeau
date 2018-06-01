@@ -50,6 +50,32 @@ namespace ChapeauLogic
             item_DAO.Db_add_item(orderItems);
         }
 
+        public bool CheckLunchTime()
+        {
+            int hour = DateTime.Now.Hour;
+            return ((hour >= 11) && (hour <= 15));
+        }
+
+        public List<Item> RefreshStock(List<Item> menu)
+        {
+            List<int> newStock = item_DAO.Db_refresh_stock();
+            for (int i = 0; i < menu.Count; i++)
+            {
+                menu[i].Stock = newStock[i];
+            }
+            return menu;
+        }
+
+        public bool VerifyStock(Item item)
+        {
+            return item_DAO.Db_verify_stock(item) > 0;
+        }
+
+        public void UpdateStock(OrderItem orderItem)
+        {
+            item_DAO.Db_update_stock(orderItem);
+        }
+
         private void AddFinalProperties(OrderItem orderItem, DateTime date)
         {
             orderItem.Time = date;
@@ -92,6 +118,7 @@ namespace ChapeauLogic
 
         public List<OrderItem> DeleteOrderItem(List<OrderItem> order, OrderItem orderItem)
         {
+            orderItem.Item.Stock += orderItem.Amount;
             order.Remove(orderItem);
             return order;
         }
@@ -136,6 +163,15 @@ namespace ChapeauLogic
                 total_cost += orderItem.Item.Cost * orderItem.Amount;
             }
             return total_cost;
+        }
+
+        public bool CheckDinnerItem(Item item)
+        {
+            if (item.DinnerSubCategory == Dinner.Mains)
+            {
+                return item_DAO.Db_select_meat_type(item.Item_id);
+            }
+            return false;
         }
     }
 }
