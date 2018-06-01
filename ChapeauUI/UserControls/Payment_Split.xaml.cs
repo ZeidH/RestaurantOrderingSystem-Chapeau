@@ -71,7 +71,7 @@ namespace ChapeauUI
                 Width = 30,
                 Height = 25,
                 Margin = new Thickness(0, 0, 5, 0),
-                Background = new SolidColorBrush(Color.FromArgb(100, 255, 255, 153))
+                Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 153))
             };
 
             Grid.SetColumn(button1, 1);
@@ -85,7 +85,7 @@ namespace ChapeauUI
                 Width = 30,
                 Height = 25,
                 Margin = new Thickness(0, 0, 8, 0),
-                Background = new SolidColorBrush(Color.FromArgb(100, 255, 255, 153))
+                Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 153))
             };
             Grid.SetColumn(button5, 2);
             Grid.SetRow(button5, i);
@@ -100,7 +100,7 @@ namespace ChapeauUI
                 Name = $"btn_Delete_{i}",
                 Width = 30,
                 Height = 25,
-                Background = new SolidColorBrush(Color.FromArgb(100, 249, 85, 85))
+                Background = new SolidColorBrush(Color.FromArgb(255, 249, 85, 85))
             };
             if (i == (payment.CustomerCount - 1))
             {
