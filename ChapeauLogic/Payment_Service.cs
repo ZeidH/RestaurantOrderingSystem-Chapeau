@@ -12,15 +12,9 @@ namespace ChapeauLogic
     public class Payment_Service
     {
         private Payment_DAO payment_DAO = new Payment_DAO();
+        private int paymentCount = 0;
 
         // Main Payment View
-
-        public void SetPayment(Payment payment, float tip, string comment)
-        {
-            payment.Tip = tip;
-            payment.Comment = comment;
-        }
-
         public List<OrderItem> GetReceipt(int order_id)
         {
             List<OrderItem> order = payment_DAO.Db_select_order_items(order_id);
@@ -37,7 +31,11 @@ namespace ChapeauLogic
         }
         public void InsertPayment(Payment payment)
         {
-            payment_DAO.Db_set_payment(payment);
+            if ((payment.SplitPayment == true) && (paymentCount != payment.CustomerCount))
+            {
+                payment_DAO.Db_set_payment(payment);
+                paymentCount++;
+            }
         }
 
         public PayMethod GetPayMethod(string content)

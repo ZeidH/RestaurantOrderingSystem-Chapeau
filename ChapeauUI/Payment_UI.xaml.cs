@@ -17,6 +17,7 @@ namespace ChapeauUI
     {
         private Payment payment;
         private Payment_Service payment_Logic = new Payment_Service();
+        private int paidCustomer = 0; // idk?
 
         public Payment_UI(int order_id, int customer_count)
         {
@@ -39,30 +40,28 @@ namespace ChapeauUI
             total_price.Content = $"Total Price: {payment.Price.ToString("0.00 €")}";
             vat_price.Content = $"Vat Price: {payment.Vat.ToString("0.00 €")}";
             btn_Payment_Finish.IsEnabled = false;
+            if(payment.CustomerCount < 2)
+            {
+                Btn_Split.IsEnabled = false;
+            }
         }
 
         private void Btn_Payment_Finish_Click(object sender, RoutedEventArgs e)
-        {
-            // Radio button animation if user click finish when r button is not clicked.
-            //if (payment.Method == null)
-            //{
-            //    DoubleAnimation animation = new DoubleAnimation(2, new Duration(TimeSpan.FromSeconds(1.5)));
-            //    Pin_rBtn.BeginAnimation(WidthProperty, animation);
-            //    return;
-            //}
-            //Another time...
-
-            float tip = 0;
-
+        { 
             // Get information from textbox
-            string comment = comment_Box.Text;
+            payment.Comment = comment_Box.Text;
 
-            // Fill the payment with information then send information to db
-            payment_Logic.SetPayment(payment, tip, comment);
+            // Send information to db
             payment_Logic.InsertPayment(payment);
-
-            // Direct to tableview when order is finalized.
-            NavigationService.Navigate(new Tableview_UI());
+            if (payment.SplitPayment == true && paidCustomer != payment.CustomerCount)
+            {
+                paidCustomer++;
+            }
+            else
+            {
+                // Direct to tableview when order is finalized
+                NavigationService.Navigate(new Tableview_UI());
+            }
         }
 
         private void Radio_Btn_Checked(object sender, RoutedEventArgs e)
@@ -91,6 +90,7 @@ namespace ChapeauUI
         private void Btn_Split_Click(object sender, RoutedEventArgs e)
         {
             SplitPanel();
+            payment.SplitPayment = true;
         }
         private void SplitPanel()
         {
