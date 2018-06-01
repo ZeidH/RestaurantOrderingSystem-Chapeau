@@ -83,11 +83,14 @@ namespace ChapeauUI
             payment.Method = method;
             if (payment.Method == PayMethod.Cash)
             {
-                tip_Box.IsEnabled = true;
+                Payment_Tip tip = new Payment_Tip(payment.Price);
+                tip_panel.Children.Add(tip);
+                //tip_Box.IsEnabled = true;
             }
             else
             {
-                tip_Box.IsEnabled = false;
+                tip_panel.Children.Clear();
+                //tip_Box.IsEnabled = false;
             }
         }
 
