@@ -11,7 +11,6 @@
     <Grid Margin="0,0,-0.2,0.6">
 
         <Button x:Name="btn_Payment_Finish" Content="Finalize" HorizontalAlignment="Left" Margin="41,335,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Btn_Payment_Finish_Click" Background="#FFA0DD96"/>
-        <TextBox x:Name="tip_Box" HorizontalAlignment="Left" Height="16" Margin="60,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="32"/>
 
 
         <TextBox x:Name="comment_Box" HorizontalAlignment="Left" Height="43" Margin="120,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
@@ -23,8 +22,6 @@
         <RadioButton x:Name="Pin_rBtn" Content="Pin" HorizontalAlignment="Left" Margin="16,219,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked" />
         <RadioButton x:Name="Credit_rBtn" Content="Credit" HorizontalAlignment="Left" Margin="81,219,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
         <RadioButton x:Name="Cash_rBtn" Content="Cash" HorizontalAlignment="Left" Margin="155,219,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
-
-        <Label Content="Tip: " HorizontalAlignment="Left" Margin="28,50,0,0" VerticalAlignment="Top"/>
         <Label Content="Order Comment:" HorizontalAlignment="Left" Margin="16,116,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_order" FontSize="12" HorizontalAlignment="Left" Margin="0,-9,0,0" VerticalAlignment="Top" Height="30" Width="88"/>
         <Label x:Name="total_price" HorizontalAlignment="Left" Margin="377,232,0,0" VerticalAlignment="Top"/>

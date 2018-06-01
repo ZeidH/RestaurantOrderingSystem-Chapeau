@@ -39,7 +39,6 @@ namespace ChapeauUI
             total_price.Content = $"Total Price: {payment.Price.ToString("0.00 €")}";
             vat_price.Content = $"Vat Price: {payment.Vat.ToString("0.00 €")}";
             btn_Payment_Finish.IsEnabled = false;
-            tip_Box.IsEnabled = false;
         }
 
         private void Btn_Payment_Finish_Click(object sender, RoutedEventArgs e)
@@ -55,12 +54,7 @@ namespace ChapeauUI
 
             float tip = 0;
 
-            // Get information from textboxes
-            if (tip_Box.Text != "")
-            {
-                tip = float.Parse(tip_Box.Text);
-            }
-
+            // Get information from textbox
             string comment = comment_Box.Text;
 
             // Fill the payment with information then send information to db
@@ -83,14 +77,13 @@ namespace ChapeauUI
             payment.Method = method;
             if (payment.Method == PayMethod.Cash)
             {
-                Payment_Tip tip = new Payment_Tip(payment.Price);
+                Payment_Tip tip = new Payment_Tip(payment);
                 tip_panel.Children.Add(tip);
-                //tip_Box.IsEnabled = true;
             }
             else
             {
+                payment.Tip = 0;
                 tip_panel.Children.Clear();
-                //tip_Box.IsEnabled = false;
             }
         }
 
@@ -107,7 +100,6 @@ namespace ChapeauUI
             Btn_Undo_Split.Visibility = Visibility.Visible;
             btn_even_split.Visibility = Visibility.Visible;
         }
-
 
         private void Btn_Undo_Split_Click(object sender, RoutedEventArgs e)
         {

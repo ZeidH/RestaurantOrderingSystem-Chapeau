@@ -57,7 +57,6 @@ namespace ChapeauLogic
         }
 
         // UserControl Payment_Split
-
         public void CalculateGuestPrice(int i, List<float> guestPrice, float change, int id)
         {
             while (i < guestPrice.Count)

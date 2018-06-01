@@ -22,36 +22,34 @@ namespace ChapeauUI
     /// </summary>
     public partial class Payment_Tip : UserControl
     {
-        private float total_price;
         private Payment payment;
-        public Payment_Tip(float total_price, Payment payment)
+        public Payment_Tip(Payment payment)
         {
             InitializeComponent();
-            this.total_price = total_price;
             this.payment = payment;
-            lbl_tip.Content = total_price;
+            lbl_tip.Content = payment.Price;
         }
 
         private void Btn_1_Click(object sender, RoutedEventArgs e)
         {
             payment.Tip += 1;
-            TotalVatPrice();
+            UpdateLabel();
         }
 
         private void Btn_5_Click(object sender, RoutedEventArgs e)
         {
             payment.Tip += 5;
-            TotalVatPrice();
+            UpdateLabel();
         }
 
         private void Btn_Zero_Click(object sender, RoutedEventArgs e)
         {
             payment.Tip = 0;
-            TotalVatPrice();
+            UpdateLabel();
         }
-        private void TotalVatPrice()
+        private void UpdateLabel()
         {
-            total_price += payment.Tip;
+            lbl_tip.Content = payment.TotalPrice;
         }
     }
 }
