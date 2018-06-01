@@ -9,8 +9,15 @@
       Title="Login_UI">
 
     <Grid>
-        <Label >
-            <Button Content="Button" Width="75" Click="Button_Click"/>
-        </Label>
+        <Label x:Name="lbl_login" Content="Chapeau" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" FontSize="90" Margin="246,-6,196,300" Height="156"/>
+        <Label x:Name="lbl_login2" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{x:Null}" FontSize="60" Margin="410,94,234,266"/>
+        <Label x:Name="Username" Content="Username:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25
+" Margin="190,214,0,193"/>
+        <Label x:Name="Password" Content="Password:" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="25
+" Margin="190,276,0,132"/>
+        <TextBox x:Name="username_txtbox" Background="Gray" Foreground="White" Margin="334,216,138,192" />
+        <TextBox x:Name="password_txtbox" Background="Gray" Foreground="White" Margin="334,276,138,132" />
+        <Button x:Name="Login_button" Content="Login" Background="Aqua" Foreground="White" Margin="190,349,138,48" FontSize="30" Click="Login_button_Click"/>
+
     </Grid>
 </Page>
