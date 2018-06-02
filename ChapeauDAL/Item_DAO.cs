@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using ChapeauModel;
-using System.Transactions;
 /// <summary>
 /// We need to stop making queries for ourselves and make them so that everyone can be able to use it. Get whole menu query instead of get part of menu query.
 /// </summary>
@@ -48,7 +44,6 @@ namespace ChapeauDAL
                         Value = orderItem.Item.Item_id
                     };
                     ExecuteEditQuery(query, sqlParameter);
-                    Db_update_stock(orderItem);
                 }
             }
             catch (Exception e)
@@ -58,6 +53,56 @@ namespace ChapeauDAL
                 throw;
             }
 
+        }
+
+        public int Db_verify_stock(Item item)
+        {
+            string query = string.Format("SELECT item_stock FROM ITEM where item_id = @itemid");
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@itemid", SqlDbType.Int)
+            {
+                Value = item.Item_id
+            };
+            try
+            {
+                return VerifyStock(ExecuteSelectQuery(query, sqlParameters));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private int VerifyStock(DataTable dataTable)
+        {
+            int stock = (int)dataTable.Rows[0]["item_stock"];
+            return stock;
+        }
+
+        public List<int> Db_refresh_stock()
+        {
+            string query = "SELECT item_stock FROM ITEM";
+            SqlParameter[] sqlParameters = new SqlParameter[0];
+            try
+            {
+                return RefreshStock(ExecuteSelectQuery(query, sqlParameters));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private List<int> RefreshStock(DataTable dataTable)
+        {
+            List<int> stocks = new List<int>();
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                int stock = (int)dr["item_stock"];
+                stocks.Add(stock);
+            }
+            return stocks;
         }
 
         public void Db_update_stock(OrderItem orderItem)
@@ -80,9 +125,17 @@ namespace ChapeauDAL
             string query = "SELECT i.item_id, i.item_name, i.item_cost, i.item_stock, d.drink_category, l.lunch_category, di.dinner_category, d.drink_vat " +
                            "FROM((ITEM as i left JOIN drink as d on i.item_id = d.drink_id) left join LUNCH as l on i.item_id = l.lunch_id) left join dinner as di on i.item_id = di.dinner_id";
             SqlParameter[] sqlParameters = new SqlParameter[0];
-            return ReadMenu(ExecuteSelectQuery(query, sqlParameters));
-        }
+            try
+            {
+                return ReadMenu(ExecuteSelectQuery(query, sqlParameters));
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+
+        }
         private List<Item> ReadMenu(DataTable dataTable)
         {
             List<Item> menu = new List<Item>();
@@ -99,6 +152,7 @@ namespace ChapeauDAL
                 {
                     item.Category = MenuCategory.Drink;
                     item.DrinkSubCategory = (Drink)Int16.Parse(dr["drink_category"].ToString());
+                    item.Vat = (Vat)Int16.Parse(dr["drink_vat"].ToString());
                 }
                 if (!dr.IsNull("lunch_category"))
                 {
@@ -107,12 +161,34 @@ namespace ChapeauDAL
                 }
                 if (!dr.IsNull("dinner_category"))
                 {
-                    item.Category = MenuCategory.Drink;
+                    item.Category = MenuCategory.Dinner;
                     item.DinnerSubCategory = (Dinner)Int16.Parse(dr["dinner_category"].ToString());
                 }
                 menu.Add(item);
             }
             return menu;
         }
+
+        public bool Db_select_meat_type(int item_id)
+        {
+            ErrorFilePrint print = new ErrorFilePrint();
+            string query = "SELECT has_meat_type FROM dinner where dinner_id = @itemid";
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@itemid", SqlDbType.Int)
+            {
+                Value = item_id
+            };
+            try
+            {
+                return ReadMeatType(ExecuteSelectQuery(query, sqlParameters));
+            }
+            catch (Exception e)
+            {
+                print.ErrorLog(e);
+                throw e;
+            }
+        }
+
+        private bool ReadMeatType(DataTable dataTable) => (bool)dataTable.Rows[0]["has_meat_type"];
     }
 }

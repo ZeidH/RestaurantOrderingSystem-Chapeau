@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:ChapeauUI"
         mc:Ignorable="d"
         WindowStyle="None"
-        Title="Chapeau" Height="434.279" Width="697.818">
-    <Grid Margin="0,0,3.2,4.8">
+        Title="Chapeau" Height="434" Width="698">
+    <Window.Background>
+        <ImageBrush ImageSource="Images/Background.jpg"/>
+    </Window.Background>
+    
+        <Grid Margin="0,0,3.2,4.8">
 
         <Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
 

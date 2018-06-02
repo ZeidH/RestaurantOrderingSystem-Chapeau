@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ChapeauUI">
+
+    <!--Orderview base-->
+    <Style TargetType="{x:Type Button}" x:Key="Orderview">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    
+    <!--Orderview menu category-->
+    <Style TargetType="{x:Type Button}" x:Key="MenuCategory" BasedOn="{StaticResource Orderview}">
+        <Setter Property="Background" Value="{StaticResource LightGrayBrush}"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="Margin" Value="2,0,2,0"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="ClickedMenuCategory" BasedOn="{StaticResource MenuCategory}">
+        <Setter Property="Background" Value="{StaticResource DarkBlueBrush}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="BorderBrush" Value="White"/>
+    </Style>
+
+    <!--Orderview Increase/Decrease-->
+    <Style TargetType="{x:Type Button}" x:Key="Quantity" BasedOn="{StaticResource Orderview}">
+        <Setter Property="Background" Value="{StaticResource YellowBrush}"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Padding" Value="0,0,0,5"/>
+    </Style>
+    
+    <!--Orderview Delete-->
+    <Style TargetType="{x:Type Button}" x:Key="Delete" BasedOn="{StaticResource Orderview}">
+        <Setter Property="Background" Value="{StaticResource RedBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+    
+    <!--Orderview Confirm-->
+    <Style TargetType="{x:Type Button}" x:Key="Confirm" BasedOn="{StaticResource Orderview}">
+        <Setter Property="Background" Value="{StaticResource RegularGreenBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <!--Orderview Add-->
+    <Style TargetType="{x:Type Button}" x:Key="Add" BasedOn="{StaticResource Orderview}">
+        <Setter Property="Background" Value="{StaticResource LightGreenBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <!--Orderview meat comments-->
+    <Style TargetType="{x:Type Button}" x:Key="MeatComments" BasedOn="{StaticResource Orderview}">
+        <Setter Property="Background" Value="{StaticResource MidDarkGrayBrush}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+    
+    <!--Orderview cross button-->
+    <Style TargetType="{x:Type Button}" x:Key="Close" BasedOn="{StaticResource Orderview}">
+        <Setter Property="Background" Value="{StaticResource RedBrush}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+    
+</ResourceDictionary>

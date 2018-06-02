@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ChapeauModel
 {
-    public enum Drink
+    public enum CookingLevel
     {
-        Soft, Hot, Beers, Wines
+        R, M, WD
     }
 }
