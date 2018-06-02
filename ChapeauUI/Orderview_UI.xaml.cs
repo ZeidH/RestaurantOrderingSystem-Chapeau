@@ -156,11 +156,11 @@ namespace ChapeauUI
             if (listview_menu.SelectedItem != null)
             {
                 wrappanel_meat_comment.Children.Clear();
-                lbl_comments.Margin = new Thickness(left: 34, top: 342, right: 0, bottom: 0);
+                lbl_comments.Margin = new Thickness(left: 34.2, top: 364, right: 0, bottom: 0);
                 selectedMenuItem = (Item)listview_menu.SelectedItem;
                 if (item_logic.CheckDinnerItem(selectedMenuItem))
                 {
-                    lbl_comments.Margin = new Thickness(left: 34, top: 310, right: 0, bottom: 0);
+                    lbl_comments.Margin = new Thickness(left: 34.2, top: 333, right: 0, bottom: 0);
                     Orderview_MeatComments _MeatComments = new Orderview_MeatComments(txt_comments);
                     wrappanel_meat_comment.Children.Add(_MeatComments);
                 }
