@@ -10,7 +10,7 @@ using ChapeauModel;
 namespace ChapeauDAL
 {
     public class Login_DAO : Base
-    {
+    { 
         public void checkCredentials(Login login)
         {
             string query = "SELECT user_name, pwdHash FROM [LOGIN] WHERE user_name = @username, pwdHash = @password";
@@ -24,7 +24,7 @@ namespace ChapeauDAL
 
             sqlParameters[1] = new SqlParameter("@password", SqlDbType.NChar)
             {
-               Value = login.pwdhash
+                Value = login.pwdhash
             };
 
             ExecuteSelectQuery(query, sqlParameters);
