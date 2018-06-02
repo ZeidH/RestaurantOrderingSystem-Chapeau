@@ -1,40 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ChapeauModel;
 using ChapeauDAL;
-using System.Configuration;
-using System.Data;
 
 namespace ChapeauLogic
 {
     public class Item_Service
     {
         private Item_DAO item_DAO = new Item_DAO();
-        public List<Item> ReadMenu()
-        {
-            return item_DAO.Db_select_meu();
-        }
+        public List<Item> ReadMenu() => item_DAO.Db_select_meu();
 
         public List<Item> GetSubMenu(List<Item> menu, string subCategory)
         {
             string[] splitted = subCategory.Split(' ');
             List<Item> subMenu = new List<Item>();
-            for (int i = 0; i < menu.Count; i++)
+            foreach (Item item in menu)
             {
-                if (splitted[1] == menu[i].LunchSubCategory.ToString())
+                if (splitted[1] == item.LunchSubCategory.ToString())
                 {
-                    subMenu.Add(menu[i]);
+                    subMenu.Add(item);
                 }
-                else if (splitted[1] == menu[i].DinnerSubCategory.ToString())
+                else if (splitted[1] == item.DinnerSubCategory.ToString())
                 {
-                    subMenu.Add(menu[i]);
+                    subMenu.Add(item);
                 }
-                else if (splitted[1] == menu[i].DrinkSubCategory.ToString())
+                else if (splitted[1] == item.DrinkSubCategory.ToString())
                 {
-                    subMenu.Add(menu[i]);
+                    subMenu.Add(item);
                 }
             }
             return subMenu;
@@ -66,15 +58,9 @@ namespace ChapeauLogic
             return menu;
         }
 
-        public bool VerifyStock(Item item)
-        {
-            return item_DAO.Db_verify_stock(item) > 0;
-        }
+        public bool VerifyStock(Item item) => item_DAO.Db_verify_stock(item) > 0;
 
-        public void UpdateStock(OrderItem orderItem)
-        {
-            item_DAO.Db_update_stock(orderItem);
-        }
+        public void UpdateStock(OrderItem orderItem) => item_DAO.Db_update_stock(orderItem);
 
         private void AddFinalProperties(OrderItem orderItem, DateTime date)
         {
@@ -84,16 +70,6 @@ namespace ChapeauLogic
             {
                 orderItem.Comment = "";
             }
-        }
-
-        public float TotalCost(List<Item> items)
-        {
-            float total_cost = 0;
-            foreach (Item item in items)
-            {
-                total_cost += item.Cost;
-            }
-            return total_cost;
         }
 
         public void IncreaseAmount(OrderItem orderItem)
@@ -123,48 +99,25 @@ namespace ChapeauLogic
             return order;
         }
 
-        public bool CheckStock(int stock)
-        {
-            return stock > 0;
-        }
+        public bool CheckStock(int stock) => stock > 0;
 
-        public bool CheckAmount(int amount)
-        {
-            return amount > 1;
-        }
+        public bool CheckAmount(int amount) => amount > 1;
 
-        public bool CheckOrderCount(List<OrderItem> order)
-        {
-            return order.Count > 0;
-        }
+        public bool CheckOrderCount(List<OrderItem> order) => order.Count > 0;
 
-        public List<bool> CheckOrderStock(List<Item> subMenuItems)
-        {
-            List<bool> op = new List<bool>();
-            for (int i = 0; i < subMenuItems.Count; i++)
-            {
-                if (subMenuItems[i].Stock > 0)
-                {
-                    op.Add(true);
-                    continue;
-                }
-                op.Add(false);
-            }
-            return op;
-        }
-
-        //remove
+        //remove? ask 
         public float GetTotalCost(List<OrderItem> items)
         {
             float total_cost = 0;
             foreach (OrderItem orderItem in items)
             {
-                //Maybe use payment? vat?
+                //payment stuff
                 total_cost += orderItem.Item.Cost * orderItem.Amount;
             }
             return total_cost;
         }
 
+        //Check if item is a meat 
         public bool CheckDinnerItem(Item item)
         {
             if (item.DinnerSubCategory == Dinner.Mains)

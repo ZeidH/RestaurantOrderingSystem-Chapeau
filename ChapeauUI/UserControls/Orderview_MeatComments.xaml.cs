@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ChapeauModel;
 
 namespace ChapeauUI
@@ -22,9 +11,11 @@ namespace ChapeauUI
     /// </summary>
     public partial class Orderview_MeatComments : UserControl
     {
-        public Orderview_MeatComments()
+        private TextBox txt_comment;
+        public Orderview_MeatComments(TextBox txt_comment)
         {
             InitializeComponent();
+            this.txt_comment = txt_comment;
             CreateMeatCommmentButton();
         }
 
@@ -50,17 +41,36 @@ namespace ChapeauUI
 
         private Button GetButton(string level)
         {
-            return new Button
+            Style style = Application.Current.FindResource("MeatComments") as Style;
+            Button button = new Button()
             {
+                Style = style,
                 Content = level,
-                Cursor = Cursors.Hand,
                 Name = level,
-                Background = new SolidColorBrush(Color.FromArgb(a: 255, r: 148, g: 148, b: 148)),
-                Foreground = new SolidColorBrush(Color.FromArgb(a: 255, r: 255, g: 255, b: 255)),
-                FontFamily = new FontFamily("Arial"),
                 Opacity = 0,
                 Width = 70
             };
+            button.Click += new RoutedEventHandler(ButtonMeatComment_Click);
+            return button;
+        }
+
+        private void ButtonMeatComment_Click(object sender, RoutedEventArgs e)
+        {
+            string comment = (sender as Button).Content.ToString();
+            switch (comment)
+            {
+                case "R":
+                    txt_comment.Text += " Rare ";
+                    break;
+                case "M":
+                    txt_comment.Text += " Medium ";
+                    break;
+                case "WD":
+                    txt_comment.Text += " Well-done";
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

@@ -5,10 +5,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Media.Animation;
-using System.Data;
+using System.Windows.Media;
 using ChapeauLogic;
 using ChapeauModel;
-using System.Windows.Media;
 
 namespace ChapeauUI
 {
@@ -18,9 +17,9 @@ namespace ChapeauUI
     public partial class Orderview_UI : Page
     {
         private int order_id;
-        private int amount_drinks = 0;
-        private int amount_lunch = 0;
-        private int amount_dinner = 0;
+        private int amount_drinks;
+        private int amount_lunch;
+        private int amount_dinner;
         private Item_Service item_logic = new Item_Service();
         private Item selectedMenuItem;
         private OrderItem selectedOrderItem;
@@ -34,14 +33,17 @@ namespace ChapeauUI
             this.order_id = order_id;
             menu = item_logic.ReadMenu();
             AssignCategoryAmounts(customer_count, table_nr);
+            amount_drinks = 0;
+            amount_lunch = 0;
+            amount_dinner = 0;
         }
 
         private void AssignCategoryAmounts(int customer_count, int table_nr)
         {
             lbl_table_nr.Content = $"table {table_nr}";
-            lbl_amount_customers.Content = $"/ {customer_count}";
-            lbl_amount_customers_Copy.Content = $"/ {customer_count}";
-            lbl_amount_customers_Copy1.Content = $"/ {customer_count}";
+            lbl_amount_customers1.Content = $"/ {customer_count}";
+            lbl_amount_customers2.Content = $"/ {customer_count}";
+            lbl_amount_customers3.Content = $"/ {customer_count}";
             lbl_amount_drinks.Content = amount_drinks;
             lbl_amount_lunch.Content = amount_lunch;
             lbl_amount_dinner.Content = amount_dinner;
@@ -49,18 +51,19 @@ namespace ChapeauUI
 
         private void Btn_return_Click(object sender, RoutedEventArgs e)
         {
+            //put stock back
             NavigationService.Navigate(new Tableview_UI());
         }
 
         private void Btn_lunch_Click(object sender, RoutedEventArgs e)
         {
-            btn_lunch.Background = new SolidColorBrush(Color.FromArgb(a: 255, r: 52, g: 73, b: 94));
             if (!item_logic.CheckLunchTime())
             {
                 MessageBoxResult result = MessageBox.Show("It is not lunch time!", "Warning", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             ClearStackPanelChildren();
+            btn_lunch.Style = (Style)FindResource("ClickedMenuCategory");
             foreach (Lunch sub_category in Enum.GetValues(typeof(Lunch)))
             {
                 CreateSubCategoryButtons(sub_category.ToString());
@@ -71,8 +74,7 @@ namespace ChapeauUI
         private void Btn_dinner_Click(object sender, RoutedEventArgs e)
         {
             ClearStackPanelChildren();
-            CreateSubCategoryButtons(btn_dinner.Content.ToString());
-
+            btn_dinner.Style = (Style)FindResource("ClickedMenuCategory");
             foreach (Dinner sub_category in Enum.GetValues(typeof(Dinner)))
             {
                 CreateSubCategoryButtons(sub_category.ToString());
@@ -83,11 +85,10 @@ namespace ChapeauUI
         private void Btn_drinks_Click(object sender, RoutedEventArgs e)
         {
             ClearStackPanelChildren();
+            btn_drinks.Style = (Style)FindResource("ClickedMenuCategory");
             foreach (Drink sub_category in Enum.GetValues(typeof(Drink)))
             {
-                Orderview_sub_category sub_category_button = new Orderview_sub_category(sub_category.ToString());
-                wrappanel_sub_category.Children.Add(sub_category_button);
-                //CreateSubCategoryButtons(sub_category.ToString());
+                CreateSubCategoryButtons(sub_category.ToString());
             }
             SizeStackPanelChildren();
         }
@@ -106,15 +107,14 @@ namespace ChapeauUI
         //Create buttons, add them to stackpanel and assign .Click event handler
         private void CreateSubCategoryButtons(string sub_category)
         {
+            Style style = this.FindResource("MenuCategory") as Style;
             Button button = new Button
             {
+                Style = style,
                 Content = sub_category,
-                Cursor = Cursors.Hand,
                 Name = sub_category,
-                Background = new SolidColorBrush(Color.FromArgb(a: 255, r: 199, g: 203, b: 207)),
-                FontFamily = new FontFamily("Arial"),
-                Opacity = 0
-
+                Opacity = 0,
+                Margin = new Thickness(2, 0, 2, 0)
             };
             StackPanel_sub_category.Children.Add(button);
             DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromMilliseconds(600));
@@ -124,10 +124,27 @@ namespace ChapeauUI
         private void ClearStackPanelChildren()
         {
             StackPanel_sub_category.Children.Clear();
+            UndoButtonClickedColours();
+        }
+        private void UndoButtonClickedColours()
+        {
+            btn_lunch.Style = (Style)FindResource("MenuCategory");
+            btn_dinner.Style = (Style)FindResource("MenuCategory");
+            btn_drinks.Style = (Style)FindResource("MenuCategory");
+        }
+
+        private void UndoSubButtonClickedColours()
+        {
+            foreach (Button button in StackPanel_sub_category.Children)
+            {
+                button.Style = (Style)FindResource("MenuCategory");
+            }
         }
 
         public void ButtonSubCategory_Click(object sender, RoutedEventArgs e)
         {
+            UndoSubButtonClickedColours();
+            (sender as Button).Style = (Style)FindResource("ClickedMenuCategory");
             menu = item_logic.RefreshStock(menu);
             listview_menu.ItemsSource = null;
             List<Item> subMenu = item_logic.GetSubMenu(menu, e.Source.ToString());
@@ -138,12 +155,13 @@ namespace ChapeauUI
         {
             if (listview_menu.SelectedItem != null)
             {
-                lbl_comments.Margin = new Thickness(left: 398, top: 419, right: 0, bottom: 0);
+                wrappanel_meat_comment.Children.Clear();
+                lbl_comments.Margin = new Thickness(left: 34, top: 342, right: 0, bottom: 0);
                 selectedMenuItem = (Item)listview_menu.SelectedItem;
                 if (item_logic.CheckDinnerItem(selectedMenuItem))
                 {
-                    lbl_comments.Margin = new Thickness(left: 398, top: 385, right: 0, bottom: 0);
-                    Orderview_MeatComments _MeatComments = new Orderview_MeatComments();
+                    lbl_comments.Margin = new Thickness(left: 34, top: 310, right: 0, bottom: 0);
+                    Orderview_MeatComments _MeatComments = new Orderview_MeatComments(txt_comments);
                     wrappanel_meat_comment.Children.Add(_MeatComments);
                 }
                 btn_add_order_item.IsEnabled = item_logic.CheckStock(selectedMenuItem.Stock);

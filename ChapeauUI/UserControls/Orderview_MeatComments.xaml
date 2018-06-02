@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChapeauUI"
-             mc:Ignorable="d" Height="27" Width="226" FontFamily="Arial" FontWeight="Bold">
+             mc:Ignorable="d" Height="27" Width="226" Style="{StaticResource BaseStyle}" FontWeight="Bold">
     
     <Grid x:Name="main_grid" VerticalAlignment="Top" Height="27" Width="226">
         <Grid.ColumnDefinitions>

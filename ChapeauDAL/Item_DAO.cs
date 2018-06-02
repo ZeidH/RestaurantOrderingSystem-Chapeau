@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using ChapeauModel;
-using System.Transactions;
 /// <summary>
 /// We need to stop making queries for ourselves and make them so that everyone can be able to use it. Get whole menu query instead of get part of menu query.
 /// </summary>
@@ -48,7 +44,6 @@ namespace ChapeauDAL
                         Value = orderItem.Item.Item_id
                     };
                     ExecuteEditQuery(query, sqlParameter);
-                    //Db_update_stock(orderItem);
                 }
             }
             catch (Exception e)
@@ -104,7 +99,7 @@ namespace ChapeauDAL
             List<int> stocks = new List<int>();
             foreach (DataRow dr in dataTable.Rows)
             {
-                int stock = (int)dr["item_stock"];          
+                int stock = (int)dr["item_stock"];
                 stocks.Add(stock);
             }
             return stocks;
@@ -176,6 +171,7 @@ namespace ChapeauDAL
 
         public bool Db_select_meat_type(int item_id)
         {
+            ErrorFilePrint print = new ErrorFilePrint();
             string query = "SELECT has_meat_type FROM dinner where dinner_id = @itemid";
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@itemid", SqlDbType.Int)
@@ -186,23 +182,13 @@ namespace ChapeauDAL
             {
                 return ReadMeatType(ExecuteSelectQuery(query, sqlParameters));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                print.ErrorLog(e);
+                throw e;
             }
         }
 
-        private bool ReadMeatType(DataTable dataTable)
-        {
-            if ((bool)dataTable.Rows[0]["has_meat_type"] == true)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
+        private bool ReadMeatType(DataTable dataTable) => (bool)dataTable.Rows[0]["has_meat_type"];
     }
 }

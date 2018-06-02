@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ChapeauUI">
+
+    <!--Base-->
+    <Style TargetType="{x:Type ListView}" x:Key="BaseListview">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="{StaticResource ListBackgroundLightBrush}"/>
+    </Style>
+    
+    <!--Orderview listview-->
+    <Style TargetType="{x:Type ListView}" x:Key="MenuListview" BasedOn="{StaticResource BaseListview}">
+        <Setter Property="FontSize" Value="13"/>
+    </Style>
+
+</ResourceDictionary>

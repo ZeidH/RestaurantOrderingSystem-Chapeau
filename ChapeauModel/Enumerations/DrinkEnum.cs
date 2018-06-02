@@ -8,6 +8,6 @@ namespace ChapeauModel
 {
     public enum Drink
     {
-        SoftDrinks, HotDrinks, Beers, Wines
+        Soft, Hot, Beers, Wines
     }
 }
