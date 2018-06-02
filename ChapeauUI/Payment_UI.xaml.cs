@@ -18,6 +18,7 @@ namespace ChapeauUI
         private Payment payment;
         private Payment_Service payment_Logic = new Payment_Service();
         private Payment_Split split;
+        private Payment_Tip tip;
 
         public Payment_UI(int order_id, int customer_count)
         {
@@ -34,16 +35,16 @@ namespace ChapeauUI
             OrderList orderList = new OrderList(payment);
             order_list.Children.Add(orderList);
             //// Process the data and fill the model + calc price
-            payment = payment_Logic.GetTotalPrice(payment_Logic.GetReceipt(payment.Order_id), payment);
+            payment_Logic.GetTotalPrice(payment_Logic.GetReceipt(payment.Order_id), payment);
 
             // Display price on the labels
-            total_price.Content = $"Total Price: {payment.TotalPrice.ToString("0.00 €")}";
+            total_price.Content = $"Total Price: {payment.Price.ToString("0.00 €")}";
             vat_price.Content = $"Vat Price: {payment.Vat.ToString("0.00 €")}";
             btn_Payment_Finish.IsEnabled = false;
 
             if(payment.CustomerCount < 2)
             {
-                Btn_Split.IsEnabled = false;
+                btn_Split.IsEnabled = false;
             }
         }
 
@@ -70,6 +71,7 @@ namespace ChapeauUI
                 // Direct to tableview when order is finalized
                 NavigationService.Navigate(new Tableview_UI());
             }
+            RefreshTip();
             btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer + 1}";
         }
 
@@ -84,7 +86,7 @@ namespace ChapeauUI
             payment.Method = method;
             if (payment.Method == PayMethod.Cash)
             {
-                Payment_Tip tip = new Payment_Tip(payment);
+                tip = new Payment_Tip(payment);
                 tip_panel.Children.Add(tip);
             }
             else
@@ -97,32 +99,47 @@ namespace ChapeauUI
         //What exactly does this need to do...? Ask Nymp/Erwin/Gerwin
         private void Btn_Split_Click(object sender, RoutedEventArgs e)
         {
-            SplitPanel();
             payment.SplitPayment = true;
+            payment.Tip = 0;
+            SplitPanel();
         }
         private void SplitPanel()
         {
             split = new Payment_Split(payment);
-            test_panel.Children.Add(split);
+            receipt_panel.Children.Add(split);
             btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer+1}";
-            Btn_Split.Visibility = Visibility.Hidden;
+
+            RefreshTip();
+            btn_Split.Visibility = Visibility.Hidden;
             Btn_Undo_Split.Visibility = Visibility.Visible;
             btn_even_split.Visibility = Visibility.Visible;
         }
 
         private void Btn_Undo_Split_Click(object sender, RoutedEventArgs e)
         {
-            test_panel.Children.Clear();
+            payment.Tip = 0;
+            payment.SplitPayment = false;
+            receipt_panel.Children.Clear();
+            RefreshTip();
+
             Btn_Undo_Split.Visibility = Visibility.Hidden;
             btn_even_split.Visibility = Visibility.Hidden;
-            Btn_Split.Visibility = Visibility.Visible;
+            btn_Split.Visibility = Visibility.Visible;
         }
 
         private void Btn_even_split_Click(object sender, RoutedEventArgs e)
         {
-            test_panel.Children.Clear();
+            receipt_panel.Children.Clear();
             payment_Logic.ResetSplit(payment);
             SplitPanel();
+        }
+
+        private void RefreshTip()
+        {
+            if (payment.Method == PayMethod.Cash)
+            {
+                tip.UpdateLabel();
+            }
         }
     }
 }

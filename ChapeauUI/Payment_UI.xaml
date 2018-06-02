@@ -14,19 +14,19 @@
 
 
         <TextBox x:Name="comment_Box" HorizontalAlignment="Left" Height="43" Margin="120,117,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
-        <Button x:Name="Btn_Split" Content="Split" HorizontalAlignment="Left" Margin="208,335,0,0" VerticalAlignment="Top" Width="77" Height="50" Click="Btn_Split_Click" Background="#FF03B8C2"/>
+        <Button x:Name="btn_Split" Content="Split" HorizontalAlignment="Left" Margin="208,335,0,0" VerticalAlignment="Top" Width="77" Height="50" Click="Btn_Split_Click" Background="#FF03B8C2"/>
         <Button x:Name="Btn_Undo_Split" Content="Undo Split" Visibility="Hidden" HorizontalAlignment="Left" Margin="208,335,0,0" VerticalAlignment="Top" Width="77" Height="50" Background="#FF03B8C2" Click="Btn_Undo_Split_Click"/>
         <Button x:Name="btn_even_split" Visibility="Hidden" Content="Even" HorizontalAlignment="Left" Margin="208,311,0,0" VerticalAlignment="Top" Width="75" Click="Btn_even_split_Click"/>
 
         <Label Content="Payment Method:" HorizontalAlignment="Left" Margin="16,188,0,0" VerticalAlignment="Top" />
-        <RadioButton x:Name="Pin_rBtn" Content="Pin" HorizontalAlignment="Left" Margin="16,219,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked" />
-        <RadioButton x:Name="Credit_rBtn" Content="Credit" HorizontalAlignment="Left" Margin="81,219,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
-        <RadioButton x:Name="Cash_rBtn" Content="Cash" HorizontalAlignment="Left" Margin="155,219,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
+        <RadioButton x:Name="pin_rBtn" Content="Pin" HorizontalAlignment="Left" Margin="16,219,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked" />
+        <RadioButton x:Name="credit_rBtn" Content="Credit" HorizontalAlignment="Left" Margin="81,219,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
+        <RadioButton x:Name="cash_rBtn" Content="Cash" HorizontalAlignment="Left" Margin="155,219,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
         <Label Content="Order Comment:" HorizontalAlignment="Left" Margin="16,116,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_order" FontSize="12" HorizontalAlignment="Left" Margin="0,-9,0,0" VerticalAlignment="Top" Height="30" Width="88"/>
         <Label x:Name="total_price" HorizontalAlignment="Left" Margin="377,232,0,0" VerticalAlignment="Top"/>
         <Label x:Name="vat_price" HorizontalAlignment="Left" Margin="377,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.375,-1.667"/>
-        <WrapPanel Name="test_panel" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="362,253,16,10"/>
+        <WrapPanel Name="receipt_panel" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="362,253,16,10"/>
 
         <WrapPanel x:Name="order_list" HorizontalAlignment="Left" Height="183" Margin="346,29,0,0" VerticalAlignment="Top" Width="326" Grid.ColumnSpan="2"/>
         <Label Content="Payment" FontSize="21" HorizontalAlignment="Left" Margin="106,-6,0,0" VerticalAlignment="Top"/>

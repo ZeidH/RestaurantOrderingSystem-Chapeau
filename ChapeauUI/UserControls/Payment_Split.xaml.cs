@@ -155,33 +155,42 @@ namespace ChapeauUI
         // Math
         private void ChangeGuest(int guestNr, float change)
         {
-            foreach (Label label in stackpanel_Guest_Price.Children)
-            {
-                int id = Splitter(label.Name);
-                if (id == guestNr)
-                {
-                    for (int i = id; i < payment.GuestPrice.Count; i++)
-                    {
-                        if (change == 0)
-                        {
-                            payment_logic.CalculateGuestPriceDelete(payment, id, i);
-                            if (payment.CustomerCount >= 4)
-                            {
-                                delete_buttons[0].IsEnabled = true;
-                                delete_buttons[1].IsEnabled = false;
-                            }
 
-                            break;
-                        }
-                        else
-                        {
-                            payment_logic.CalculateGuestPriceAdd(i + 1, payment, change, id);
-                            break;
-                        }
+            int id = Splitter((stackpanel_Guest_Price.Children[guestNr] as Label).Name.ToString());
+            if (id == guestNr)
+            {
+                if (change == 0)
+                {
+                    payment_logic.CalculateGuestPriceDelete(payment, id, id+1);
+                    if (payment.CustomerCount >= 4)
+                    {
+                        delete_buttons[0].IsEnabled = true;
+                        delete_buttons[1].IsEnabled = false;
                     }
                 }
+                else
+                {
+                    payment_logic.CalculateGuestPriceAdd(payment, change, id);
+                }
+
             }
+            //ButtonCheck();
             UpdateLabels();
+        }
+
+
+        // Supposed to unenable buttons when their price is 0
+        private void ButtonCheck()
+        {
+            for (int i = 0; i < payment.GuestPrice.Count; i++)
+            {
+                if (payment.GuestPrice[i] == 0)
+                {
+                    add_buttons[i, 0].IsEnabled = false;
+                    add_buttons[i, 1].IsEnabled = false;
+                    delete_buttons[i].IsEnabled = false;
+                }
+            }
         }
 
         private void UpdateLabels()

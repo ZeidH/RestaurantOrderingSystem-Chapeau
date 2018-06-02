@@ -27,7 +27,11 @@ namespace ChapeauUI
         {
             InitializeComponent();
             this.payment = payment;
-            lbl_tip.Content = payment.Price;
+            UpdateLabel();
+        }
+        public void UpdateLabel()
+        {
+            lbl_tip.Content = payment.Price + payment.Tip;
         }
 
         private void Btn_1_Click(object sender, RoutedEventArgs e)
@@ -46,10 +50,6 @@ namespace ChapeauUI
         {
             payment.Tip = 0;
             UpdateLabel();
-        }
-        private void UpdateLabel()
-        {
-            lbl_tip.Content = payment.TotalPrice;
         }
     }
 }

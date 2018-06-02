@@ -7,7 +7,7 @@
              mc:Ignorable="d" Height="40" Width="260">
     <Grid Margin="0,0,0,0">
         <Label Content="Tip: " HorizontalAlignment="Left" Margin="8,5,0,5.2" RenderTransformOrigin="0.5,0.5" Width="28"/>
-        <Label x:Name="lbl_tip" Content="{Binding Path=total_price, StringFormat={}€}" HorizontalAlignment="Left" Margin="41,5,0,0" VerticalAlignment="Top" Height="25" Width="46"/>
+        <Label x:Name="lbl_tip" HorizontalAlignment="Left" Margin="41,5,0,0" VerticalAlignment="Top" Height="25" Width="46"/>
         <Button x:Name="btn_1" Content="+1€" HorizontalAlignment="Left" Margin="98,8,0,0" VerticalAlignment="Top" Width="31" Height="20" Click="Btn_1_Click"/>
         <Button x:Name="btn_5" Content="+5€" HorizontalAlignment="Left" Margin="143,8,0,0" VerticalAlignment="Top" Width="31" Height="20" Click="Btn_5_Click"/>
         <Button x:Name="btn_Zero" Content="Zero" HorizontalAlignment="Left" Margin="200,8,0,0" VerticalAlignment="Top" Width="31" Height="20" Click="Btn_Zero_Click"/>

@@ -16,7 +16,7 @@ namespace ChapeauModel
             get
             {
                 if (SplitPayment == true)
-                    return GuestPrice[NextCustomer];
+                    return GuestPrice[NextCustomer] + Vat;
                 else
                     return price;
             }
@@ -39,7 +39,7 @@ namespace ChapeauModel
         {
             get
             {
-                return price + Vat;
+                return price + Vat + Tip;
             }
         }
         public float SplittedPrice
