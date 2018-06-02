@@ -12,7 +12,6 @@ namespace ChapeauLogic
     public class Payment_Service
     {
         private Payment_DAO payment_DAO = new Payment_DAO();
-        private int paymentCount = 0;
 
         // Main Payment View
         public List<OrderItem> GetReceipt(int order_id)
@@ -22,22 +21,41 @@ namespace ChapeauLogic
             {
                 while (order[i].Item.Item_id == order[i + 1].Item.Item_id)
                 {
-
                     order[i].Amount += order[i + 1].Amount;
                     order.RemoveAt(i + 1);
                 }
             }
             return order;
         }
-        public void InsertPayment(Payment payment)
+        public bool InsertPayment(Payment payment)
         {
-            if ((payment.SplitPayment == true) && (paymentCount != payment.CustomerCount))
+            //Insert payment
+            payment_DAO.Db_set_payment(payment);
+            if (payment.NextCustomer == 0)
+                SetPayingCustomerCount(payment);
+
+            if ((payment.SplitPayment) && ((payment.NextCustomer + 1) != payment.CustomerCount))
             {
-                payment_DAO.Db_set_payment(payment);
-                paymentCount++;
+                payment.NextCustomer++;
+                return false;
             }
+            else
+            {
+                payment_DAO.Db_set_order_comment(payment);
+                return true;
+            }      
         }
 
+        private void SetPayingCustomerCount(Payment payment)
+        {
+            foreach (float guest in payment.GuestPrice)
+            {
+                if (guest == 0)
+                {
+                    payment.CustomerCount--;
+                }
+            }
+        }
         public PayMethod GetPayMethod(string content)
         {
             return (PayMethod)Enum.Parse(typeof(PayMethod), content, true);
@@ -55,53 +73,61 @@ namespace ChapeauLogic
         }
 
         // UserControl Payment_Split
-        public void CalculateGuestPrice(int i, List<float> guestPrice, float change, int id)
+        public void CalculateGuestPriceAdd(int i, Payment payment, float change, int id)
         {
-            while (i < guestPrice.Count)
+            while (i < payment.GuestPrice.Count)
             {
-                float collected = DeletePrice(guestPrice, i, id, change);
-                AddPrice(guestPrice, id, collected);
+                float collected = DeletePrice(payment, i, id, change);
+                AddPrice(payment, id, collected);
                 i++;
             }
 
         }
-        private void AddPrice(List<float> guestPrice, int id, float change)
+        private void AddPrice(Payment payment, int id, float change)
         {
-            guestPrice[id] += change;
+            payment.GuestPrice[id] += change;
         }
-        private float DeletePrice(List<float> guestPrice, int i, int id, float change)
+        public void CalculateGuestPriceDelete(Payment payment, int id, int i)
         {
-            float calcCheck = guestPrice[i];
-            calcCheck -= (change / (guestPrice.Count - (id + 1)));
+            for (int x = 0; x < i; x++)
+            {
+                payment.GuestPrice[x] += (payment.GuestPrice[id] / i);
+            }
+            payment.GuestPrice[id] -= payment.GuestPrice[id];
+        }
+        private float DeletePrice(Payment payment, int i, int id, float change)
+        {
+            float calcCheck = payment.GuestPrice[i];
+            calcCheck -= (change / (payment.GuestPrice.Count - (id + 1)));
 
             int alive = 0;
-            for (int y = 0; y < guestPrice.Count; y++)
+            for (int y = 0; y < payment.GuestPrice.Count; y++)
             {
-                if (guestPrice[y] > 0)
+                if (payment.GuestPrice[y] > 0)
                 {
                     alive++;
                 }
             }
             if (calcCheck > 0)
             {
-                guestPrice[i] -= (change / (alive - (id + 1)));
+                payment.GuestPrice[i] -= (change / (alive - (id + 1)));
                 return (change / (alive - (id + 1)));
             }
-            else if (guestPrice[i] != 0)
+            else if (payment.GuestPrice[i] != 0)
             {
-                float collected = guestPrice[i];
-                guestPrice[i] -= guestPrice[i];
+                float collected = payment.GuestPrice[i];
+                payment.GuestPrice[i] -= payment.GuestPrice[i];
                 return collected;
             }
             return 0;
         }
-        public void CalculateGuestPriceDelete(List<float> guestPrice, int id, int i)
+
+        public void ResetSplit(Payment payment)
         {
-            for (int x = 0; x < i; x++)
+            for (int i = 0; i < payment.GuestPrice.Count; i++)
             {
-                guestPrice[x] += (guestPrice[id] / i);
+                payment.GuestPrice[i] = payment.SplittedPrice;
             }
-            guestPrice[id] -= guestPrice[id];
         }
     }
 }

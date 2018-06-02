@@ -8,21 +8,21 @@ namespace ChapeauModel
 {
     public class Payment
     {
-        //int order_id, float order_price, float order_tip, PayMethod method
-
         public int Order_id { get; set; }
+    
+        private float price;
         public float Price
         {
             get
             {
                 if (SplitPayment == true)
-                    return GuestPrice[0];
+                    return GuestPrice[NextCustomer];
                 else
-                    return Price;
+                    return price;
             }
             set
             {
-                Price += value;
+                price = value;
             }
         }
         public float Vat { get; set; }
@@ -31,27 +31,33 @@ namespace ChapeauModel
         public string Comment { get; set; }
         public int CustomerCount { get; set; }
         public List<float> GuestPrice { get; set; }
+        public int NextCustomer { get; set; }
         public bool SplitPayment { get; set; }
+
+        //Computational Properties
         public float TotalPrice
         {
             get
             {
-                return Price + Tip + Vat;
+                return price + Vat;
             }
         }
         public float SplittedPrice
         {
             get
             {
-                return Price / CustomerCount;
+                return price / CustomerCount;
             }
         }
 
-        public Payment(int NrOfCustomers, int Order_id)
+        //Constructor
+        public Payment(int nrOfCustomers, int order_id)
         {
-            this.Order_id = Order_id;
-            this.CustomerCount = NrOfCustomers;
+            this.Order_id = order_id;
+            this.CustomerCount = nrOfCustomers;
             Price = 0;
+            NextCustomer = 0;
+            GuestPrice = new List<float>();
             SplitPayment = false;
         }
     }

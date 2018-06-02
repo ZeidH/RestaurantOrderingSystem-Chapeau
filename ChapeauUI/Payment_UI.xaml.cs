@@ -17,7 +17,7 @@ namespace ChapeauUI
     {
         private Payment payment;
         private Payment_Service payment_Logic = new Payment_Service();
-        private int paidCustomer = 0; // idk?
+        private Payment_Split split;
 
         public Payment_UI(int order_id, int customer_count)
         {
@@ -37,9 +37,10 @@ namespace ChapeauUI
             payment = payment_Logic.GetTotalPrice(payment_Logic.GetReceipt(payment.Order_id), payment);
 
             // Display price on the labels
-            total_price.Content = $"Total Price: {payment.Price.ToString("0.00 €")}";
+            total_price.Content = $"Total Price: {payment.TotalPrice.ToString("0.00 €")}";
             vat_price.Content = $"Vat Price: {payment.Vat.ToString("0.00 €")}";
             btn_Payment_Finish.IsEnabled = false;
+
             if(payment.CustomerCount < 2)
             {
                 Btn_Split.IsEnabled = false;
@@ -51,22 +52,29 @@ namespace ChapeauUI
             // Get information from textbox
             payment.Comment = comment_Box.Text;
 
-            // Send information to db
-            payment_Logic.InsertPayment(payment);
-            if (payment.SplitPayment == true && paidCustomer != payment.CustomerCount)
+            // Disable the Guests increase/decrease and delete buttons when they're finalized.
+            if ((payment.NextCustomer + 1) != payment.CustomerCount && (payment.SplitPayment))
             {
-                paidCustomer++;
+                for (int i = 0; i < split.add_buttons.GetLength(1); i++)
+                {
+                    split.add_buttons[payment.NextCustomer, i].IsEnabled = false;
+                }
+                foreach (Button delete_btn in split.delete_buttons)
+                {
+                    delete_btn.IsEnabled = false;
+                }
             }
-            else
+            // Send information to db
+            if (payment_Logic.InsertPayment(payment))
             {
                 // Direct to tableview when order is finalized
                 NavigationService.Navigate(new Tableview_UI());
             }
+            btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer + 1}";
         }
 
         private void Radio_Btn_Checked(object sender, RoutedEventArgs e)
         {
-
             PayMethodCheck(payment_Logic.GetPayMethod((sender as RadioButton).Content.ToString()));
             btn_Payment_Finish.IsEnabled = true;
         }
@@ -94,8 +102,9 @@ namespace ChapeauUI
         }
         private void SplitPanel()
         {
-            Payment_Split split = new Payment_Split(payment);
+            split = new Payment_Split(payment);
             test_panel.Children.Add(split);
+            btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer+1}";
             Btn_Split.Visibility = Visibility.Hidden;
             Btn_Undo_Split.Visibility = Visibility.Visible;
             btn_even_split.Visibility = Visibility.Visible;
@@ -112,6 +121,7 @@ namespace ChapeauUI
         private void Btn_even_split_Click(object sender, RoutedEventArgs e)
         {
             test_panel.Children.Clear();
+            payment_Logic.ResetSplit(payment);
             SplitPanel();
         }
     }

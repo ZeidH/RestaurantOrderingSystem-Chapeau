@@ -15,8 +15,8 @@ namespace ChapeauDAL
     {
         public void Db_set_payment(Payment payment)
         {
-            string query = string.Format("INSERT INTO PAYMENT(order_id, order_tip, order_price, order_comment,  order_pay_method) VALUES(@orderid, @tip, @price, @comment, @method)");
-            SqlParameter[] sqlParameters = new SqlParameter[5];
+            string query = string.Format("INSERT INTO PAYMENT(order_id, order_tip, order_price, order_pay_method) VALUES(@orderid, @tip, @price, @method)");
+            SqlParameter[] sqlParameters = new SqlParameter[4];
             sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
             {
                 Value = payment.Order_id
@@ -27,18 +27,28 @@ namespace ChapeauDAL
             };
             sqlParameters[2] = new SqlParameter("@price", SqlDbType.Float)
             {
-                Value = payment.Price
+                Value = payment.TotalPrice
             };
             sqlParameters[3] = new SqlParameter("@method", SqlDbType.SmallInt)
             {
                 Value = payment.Method
             };
-            sqlParameters[4] = new SqlParameter("@comment", SqlDbType.NVarChar)
+
+            ExecuteEditQuery(query, sqlParameters);
+        }
+        public void Db_set_order_comment(Payment payment)
+        {
+            string query = string.Format("UPDATE [ORDER] SET order_comment = @comment WHERE order_id = @orderid");
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
+            {
+                Value = payment.Order_id
+            };
+            sqlParameters[1] = new SqlParameter("@comment", SqlDbType.NVarChar)
             {
                 Value = payment.Comment
             };
-
-            //ExecuteEditQuery(query, sqlParameters);
+            ExecuteEditQuery(query, sqlParameters);
         }
 
         //Where to place?
@@ -60,7 +70,7 @@ namespace ChapeauDAL
         }
 
         private List<OrderItem> ReadOrder(DataTable dataTable, int order_id)
-        { 
+        {
             List<OrderItem> orderItems = new List<OrderItem>();
             foreach (DataRow dr in dataTable.Rows)
             {
@@ -99,7 +109,7 @@ namespace ChapeauDAL
                 };
 
                 orderItems.Add(orderItem);
-               
+
             }
             return orderItems;
         }
