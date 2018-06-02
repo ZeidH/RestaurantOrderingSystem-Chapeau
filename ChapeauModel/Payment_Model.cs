@@ -51,6 +51,10 @@ namespace ChapeauModel
         }
 
         //Constructor
+        public Payment()
+        {
+            //Empty constructor
+        }
         public Payment(int nrOfCustomers, int order_id)
         {
             this.Order_id = order_id;

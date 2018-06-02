@@ -66,13 +66,14 @@ namespace ChapeauLogic
             return (PayMethod)Enum.Parse(typeof(PayMethod), content, true);
         }
 
-        public void GetTotalPrice(List<OrderItem> order, Payment payment)
+        public Payment GetTotalPrice(List<OrderItem> order, Payment payment)
         {
             foreach (OrderItem orderItem in order)
             {
                 payment.Price += orderItem.TotalPrice;
                 payment.Vat += orderItem.VatPrice;
             }
+            return payment;
         }
 
         // UserControl Payment_Split

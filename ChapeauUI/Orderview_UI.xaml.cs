@@ -223,8 +223,9 @@ namespace ChapeauUI
         private void UpdateOrder(OrderItem orderItem)
         {
             Payment_Service payment_logic = new Payment_Service();
-            Payment payment = payment_logic.GetTotalPrice(order);
-            lbl_total_price.Content = payment.Price.ToString("0.00€");
+            Payment payment = new Payment();
+            payment_logic.GetTotalPrice(order, payment);
+            lbl_total_price.Content = payment.TotalPrice.ToString("0.00€");
             txt_comments.Text = "";
             btn_complete_order.IsEnabled = true;
             listview_menu.UnselectAll();
