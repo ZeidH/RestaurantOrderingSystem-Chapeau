@@ -45,9 +45,9 @@
     <Compile Include="Base.cs" />
     <Compile Include="ErrorFilePrint.cs" />
     <Compile Include="Item_DAO.cs" />
-    <Compile Include="Kitchen_DAO.cs" />
     <Compile Include="Order_DAO.cs" />
     <Compile Include="Payment_DAO.cs" />
+    <Compile Include="Processing_DAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
