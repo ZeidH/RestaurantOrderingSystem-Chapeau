@@ -35,4 +35,17 @@
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
+    
+    <!--Payment Labels-->
+    <Style TargetType="{x:Type Label}" x:Key="PaymentLabel" BasedOn="{StaticResource CategoryCounter}" >
+        
+        
+    </Style>
+    
+    <!--Payment Headers-->
+    <Style TargetType="{x:Type Label}" x:Key="PaymentHeader" BasedOn="{StaticResource PaymentLabel}" >
+        
+        
+        
+    </Style>
 </ResourceDictionary>

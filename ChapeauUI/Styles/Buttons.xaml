@@ -60,4 +60,18 @@
         <Setter Property="FontSize" Value="12"/>
     </Style>
     
+    
+    
+    <!--Payment Base-->
+    <Style TargetType="{x:Type Button}" x:Key="Payment">
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <!--Payment Split Mode button-->
+    <Style TargetType="{x:Type Button}" x:Key="Split" BasedOn="{StaticResource Payment}">
+        <Setter Property="Background" Value="{StaticResource YellowBrush}"/>
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
 </ResourceDictionary>

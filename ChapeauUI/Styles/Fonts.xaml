@@ -13,13 +13,13 @@
     </Style>
 
     <!--Base for these types-->
-    <!--
+    
     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}"/>
     <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}"/>
     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}"/>
     <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}"/>
     <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource BaseStyle}"/>
-    -->
+    
 
 
 </ResourceDictionary>

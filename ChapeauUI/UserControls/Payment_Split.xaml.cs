@@ -71,14 +71,16 @@ namespace ChapeauUI
 
         private void CreateEuroButton(int i)
         {
+            Style style = Application.Current.FindResource("Split") as Style;
             Button button1 = new Button
             {
                 Content = " +1€ ",
+                Style = style,
                 Name = $"btn_1Euro_{i}",
-                Width = 30,
-                Height = 25,
+                Width = 40,
+                Height = 27,
                 Margin = new Thickness(0, 0, 5, 0),
-                Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 153))
+                HorizontalAlignment = HorizontalAlignment.Center
             };
 
             Grid.SetColumn(button1, 1);
@@ -89,11 +91,12 @@ namespace ChapeauUI
             Button button5 = new Button
             {
                 Content = " +5€ ",
+                Style = style,
                 Name = $"btn_5Euro_{i}",
-                Width = 30,
-                Height = 25,
+                Width = 40,
+                Height = 27,
                 Margin = new Thickness(0, 0, 8, 0),
-                Background = new SolidColorBrush(Color.FromArgb(255, 255, 255, 153))
+                HorizontalAlignment = HorizontalAlignment.Center
             };
             Grid.SetColumn(button5, 2);
             Grid.SetRow(button5, i);
@@ -105,25 +108,20 @@ namespace ChapeauUI
         }
         private void CreateDeleteButton(int i, Payment payment)
         {
+            Style style = Application.Current.FindResource("Close") as Style;
             Button delete = new Button
             {
                 Content = " DEL ",
+                Style = style,
                 Name = $"btn_Delete_{i}",
-                Width = 30,
-                Height = 25,
-                Background = new SolidColorBrush(Color.FromArgb(255, 249, 85, 85))
+                Width = 35,
+                Height = 27,
+                HorizontalAlignment = HorizontalAlignment.Center
             };
             delete_buttons.Add(delete);
-            if (i == (payment.CustomerCount - 1))
-            {
-                Grid.SetColumn(delete, 1);
-                Grid.SetColumnSpan(delete, 3);
-                delete.Width = 70;
-            }
-            else
-            {
-                Grid.SetColumn(delete, 3);
-            }
+
+            Grid.SetColumn(delete, 3);
+
             Grid.SetRow(delete, i);
             btnGrid.Children.Add(delete);
             delete.Click += new RoutedEventHandler(Button_Null_Click);
@@ -157,39 +155,43 @@ namespace ChapeauUI
         {
 
             int id = Splitter((stackpanel_Guest_Price.Children[guestNr] as Label).Name.ToString());
-            if (id == guestNr)
-            {
-                if (change == 0)
-                {
-                    payment_logic.CalculateGuestPriceDelete(payment, id, id+1);
-                    if (payment.CustomerCount >= 4)
-                    {
-                        delete_buttons[0].IsEnabled = true;
-                        delete_buttons[1].IsEnabled = false;
-                    }
-                }
-                else
-                {
-                    payment_logic.CalculateGuestPriceAdd(payment, change, id);
-                }
 
+            if (change == 0)
+            {
+                payment_logic.CalculateGuestPriceDelete(payment, id);
+                if (payment.CustomerCount == 4)
+                {
+
+                }
             }
-            //ButtonCheck();
+            else
+            {
+                payment_logic.CalculateGuestPriceAdd(payment, change, id);
+            }
+            ButtonCheck(change);
             UpdateLabels();
         }
 
 
         // Supposed to unenable buttons when their price is 0
-        private void ButtonCheck()
+        private void ButtonCheck(float change)
         {
-            for (int i = 0; i < payment.GuestPrice.Count; i++)
+            int alive = payment_logic.GuestsOverZero(payment);
+
+            if (alive == 4)
+                return;
+            if (alive == 3 && payment.GuestPrice.Count == 4)
             {
-                if (payment.GuestPrice[i] == 0)
-                {
-                    add_buttons[i, 0].IsEnabled = false;
-                    add_buttons[i, 1].IsEnabled = false;
-                    delete_buttons[i].IsEnabled = false;
-                }
+                delete_buttons[0].IsEnabled = true;
+                delete_buttons[1].IsEnabled = false;
+                add_buttons[2, 0].IsEnabled = false;
+                add_buttons[2, 1].IsEnabled = false;
+
+            }
+            else if (alive == 2)
+            {
+                add_buttons[1, 0].IsEnabled = false;
+                add_buttons[1, 1].IsEnabled = false;
             }
         }
 
