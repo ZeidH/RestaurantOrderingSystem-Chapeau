@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChapeauModel
 {
-    enum Occupation
+    public enum Occupation
     {
         Waiter, Kitchen, Bar, Manager
     }

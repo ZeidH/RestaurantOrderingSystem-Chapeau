@@ -13,11 +13,12 @@ namespace ChapeauDAL
     public class Base
     {
         private SqlDataAdapter adapter;
-        private SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ChapeauDatabase"].ConnectionString);
+        private SqlConnection conn;
         private ErrorFilePrint print;
         public Base()
         {
             print = new ErrorFilePrint();
+            conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ChapeauDatabase"].ConnectionString);
             adapter = new SqlDataAdapter();
         }
 

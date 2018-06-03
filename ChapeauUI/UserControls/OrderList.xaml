@@ -19,7 +19,13 @@
                     <GridViewColumn Header="Quantity" Width="50" DisplayMemberBinding="{Binding Path=Amount}"/>
                     <GridViewColumn Header="Name" Width="200
                                     " DisplayMemberBinding="{Binding Path=Item.Name}"/>
-                    <GridViewColumn Header="Price" Width="50" DisplayMemberBinding="{Binding Path=Item.Cost, StringFormat=N2}"/>
+                    <GridViewColumn Header="Price" Width="50">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Item.Cost, StringFormat=N2}" TextAlignment="Right" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

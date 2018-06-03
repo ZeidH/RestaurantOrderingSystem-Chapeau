@@ -17,10 +17,7 @@ namespace ChapeauModel
         {
             get
             {
-                if (Item.Vat == Vat.High)
-                    return (Item.Cost * Amount) + VatPrice;
-                
-                else if (Item.Vat == Vat.Low)
+                if (Item.Vat == Vat.High || Item.Vat == Vat.Low)
                     return (Item.Cost * Amount) + VatPrice;
                 else
                     return Item.Cost * Amount;               

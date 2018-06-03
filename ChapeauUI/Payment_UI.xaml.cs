@@ -17,6 +17,8 @@ namespace ChapeauUI
     {
         private Payment payment;
         private Payment_Service payment_Logic = new Payment_Service();
+        private Payment_Split split;
+        private Payment_Tip tip;
 
         public Payment_UI(int order_id, int customer_count)
         {
@@ -33,47 +35,48 @@ namespace ChapeauUI
             OrderList orderList = new OrderList(payment);
             order_list.Children.Add(orderList);
             //// Process the data and fill the model + calc price
-            payment = payment_Logic.GetTotalPrice(payment_Logic.GetReceipt(payment.Order_id), payment);
+            payment_Logic.GetTotalPrice(payment_Logic.GetReceipt(payment.Order_id), payment);
 
             // Display price on the labels
             total_price.Content = $"Total Price: {payment.Price.ToString("0.00 €")}";
             vat_price.Content = $"Vat Price: {payment.Vat.ToString("0.00 €")}";
             btn_Payment_Finish.IsEnabled = false;
-            tip_Box.IsEnabled = false;
+
+            if(payment.CustomerCount < 2)
+            {
+                btn_Split.IsEnabled = false;
+            }
         }
 
         private void Btn_Payment_Finish_Click(object sender, RoutedEventArgs e)
-        {
-            // Radio button animation if user click finish when r button is not clicked.
-            //if (payment.Method == null)
-            //{
-            //    DoubleAnimation animation = new DoubleAnimation(2, new Duration(TimeSpan.FromSeconds(1.5)));
-            //    Pin_rBtn.BeginAnimation(WidthProperty, animation);
-            //    return;
-            //}
-            //Another time...
+        { 
+            // Get information from textbox
+            payment.Comment = comment_Box.Text;
 
-            float tip = 0;
-
-            // Get information from textboxes
-            if (tip_Box.Text != "")
+            // Disable the Guests increase/decrease and delete buttons when they're finalized.
+            if ((payment.NextCustomer + 1) != payment.CustomerCount && (payment.SplitPayment))
             {
-                tip = float.Parse(tip_Box.Text);
+                for (int i = 0; i < split.add_buttons.GetLength(1); i++)
+                {
+                    split.add_buttons[payment.NextCustomer, i].IsEnabled = false;
+                }
+                foreach (Button delete_btn in split.delete_buttons)
+                {
+                    delete_btn.IsEnabled = false;
+                }
             }
-
-            string comment = comment_Box.Text;
-
-            // Fill the payment with information then send information to db
-            payment_Logic.SetPayment(payment, tip, comment);
-            payment_Logic.InsertPayment(payment);
-
-            // Direct to tableview when order is finalized.
-            NavigationService.Navigate(new Tableview_UI());
+            // Send information to db
+            if (payment_Logic.InsertPayment(payment))
+            {
+                // Direct to tableview when order is finalized
+                NavigationService.Navigate(new Tableview_UI());
+            }
+            RefreshTip();
+            btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer + 1}";
         }
 
         private void Radio_Btn_Checked(object sender, RoutedEventArgs e)
         {
-
             PayMethodCheck(payment_Logic.GetPayMethod((sender as RadioButton).Content.ToString()));
             btn_Payment_Finish.IsEnabled = true;
         }
@@ -83,41 +86,60 @@ namespace ChapeauUI
             payment.Method = method;
             if (payment.Method == PayMethod.Cash)
             {
-                tip_Box.IsEnabled = true;
+                tip = new Payment_Tip(payment);
+                tip_panel.Children.Add(tip);
             }
             else
             {
-                tip_Box.IsEnabled = false;
+                payment.Tip = 0;
+                tip_panel.Children.Clear();
             }
         }
 
         //What exactly does this need to do...? Ask Nymp/Erwin/Gerwin
         private void Btn_Split_Click(object sender, RoutedEventArgs e)
         {
+            payment.SplitPayment = true;
+            payment.Tip = 0;
             SplitPanel();
         }
         private void SplitPanel()
         {
-            Payment_Split split = new Payment_Split(payment);
-            test_panel.Children.Add(split);
-            Btn_Split.Visibility = Visibility.Hidden;
+            split = new Payment_Split(payment);
+            receipt_panel.Children.Add(split);
+            btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer+1}";
+
+            RefreshTip();
+            btn_Split.Visibility = Visibility.Hidden;
             Btn_Undo_Split.Visibility = Visibility.Visible;
             btn_even_split.Visibility = Visibility.Visible;
         }
 
-
         private void Btn_Undo_Split_Click(object sender, RoutedEventArgs e)
         {
-            test_panel.Children.Clear();
+            payment.Tip = 0;
+            payment.SplitPayment = false;
+            receipt_panel.Children.Clear();
+            RefreshTip();
+
             Btn_Undo_Split.Visibility = Visibility.Hidden;
             btn_even_split.Visibility = Visibility.Hidden;
-            Btn_Split.Visibility = Visibility.Visible;
+            btn_Split.Visibility = Visibility.Visible;
         }
 
         private void Btn_even_split_Click(object sender, RoutedEventArgs e)
         {
-            test_panel.Children.Clear();
+            receipt_panel.Children.Clear();
+            payment_Logic.ResetSplit(payment);
             SplitPanel();
+        }
+
+        private void RefreshTip()
+        {
+            if (payment.Method == PayMethod.Cash)
+            {
+                tip.UpdateLabel();
+            }
         }
     }
 }

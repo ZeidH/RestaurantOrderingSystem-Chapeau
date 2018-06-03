@@ -23,14 +23,20 @@ namespace ChapeauUI
     public partial class Payment_Split : UserControl
     {
         private Payment_Service payment_logic = new Payment_Service();
-        private List<float> guestPrice = new List<float>();
+        public List<Button> delete_buttons = new List<Button>();
+        public Button[,] add_buttons;
+        private Payment payment;
         public Payment_Split(Payment payment)
         {
             InitializeComponent();
-            FillStackPanel(payment);
+            this.payment = payment;
+            add_buttons = new Button[payment.CustomerCount, 2];
+            FillStackPanel();
+            if (payment.CustomerCount >= 4)
+                delete_buttons[0].IsEnabled = false;
         }
 
-        private void FillStackPanel(Payment payment)
+        private void FillStackPanel()
         {
             int i = 0;
             while (i < payment.CustomerCount)
@@ -40,13 +46,14 @@ namespace ChapeauUI
                     if (i < payment.CustomerCount)
                     {
                         guest.Content = $"Guest {i + 1} Price: {payment.SplittedPrice}";
-                        guestPrice.Add(payment.SplittedPrice);
+                        payment.GuestPrice.Add(payment.SplittedPrice);
                         guest.Visibility = Visibility.Visible;
                         CreateButton(i, payment);
                         i++;
                     }
                 }
             }
+
         }
 
         private void CreateButton(int i, Payment payment)
@@ -78,6 +85,7 @@ namespace ChapeauUI
             Grid.SetRow(button1, i);
             btnGrid.Children.Add(button1);
             button1.Click += new RoutedEventHandler(Button_1Euro_Click);
+
             Button button5 = new Button
             {
                 Content = " +5€ ",
@@ -91,6 +99,9 @@ namespace ChapeauUI
             Grid.SetRow(button5, i);
             btnGrid.Children.Add(button5);
             button5.Click += new RoutedEventHandler(Button_5Euro_Click);
+
+            add_buttons[i, 0] = button1;
+            add_buttons[i, 1] = button5;
         }
         private void CreateDeleteButton(int i, Payment payment)
         {
@@ -102,6 +113,7 @@ namespace ChapeauUI
                 Height = 25,
                 Background = new SolidColorBrush(Color.FromArgb(255, 249, 85, 85))
             };
+            delete_buttons.Add(delete);
             if (i == (payment.CustomerCount - 1))
             {
                 Grid.SetColumn(delete, 1);
@@ -143,27 +155,42 @@ namespace ChapeauUI
         // Math
         private void ChangeGuest(int guestNr, float change)
         {
-            foreach (Label label in stackpanel_Guest_Price.Children)
+
+            int id = Splitter((stackpanel_Guest_Price.Children[guestNr] as Label).Name.ToString());
+            if (id == guestNr)
             {
-                int id = Splitter(label.Name);
-                if (id == guestNr)
+                if (change == 0)
                 {
-                    for (int i = id; i < guestPrice.Count; i++)
+                    payment_logic.CalculateGuestPriceDelete(payment, id, id+1);
+                    if (payment.CustomerCount >= 4)
                     {
-                        if (change == 0)
-                        {
-                            payment_logic.CalculateGuestPriceDelete(guestPrice, id, i);
-                            break;
-                        }
-                        else
-                        {
-                            payment_logic.CalculateGuestPrice(i + 1, guestPrice, change, id);
-                            break;
-                        }
+                        delete_buttons[0].IsEnabled = true;
+                        delete_buttons[1].IsEnabled = false;
                     }
                 }
+                else
+                {
+                    payment_logic.CalculateGuestPriceAdd(payment, change, id);
+                }
+
             }
+            //ButtonCheck();
             UpdateLabels();
+        }
+
+
+        // Supposed to unenable buttons when their price is 0
+        private void ButtonCheck()
+        {
+            for (int i = 0; i < payment.GuestPrice.Count; i++)
+            {
+                if (payment.GuestPrice[i] == 0)
+                {
+                    add_buttons[i, 0].IsEnabled = false;
+                    add_buttons[i, 1].IsEnabled = false;
+                    delete_buttons[i].IsEnabled = false;
+                }
+            }
         }
 
         private void UpdateLabels()
@@ -171,9 +198,9 @@ namespace ChapeauUI
             int i = 0;
             foreach (Label guest in stackpanel_Guest_Price.Children)
             {
-                if (i < guestPrice.Count)
+                if (i < payment.GuestPrice.Count)
                 {
-                    guest.Content = $"Guest {i + 1} Price: {guestPrice[i]}";
+                    guest.Content = $"Guest {i + 1} Price: {payment.GuestPrice[i]}";
                     i++;
                 }
             }

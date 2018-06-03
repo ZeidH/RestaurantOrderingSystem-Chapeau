@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 
 namespace ChapeauUI
 {
@@ -24,7 +25,7 @@ namespace ChapeauUI
         {
             InitializeComponent();
             //Initialize on Login Page     
-            Main.Content = new Payment_UI(4,4);
+            Main.Content = new Orderview_UI(3, 4, 4);
         }
     }
 }

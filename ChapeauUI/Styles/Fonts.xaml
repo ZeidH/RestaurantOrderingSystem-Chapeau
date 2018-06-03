@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ChapeauUI">
+
+    <FontFamily x:Key="AllerBold">pack://application;,,,/Fonts/#Aller Bd</FontFamily>
+    <FontFamily x:Key="AllerItalic">pack://application;,,,/Fonts/#Aller It</FontFamily>
+    <FontFamily x:Key="AllerLight">pack://application;,,,/Fonts/#Aller Lt</FontFamily>
+    <FontFamily x:Key="AllerRegular">pack://application;,,,/Fonts/#Aller Rg</FontFamily>
+
+    <!--Base font style -->
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+        <Setter Property="FontFamily" Value="{StaticResource AllerRegular}"/>
+    </Style>
+
+    <!--Base for these types-->
+    <!--
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type DataGrid}" BasedOn="{StaticResource BaseStyle}"/>
+    -->
+
+
+</ResourceDictionary>

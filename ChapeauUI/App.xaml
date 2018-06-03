@@ -4,6 +4,16 @@
              xmlns:local="clr-namespace:ChapeauUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Order is important! -->
+                <ResourceDictionary Source="Styles/Colours.xaml"/>
+                <ResourceDictionary Source="Styles/Fonts.xaml"/>
+                <ResourceDictionary Source="Styles/Texts.xaml"/>
+                <ResourceDictionary Source="Styles/Buttons.xaml"/>
+                <ResourceDictionary Source="Styles/Listviews.xaml"/>
+                <ResourceDictionary Source="Styles/Datagrids.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary> 
     </Application.Resources>
 </Application>
