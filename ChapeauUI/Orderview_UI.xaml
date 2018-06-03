@@ -129,16 +129,16 @@
         CornerRadius="0,0,5,5" BorderBrush="Black" Background="{StaticResource MidDarkGrayBrush}" Margin="10,286,6.8,218.6" RenderTransformOrigin="0.5,0.5" Height="24">
 
         </Border>
-        <Label x:Name="lbl_amount_drinks" Style="{StaticResource CategoryCounter}" Margin="20,288,276,216.6" HorizontalContentAlignment="Center" Width="20" Height="24" />
-        <Label x:Name="lbl_amount_customers1" Style="{StaticResource CategoryCounter}" Margin="32,288,259,216.6" Height="24" Width="25"/>
+        <Label x:Name="lbl_amount_drinks" Style="{StaticResource CategoryCounter}" Margin="14,286,273.8,218.6" HorizontalContentAlignment="Center" Height="24" />
+        <Label x:Name="lbl_amount_customers1" Style="{StaticResource CategoryCounter}" Margin="34,286,261.8,218.6" Height="24" Width="25"/>
         <Label Content="Drinks" Style="{StaticResource CategoryCounterCategory}" HorizontalAlignment="Left" Margin="57,286,0,0" VerticalAlignment="Top" Height="24" Width="47"/>
 
-        <Label x:Name="lbl_amount_lunch" Style="{StaticResource CategoryCounter}" Margin="117,288,179,216.6" Width="20" Height="24" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lbl_amount_customers2" Style="{StaticResource CategoryCounter}" Margin="129,288,161,216.6" Width="26" Height="24"/>
+        <Label x:Name="lbl_amount_lunch" Style="{StaticResource CategoryCounter}" Margin="115,286,180.8,218.6" Height="24" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_amount_customers2" Style="{StaticResource CategoryCounter}" Margin="131,286,156.8,218.6" Height="24"/>
         <Label Content="Lunch" Style="{StaticResource CategoryCounterCategory}" HorizontalAlignment="Left" Margin="155,286,0,0" VerticalAlignment="Top" Height="24" Width="43"/>
 
-        <Label x:Name="lbl_amount_dinner" Style="{StaticResource CategoryCounter}" Margin="218,288,78,216.6" Width="20" Height="24" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lbl_amount_customers3" Style="{StaticResource CategoryCounter}" Margin="230,288,61,216.6" Width="25" Height="24"/>
+        <Label x:Name="lbl_amount_dinner" Style="{StaticResource CategoryCounter}" Margin="214,286,77.8,218.6" Height="24" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lbl_amount_customers3" Style="{StaticResource CategoryCounter}" Margin="232,286,63.8,218.6" Width="25" Height="24"/>
         <Label Content="Dinner" Style="{StaticResource CategoryCounterCategory}" HorizontalAlignment="Left" Margin="255,286,0,0" VerticalAlignment="Top" Height="24" Width="48"/>
         <WrapPanel x:Name="wrappanel_meat_comment" HorizontalAlignment="Left" Height="27" Margin="36.2,355,0,146.6" VerticalAlignment="Center" Width="226" Grid.Column="1"/>
     </Grid>
