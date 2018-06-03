@@ -20,6 +20,7 @@ namespace ChapeauUI
         private int amount_drinks;
         private int amount_lunch;
         private int amount_dinner;
+        private Orderview_MeatComments meatComments = new Orderview_MeatComments();
         private Item_Service item_logic = new Item_Service();
         private Item selectedMenuItem;
         private OrderItem selectedOrderItem;
@@ -100,7 +101,7 @@ namespace ChapeauUI
             foreach (Button button in StackPanel_sub_category.Children)
             {
                 button.Click += new RoutedEventHandler(ButtonSubCategory_Click);
-                button.Width = buttonWidth - 4;
+                button.Width = buttonWidth - 3;
             }
         }
 
@@ -155,17 +156,24 @@ namespace ChapeauUI
         {
             if (listview_menu.SelectedItem != null)
             {
-                wrappanel_meat_comment.Children.Clear();
-                lbl_comments.Margin = new Thickness(left: 34.2, top: 364, right: 0, bottom: 0);
+                meatComments.meat_comment = "";
+                ClearMeatCommentPanel();
                 selectedMenuItem = (Item)listview_menu.SelectedItem;
                 if (item_logic.CheckDinnerItem(selectedMenuItem))
                 {
                     lbl_comments.Margin = new Thickness(left: 34.2, top: 333, right: 0, bottom: 0);
-                    Orderview_MeatComments _MeatComments = new Orderview_MeatComments(txt_comments);
-                    wrappanel_meat_comment.Children.Add(_MeatComments);
+                    meatComments = new Orderview_MeatComments();
+                    wrappanel_meat_comment.Children.Add(meatComments);
                 }
                 btn_add_order_item.IsEnabled = item_logic.CheckStock(selectedMenuItem.Stock);
             }
+        }
+
+        private void ClearMeatCommentPanel()
+        {
+
+            wrappanel_meat_comment.Children.Clear();
+            lbl_comments.Margin = new Thickness(left: 34.2, top: 364, right: 0, bottom: 0);
         }
 
         private void Listview_menu_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -197,8 +205,15 @@ namespace ChapeauUI
             OrderItem orderItem = new OrderItem
             {
                 Item = selectedMenuItem,
-                Comment = txt_comments.Text,
+                Comment = txt_comments.Text + " " + meatComments.meat_comment
             };
+
+            //remove the meat type comments section
+            if (item_logic.CheckDinnerItem(selectedMenuItem))
+            {
+                meatComments.RevertClicked();
+                ClearMeatCommentPanel();
+            }
 
             //Check if the new item already exists in the orderlist
             for (int i = 0; i < order.Count; i++)
@@ -225,7 +240,7 @@ namespace ChapeauUI
             Payment_Service payment_logic = new Payment_Service();
             Payment payment = new Payment();
             payment_logic.GetTotalPrice(order, payment);
-            lbl_total_price.Content = payment.TotalPrice.ToString("0.00€");
+            lbl_total_price.Content = payment.TotalPrice.ToString("€ 0.00");
             txt_comments.Text = "";
             btn_complete_order.IsEnabled = true;
             listview_menu.UnselectAll();
@@ -301,7 +316,7 @@ namespace ChapeauUI
                 return;
             }
             item_logic.IncreaseAmount(selectedOrderItem);
-            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("€ 0.00");
             dataGrid_order.Items.Refresh();
 
             CheckIncreaseDecreaseButton(selectedOrderItem);
@@ -315,7 +330,7 @@ namespace ChapeauUI
         private void Btn_decrease_item_Click(object sender, RoutedEventArgs e)
         {
             item_logic.DecreaseAmount(selectedOrderItem);
-            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("€ 0.00");
             dataGrid_order.Items.Refresh();
             CheckIncreaseDecreaseButton(selectedOrderItem);
             DecreaseCategoryAmount(selectedOrderItem.Item.Category);
@@ -336,7 +351,7 @@ namespace ChapeauUI
         {
             dataGrid_order.Items.Remove(selectedOrderItem);
             order = item_logic.DeleteOrderItem(order, selectedOrderItem);
-            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("0.00");
+            lbl_total_price.Content = item_logic.GetTotalCost(order).ToString("€ 0.00");
             btn_complete_order.IsEnabled = item_logic.CheckOrderCount(order);
             RemoveCategoryAmount(selectedOrderItem);
 

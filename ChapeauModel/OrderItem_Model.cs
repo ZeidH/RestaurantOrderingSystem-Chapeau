@@ -39,7 +39,7 @@ namespace ChapeauModel
         {
             get
             {
-                if (Comment != "")
+                if (Comment != " ")
                 { return string.Format("{0}\n Comment: {1}", Item.Name, Comment); }
                 else
                 { return string.Format("{0}", Item.Name); }

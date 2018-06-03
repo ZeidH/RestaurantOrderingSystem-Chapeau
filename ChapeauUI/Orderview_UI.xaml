@@ -17,7 +17,7 @@
         <Label x:Name="lbl_new_order" Content="New order" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="131" BorderThickness="0" Margin="10,3,0,0"/>
         <Button x:Name="btn_return" Content="X" Style="{StaticResource Close}" HorizontalAlignment="Left" Margin="283,3,0,0" VerticalAlignment="Top" Width="31" Height="26" Click="Btn_return_Click" BorderBrush="#FF595959" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <Label x:Name="lbl_total_price_text" Content="Total price (inc. VAT) :" Style="{StaticResource CommentPrice}" HorizontalAlignment="Left" Margin="105,328,0,0" VerticalAlignment="Top" Height="24" Width="135" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lbl_total_price" Style="{StaticResource CommentPrice}" Margin="0,328,376.6,0" Height="24" Width="58" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" Grid.ColumnSpan="2" />
+        <Label x:Name="lbl_total_price" Style="{StaticResource CommentPrice}" Margin="0,328,10.8,0" Height="24" Width="58" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" />
         <Button x:Name="btn_increase_item" Content="+" Style="{StaticResource Quantity}" HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="55" Height="45" Click="Btn_increase_item_Click" IsEnabled="False" />
         <Button x:Name="btn_decrease_item" Content="-" Style="{StaticResource Quantity}" HorizontalAlignment="Left" Margin="70,366,0,0" VerticalAlignment="Top" Width="55" Height="45" Click="Btn_decrease_item_Click" IsEnabled="False" />
         <Button x:Name="btn_remove_item" Content="DEL" Style="{StaticResource Delete}" HorizontalAlignment="Left" Margin="130,366,0,0" VerticalAlignment="Top" Width="55" Height="45" Click="Btn_remove_item_Click" IsEnabled="False" />
@@ -60,7 +60,7 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel x:Name="StackPanel_sub_category" HorizontalAlignment="Center" Height="38" Margin="3,46,10,0" VerticalAlignment="Top" Width="359" Orientation="Horizontal" Grid.Column="1">
+        <StackPanel x:Name="StackPanel_sub_category" HorizontalAlignment="Center" Height="38" Margin="1.2,46,16.6,0" VerticalAlignment="Top" Width="359" Orientation="Horizontal" Grid.Column="1">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Margin" Value="3,0,3,0"/>
