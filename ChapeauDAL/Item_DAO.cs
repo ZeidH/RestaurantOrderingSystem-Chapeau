@@ -12,6 +12,7 @@ namespace ChapeauDAL
     {
         public void Db_add_item(List<OrderItem> orderItems)
         {
+            SqlTransaction tran = OpenConnection().BeginTransaction();
             string query = string.Format("INSERT INTO ORDER_LIST (order_id, item_comment, order_time, order_status, item_amount, item_id) " +
             "VALUES(@orderid, @itemcomment, @ordertime, @orderstatus, @itemamount, @itemid)");
             try
@@ -43,13 +44,26 @@ namespace ChapeauDAL
                     {
                         Value = orderItem.Item.Item_id
                     };
-                    ExecuteEditQuery(query, sqlParameter);
+                    ExecuteEditTranQuery(query, sqlParameter, tran);
                 }
+                tran.Commit();
             }
             catch (Exception e)
             {
-                ErrorFilePrint print = new ErrorFilePrint();
-                print.ErrorLog(e);
+                try
+                {
+                    tran.Rollback();
+                }
+                catch (Exception)
+                {
+
+                    ErrorFilePrint print = new ErrorFilePrint();
+                    print.ErrorLog(e);
+                    throw;
+                }
+
+                ErrorFilePrint print2 = new ErrorFilePrint();
+                print2.ErrorLog(e);
                 throw;
             }
 
