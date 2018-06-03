@@ -43,6 +43,7 @@
     <Compile Include="BarOrder.cs" />
     <Compile Include="Enumerations\DinnerEnum.cs" />
     <Compile Include="Enumerations\DrinkEnum.cs" />
+    <Compile Include="Enumerations\PreparationLocation.cs" />
     <Compile Include="Item_Model.cs" />
     <Compile Include="Enumerations\LunchEnum.cs" />
     <Compile Include="Enumerations\MenuEnum.cs" />
