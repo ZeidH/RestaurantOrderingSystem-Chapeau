@@ -44,8 +44,8 @@
     
     <!--Payment Headers-->
     <Style TargetType="{x:Type Label}" x:Key="PaymentHeader" BasedOn="{StaticResource PaymentLabel}" >
-        
-        
-        
+
+        <Setter Property="FontSize" Value="24" />
+
     </Style>
 </ResourceDictionary>

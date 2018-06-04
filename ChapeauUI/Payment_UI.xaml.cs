@@ -72,6 +72,8 @@ namespace ChapeauUI
                 NavigationService.Navigate(new Tableview_UI());
             }
             RefreshTip();
+            btn_even_split.IsEnabled = false;
+            btn_Split.IsEnabled = false;
             btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer + 1}";
         }
 
