@@ -4,16 +4,13 @@ namespace ChapeauModel
 {
 	public class Order
 	{
-		List<OrderItem> Items { get; set; }
+		public int Id { get; set; }
 
-		OrderStatus Status
-		{
-			get
-			{
-				// todo: combine order statuses of all the items
-				return OrderStatus.Ready;
-			}
-		}
+		public List<OrderItem> Items { get; set; }
+
+		public int TableId { get; set; }
+
+		public string EmployeeName { get; set; }
 	}
 
 

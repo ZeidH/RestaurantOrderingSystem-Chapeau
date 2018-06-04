@@ -60,7 +60,6 @@
     <Compile Include="Singleton.cs" />
     <Compile Include="Enumerations\TableStatusEnum.cs" />
     <Compile Include="Enumerations\VatEnum.cs" />
-    <Compile Include="Tab.cs" />
     <Compile Include="Table.cs" />
   </ItemGroup>
   <ItemGroup>

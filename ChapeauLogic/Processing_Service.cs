@@ -1,23 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using ChapeauModel;
 using ChapeauDAL;
-using System.Data;
 
 namespace ChapeauLogic
 {
-    public class Processing_Service
+	public class Processing_Service
     {
 		Processing_DAO processingDao = new Processing_DAO();
 
-		public DataTable GetReadyKitchenOrders()
+		public List<Order> GetOrders(OrderStatus status, PreparationLocation location)
 		{
-			return processingDao.Db_get_orders_by_status_and_location(OrderStatus.Ready, PreparationLocation.Kitchen);
+			return processingDao.Db_get_orders_by_status_and_location(status, location);
 		}
-        
+
+		public Order GetOrderDetails(int orderId, OrderStatus status, PreparationLocation location)
+		{
+			return processingDao.Db_get_order_items(orderId, status, location);
+		}
+
+		public void MarkOrderItemAsReady(int orderId, int itemId)
+		{
+			processingDao.Db_mark_order_ready(orderId, itemId);
+		}
 
     }
 }

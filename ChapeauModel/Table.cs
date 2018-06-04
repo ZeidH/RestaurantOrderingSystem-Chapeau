@@ -4,7 +4,7 @@
 	public class Table
 	{
 		int Number { get; set; }
-		Tab Tab { get; set; }
+		
 		TableStatus Status { get; set; }
 	}
 
