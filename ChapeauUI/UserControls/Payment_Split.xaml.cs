@@ -34,11 +34,12 @@ namespace ChapeauUI
             FillStackPanel();
             if (payment.CustomerCount >= 4)
                 delete_buttons[0].IsEnabled = false;
+            UpdateLabels();
         }
 
         private void FillStackPanel()
         {
-            payment.GuestPrice = new List<float>();
+            payment.GuestPrice = new List<int>();
             int i = 0;
             while (i < payment.CustomerCount)
             {
@@ -46,8 +47,8 @@ namespace ChapeauUI
                 {
                     if (i < payment.CustomerCount)
                     {
-                        guest.Content = $"Guest {i + 1} Price: {payment.SplittedPrice}";
                         payment.GuestPrice.Add(payment.SplittedPrice);
+                       // guest.Content = $"Guest {i + 1} Price: {payment.SplittedPrice[i]}";
                         guest.Visibility = Visibility.Visible;
                         CreateButton(i, payment);
                         i++;
@@ -135,12 +136,12 @@ namespace ChapeauUI
 
         private void Button_5Euro_Click(object sender, RoutedEventArgs e)
         {
-            ChangeGuest(Splitter((sender as Button).Name.ToString()), 5);
+            ChangeGuest(Splitter((sender as Button).Name.ToString()), 50000);
         }
 
         private void Button_1Euro_Click(object sender, RoutedEventArgs e)
         {
-            ChangeGuest(Splitter((sender as Button).Name.ToString()), 1);
+            ChangeGuest(Splitter((sender as Button).Name.ToString()), 10000);
         }
 
         // Splits the label/button names to get which row
@@ -151,7 +152,7 @@ namespace ChapeauUI
         }
 
         // Math
-        private void ChangeGuest(int guestNr, float change)
+        private void ChangeGuest(int guestNr, int change)
         {
 
             int id = Splitter((stackpanel_Guest_Price.Children[guestNr] as Label).Name.ToString());
@@ -168,13 +169,13 @@ namespace ChapeauUI
             {
                 payment_logic.CalculateGuestPriceAdd(payment, change, id);
             }
-            ButtonCheck(change);
+            ButtonCheck();
             UpdateLabels();
         }
 
 
         // Supposed to unenable buttons when their price is 0
-        private void ButtonCheck(float change)
+        private void ButtonCheck()
         {
             int alive = payment_logic.GuestsOverZero(payment);
 
@@ -211,7 +212,7 @@ namespace ChapeauUI
             {
                 if (i < payment.GuestPrice.Count)
                 {
-                    guest.Content = $"Guest {i + 1} Price: {payment.GuestPrice[i]}";
+                    guest.Content = $"Guest {i + 1} Price: {(float)payment.GuestPrice[i]/10000}";
                     i++;
                 }
             }

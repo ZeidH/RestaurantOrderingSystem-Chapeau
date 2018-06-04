@@ -39,7 +39,7 @@ namespace ChapeauUI
 
             // Display price on the labels
             total_price.Content = $"Total Price: {payment.Price.ToString("0.00 €")}";
-            vat_price.Content = $"Vat Price: {payment.Vat.ToString("0.00 €")}";
+            vat_price.Content = $"Vat Price: {payment.ReadVat.ToString("0.00 €")}";
             btn_Payment_Finish.IsEnabled = false;
 
             if(payment.CustomerCount < 2)

@@ -25,7 +25,7 @@ namespace ChapeauDAL
             {
                 Value = payment.Tip
             };
-            sqlParameters[2] = new SqlParameter("@price", SqlDbType.Float)
+            sqlParameters[2] = new SqlParameter("@price", SqlDbType.Decimal)
             {
                 Value = payment.TotalPrice
             };

@@ -48,7 +48,7 @@ namespace ChapeauLogic
                 // If there are no more customers, set the order and finish payment by returning true
                 payment_DAO.Db_set_order_comment(payment);
                 return true;
-            }      
+            }
         }
 
         private void SetPayingCustomerCount(Payment payment)
@@ -70,7 +70,7 @@ namespace ChapeauLogic
         {
             foreach (OrderItem orderItem in order)
             {
-                payment.Price += orderItem.TotalPrice;
+                payment.SetPrice += orderItem.TotalPrice;
                 payment.Vat += orderItem.VatPrice;
             }
             return payment;
@@ -78,20 +78,20 @@ namespace ChapeauLogic
 
         // UserControl Payment_Split
 
-            // If + Buttons are pressed
-        public void CalculateGuestPriceAdd(Payment payment, float change, int guest)
+        // If + Buttons are pressed
+        public void CalculateGuestPriceAdd(Payment payment, int change, int guest)
         {
             for (int i = (guest + 1); i < payment.GuestPrice.Count; i++)
             {
                 AddPrice(payment, guest, (DeletePrice(payment, i, guest, change)));
             }
         }
-        private void AddPrice(Payment payment, int guest, float change)
+        private void AddPrice(Payment payment, int guest, int change)
         {
             // Add the collected money to the user
             payment.GuestPrice[guest] += change;
         }
-        private float DeletePrice(Payment payment, int i, int guest, float change)
+        private int DeletePrice(Payment payment, int i, int guest, int change)
         {
             guest++; //test
             // Check how many of the guests that still have more than 0 money
@@ -107,14 +107,17 @@ namespace ChapeauLogic
             else
             {
                 // Collect whats left and return that amount
-                float collected = payment.GuestPrice[i];
+                int collected = payment.GuestPrice[i];
                 payment.GuestPrice[i] -= payment.GuestPrice[i];
                 return collected;
             }
         }
-        private bool CalculationCheck(Payment payment, int guest, int i, float change)
+        private bool CalculationCheck(Payment payment, int guest, int i, int change)
         {
             float calcCheck = payment.GuestPrice[i];
+            if (guest == 1 && calcCheck - change < 0)
+                return false;
+
             calcCheck -= (change / (payment.GuestPrice.Count - guest));
             return calcCheck > 0;
         }
@@ -135,7 +138,7 @@ namespace ChapeauLogic
         // If Zero button is pressed
         public void CalculateGuestPriceDelete(Payment payment, int guest)
         {
-            for (int x = 0; x < (guest+1); x++)
+            for (int x = 0; x < (guest + 1); x++)
             {
                 payment.GuestPrice[x] += (payment.GuestPrice[guest] / guest);
             }
