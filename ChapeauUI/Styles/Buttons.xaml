@@ -17,6 +17,7 @@
         <Setter Property="Margin" Value="2,0,2,0"/>
     </Style>
 
+    <!--Orderview Clicked menu category-->
     <Style TargetType="{x:Type Button}" x:Key="ClickedMenuCategory" BasedOn="{StaticResource MenuCategory}">
         <Setter Property="Background" Value="{StaticResource DarkBlueBrush}"/>
         <Setter Property="BorderThickness" Value="3"/>
@@ -53,7 +54,14 @@
         <Setter Property="Background" Value="{StaticResource MidDarkGrayBrush}"/>
         <Setter Property="FontSize" Value="12"/>
     </Style>
-    
+
+    <!--Orderview clicked meat comments-->
+    <Style TargetType="{x:Type Button}" x:Key="ClickedMeatComments" BasedOn="{StaticResource MeatComments}">
+        <Setter Property="Background" Value="{StaticResource DarkBlueBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="White"/>
+    </Style>
+
     <!--Orderview cross button-->
     <Style TargetType="{x:Type Button}" x:Key="Close" BasedOn="{StaticResource Orderview}">
         <Setter Property="Background" Value="{StaticResource RedBrush}"/>

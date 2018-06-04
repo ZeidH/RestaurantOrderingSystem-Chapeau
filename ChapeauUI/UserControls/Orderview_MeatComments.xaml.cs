@@ -11,11 +11,10 @@ namespace ChapeauUI
     /// </summary>
     public partial class Orderview_MeatComments : UserControl
     {
-        private TextBox txt_comment;
-        public Orderview_MeatComments(TextBox txt_comment)
+        public string meat_comment;
+        public Orderview_MeatComments()
         {
             InitializeComponent();
-            this.txt_comment = txt_comment;
             CreateMeatCommmentButton();
         }
 
@@ -28,7 +27,6 @@ namespace ChapeauUI
                 column_index++;
             }
         }
-
         private void CreateCookingLevelButtons(string level, int column_index)
         {
             Button button = GetButton(level);
@@ -56,20 +54,31 @@ namespace ChapeauUI
 
         private void ButtonMeatComment_Click(object sender, RoutedEventArgs e)
         {
+            RevertClicked();
+            Button button = (sender as Button);
+            button.Style = Application.Current.FindResource("ClickedMeatComments") as Style;
             string comment = (sender as Button).Content.ToString();
             switch (comment)
             {
                 case "R":
-                    txt_comment.Text += " Rare ";
+                    meat_comment = "Rare";
                     break;
                 case "M":
-                    txt_comment.Text += " Medium ";
+                    meat_comment = "Medium";
                     break;
                 case "WD":
-                    txt_comment.Text += " Well-done";
+                    meat_comment = "Well-done";
                     break;
                 default:
                     break;
+            }
+        }
+
+        public void RevertClicked()
+        {
+            foreach (Button button in main_grid.Children)
+            {
+                button.Style = Application.Current.FindResource("MeatComments") as Style;
             }
         }
     }
