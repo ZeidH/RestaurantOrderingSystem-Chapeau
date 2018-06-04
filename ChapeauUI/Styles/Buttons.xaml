@@ -69,9 +69,12 @@
     </Style>
 
     <!--Payment Split Mode button-->
-    <Style TargetType="{x:Type Button}" x:Key="Split" BasedOn="{StaticResource Payment}">
-        <Setter Property="Background" Value="{StaticResource YellowBrush}"/>
-        <Setter Property="FontSize" Value="14"/>
-    </Style>
+	<Style TargetType="{x:Type Button}" x:Key="Split" BasedOn="{StaticResource Payment}">
+		<Setter Property="Background" Value="{StaticResource YellowBrush}"/>
+		<Setter Property="FontSize" Value="14"/>
+	</Style>
 
+	<Style TargetType="{x:Type Button}" x:Key="PaymentFinalize" BasedOn="{StaticResource Confirm}">
+	</Style>
+	
 </ResourceDictionary>

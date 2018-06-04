@@ -73,7 +73,7 @@ namespace ChapeauUI
             }
             RefreshTip();
             btn_even_split.IsEnabled = false;
-            btn_Split.IsEnabled = false;
+            btn_Undo_Split.IsEnabled = false;
             btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer + 1}";
         }
 
@@ -113,7 +113,7 @@ namespace ChapeauUI
 
             RefreshTip();
             btn_Split.Visibility = Visibility.Hidden;
-            Btn_Undo_Split.Visibility = Visibility.Visible;
+            btn_Undo_Split.Visibility = Visibility.Visible;
             btn_even_split.Visibility = Visibility.Visible;
         }
 
@@ -124,7 +124,7 @@ namespace ChapeauUI
             receipt_panel.Children.Clear();
             RefreshTip();
 
-            Btn_Undo_Split.Visibility = Visibility.Hidden;
+            btn_Undo_Split.Visibility = Visibility.Hidden;
             btn_even_split.Visibility = Visibility.Hidden;
             btn_Split.Visibility = Visibility.Visible;
         }

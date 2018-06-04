@@ -38,6 +38,7 @@ namespace ChapeauUI
 
         private void FillStackPanel()
         {
+            payment.GuestPrice = new List<float>();
             int i = 0;
             while (i < payment.CustomerCount)
             {
@@ -53,7 +54,6 @@ namespace ChapeauUI
                     }
                 }
             }
-
         }
 
         private void CreateButton(int i, Payment payment)
@@ -192,7 +192,16 @@ namespace ChapeauUI
             {
                 add_buttons[1, 0].IsEnabled = false;
                 add_buttons[1, 1].IsEnabled = false;
+                delete_buttons[0].IsEnabled = false;
             }
+            else if (alive == 1)
+            {
+                OnePersonSplitException(new Exception("There's no point in using split if only one person is paying."));
+            }
+        }
+        private void OnePersonSplitException(Exception exp)
+        {
+            MessageBox.Show(exp.Message,"Warning",MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         private void UpdateLabels()
