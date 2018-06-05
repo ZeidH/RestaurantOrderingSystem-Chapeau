@@ -44,6 +44,7 @@ namespace ChapeauDAL
             catch (Exception e)
             {
                 print.ErrorLog(e);
+                throw;
             }
         }
 
@@ -63,6 +64,7 @@ namespace ChapeauDAL
             catch (SqlException e)
             {
                 print.ErrorLog(e);
+                throw;
             }
             finally
             {
@@ -97,6 +99,7 @@ namespace ChapeauDAL
             {
                 print.ErrorLog(e);
                 return null;
+                throw;
             }
             finally
             {

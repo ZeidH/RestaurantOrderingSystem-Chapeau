@@ -10,7 +10,7 @@ namespace ChapeauDAL
 {
     public class Item_DAO : Order_DAO
     {
-        public void Db_add_item(List<OrderItem> orderItems)
+        public void DbAddItem(List<OrderItem> orderItems)
         {
             SqlTransaction tran = OpenConnection().BeginTransaction();
             string query = string.Format("INSERT INTO ORDER_LIST (order_id, item_comment, order_time, order_status, item_amount, item_id) " +
@@ -69,7 +69,7 @@ namespace ChapeauDAL
 
         }
 
-        public int Db_verify_stock(Item item)
+        public int DbVerifyStock(Item item)
         {
             string query = string.Format("SELECT item_stock FROM ITEM where item_id = @itemid");
             SqlParameter[] sqlParameters = new SqlParameter[1];
@@ -89,11 +89,18 @@ namespace ChapeauDAL
 
         private int VerifyStock(DataTable dataTable)
         {
-            int stock = (int)dataTable.Rows[0]["item_stock"];
-            return stock;
+            try
+            {
+                return (int)dataTable.Rows[0]["item_stock"];
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public List<int> Db_refresh_stock()
+        public List<int> DbRefreshStock()
         {
             string query = "SELECT item_stock FROM ITEM";
             SqlParameter[] sqlParameters = new SqlParameter[0];
@@ -103,7 +110,6 @@ namespace ChapeauDAL
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
@@ -111,15 +117,22 @@ namespace ChapeauDAL
         private List<int> RefreshStock(DataTable dataTable)
         {
             List<int> stocks = new List<int>();
-            foreach (DataRow dr in dataTable.Rows)
+            try
             {
-                int stock = (int)dr["item_stock"];
-                stocks.Add(stock);
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    int stock = (int)dr["item_stock"];
+                    stocks.Add(stock);
+                }
+                return stocks;
             }
-            return stocks;
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public void Db_update_stock(OrderItem orderItem)
+        public void DbUpdateStock(OrderItem orderItem)
         {
             string query = string.Format("UPDATE ITEM SET item_stock = @itemstock WHERE item_id = @itemid");
             SqlParameter[] sqlParameters = new SqlParameter[2];
@@ -131,10 +144,17 @@ namespace ChapeauDAL
             {
                 Value = orderItem.Item.Item_id
             };
-            ExecuteEditQuery(query, sqlParameters);
+            try
+            {
+                ExecuteEditQuery(query, sqlParameters);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public List<Item> Db_select_meu()
+        public List<Item> DbSelectMenu()
         {
             string query = "SELECT i.item_id, i.item_name, i.item_cost, i.item_stock, d.drink_category, l.lunch_category, di.dinner_category, d.drink_vat " +
                            "FROM((ITEM as i left JOIN drink as d on i.item_id = d.drink_id) left join LUNCH as l on i.item_id = l.lunch_id) left join dinner as di on i.item_id = di.dinner_id";
@@ -145,7 +165,6 @@ namespace ChapeauDAL
             }
             catch (Exception)
             {
-
                 throw;
             }
 
@@ -153,37 +172,45 @@ namespace ChapeauDAL
         private List<Item> ReadMenu(DataTable dataTable)
         {
             List<Item> menu = new List<Item>();
-            foreach (DataRow dr in dataTable.Rows)
+            try
             {
-                Item item = new Item()
+                foreach (DataRow dr in dataTable.Rows)
                 {
-                    Item_id = (int)dr["item_id"],
-                    Name = dr["item_name"].ToString(),
-                    Cost = (float)(double)dr["item_cost"],
-                    Stock = (int)dr["item_stock"],
-                };
-                if (!dr.IsNull("drink_category"))
-                {
-                    item.Category = MenuCategory.Drink;
-                    item.DrinkSubCategory = (Drink)Int16.Parse(dr["drink_category"].ToString());
-                    item.Vat = (Vat)Int16.Parse(dr["drink_vat"].ToString());
+                    Item item = new Item()
+                    {
+                        Item_id = (int)dr["item_id"],
+                        Name = dr["item_name"].ToString(),
+                        Cost = (float)(double)dr["item_cost"],
+                        Stock = (int)dr["item_stock"],
+                    };
+                    if (!dr.IsNull("drink_category"))
+                    {
+                        item.Category = MenuCategory.Drink;
+                        item.DrinkSubCategory = (Drink)Int16.Parse(dr["drink_category"].ToString());
+                        item.Vat = (Vat)Int16.Parse(dr["drink_vat"].ToString());
+                    }
+                    if (!dr.IsNull("lunch_category"))
+                    {
+                        item.Category = MenuCategory.Lunch;
+                        item.LunchSubCategory = (Lunch)Int16.Parse(dr["lunch_category"].ToString());
+                    }
+                    if (!dr.IsNull("dinner_category"))
+                    {
+                        item.Category = MenuCategory.Dinner;
+                        item.DinnerSubCategory = (Dinner)Int16.Parse(dr["dinner_category"].ToString());
+                    }
+                    menu.Add(item);
                 }
-                if (!dr.IsNull("lunch_category"))
-                {
-                    item.Category = MenuCategory.Lunch;
-                    item.LunchSubCategory = (Lunch)Int16.Parse(dr["lunch_category"].ToString());
-                }
-                if (!dr.IsNull("dinner_category"))
-                {
-                    item.Category = MenuCategory.Dinner;
-                    item.DinnerSubCategory = (Dinner)Int16.Parse(dr["dinner_category"].ToString());
-                }
-                menu.Add(item);
+                return menu;
             }
-            return menu;
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
-        public bool Db_select_meat_type(int item_id)
+        public bool DbSelectMeatType(int item_id)
         {
             ErrorFilePrint print = new ErrorFilePrint();
             string query = "SELECT has_meat_type FROM dinner where dinner_id = @itemid";
@@ -199,10 +226,20 @@ namespace ChapeauDAL
             catch (Exception e)
             {
                 print.ErrorLog(e);
-                throw e;
+                throw;
             }
         }
 
-        private bool ReadMeatType(DataTable dataTable) => (bool)dataTable.Rows[0]["has_meat_type"];
+        private bool ReadMeatType(DataTable dataTable)
+        {
+            try
+            {
+                return (bool)dataTable.Rows[0]["has_meat_type"];
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

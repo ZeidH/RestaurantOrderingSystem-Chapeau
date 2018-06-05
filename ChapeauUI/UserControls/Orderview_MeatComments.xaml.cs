@@ -11,7 +11,7 @@ namespace ChapeauUI
     /// </summary>
     public partial class Orderview_MeatComments : UserControl
     {
-        public string meat_comment;
+        public string meatComment;
         public Orderview_MeatComments()
         {
             InitializeComponent();
@@ -61,13 +61,13 @@ namespace ChapeauUI
             switch (comment)
             {
                 case "R":
-                    meat_comment = "Rare";
+                    meatComment = "Rare";
                     break;
                 case "M":
-                    meat_comment = "Medium";
+                    meatComment = "Medium";
                     break;
                 case "WD":
-                    meat_comment = "Well-done";
+                    meatComment = "Well-done";
                     break;
                 default:
                     break;
