@@ -155,8 +155,6 @@ namespace ChapeauUI
                 listviewMenu.ItemsSource = null;
                 List<Item> subMenu = itemLogic.GetSubMenu(menu, e.Source.ToString());
                 listviewMenu.ItemsSource = subMenu;
-                Storyboard sb = (Storyboard)TryFindResource("FadeIn");
-                sb.Begin();
             }
             catch (Exception exp)
             {

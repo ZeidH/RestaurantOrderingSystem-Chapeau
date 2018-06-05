@@ -159,7 +159,7 @@ namespace ChapeauDAL
             string query = "SELECT i.item_id, i.item_name, i.item_cost, i.item_stock, d.drink_category, l.lunch_category, di.dinner_category, d.drink_vat " +
                            "FROM((ITEM as i left JOIN drink as d on i.item_id = d.drink_id) left join LUNCH as l on i.item_id = l.lunch_id) left join dinner as di on i.item_id = di.dinner_id";
             SqlParameter[] sqlParameters = new SqlParameter[0];
-           // try
+           try
             {
                 return ReadMenu(ExecuteSelectQuery(query, sqlParameters));
             }
