@@ -20,6 +20,7 @@ namespace ChapeauUI
         private Payment_Split split;
         private Payment_Tip tip;
 
+        #region Constructor & Initialize OrderList
         public Payment_UI(int order_id, int customer_count)
         {
             InitializeComponent();
@@ -30,11 +31,11 @@ namespace ChapeauUI
 
         private void FillReceipt()
         {
-
             //Get listview from UserControls
             OrderList orderList = new OrderList(payment);
             order_list.Children.Add(orderList);
-            //// Process the data and fill the model + calc price
+
+            // Process the data and fill the model
             payment_Logic.GetTotalPrice(payment_Logic.GetReceipt(payment.Order_id), payment);
 
             // Display price on the labels
@@ -42,30 +43,21 @@ namespace ChapeauUI
             vat_price.Content = $"Vat Price: {payment.ReadVat.ToString("0.00 €")}";
             btn_Payment_Finish.IsEnabled = false;
 
-            if(payment.CustomerCount < 2)
+            if (payment.CustomerCount < 2 && payment.CustomerCount > 4)
             {
                 btn_Split.IsEnabled = false;
             }
-        }
+        } 
+        #endregion
 
         private void Btn_Payment_Finish_Click(object sender, RoutedEventArgs e)
         { 
             // Get information from textbox
             payment.Comment = comment_Box.Text;
 
-            // Disable the Guests increase/decrease and delete buttons when they're finalized.
-            if ((payment.NextCustomer + 1) != payment.CustomerCount && (payment.SplitPayment))
-            {
-                for (int i = 0; i < split.add_buttons.GetLength(1); i++)
-                {
-                    split.add_buttons[payment.NextCustomer, i].IsEnabled = false;
-                }
-                foreach (Button delete_btn in split.delete_buttons)
-                {
-                    delete_btn.IsEnabled = false;
-                }
-            }
-            // Send information to db
+            SplitButtonCheck();
+
+            // Send information to db, if there are no payments left then go to tableview
             if (payment_Logic.InsertPayment(payment))
             {
                 // Direct to tableview when order is finalized
@@ -77,6 +69,9 @@ namespace ChapeauUI
             btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer + 1}";
         }
 
+
+
+        #region Payment Method Radiobuttons
         private void Radio_Btn_Checked(object sender, RoutedEventArgs e)
         {
             PayMethodCheck(payment_Logic.GetPayMethod((sender as RadioButton).Content.ToString()));
@@ -97,8 +92,24 @@ namespace ChapeauUI
                 tip_panel.Children.Clear();
             }
         }
+        #endregion
 
-        //What exactly does this need to do...? Ask Nymp/Erwin/Gerwin
+        #region Payment Split Mode
+        private void SplitButtonCheck()
+        {
+            // Disable the Guests increase/decrease and delete buttons when they're finalized.
+            if ((payment.NextCustomer + 1) != payment.CustomerCount && (payment.SplitPayment))
+            {
+                for (int i = 0; i < split.add_buttons.GetLength(1); i++)
+                {
+                    split.add_buttons[payment.NextCustomer, i].IsEnabled = false;
+                }
+                foreach (Button delete_btn in split.delete_buttons)
+                {
+                    delete_btn.IsEnabled = false;
+                }
+            }
+        }
         private void Btn_Split_Click(object sender, RoutedEventArgs e)
         {
             payment.SplitPayment = true;
@@ -109,7 +120,7 @@ namespace ChapeauUI
         {
             split = new Payment_Split(payment);
             receipt_panel.Children.Add(split);
-            btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer+1}";
+            btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer + 1}";
 
             RefreshTip();
             btn_Split.Visibility = Visibility.Hidden;
@@ -142,6 +153,7 @@ namespace ChapeauUI
             {
                 tip.UpdateLabel();
             }
-        }
+        } 
+        #endregion
     }
 }

@@ -9,6 +9,7 @@ namespace ChapeauModel
 {
     public class Item
     {
+        //protected readonly int CONVERTION = 10000;
         public int Order_id { get; set; }
         public string Name { get; set; }
 

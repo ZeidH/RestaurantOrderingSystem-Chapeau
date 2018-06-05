@@ -76,9 +76,8 @@ namespace ChapeauLogic
             return payment;
         }
 
-        // UserControl Payment_Split
-
-        // If + Buttons are pressed
+        #region UserControl Payment_Split Logic
+        // If add Buttons are pressed
         public void CalculateGuestPriceAdd(Payment payment, int change, int guest)
         {
             for (int i = (guest + 1); i < payment.GuestPrice.Count; i++)
@@ -151,7 +150,8 @@ namespace ChapeauLogic
             {
                 payment.GuestPrice[i] = payment.SplittedPrice;
             }
-        }
+        } 
+        #endregion
     }
 }
 

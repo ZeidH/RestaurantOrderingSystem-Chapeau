@@ -48,7 +48,6 @@ namespace ChapeauUI
                     if (i < payment.CustomerCount)
                     {
                         payment.GuestPrice.Add(payment.SplittedPrice);
-                       // guest.Content = $"Guest {i + 1} Price: {payment.SplittedPrice[i]}";
                         guest.Visibility = Visibility.Visible;
                         CreateButton(i, payment);
                         i++;
@@ -56,7 +55,7 @@ namespace ChapeauUI
                 }
             }
         }
-
+        #region Button Creation
         private void CreateButton(int i, Payment payment)
         {
             if (i != (payment.CustomerCount - 1))
@@ -69,6 +68,7 @@ namespace ChapeauUI
             }
 
         }
+
 
         private void CreateEuroButton(int i)
         {
@@ -127,8 +127,9 @@ namespace ChapeauUI
             btnGrid.Children.Add(delete);
             delete.Click += new RoutedEventHandler(Button_Null_Click);
         }
+        #endregion
 
-        // Click handlers
+        #region Button Click Events
         private void Button_Null_Click(object sender, RoutedEventArgs e)
         {
             ChangeGuest(Splitter((sender as Button).Name.ToString()), 0);
@@ -142,7 +143,8 @@ namespace ChapeauUI
         private void Button_1Euro_Click(object sender, RoutedEventArgs e)
         {
             ChangeGuest(Splitter((sender as Button).Name.ToString()), 10000);
-        }
+        } 
+        #endregion
 
         // Splits the label/button names to get which row
         private int Splitter(string value)
@@ -173,7 +175,6 @@ namespace ChapeauUI
             UpdateLabels();
         }
 
-
         // Supposed to unenable buttons when their price is 0
         private void ButtonCheck()
         {
@@ -189,7 +190,7 @@ namespace ChapeauUI
                 add_buttons[2, 1].IsEnabled = false;
 
             }
-            else if (alive == 2)
+            else if (alive == 2 && payment.CustomerCount > 2)
             {
                 add_buttons[1, 0].IsEnabled = false;
                 add_buttons[1, 1].IsEnabled = false;
@@ -197,10 +198,11 @@ namespace ChapeauUI
             }
             else if (alive == 1)
             {
-                OnePersonSplitException(new Exception("There's no point in using split if only one person is paying."));
+                SplitException(new Exception("There's no point in using split if only one person is paying."));
             }
+
         }
-        private void OnePersonSplitException(Exception exp)
+        private void SplitException(Exception exp)
         {
             MessageBox.Show(exp.Message,"Warning",MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }

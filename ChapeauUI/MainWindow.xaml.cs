@@ -25,7 +25,7 @@ namespace ChapeauUI
         {
             InitializeComponent();
             //Initialize on Login Page     
-            Main.Content = new Payment_UI(6, 2);
+            Main.Content = new Payment_UI(4, 4);
         }
     }
 }
