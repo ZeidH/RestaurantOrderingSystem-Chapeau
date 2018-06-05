@@ -20,7 +20,14 @@ namespace ChapeauModel
                 if (Item.Vat == Vat.High || Item.Vat == Vat.Low)
                     return (Item.ReadCost * Amount) + VatPrice;
                 else
-                    return Item.ReadCost * Amount;               
+                    return Item.ReadCost * Amount;
+            }
+        }
+        public float ReadTotalPrice
+        {
+            get
+            {
+                return (float)TotalPrice / 10000;
             }
         }
         public int VatPrice

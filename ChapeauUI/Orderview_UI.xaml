@@ -105,7 +105,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Path=TotalPrice, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" Header="Price" SortDirection="Descending" Width="48">
+                <DataGridTextColumn Binding="{Binding Path=ReadTotalPrice, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" Header="Price" SortDirection="Descending" Width="48">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="Background" Value="White"/>

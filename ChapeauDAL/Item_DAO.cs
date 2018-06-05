@@ -125,15 +125,15 @@ namespace ChapeauDAL
             string query = "SELECT i.item_id, i.item_name, i.item_cost, i.item_stock, d.drink_category, l.lunch_category, di.dinner_category, d.drink_vat " +
                            "FROM((ITEM as i left JOIN drink as d on i.item_id = d.drink_id) left join LUNCH as l on i.item_id = l.lunch_id) left join dinner as di on i.item_id = di.dinner_id";
             SqlParameter[] sqlParameters = new SqlParameter[0];
-            try
+           // try
             {
                 return ReadMenu(ExecuteSelectQuery(query, sqlParameters));
             }
-            catch (Exception)
-            {
+            //catch (Exception exp)
+            //{
 
-                throw;
-            }
+            //    throw;
+            //}
 
         }
         private List<Item> ReadMenu(DataTable dataTable)
@@ -145,7 +145,7 @@ namespace ChapeauDAL
                 {
                     Item_id = (int)dr["item_id"],
                     Name = dr["item_name"].ToString(),
-                    Cost = (float)dr["item_cost"],
+                    Cost = (float)(double)dr["item_cost"],
                     Stock = (int)dr["item_stock"],
                 };
                 if (!dr.IsNull("drink_category"))
