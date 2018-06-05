@@ -172,7 +172,30 @@ namespace ChapeauUI
                 payment_logic.CalculateGuestPriceAdd(payment, change, id);
             }
             ButtonCheck();
+            UnExpectedBehaviorCheck();
             UpdateLabels();
+        }
+
+        private void UnExpectedBehaviorCheck()
+        {
+            int previousPrice = payment.GuestPrice[0];
+            for (int i = 0; i < payment.GuestPrice.Count; i++)
+            {
+                if (previousPrice > 0)
+                {
+                    previousPrice = payment.GuestPrice[i];
+                }
+                else if(previousPrice < payment.GuestPrice[i])
+                {
+                    SplitException(new Exception("Unexpected Behavior has occured, the splitted prices will now even."));
+                    int cellNumber = btnGrid.Children.Count-1;
+                    for (int x = 0; x < cellNumber; x++)
+                    {
+                        btnGrid.Children.RemoveAt(1);
+                    }
+                    FillStackPanel();
+                }
+            }
         }
 
         // Supposed to unenable buttons when their price is 0
