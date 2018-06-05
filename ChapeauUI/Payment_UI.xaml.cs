@@ -70,7 +70,6 @@ namespace ChapeauUI
         }
 
 
-
         #region Payment Method Radiobuttons
         private void Radio_Btn_Checked(object sender, RoutedEventArgs e)
         {
