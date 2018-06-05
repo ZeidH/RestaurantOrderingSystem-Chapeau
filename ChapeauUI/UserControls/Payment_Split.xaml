@@ -9,9 +9,9 @@
     <Grid x:Name="btnGrid" Margin="0,0,-0.4,-0.2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="168" />
-            <ColumnDefinition Width="35"/>
-            <ColumnDefinition Width="38" />
-            <ColumnDefinition Width="35"/>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="40" />
+            <ColumnDefinition Width="40"/>
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -23,10 +23,10 @@
         </Grid.RowDefinitions>
         <!-- X:Name Convention: Always index number on 3rd word -> Example: lbl_name_index -->
         <StackPanel Grid.Column="0" x:Name="stackpanel_Guest_Price" HorizontalAlignment="Left" VerticalAlignment="Top" Width="168" Height="282" Grid.RowSpan="5">
-            <Label Grid.Column="0" Grid.Row="0" x:Name="lbl_guest_0" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
-            <Label Grid.Column="0" Grid.Row="1" x:Name="lbl_guest_1" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
-            <Label Grid.Column="0" Grid.Row="2" x:Name="lbl_guest_2" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
-            <Label Grid.Column="0" Grid.Row="3" x:Name="lbl_guest_3" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
+            <Label Grid.Column="0" Grid.Row="0" x:Name="lbl_guest_0" Style="{StaticResource PaymentLabel}" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
+            <Label Grid.Column="0" Grid.Row="1" x:Name="lbl_guest_1" Style="{StaticResource PaymentLabel}" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
+            <Label Grid.Column="0" Grid.Row="2" x:Name="lbl_guest_2" Style="{StaticResource PaymentLabel}" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
+            <Label Grid.Column="0" Grid.Row="3" x:Name="lbl_guest_3" Style="{StaticResource PaymentLabel}" Visibility="Hidden" HorizontalAlignment="Left" Margin="10,4,0,4" VerticalAlignment="Top" Height="25" Width="150"/>
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Label}">
                     <Setter Property="Margin" Value="0,3,0,3"/>

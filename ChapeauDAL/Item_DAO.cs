@@ -145,7 +145,7 @@ namespace ChapeauDAL
                 {
                     Item_id = (int)dr["item_id"],
                     Name = dr["item_name"].ToString(),
-                    Cost = (float)(double)dr["item_cost"],
+                    Cost = (float)dr["item_cost"],
                     Stock = (int)dr["item_stock"],
                 };
                 if (!dr.IsNull("drink_category"))

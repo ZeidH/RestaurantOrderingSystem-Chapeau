@@ -13,24 +13,24 @@ namespace ChapeauModel
         public DateTime Time { get; set; }
         public OrderStatus Status { get; set; }
         public int Amount { get; set; }
-        public float TotalPrice
+        public int TotalPrice
         {
             get
             {
                 if (Item.Vat == Vat.High || Item.Vat == Vat.Low)
-                    return (Item.Cost * Amount) + VatPrice;
+                    return (Item.ReadCost * Amount) + VatPrice;
                 else
-                    return Item.Cost * Amount;               
+                    return Item.ReadCost * Amount;               
             }
         }
-        public float VatPrice
+        public int VatPrice
         {
             get
             {
                 if (Item.Vat == Vat.High)
-                    return (Item.Cost * (float)0.21) * Amount;
+                    return (int)(Item.ReadCost * 0.21) * Amount;
                 else if (Item.Vat == Vat.Low)
-                    return (Item.Cost * (float)0.06) * Amount;
+                    return (int)(Item.ReadCost * 0.06) * Amount;
                 else
                     return 0;
             }

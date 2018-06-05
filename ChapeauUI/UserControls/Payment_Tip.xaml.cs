@@ -29,11 +29,13 @@ namespace ChapeauUI
             this.payment = payment;
             UpdateLabel();
         }
+
         public void UpdateLabel()
         {
             lbl_tip.Content = payment.Price + payment.Tip;
         }
 
+        #region Payment Tip Click Events
         private void Btn_1_Click(object sender, RoutedEventArgs e)
         {
             payment.Tip += 1;
@@ -50,6 +52,7 @@ namespace ChapeauUI
         {
             payment.Tip = 0;
             UpdateLabel();
-        }
+        } 
+        #endregion
     }
 }

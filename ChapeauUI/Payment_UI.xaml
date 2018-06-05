@@ -10,27 +10,27 @@
 
     <Grid Margin="0,0,-0.4,0.6">
 
-        <Button x:Name="btn_Payment_Finish" Content="Finalize" HorizontalAlignment="Left" Margin="41,335,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Btn_Payment_Finish_Click" Background="#FFA0DD96"/>
+		<Button x:Name="btn_Payment_Finish" Content="Finalize" Style="{StaticResource PaymentFinalize}" HorizontalAlignment="Left" Margin="41,335,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Btn_Payment_Finish_Click" />
 
 
-        <TextBox x:Name="comment_Box" HorizontalAlignment="Left" Height="43" Margin="120,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
-        <Button x:Name="btn_Split" Content="Split" HorizontalAlignment="Left" Margin="208,335,0,0" VerticalAlignment="Top" Width="77" Height="50" Click="Btn_Split_Click" Background="#FF03B8C2"/>
-        <Button x:Name="Btn_Undo_Split" Content="Undo Split" Visibility="Hidden" HorizontalAlignment="Left" Margin="208,335,0,0" VerticalAlignment="Top" Width="77" Height="50" Background="#FF03B8C2" Click="Btn_Undo_Split_Click"/>
-        <Button x:Name="btn_even_split" Visibility="Hidden" Content="Even" HorizontalAlignment="Left" Margin="208,311,0,0" VerticalAlignment="Top" Width="75" Click="Btn_even_split_Click"/>
+		<TextBox x:Name="comment_Box" HorizontalAlignment="Left" Height="43" Margin="120,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
+        <Button x:Name="btn_Split" Content="Split" Style="{StaticResource Split}" HorizontalAlignment="Left" Margin="208,335,0,0" VerticalAlignment="Top" Width="77" Height="50" Click="Btn_Split_Click"/>
+        <Button x:Name="btn_Undo_Split" Content="Undo Split" Style="{StaticResource Delete}" FontSize="14" Visibility="Hidden" HorizontalAlignment="Left" Margin="208,335,0,0" VerticalAlignment="Top" Width="77" Height="50" Click="Btn_Undo_Split_Click"/>
+        <Button x:Name="btn_even_split" Visibility="Hidden" Style="{StaticResource Split}" Content="Even" HorizontalAlignment="Left" Margin="208,311,0,0" VerticalAlignment="Top" Width="75" Click="Btn_even_split_Click"/>
 
-        <Label Content="Payment Method:" HorizontalAlignment="Left" Margin="26,168,0,0" VerticalAlignment="Top" />
-        <RadioButton x:Name="pin_rBtn" Content="Pin" HorizontalAlignment="Left" Margin="26,199,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked" />
-        <RadioButton x:Name="credit_rBtn" Content="Credit" HorizontalAlignment="Left" Margin="91,199,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
-        <RadioButton x:Name="cash_rBtn" Content="Cash" HorizontalAlignment="Left" Margin="165,199,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
-        <Label Content="Order Comment:" HorizontalAlignment="Left" Margin="16,94,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lbl_order" FontSize="12" HorizontalAlignment="Left" Margin="0,-1,0,0" VerticalAlignment="Top" Height="30" Width="88"/>
-        <Label x:Name="total_price" HorizontalAlignment="Left" Margin="377,232,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="vat_price" HorizontalAlignment="Left" Margin="377,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.375,-1.667"/>
+        <Label Content="Payment Method:" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="26,168,0,0" VerticalAlignment="Top" />
+        <RadioButton x:Name="pin_rBtn" Foreground="White" Content="Pin" HorizontalAlignment="Left" Margin="26,199,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked" />
+        <RadioButton x:Name="credit_rBtn" Foreground="White" Content="Credit" HorizontalAlignment="Left" Margin="91,199,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
+        <RadioButton x:Name="cash_rBtn" Foreground="White" Content="Cash" HorizontalAlignment="Left" Margin="165,199,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked"/>
+        <Label Content="Order Comment:" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="16,94,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_order" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="0,-1,0,0" VerticalAlignment="Top" Height="30" Width="88"/>
+        <Label x:Name="total_price" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="377,232,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="vat_price" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="377,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.375,-1.667"/>
         <WrapPanel Name="receipt_panel" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="352,245,25.8,18"/>
 
         <WrapPanel x:Name="order_list" HorizontalAlignment="Left" Height="183" Margin="346,33,0,0" VerticalAlignment="Top" Width="326"/>
-        <Label Content="Payment" FontSize="21" HorizontalAlignment="Left" Margin="106,2,0,0" VerticalAlignment="Top"/>
-        <Label Content="Table 4" FontSize="21" HorizontalAlignment="Left" Margin="463,-1,0,0" VerticalAlignment="Top"/>
+        <Label Content="Payment" Style="{StaticResource PaymentHeader}" HorizontalAlignment="Left" Margin="106,2,0,0" VerticalAlignment="Top"/>
+        <Label Content="Table 4" Style="{StaticResource PaymentHeader}" HorizontalAlignment="Left" Margin="463,-1,0,0" VerticalAlignment="Top"/>
         <GridSplitter HorizontalAlignment="Left" Height="433" Margin="311,0,0,0" VerticalAlignment="Top" Width="2"/>
         <WrapPanel x:Name="tip_panel" HorizontalAlignment="Left" Height="40" Margin="18,253,0,0" VerticalAlignment="Top" Width="260"/>
     </Grid>

@@ -35,4 +35,17 @@
     <Style TargetType="{x:Type Label}" x:Key="CommentPrice" BasedOn="{StaticResource OrderviewBase}">
         <Setter Property="FontSize" Value="12"/>
     </Style>
+    
+    <!--Payment Labels-->
+    <Style TargetType="{x:Type Label}" x:Key="PaymentLabel" BasedOn="{StaticResource CategoryCounter}" >
+        
+        
+    </Style>
+    
+    <!--Payment Headers-->
+    <Style TargetType="{x:Type Label}" x:Key="PaymentHeader" BasedOn="{StaticResource PaymentLabel}" >
+
+        <Setter Property="FontSize" Value="24" />
+
+    </Style>
 </ResourceDictionary>
