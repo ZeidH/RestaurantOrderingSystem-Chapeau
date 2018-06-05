@@ -8,18 +8,19 @@
              d:DesignHeight="450" d:DesignWidth="800" Width="326" Height="183">
     <Grid Width="326" Height="183">
         <ListView x:Name="receipt_ListView" HorizontalAlignment="Left" Height="183" VerticalAlignment="Top" Width="326" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                  ItemsSource="{Binding order}">
+                  ItemsSource="{Binding order}" Background="{StaticResource ListBackgroundLightBrush}" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Focusable" Value="False" />
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Quantity" Width="50" DisplayMemberBinding="{Binding Path=Amount}"/>
-                    <GridViewColumn Header="Name" Width="200
+                    <GridViewColumn Header="QTY" Width="36" DisplayMemberBinding="{Binding Path=Amount}"/>
+                    <GridViewColumn Header="Name" Width="205
                                     " DisplayMemberBinding="{Binding Path=Item.Name}"/>
-                    <GridViewColumn Header="Price" Width="50">
+                    <GridViewColumn Header="Price" Width="60">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Item.Cost, StringFormat=N2}" TextAlignment="Right" />
