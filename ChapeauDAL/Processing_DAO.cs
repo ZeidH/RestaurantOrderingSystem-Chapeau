@@ -40,6 +40,8 @@ namespace ChapeauDAL
 
 			List<Order> result = new List<Order>();
 
+            //todo D: put the loop in a method
+
 			foreach (DataRow row in dataTable.Rows)
 			{
 				// create instance of order class to put the values in
