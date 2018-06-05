@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Media.Animation;
-using System.Windows.Media;
 using ChapeauLogic;
 using ChapeauModel;
 
@@ -156,15 +155,17 @@ namespace ChapeauUI
                 listviewMenu.ItemsSource = null;
                 List<Item> subMenu = itemLogic.GetSubMenu(menu, e.Source.ToString());
                 listviewMenu.ItemsSource = subMenu;
+                Storyboard sb = (Storyboard)TryFindResource("FadeIn");
+                sb.Begin();
             }
             catch (Exception exp)
             {
                 HandleException(exp);
             }
-        } 
+        }
         #endregion
 
-        private void Listview_menu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListviewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listviewMenu.SelectedItem != null)
             {
@@ -230,6 +231,8 @@ namespace ChapeauUI
                     if ((order.Comment == orderItem.Comment) && (order.Item.Name == orderItem.Item.Name))
                     {
                         itemLogic.IncreaseAmount(order);
+                        DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromMilliseconds(600));
+                        BeginAnimation(DataGridCell.OpacityProperty, animation);
                         dataGridOrder.Items.Refresh();
                         UpdateOrder(orderItem);
                         return;
@@ -285,7 +288,7 @@ namespace ChapeauUI
             listviewMenu.UnselectAll();
             UpdateRefreshStock(orderItem);
             listviewMenu.Items.Refresh();
-        } 
+        }
         #endregion
 
         private void UpdateRefreshStock(OrderItem orderItem)
@@ -461,7 +464,7 @@ namespace ChapeauUI
                 default:
                     break;
             }
-        } 
+        }
         #endregion
 
         private void DisableButtons()

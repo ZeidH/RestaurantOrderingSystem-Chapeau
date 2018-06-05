@@ -28,7 +28,7 @@
         <Button x:Name="btnAddOrderItem" Content="ADD" Style="{StaticResource Add}" HorizontalAlignment="Left" Margin="282.2,366,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="BtnAddOrderItem_Click" IsEnabled="False" Grid.Column="1"/>
         <TextBox x:Name="txtComments" HorizontalAlignment="Left" Height="23" Margin="36.2,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" Grid.Column="1" VerticalContentAlignment="Center" />
         <Label x:Name="lblComments" Content="Comments:" Style="{StaticResource CommentPrice}" HorizontalAlignment="Left" Margin="34.2,364,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.7,0.648" Grid.Column="1"/>
-        <ListView x:Name="listviewMenu" Style="{StaticResource MenuListview}" HorizontalAlignment="Left" Height="197" Margin="3,89,0,0" VerticalAlignment="Top" Width="359" ItemsSource="{Binding subMenu}" SelectionChanged="Listview_menu_SelectionChanged" MouseDoubleClick="ListviewMenu_MouseDoubleClick" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1">
+        <ListView x:Name="listviewMenu" Style="{StaticResource MenuListview}" HorizontalAlignment="Left" Height="197" Margin="3,89,0,0" VerticalAlignment="Top" Width="359" ItemsSource="{Binding subMenu}" SelectionChanged="ListviewMenu_SelectionChanged" MouseDoubleClick="ListviewMenu_MouseDoubleClick" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Style.Triggers>
