@@ -7,8 +7,18 @@ namespace ChapeauLogic
 {
     public class Item_Service
     {
-        private Item_DAO item_DAO = new Item_DAO();
-        public List<Item> ReadMenu() => item_DAO.Db_select_meu();
+        private Item_DAO itemDAO = new Item_DAO();
+        public List<Item> GetMenu()
+        {
+            try
+            {
+                return itemDAO.DbSelectMenu();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         public List<Item> GetSubMenu(List<Item> menu, string subCategory)
         {
@@ -32,6 +42,7 @@ namespace ChapeauLogic
             return subMenu;
         }
 
+        #region CompleteOrder
         public void CompleteOrder(List<OrderItem> orderItems)
         {
             DateTime date = DateTime.Now;
@@ -39,8 +50,22 @@ namespace ChapeauLogic
             {
                 AddFinalProperties(item, date);
             }
-            item_DAO.Db_add_item(orderItems);
+            try
+            {
+                itemDAO.DbAddItem(orderItems);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
+
+        private void AddFinalProperties(OrderItem orderItem, DateTime date)
+        {
+            orderItem.Time = date;
+            orderItem.Status = OrderStatus.Processing;
+        } 
+        #endregion
 
         public bool CheckLunchTime()
         {
@@ -50,28 +75,50 @@ namespace ChapeauLogic
 
         public List<Item> RefreshStock(List<Item> menu)
         {
-            List<int> newStock = item_DAO.Db_refresh_stock();
-            for (int i = 0; i < menu.Count; i++)
+            try
             {
-                menu[i].Stock = newStock[i];
+                List<int> newStock = itemDAO.DbRefreshStock();
+                for (int i = 0; i < menu.Count; i++)
+                {
+                    menu[i].Stock = newStock[i];
+                }
+                return menu;
             }
-            return menu;
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public bool VerifyStock(Item item) => item_DAO.Db_verify_stock(item) > 0;
-
-        public void UpdateStock(OrderItem orderItem) => item_DAO.Db_update_stock(orderItem);
-
-        private void AddFinalProperties(OrderItem orderItem, DateTime date)
+        public bool VerifyStock(Item item)
         {
-            orderItem.Time = date;
-            orderItem.Status = OrderStatus.Processing;
-            if (orderItem.Comment == null)
+            try
             {
-                orderItem.Comment = "";
+                return itemDAO.DbVerifyStock(item) > 0;
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
+        public void UpdateStock(OrderItem orderItem)
+        {
+            try
+            {
+                itemDAO.DbUpdateStock(orderItem);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool CheckAmount(int amount) => amount > 1;
+
+        public bool CheckOrderCount(List<OrderItem> order) => order.Count > 0;
+
+        #region IncreaseDecreaseLogic
         public void IncreaseAmount(OrderItem orderItem)
         {
             if (orderItem.Item.Stock <= 0)
@@ -91,7 +138,9 @@ namespace ChapeauLogic
             orderItem.Amount--;
             orderItem.Item.Stock++;
         }
+        #endregion
 
+        #region DeleteLogic
         public List<OrderItem> DeleteOrderItem(List<OrderItem> order, OrderItem orderItem)
         {
             orderItem.Item.Stock += orderItem.Amount;
@@ -99,22 +148,26 @@ namespace ChapeauLogic
             return order;
         }
 
-        public bool CheckStock(int stock) => stock > 0;
+        public void DeleteOrderList(List<OrderItem> order)
+        {
+            foreach (OrderItem orderItem in order)
+            {
+                orderItem.Item.Stock += orderItem.Amount;
+                UpdateStock(orderItem);
+            }
+        } 
+        #endregion
 
-        public bool CheckAmount(int amount) => amount > 1;
-
-        public bool CheckOrderCount(List<OrderItem> order) => order.Count > 0;
-
-        //remove? ask 
+        //remove? ask check
         public float GetTotalCost(List<OrderItem> items)
         {
-            float total_cost = 0;
+            float totalCost = 0;
             foreach (OrderItem orderItem in items)
             {
                 //payment stuff
-                total_cost += orderItem.Item.Cost * orderItem.Amount;
+                totalCost += orderItem.Item.Cost * orderItem.Amount;
             }
-            return total_cost;
+            return totalCost;
         }
 
         //Check if item is a meat 
@@ -122,7 +175,14 @@ namespace ChapeauLogic
         {
             if (item.DinnerSubCategory == Dinner.Mains)
             {
-                return item_DAO.Db_select_meat_type(item.Item_id);
+                try
+                {
+                    return itemDAO.DbSelectMeatType(item.Item_id);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
             }
             return false;
         }

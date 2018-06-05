@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
@@ -36,6 +31,23 @@ namespace ChapeauDAL
             conn.Close();
         }
 
+        //For Insert/Update/Delete Queries with transaction
+        protected void ExecuteEditTranQuery(String query, SqlParameter[] sqlParameters, SqlTransaction sqlTransaction)
+        {
+            SqlCommand command = new SqlCommand(query, conn, sqlTransaction);
+            try
+            {
+                command.Parameters.AddRange(sqlParameters);
+                adapter.InsertCommand = command;
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                print.ErrorLog(e);
+                throw;
+            }
+        }
+
         //For Insert/Update/Delete Queries
         protected void ExecuteEditQuery(String query, SqlParameter[] sqlParameters)
         {
@@ -52,6 +64,7 @@ namespace ChapeauDAL
             catch (SqlException e)
             {
                 print.ErrorLog(e);
+                throw;
             }
             finally
             {
@@ -86,6 +99,7 @@ namespace ChapeauDAL
             {
                 print.ErrorLog(e);
                 return null;
+                throw;
             }
             finally
             {

@@ -14,21 +14,21 @@
             <ColumnDefinition Width="93*"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="lbl_new_order" Content="New order" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="131" BorderThickness="0" Margin="10,3,0,0"/>
-        <Button x:Name="btn_return" Content="X" Style="{StaticResource Close}" HorizontalAlignment="Left" Margin="283,3,0,0" VerticalAlignment="Top" Width="31" Height="26" Click="Btn_return_Click" BorderBrush="#FF595959" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lbl_total_price_text" Content="Total price (inc. VAT) :" Style="{StaticResource CommentPrice}" HorizontalAlignment="Left" Margin="105,328,0,0" VerticalAlignment="Top" Height="24" Width="135" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lbl_total_price" Style="{StaticResource CommentPrice}" Margin="0,328,10.8,0" Height="24" Width="58" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" />
-        <Button x:Name="btn_increase_item" Content="+" Style="{StaticResource Quantity}" HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="55" Height="45" Click="Btn_increase_item_Click" IsEnabled="False" />
-        <Button x:Name="btn_decrease_item" Content="-" Style="{StaticResource Quantity}" HorizontalAlignment="Left" Margin="70,366,0,0" VerticalAlignment="Top" Width="55" Height="45" Click="Btn_decrease_item_Click" IsEnabled="False" />
-        <Button x:Name="btn_remove_item" Content="DEL" Style="{StaticResource Delete}" HorizontalAlignment="Left" Margin="130,366,0,0" VerticalAlignment="Top" Width="55" Height="45" Click="Btn_remove_item_Click" IsEnabled="False" />
-        <Button x:Name="btn_complete_order" Content="CONFIRM" Style="{StaticResource Confirm}" HorizontalAlignment="Left" Margin="190,366,0,0" VerticalAlignment="Top" Width="124" Height="45" IsEnabled="False" Click="Btn_complete_order_Click"/>
-        <Button x:Name="btn_drinks" Content="Drinks" Style="{StaticResource MenuCategory}" HorizontalAlignment="Left" Margin="247,3,0,0" VerticalAlignment="Top" Width="115" Height="38" Click="Btn_drinks_Click" Grid.Column="1" />
-        <Button x:Name="btn_dinner" Content="Dinner" Style="{StaticResource MenuCategory}" HorizontalAlignment="Left" Margin="125,3,0,0" VerticalAlignment="Top" Width="115" Height="38" Click="Btn_dinner_Click" Grid.Column="1" />
-        <Button x:Name="btn_lunch" Content="Lunch" Style="{StaticResource MenuCategory}" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="115" Height="38" Click="Btn_lunch_Click" Grid.Column="1" />
-        <Button x:Name="btn_add_order_item" Content="ADD" Style="{StaticResource Add}" HorizontalAlignment="Left" Margin="282.2,366,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="Btn_add_order_item_Click" IsEnabled="False" Grid.Column="1"/>
-        <TextBox x:Name="txt_comments" HorizontalAlignment="Left" Height="23" Margin="36.2,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" Grid.Column="1" />
-        <Label x:Name="lbl_comments" Content="Comments:" Style="{StaticResource CommentPrice}" HorizontalAlignment="Left" Margin="34.2,364,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.7,0.648" Grid.Column="1"/>
-        <ListView x:Name="listview_menu" Style="{StaticResource MenuListview}" HorizontalAlignment="Left" Height="197" Margin="3,89,0,0" VerticalAlignment="Top" Width="359" ItemsSource="{Binding subMenu}" SelectionChanged="Listview_menu_SelectionChanged" MouseDoubleClick="Listview_menu_MouseDoubleClick" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1">
+        <Label x:Name="lblNewOrder" Content="New order" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="131" BorderThickness="0" Margin="10,3,0,0"/>
+        <Button x:Name="btnReturn" Content="X" Style="{StaticResource Close}" HorizontalAlignment="Left" Margin="283,3,0,0" VerticalAlignment="Top" Width="31" Height="26" Click="BtnReturn_Click" BorderBrush="#FF595959" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblTotalPriceText" Content="Total price (inc. VAT) :" Style="{StaticResource CommentPrice}" HorizontalAlignment="Left" Margin="105,328,0,0" VerticalAlignment="Top" Height="24" Width="135" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblTotalPrice" Style="{StaticResource CommentPrice}" Margin="0,328,10.8,0" Height="24" Width="58" HorizontalAlignment="Right" VerticalAlignment="Top" VerticalContentAlignment="Center" />
+        <Button x:Name="btnIncreaseItem" Content="+" Style="{StaticResource Quantity}" HorizontalAlignment="Left" Margin="10,366,0,0" VerticalAlignment="Top" Width="55" Height="45" Click="BtnIncreaseItem_Click" IsEnabled="False" />
+        <Button x:Name="btnDecreaseItem" Content="-" Style="{StaticResource Quantity}" HorizontalAlignment="Left" Margin="70,366,0,0" VerticalAlignment="Top" Width="55" Height="45" Click="BtnDecreaseItem_Click" IsEnabled="False" />
+        <Button x:Name="btnRemoveItem" Content="DEL" Style="{StaticResource Delete}" HorizontalAlignment="Left" Margin="130,366,0,0" VerticalAlignment="Top" Width="55" Height="45" Click="BtnRemoveItem_Click" IsEnabled="False" />
+        <Button x:Name="btnCompleteOrder" Content="CONFIRM" Style="{StaticResource Confirm}" HorizontalAlignment="Left" Margin="190,366,0,0" VerticalAlignment="Top" Width="124" Height="45" IsEnabled="False" Click="BtnCompleteOrder_Click"/>
+        <Button x:Name="btnDrinks" Content="Drinks" Style="{StaticResource MenuCategory}" HorizontalAlignment="Left" Margin="247,3,0,0" VerticalAlignment="Top" Width="115" Height="38" Click="BtnDrinks_Click" Grid.Column="1" />
+        <Button x:Name="btnDinner" Content="Dinner" Style="{StaticResource MenuCategory}" HorizontalAlignment="Left" Margin="125,3,0,0" VerticalAlignment="Top" Width="115" Height="38" Click="BtnDinner_Click" Grid.Column="1" />
+        <Button x:Name="btnLunch" Content="Lunch" Style="{StaticResource MenuCategory}" HorizontalAlignment="Left" Margin="3,3,0,0" VerticalAlignment="Top" Width="115" Height="38" Click="BtnLunch_Click" Grid.Column="1" />
+        <Button x:Name="btnAddOrderItem" Content="ADD" Style="{StaticResource Add}" HorizontalAlignment="Left" Margin="282.2,366,0,0" VerticalAlignment="Top" Width="80" Height="45" Click="BtnAddOrderItem_Click" IsEnabled="False" Grid.Column="1"/>
+        <TextBox x:Name="txtComments" HorizontalAlignment="Left" Height="23" Margin="36.2,388,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226" Grid.Column="1" VerticalContentAlignment="Center" />
+        <Label x:Name="lblComments" Content="Comments:" Style="{StaticResource CommentPrice}" HorizontalAlignment="Left" Margin="34.2,364,0,0" VerticalAlignment="Top" Width="104" RenderTransformOrigin="0.7,0.648" Grid.Column="1"/>
+        <ListView x:Name="listviewMenu" Style="{StaticResource MenuListview}" HorizontalAlignment="Left" Height="197" Margin="3,89,0,0" VerticalAlignment="Top" Width="359" ItemsSource="{Binding subMenu}" SelectionChanged="ListviewMenu_SelectionChanged" MouseDoubleClick="ListviewMenu_MouseDoubleClick" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
                     <Style.Triggers>
@@ -60,7 +60,7 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel x:Name="StackPanel_sub_category" HorizontalAlignment="Center" Height="38" Margin="1.2,46,16.6,0" VerticalAlignment="Top" Width="359" Orientation="Horizontal" Grid.Column="1">
+        <StackPanel x:Name="stackPanelSubCategory" HorizontalAlignment="Center" Height="38" Margin="1.2,46,16.6,0" VerticalAlignment="Top" Width="359" Orientation="Horizontal" Grid.Column="1">
             <StackPanel.Resources>
                 <Style TargetType="{x:Type Button}">
                     <Setter Property="Margin" Value="3,0,3,0"/>
@@ -68,7 +68,7 @@
                 </Style>
             </StackPanel.Resources>
         </StackPanel>
-        <DataGrid x:Name="dataGrid_order" Style="{StaticResource OrderDataGrid}" HorizontalAlignment="Left" Height="240" Margin="10,46,0,0" VerticalAlignment="Top" Width="304" AutoGenerateColumns="False" VerticalGridLinesBrush="#FFC8C8C8" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGrid_order_SelectionChanged" CanUserResizeColumns="False" CanUserReorderColumns="False" GridLinesVisibility="Horizontal" AreRowDetailsFrozen="True" HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalGridLinesBrush="#FF969696">
+        <DataGrid x:Name="dataGridOrder" Style="{StaticResource OrderDataGrid}" HorizontalAlignment="Left" Height="240" Margin="10,46,0,0" VerticalAlignment="Top" Width="304" AutoGenerateColumns="False" VerticalGridLinesBrush="#FFC8C8C8" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGridOrder_SelectionChanged" CanUserResizeColumns="False" CanUserReorderColumns="False" GridLinesVisibility="Horizontal" AreRowDetailsFrozen="True" HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalGridLinesBrush="#FF969696">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Triggers>
@@ -122,24 +122,24 @@
                 </DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label x:Name="lbl_table_nr" Style="{StaticResource TableHeader}" HorizontalAlignment="Left" Margin="129,4,0,0" VerticalAlignment="Top" Height="38" Width="117" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblTableNr" Style="{StaticResource TableHeader}" HorizontalAlignment="Left" Margin="129,4,0,0" VerticalAlignment="Top" Height="38" Width="117" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
 
-        <Border BorderThickness="0" Grid.Row="0"
+        <Border x:Name="categoryAmountBar" BorderThickness="0" Grid.Row="0"
                 
         CornerRadius="0,0,5,5" BorderBrush="Black" Background="{StaticResource MidDarkGrayBrush}" Margin="10,286,6.8,218.6" RenderTransformOrigin="0.5,0.5" Height="24">
 
         </Border>
-        <Label x:Name="lbl_amount_drinks" Style="{StaticResource CategoryCounter}" Margin="14,286,273.8,218.6" HorizontalContentAlignment="Center" Height="24" />
-        <Label x:Name="lbl_amount_customers1" Style="{StaticResource CategoryCounter}" Margin="34,286,261.8,218.6" Height="24" Width="25"/>
+        <Label x:Name="lblAmountDrinks" Style="{StaticResource CategoryCounter}" Margin="14,286,273.8,218.6" HorizontalContentAlignment="Center" Height="24" />
+        <Label x:Name="lblAmountCustomers1" Style="{StaticResource CategoryCounter}" Margin="34,286,261.8,218.6" Height="24" Width="25"/>
         <Label Content="Drinks" Style="{StaticResource CategoryCounterCategory}" HorizontalAlignment="Left" Margin="57,286,0,0" VerticalAlignment="Top" Height="24" Width="47"/>
 
-        <Label x:Name="lbl_amount_lunch" Style="{StaticResource CategoryCounter}" Margin="115,286,180.8,218.6" Height="24" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lbl_amount_customers2" Style="{StaticResource CategoryCounter}" Margin="131,286,156.8,218.6" Height="24"/>
+        <Label x:Name="lblAmountLunch" Style="{StaticResource CategoryCounter}" Margin="115,286,180.8,218.6" Height="24" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblAmountCustomers2" Style="{StaticResource CategoryCounter}" Margin="131,286,156.8,218.6" Height="24"/>
         <Label Content="Lunch" Style="{StaticResource CategoryCounterCategory}" HorizontalAlignment="Left" Margin="155,286,0,0" VerticalAlignment="Top" Height="24" Width="43"/>
 
-        <Label x:Name="lbl_amount_dinner" Style="{StaticResource CategoryCounter}" Margin="214,286,77.8,218.6" Height="24" HorizontalContentAlignment="Center"/>
-        <Label x:Name="lbl_amount_customers3" Style="{StaticResource CategoryCounter}" Margin="232,286,63.8,218.6" Width="25" Height="24"/>
+        <Label x:Name="lblAmountDinner" Style="{StaticResource CategoryCounter}" Margin="214,286,77.8,218.6" Height="24" HorizontalContentAlignment="Center"/>
+        <Label x:Name="lblAmountCustomers3" Style="{StaticResource CategoryCounter}" Margin="232,286,63.8,218.6" Width="25" Height="24"/>
         <Label Content="Dinner" Style="{StaticResource CategoryCounterCategory}" HorizontalAlignment="Left" Margin="255,286,0,0" VerticalAlignment="Top" Height="24" Width="48"/>
-        <WrapPanel x:Name="wrappanel_meat_comment" HorizontalAlignment="Left" Height="27" Margin="36.2,355,0,146.6" VerticalAlignment="Center" Width="226" Grid.Column="1"/>
+        <WrapPanel x:Name="wrappanelMeatComment" HorizontalAlignment="Left" Height="27" Margin="36.2,355,0,146.6" VerticalAlignment="Center" Width="226" Grid.Column="1"/>
     </Grid>
 </Page>
