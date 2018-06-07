@@ -126,13 +126,17 @@ namespace ChapeauUI
             btn_Undo_Split.Visibility = Visibility.Visible;
             btn_even_split.Visibility = Visibility.Visible;
         }
-
+        private void BtnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Tableview_UI());
+        }
         private void Btn_Undo_Split_Click(object sender, RoutedEventArgs e)
         {
             payment.Tip = 0;
             payment.SplitPayment = false;
             receipt_panel.Children.Clear();
             RefreshTip();
+            btn_Payment_Finish.Content = "Finalize";
 
             btn_Undo_Split.Visibility = Visibility.Hidden;
             btn_even_split.Visibility = Visibility.Hidden;

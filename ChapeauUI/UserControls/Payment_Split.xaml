@@ -8,10 +8,10 @@
              mc:Ignorable="d" Height="356.55" Width="693.61">
     <Grid x:Name="btnGrid" Margin="0,0,-0.4,-0.2">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="168" />
-            <ColumnDefinition Width="40"/>
-            <ColumnDefinition Width="40" />
-            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="155" />
+            <ColumnDefinition Width="55"/>
+            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="60"/>
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>

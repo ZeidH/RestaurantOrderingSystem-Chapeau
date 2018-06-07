@@ -4,12 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChapeauUI"
-             mc:Ignorable="d" Height="40" Width="260">
+             mc:Ignorable="d" Height="64" Width="260">
     <Grid Margin="0,0,0,0">
-        <Label Content="Tip: " Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="8,5,0,5.2" RenderTransformOrigin="0.5,0.5" Width="28"/>
-        <Label x:Name="lbl_tip" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="41,5,0,0" VerticalAlignment="Top" Height="25" Width="46"/>
-        <Button x:Name="btn_1" Content="+1€" Style="{StaticResource Split}" HorizontalAlignment="Left" Margin="98,8,0,0" VerticalAlignment="Top" Width="31" Height="20" Click="Btn_1_Click"/>
-        <Button x:Name="btn_5" Content="+5€" Style="{StaticResource Split}" HorizontalAlignment="Left" Margin="143,8,0,0" VerticalAlignment="Top" Width="31" Height="20" Click="Btn_5_Click"/>
-        <Button x:Name="btn_Zero" Content="Zero" Style="{StaticResource Close}" HorizontalAlignment="Left" Margin="200,8,0,0" VerticalAlignment="Top" Width="31" Height="20" Click="Btn_Zero_Click"/>
+        <Label x:Name="lbl_tip" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="9,22,0,0" VerticalAlignment="Top" Height="25" Width="58"/>
+        <Button x:Name="btn_1" Content="+1€" Style="{StaticResource Split}" HorizontalAlignment="Left" Margin="72,19,0,0" VerticalAlignment="Top" Width="40" Height="32" Click="Btn_1_Click"/>
+        <Button x:Name="btn_5" Content="+5€" Style="{StaticResource Split}" HorizontalAlignment="Left" Margin="137,19,0,0" VerticalAlignment="Top" Width="40" Height="32" Click="Btn_5_Click"/>
+        <Button x:Name="btn_Zero" Content="Zero" Style="{StaticResource Close}" HorizontalAlignment="Left" Margin="210,19,0,0" VerticalAlignment="Top" Width="40" Height="32" Click="Btn_Zero_Click"/>
     </Grid>
 </UserControl>

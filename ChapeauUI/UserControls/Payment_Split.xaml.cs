@@ -78,9 +78,9 @@ namespace ChapeauUI
                 Content = " +1€ ",
                 Style = style,
                 Name = $"btn_1Euro_{i}",
-                Width = 40,
+                Width = 35,
                 Height = 27,
-                Margin = new Thickness(0, 0, 5, 0),
+                Margin = new Thickness(0, 0, 10, 0),
                 HorizontalAlignment = HorizontalAlignment.Center
             };
 
@@ -94,9 +94,9 @@ namespace ChapeauUI
                 Content = " +5€ ",
                 Style = style,
                 Name = $"btn_5Euro_{i}",
-                Width = 40,
+                Width = 35,
                 Height = 27,
-                Margin = new Thickness(0, 0, 8, 0),
+                Margin = new Thickness(0, 0, 13, 0),
                 HorizontalAlignment = HorizontalAlignment.Center
             };
             Grid.SetColumn(button5, 2);
