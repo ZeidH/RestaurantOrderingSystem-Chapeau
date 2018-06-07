@@ -10,7 +10,7 @@
 
     <Grid Margin="0,0,-0.4,0.6">
 
-        <Button x:Name="btn_Payment_Finish" Content="Finalize" Style="{StaticResource RoundCornerBtn}" HorizontalAlignment="Left" Margin="18,358,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Btn_Payment_Finish_Click" />
+        <Button x:Name="btn_Payment_Finish" Content="Finalize" Style="{StaticResource PaymentFinalize}" HorizontalAlignment="Left" Margin="18,358,0,0" VerticalAlignment="Top" Width="140" Height="50" Click="Btn_Payment_Finish_Click" />
 
         <Button x:Name="btnReturn" Content="X" Style="{StaticResource Close}" HorizontalAlignment="Left" Margin="283,3,0,0" VerticalAlignment="Top" Width="31" Height="26" Click="BtnReturn_Click" BorderBrush="#FF595959" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <TextBox x:Name="comment_Box" HorizontalAlignment="Left" Height="57" Margin="29,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261" Panel.ZIndex="9999"/>
