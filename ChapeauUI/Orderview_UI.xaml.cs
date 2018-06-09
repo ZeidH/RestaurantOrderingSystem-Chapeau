@@ -392,7 +392,7 @@ namespace ChapeauUI
             {
                 HandleException(exp);
             }
-            NavigationService.Navigate(new Tableview_UI());
+            NavigationService.Navigate(new Redirect("Order send!"));
         }
 
         private void BtnReturn_Click(object sender, RoutedEventArgs e)
