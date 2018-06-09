@@ -172,6 +172,7 @@ namespace ChapeauUI
             UpdateLabels();
         }
 
+        // Checks
         private void UnExpectedBehaviorCheck()
         {
             int previousPrice = payment.GuestPrice[0];
@@ -195,7 +196,7 @@ namespace ChapeauUI
             }
         }
 
-        // Supposed to unenable buttons when their price is 0
+        // Enables/Disables Buttons
         private void ButtonCheck()
         {
             int alive = payment_logic.GuestsOverZero(payment);
