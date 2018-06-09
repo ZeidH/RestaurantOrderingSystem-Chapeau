@@ -32,7 +32,7 @@ namespace ChapeauUI
 
         public void UpdateLabel()
         {
-            lbl_tip.Content = payment.Price + payment.Tip;
+            lbl_tip.Content = (payment.Price + payment.Tip).ToString("0.00 €");
         }
 
         #region Payment Tip Click Events

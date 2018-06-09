@@ -23,23 +23,22 @@ namespace ChapeauUI
     public partial class Payment_Split : UserControl
     {
         private Payment_Service payment_logic = new Payment_Service();
-        public List<Button> delete_buttons = new List<Button>();
+        public List<Button> delete_buttons;
         public Button[,] add_buttons;
         private Payment payment;
         public Payment_Split(Payment payment)
         {
             InitializeComponent();
             this.payment = payment;
-            add_buttons = new Button[payment.CustomerCount, 2];
             FillStackPanel();
-            if (payment.CustomerCount >= 4)
-                delete_buttons[0].IsEnabled = false;
             UpdateLabels();
         }
 
         private void FillStackPanel()
         {
             payment.GuestPrice = new List<int>();
+            delete_buttons = new List<Button>();
+            add_buttons = new Button[payment.CustomerCount, 2];
             int i = 0;
             while (i < payment.CustomerCount)
             {
@@ -54,6 +53,8 @@ namespace ChapeauUI
                     }
                 }
             }
+            if (payment.CustomerCount >= 4)
+                delete_buttons[0].IsEnabled = false;
         }
         #region Button Creation
         private void CreateButton(int i, Payment payment)
@@ -66,7 +67,6 @@ namespace ChapeauUI
             {
                 CreateDeleteButton(i, payment);
             }
-
         }
 
 
@@ -162,10 +162,6 @@ namespace ChapeauUI
             if (change == 0)
             {
                 payment_logic.CalculateGuestPriceDelete(payment, id);
-                if (payment.CustomerCount == 4)
-                {
-
-                }
             }
             else
             {
@@ -188,12 +184,13 @@ namespace ChapeauUI
                 else if(previousPrice < payment.GuestPrice[i])
                 {
                     SplitException(new Exception("Unexpected Behavior has occured, the splitted prices will now even."));
-                    int cellNumber = btnGrid.Children.Count-1;
+                    int cellNumber = btnGrid.Children.Count - 1;
                     for (int x = 0; x < cellNumber; x++)
                     {
                         btnGrid.Children.RemoveAt(1);
                     }
                     FillStackPanel();
+                    break;
                 }
             }
         }
@@ -213,17 +210,16 @@ namespace ChapeauUI
                 add_buttons[2, 1].IsEnabled = false;
 
             }
-            else if (alive == 2 && payment.CustomerCount > 2)
+            else if (alive <= 2 && payment.CustomerCount > 2)
             {
                 add_buttons[1, 0].IsEnabled = false;
                 add_buttons[1, 1].IsEnabled = false;
                 delete_buttons[0].IsEnabled = false;
             }
-            else if (alive == 1)
+            if (alive == 1)
             {
                 SplitException(new Exception("There's no point in using split if only one person is paying."));
             }
-
         }
         private void SplitException(Exception exp)
         {
@@ -237,7 +233,7 @@ namespace ChapeauUI
             {
                 if (i < payment.GuestPrice.Count)
                 {
-                    guest.Content = $"Guest {i + 1} Price: {(float)payment.GuestPrice[i]/10000}";
+                    guest.Content = $"Guest {i + 1} Price:  {((float)payment.GuestPrice[i]/10000).ToString("0.00 €")}";
                     i++;
                 }
             }

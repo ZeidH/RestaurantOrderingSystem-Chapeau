@@ -16,7 +16,16 @@ namespace ChapeauLogic
         // Main Payment View
         public List<OrderItem> GetReceipt(int order_id)
         {
-            List<OrderItem> order = payment_DAO.Db_select_order_items(order_id);
+            List<OrderItem> order;
+            try
+            {
+                order = payment_DAO.Db_select_order_items(order_id);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Cannot connect to server \nAn error log has been saved in the program folder \n Press 'OK' to retry");
+            }
+
 
             for (int i = 0; i < order.Count - 1; i++)
             {
@@ -80,9 +89,11 @@ namespace ChapeauLogic
         // If add Buttons are pressed
         public void CalculateGuestPriceAdd(Payment payment, int change, int guest)
         {
-            for (int i = (guest + 1); i < payment.GuestPrice.Count; i++)
+            // Check how many of the guests that still have more than 0 money
+            int alive = GuestsOverZero(payment);
+            for (int i = (guest + 1); i < alive; i++)
             {
-                AddPrice(payment, guest, (DeletePrice(payment, i, guest, change)));
+                AddPrice(payment, guest, (DeletePrice(payment, i, guest, change, alive)));
             }
         }
         private void AddPrice(Payment payment, int guest, int change)
@@ -90,14 +101,11 @@ namespace ChapeauLogic
             // Add the collected money to the user
             payment.GuestPrice[guest] += change;
         }
-        private int DeletePrice(Payment payment, int i, int guest, int change)
+        private int DeletePrice(Payment payment, int i, int guest, int change, int alive)
         {
-            guest++; //test
-            // Check how many of the guests that still have more than 0 money
-            int alive = GuestsOverZero(payment);
-
+            guest++;
             // Check if calculation ends up under minus
-            if (CalculationCheck(payment, guest, i, change))
+            if (CalculationCheck(payment, guest, i, change, alive))
             {
                 // Divide by the amount of living guests and return the amount that was deducted
                 payment.GuestPrice[i] -= (change / (alive - guest));
@@ -111,13 +119,13 @@ namespace ChapeauLogic
                 return collected;
             }
         }
-        private bool CalculationCheck(Payment payment, int guest, int i, int change)
+        private bool CalculationCheck(Payment payment, int guest, int i, int change, int alive)
         {
             float calcCheck = payment.GuestPrice[i];
             if (guest == 1 && calcCheck - change < 0)
                 return false;
 
-            calcCheck -= (change / (payment.GuestPrice.Count - guest));
+            calcCheck -= (change / (alive - guest));
             return calcCheck > 0;
         }
 

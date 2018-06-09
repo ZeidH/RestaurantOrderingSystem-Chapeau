@@ -5,7 +5,7 @@ using System.Data;
 
 namespace ChapeauDAL
 {
-    public class Base
+    public abstract class Base
     {
         private SqlDataAdapter adapter;
         private SqlConnection conn;
@@ -99,7 +99,7 @@ namespace ChapeauDAL
             {
                 print.ErrorLog(e);
                 return null;
-                throw;
+                throw e;
             }
             finally
             {

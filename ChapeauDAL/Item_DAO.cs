@@ -8,7 +8,7 @@ using ChapeauModel;
 /// </summary>
 namespace ChapeauDAL
 {
-    public class Item_DAO : Order_DAO
+    public class Item_DAO : Base
     {
         public void DbAddItem(List<OrderItem> orderItems)
         {

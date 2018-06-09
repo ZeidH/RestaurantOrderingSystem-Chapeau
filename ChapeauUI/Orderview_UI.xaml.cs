@@ -391,6 +391,7 @@ namespace ChapeauUI
             catch (Exception exp)
             {
                 HandleException(exp);
+                return;
             }
             NavigationService.Navigate(new Tableview_UI());
         }

@@ -25,7 +25,7 @@ namespace ChapeauModel
             get
             {
                 if (SplitPayment == true)
-                    return GuestPrice[NextCustomer] + Vat;
+                    return (float)GuestPrice[NextCustomer] / 10000;
                 else
                     return ((float)SetPrice / 10000);
             }
@@ -52,7 +52,7 @@ namespace ChapeauModel
         {
             get
             {
-                return SetPrice / CustomerCount;
+                return (SetPrice + Vat) / CustomerCount;
             }
         }
 

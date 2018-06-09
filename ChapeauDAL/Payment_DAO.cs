@@ -11,7 +11,7 @@ using ChapeauModel;
 namespace ChapeauDAL
 {
     //Also inherit Customer and Item
-    public class Payment_DAO : Item_DAO
+    public class Payment_DAO : Base
     {
         public void Db_set_payment(Payment payment)
         {
@@ -27,7 +27,7 @@ namespace ChapeauDAL
             };
             sqlParameters[2] = new SqlParameter("@price", SqlDbType.Decimal)
             {
-                Value = payment.TotalPrice
+                Value = payment.Price
             };
             sqlParameters[3] = new SqlParameter("@method", SqlDbType.SmallInt)
             {

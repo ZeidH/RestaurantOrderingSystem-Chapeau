@@ -31,13 +31,19 @@ namespace ChapeauUI
 
         private void FillReceipt()
         {
-            //Get listview from UserControls
-            OrderList orderList = new OrderList(payment);
-            order_list.Children.Add(orderList);
+            try
+            {
+                // Get listview from UC
+                order_list.Children.Add(new OrderList(payment));
+            }
+            catch (Exception)
+            {
+                if(ErrorMessage(new Exception("Cannot connect to server \nClick 'OK' to try again")))
+                    FillReceipt();               
+            }
 
             // Process the data and fill the model
             payment_Logic.GetTotalPrice(payment_Logic.GetReceipt(payment.Order_id), payment);
-
             // Display price on the labels
             total_price.Content = $"Total Price: {payment.Price.ToString("0.00 €")}";
             vat_price.Content = $"Vat Price: {payment.ReadVat.ToString("0.00 €")}";
@@ -47,28 +53,40 @@ namespace ChapeauUI
             {
                 btn_Split.IsEnabled = false;
             }
-        } 
+        }
         #endregion
 
         private void Btn_Payment_Finish_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             // Get information from textbox
             payment.Comment = comment_Box.Text;
 
             SplitButtonCheck();
 
             // Send information to db, if there are no payments left then go to tableview
-            if (payment_Logic.InsertPayment(payment))
+            try
             {
-                // Direct to tableview when order is finalized
-                NavigationService.Navigate(new Tableview_UI());
+                if (payment_Logic.InsertPayment(payment))
+                {
+                    // Direct to tableview when order is finalized
+                    NavigationService.Navigate(new Tableview_UI());
+                }
             }
+            catch (Exception exp)
+            {
+                if (ErrorMessage(exp))
+                    Btn_Payment_Finish_Click(sender, e);
+            }
+
             RefreshTip();
             btn_even_split.IsEnabled = false;
             btn_Undo_Split.IsEnabled = false;
             btn_Payment_Finish.Content = $"Finalize Guest {payment.NextCustomer + 1}";
         }
-
+        private bool ErrorMessage(Exception e)
+        {
+            return MessageBox.Show(e.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error) == MessageBoxResult.OK;   
+        }
 
         #region Payment Method Radiobuttons
         private void Radio_Btn_Checked(object sender, RoutedEventArgs e)
@@ -83,11 +101,13 @@ namespace ChapeauUI
             if (payment.Method == PayMethod.Cash)
             {
                 tip = new Payment_Tip(payment);
+                lbl_tip.Visibility = Visibility.Hidden;
                 tip_panel.Children.Add(tip);
             }
             else
             {
                 payment.Tip = 0;
+                lbl_tip.Visibility = Visibility.Visible;
                 tip_panel.Children.Clear();
             }
         }
@@ -156,7 +176,7 @@ namespace ChapeauUI
             {
                 tip.UpdateLabel();
             }
-        } 
+        }
         #endregion
     }
 }
