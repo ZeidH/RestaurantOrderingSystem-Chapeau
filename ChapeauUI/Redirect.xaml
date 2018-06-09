@@ -13,6 +13,6 @@
         <Border Style="{StaticResource RoundCornerBtn}" Background="{StaticResource LightGrayBrush}" Margin="121,69,122.6,61.6">
             <Image gif:ImageBehavior.AnimatedSource="Images\ChapeauWink.gif" Margin="9.2,20.2,-9.4,66.6"/>
         </Border>
-        <Label x:Name="lblMessage" Style="{StaticResource HeaderText}"  HorizontalAlignment="Left" Margin="291,299,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="lblMessage" Style="{StaticResource HeaderText}"  HorizontalAlignment="Left" Margin="121,299,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="38" Width="454"/>
     </Grid>
 </Page>
