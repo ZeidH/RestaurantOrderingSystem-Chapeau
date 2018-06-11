@@ -5,10 +5,54 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ChapeauUI"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Kitchenview_UI">
+      d:DesignHeight="434" d:DesignWidth="698"
+      Title="Kitchenview_UI" Width="698" Height="434">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid VerticalAlignment="Top" Name="menuGrid" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Running"/>
+            <Button Grid.Column="1"  Content="Ready"/>
+            <Button Grid.Column="2" Content="Exit"/>
+
+            <Grid Grid.Column="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" HorizontalAlignment="Center">Tables</Label>
+                <Label Grid.Column="1" HorizontalAlignment="Center">Orders</Label>
+                <Label Grid.Column="2" HorizontalAlignment="Center">DateTime</Label>
+            </Grid>
+        </Grid>
+
+        <ListView Grid.Row="1" Name="ordersListView">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridViewColumn Header="Order" DisplayMemberBinding="{Binding Path=Id}"/>
+                    <GridViewColumn Header="Table" DisplayMemberBinding="{Binding Path=TableId}"/>
+                    <GridViewColumn Header="Time" />
+                    <GridViewColumn Header="Staff" DisplayMemberBinding="{Binding Path=EmployeeName}"/>
+                    <GridViewColumn Header="Status" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
+
+
+
 </Page>

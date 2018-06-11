@@ -16,7 +16,7 @@ namespace ChapeauDAL
 		public List<Order> Db_get_orders_by_status_and_location(OrderStatus status, PreparationLocation location)
 		{
 			string query = @"
-				SELECT [ORDER].order_id AS order_id, table_id, emp_firstName
+				SELECT DISTINCT ([ORDER].order_id) AS order_id, table_id, emp_firstName
 				FROM [ORDER]
 				LEFT JOIN [EMPLOYEE] on [ORDER].emp_id = [EMPLOYEE].emp_id
 				LEFT JOIN [ORDER_LIST] on [ORDER_LIST].order_id = [ORDER].order_id
@@ -38,9 +38,14 @@ namespace ChapeauDAL
 
 			DataTable dataTable = ExecuteSelectQuery(query, sqlParameters);
 
-			List<Order> result = new List<Order>();
+			List<Order> result = ReadOrders(dataTable);
 
-            //todo D: put the loop in a method
+			return result;
+		}
+
+		private static List<Order> ReadOrders(DataTable dataTable)
+		{
+			List<Order> result = new List<Order>();
 
 			foreach (DataRow row in dataTable.Rows)
 			{
