@@ -9,48 +9,54 @@ namespace ChapeauModel
     public class Payment
     {
         public int Order_id { get; set; }
-    
-        private float price;
+        public int SetPrice { get; set; }
+        public int Vat { get; set; }
+        public int Tip { get; set; }
+        public PayMethod? Method { get; set; }
+        public string Comment { get; set; }
+        public int CustomerCount { get; set; }
+        public List<int> GuestPrice { get; set; }
+        public int NextCustomer { get; set; }
+        public bool SplitPayment { get; set; }
+
+        //Computational Properties
         public float Price
         {
             get
             {
                 if (SplitPayment == true)
-                    return GuestPrice[NextCustomer] + Vat;
+                    return (float)GuestPrice[NextCustomer] / 10000;
                 else
-                    return price;
+                    return ((float)SetPrice / 10000);
             }
             set
             {
-                price = value;
+                SetPrice = (int)value;
             }
         }
-        public float Vat { get; set; }
-        public float Tip { get; set; }
-        public PayMethod? Method { get; set; }
-        public string Comment { get; set; }
-        public int CustomerCount { get; set; }
-        public List<float> GuestPrice { get; set; }
-        public int NextCustomer { get; set; }
-        public bool SplitPayment { get; set; }
-
-        //Computational Properties
+        public float ReadVat
+        {
+            get
+            {
+                return (float)Vat / 10000;
+            }
+        }
         public float TotalPrice
         {
             get
             {
-                return price + Vat + Tip;
+                return (float)(SetPrice + Vat) / 10000;
             }
         }
-        public float SplittedPrice
+        public int SplittedPrice
         {
             get
             {
-                return price / CustomerCount;
+                return (SetPrice + Vat) / CustomerCount;
             }
         }
 
-        //Constructor
+        // Constructors
         public Payment()
         {
             //Empty constructor
@@ -61,7 +67,7 @@ namespace ChapeauModel
             this.CustomerCount = nrOfCustomers;
             Price = 0;
             NextCustomer = 0;
-            GuestPrice = new List<float>();
+            GuestPrice = new List<int>();
             SplitPayment = false;
         }
     }

@@ -11,7 +11,7 @@ using ChapeauModel;
 namespace ChapeauDAL
 {
     //Also inherit Customer and Item
-    public class Payment_DAO : Item_DAO
+    public class Payment_DAO : Base
     {
         public void Db_set_payment(Payment payment)
         {
@@ -25,9 +25,9 @@ namespace ChapeauDAL
             {
                 Value = payment.Tip
             };
-            sqlParameters[2] = new SqlParameter("@price", SqlDbType.Float)
+            sqlParameters[2] = new SqlParameter("@price", SqlDbType.Decimal)
             {
-                Value = payment.TotalPrice
+                Value = payment.Price
             };
             sqlParameters[3] = new SqlParameter("@method", SqlDbType.SmallInt)
             {
@@ -114,6 +114,7 @@ namespace ChapeauDAL
             return orderItems;
         }
 
+        #region Commented -> Get Drink Vat
         //public Vat Db_get_drink_vat(int item_id)
         //{
         //    string query = string.Format("SELECT drink_vat FROM DRINK WHERE drink_id = @item_id");
@@ -136,7 +137,8 @@ namespace ChapeauDAL
         //    }
         //    return vat;
         //}
-        ////change query
+        ////change query 
+        #endregion
 
     }
 }
