@@ -59,12 +59,11 @@ namespace ChapeauDAL
 
                     ErrorFilePrint print = new ErrorFilePrint();
                     print.ErrorLog(e);
-                    throw;
+                    throw new Exception("The application has send an incomplete order, please contact the manager");
                 }
-
                 ErrorFilePrint print2 = new ErrorFilePrint();
                 print2.ErrorLog(e);
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
 
         }

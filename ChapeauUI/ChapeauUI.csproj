@@ -226,19 +226,10 @@
     <Resource Include="Images\Background.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Chapeau3.png" />
+    <Resource Include="Images\ChapeauAnimation.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Chapeauv2.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ChapeauWhite.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\Chapeauv4.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\ChapeauWink.gif" />
+    <Resource Include="Images\ChapeauGifFinal.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -25,6 +26,8 @@ namespace ChapeauUI
 
         public Redirect(string message)
         {
+            DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromMilliseconds(600));
+            BeginAnimation(OpacityProperty, animation);
             InitializeComponent();
             lblMessage.Content = message;
             dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);

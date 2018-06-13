@@ -35,9 +35,9 @@ namespace ChapeauUI
             {
                 menu = itemLogic.GetMenu();
             }
-            catch (Exception exp)
+            catch (Exception)
             {
-                HandleException(exp);
+                HandleException(new Exception("The application could not receive the menu"));
             }
             AssignCategoryAmounts(customerCount, tableNr);
             amountDrinks = 0;
@@ -156,9 +156,9 @@ namespace ChapeauUI
                 List<Item> subMenu = itemLogic.GetSubMenu(menu, e.Source.ToString());
                 listviewMenu.ItemsSource = subMenu;
             }
-            catch (Exception exp)
+            catch (Exception)
             {
-                HandleException(exp);
+                HandleException(new Exception("The application could not receive the sub category menu"));
             }
         }
         #endregion
@@ -180,9 +180,9 @@ namespace ChapeauUI
                     }
                     btnAddOrderItem.IsEnabled = itemLogic.VerifyStock(selectedMenuItem);
                 }
-                catch (Exception exp)
+                catch (Exception)
                 {
-                    HandleException(exp);
+                    HandleException(new Exception("The application could not receive information about the selected item"));
                 }
             }
         }
@@ -242,9 +242,9 @@ namespace ChapeauUI
                 UpdateOrder(orderItem);
                 btnAddOrderItem.IsEnabled = false;
             }
-            catch (Exception exp)
+            catch (Exception)
             {
-                HandleException(exp);
+                HandleException(new Exception("The application could not add the item to the order"));
             }
         }
 
@@ -259,7 +259,7 @@ namespace ChapeauUI
                 }
                 catch (Exception)
                 {
-                    throw;
+                    HandleException(new Exception("The application could not refresh the stock"));
                 }
                 listviewMenu.Items.Refresh();
                 btnAddOrderItem.IsEnabled = false;
@@ -296,9 +296,9 @@ namespace ChapeauUI
                 itemLogic.UpdateStock(orderItem);
                 menu = itemLogic.RefreshStock(menu);
             }
-            catch (Exception exp)
+            catch (Exception)
             {
-                HandleException(exp);
+                HandleException(new Exception("The application could not update the stock"));
             }
         }
 
@@ -328,9 +328,9 @@ namespace ChapeauUI
                 }
                 itemLogic.IncreaseAmount(selectedOrderItem);
             }
-            catch (Exception exp)
+            catch (Exception)
             {
-                HandleException(exp);
+                HandleException(new Exception("The application could not increase the items amount"));
             }
             lblTotalPrice.Content = itemLogic.GetTotalCost(order).ToString("€ 0.00");
             dataGridOrder.Items.Refresh();
@@ -348,9 +348,9 @@ namespace ChapeauUI
             {
                 itemLogic.DecreaseAmount(selectedOrderItem);
             }
-            catch (Exception exp)
+            catch (Exception)
             {
-                HandleException(exp);
+                HandleException(new Exception("The application could not decrease the items amount"));
             }
             lblTotalPrice.Content = itemLogic.GetTotalCost(order).ToString("€ 0.00");
             dataGridOrder.Items.Refresh();
@@ -388,9 +388,10 @@ namespace ChapeauUI
             {
                 itemLogic.CompleteOrder(order);
             }
-            catch (Exception exp)
+            catch (Exception)
             {
-                HandleException(exp);
+                HandleException(new Exception("The application could not complete the order"));
+                return;
             }
             NavigationService.Navigate(new Redirect("Order send!"));
         }
