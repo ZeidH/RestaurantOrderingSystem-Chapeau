@@ -48,6 +48,22 @@ namespace ChapeauDAL
                 }
                 tran.Commit();
             }
+            catch (SqlException e)
+            {
+                try
+                {
+                    tran.Rollback();
+                }
+                catch (Exception)
+                {
+                    ErrorFilePrint print = new ErrorFilePrint();
+                    print.ErrorLog(e);
+                    throw new Exception("The application has send an incomplete order, please contact the manager");
+                }
+                ErrorFilePrint print2 = new ErrorFilePrint();
+                print2.ErrorLog(e);
+                throw new Exception("The application was unable to connect to the database");
+            }
             catch (Exception e)
             {
                 try
@@ -56,7 +72,6 @@ namespace ChapeauDAL
                 }
                 catch (Exception)
                 {
-
                     ErrorFilePrint print = new ErrorFilePrint();
                     print.ErrorLog(e);
                     throw new Exception("The application has send an incomplete order, please contact the manager");
@@ -65,7 +80,6 @@ namespace ChapeauDAL
                 print2.ErrorLog(e);
                 throw new Exception("A problem with the database has occured");
             }
-
         }
 
         public int DbVerifyStock(Item item)
@@ -80,9 +94,13 @@ namespace ChapeauDAL
             {
                 return VerifyStock(ExecuteSelectQuery(query, sqlParameters));
             }
+            catch (SqlException)
+            {
+                throw new Exception("The application was unable to connect to the database");
+            }
             catch (Exception)
             {
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
         }
 
@@ -92,10 +110,13 @@ namespace ChapeauDAL
             {
                 return (int)dataTable.Rows[0]["item_stock"];
             }
+            catch (SqlException)
+            {
+                throw new Exception("The application was unable to connect to the database");
+            }
             catch (Exception)
             {
-
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
         }
 
@@ -107,9 +128,13 @@ namespace ChapeauDAL
             {
                 return RefreshStock(ExecuteSelectQuery(query, sqlParameters));
             }
+            catch (SqlException)
+            {
+                throw new Exception("The application was unable to connect to the database");
+            }
             catch (Exception)
             {
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
         }
 
@@ -125,9 +150,13 @@ namespace ChapeauDAL
                 }
                 return stocks;
             }
+            catch (SqlException)
+            {
+                throw new Exception("The application was unable to connect to the database");
+            }
             catch (Exception)
             {
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
         }
 
@@ -147,9 +176,13 @@ namespace ChapeauDAL
             {
                 ExecuteEditQuery(query, sqlParameters);
             }
+            catch (SqlException)
+            {
+                throw new Exception("The application was unable to connect to the database");
+            }
             catch (Exception)
             {
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
         }
 
@@ -162,11 +195,14 @@ namespace ChapeauDAL
             {
                 return ReadMenu(ExecuteSelectQuery(query, sqlParameters));
             }
+            catch (SqlException)
+            {
+                throw new Exception("The application was unable to connect to the database");
+            }
             catch (Exception)
             {
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
-
         }
         private List<Item> ReadMenu(DataTable dataTable)
         {
@@ -204,8 +240,7 @@ namespace ChapeauDAL
             }
             catch (Exception)
             {
-
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
         }
 
@@ -222,10 +257,15 @@ namespace ChapeauDAL
             {
                 return ReadMeatType(ExecuteSelectQuery(query, sqlParameters));
             }
+            catch (SqlException e)
+            {
+                print.ErrorLog(e);
+                throw new Exception("The application was unable to connect to the database");
+            }
             catch (Exception e)
             {
                 print.ErrorLog(e);
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
         }
 
@@ -235,9 +275,9 @@ namespace ChapeauDAL
             {
                 return (bool)dataTable.Rows[0]["has_meat_type"];
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new Exception("A problem with the database has occured");
             }
         }
     }

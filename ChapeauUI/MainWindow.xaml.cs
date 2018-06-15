@@ -25,7 +25,7 @@ namespace ChapeauUI
         {
             InitializeComponent();
             //Initialize on Login Page     
-            Main.Content = new Redirect("Order send");
+            Main.Content = new Orderview_UI(2,4,2);
         }
     }
 }

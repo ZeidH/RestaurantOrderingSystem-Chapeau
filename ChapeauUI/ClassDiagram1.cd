@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ChapeauUI.Orderview_UI" BaseTypeListCollapsed="true">
+    <Position X="1.75" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AQwAAAhBAAAIACAHCEAACgyEQAAAlIoCDAwwABgCAIA=</HashCode>
+      <FileName>Orderview_UI.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Right" Position="1.225" Collapsed="true" />
+  </Class>
+  <Class Name="ChapeauUI.Orderview_MeatComments" BaseTypeListCollapsed="true">
+    <Position X="1.75" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAIAAAAAAAAAABAAAAAAUIA=</HashCode>
+      <FileName>UserControls\Orderview_MeatComments.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Left" Position="1.128" Collapsed="true" />
+  </Class>
+  <Class Name="ChapeauLogic.Item_Service">
+    <Position X="5.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="ChapeauModel.Item">
+    <Position X="9.25" Y="2.25" Width="2.25" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="LunchSubCategory" />
+      <Property Name="DinnerSubCategory" />
+      <Property Name="DrinkSubCategory" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChapeauModel.OrderItem">
+    <Position X="9.25" Y="6.25" Width="2.25" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Status" />
+      <Property Name="this" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="ChapeauModel.Lunch">
+    <Position X="13.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="ChapeauModel.Dinner">
+    <Position X="13.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="ChapeauModel.Drink">
+    <Position X="13.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="ChapeauModel.OrderStatus">
+    <Position X="13.5" Y="7" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Enum Name="ChapeauModel.CookingLevel">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
