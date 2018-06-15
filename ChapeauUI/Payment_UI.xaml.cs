@@ -69,7 +69,7 @@ namespace ChapeauUI
                 if (payment_Logic.InsertPayment(payment))
                 {
                     // Direct to tableview when order is finalized
-                    NavigationService.Navigate(new Tableview_UI());
+                    NavigationService.Navigate(new Redirect("Payment Complete"));
                 }
             }
             catch (Exception exp)

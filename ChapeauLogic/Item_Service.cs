@@ -16,7 +16,7 @@ namespace ChapeauLogic
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception("The application could not receive the menu");
             }
         }
 
@@ -56,7 +56,7 @@ namespace ChapeauLogic
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception("The application could not complete the order");
             }
         }
 
@@ -86,7 +86,7 @@ namespace ChapeauLogic
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception("The application could not refresh the stock");
             }
         }
 
@@ -98,7 +98,7 @@ namespace ChapeauLogic
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception("The application could not verify the stock");
             }
         }
 
@@ -110,7 +110,7 @@ namespace ChapeauLogic
             }
             catch (Exception)
             {
-                throw;
+                throw new Exception("The application could not update the stock");
             }
         }
 
@@ -181,7 +181,7 @@ namespace ChapeauLogic
                 }
                 catch (Exception)
                 {
-                    throw;
+                    throw new Exception("The application could not check wether selected item is a meat");
                 }
             }
             return false;

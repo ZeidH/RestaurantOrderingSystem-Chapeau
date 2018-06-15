@@ -88,7 +88,7 @@
     <Style TargetType="{x:Type Button}" x:Key="Quantity" BasedOn="{StaticResource Orderview}">
         <Setter Property="Background" Value="{StaticResource YellowBrush}"/>
         <Setter Property="FontSize" Value="25"/>
-        <Setter Property="Padding" Value="0,0,0,5"/>
+        <Setter Property="Padding" Value="0,0,0,0"/>
     </Style>
     
     <!--Orderview Delete-->
