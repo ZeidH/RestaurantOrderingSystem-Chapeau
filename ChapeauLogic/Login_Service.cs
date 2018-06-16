@@ -18,7 +18,7 @@ namespace ChapeauLogic
         public Login_Service(string password, string username)
         {
             this.username = username;
-            this.password = password; //GetStringSha256Hash(password);
+            this.password = GetStringSha256Hash(password);
         }
 
         internal static string GetStringSha256Hash(string pw)

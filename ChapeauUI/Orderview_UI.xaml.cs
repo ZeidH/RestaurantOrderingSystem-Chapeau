@@ -473,6 +473,6 @@ namespace ChapeauUI
             btnRemoveItem.IsEnabled = false;
         }
 
-        private void HandleException(Exception exp) => MessageBox.Show("Gosh darnit! " + exp.Message +, "Something went wrong", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        private void HandleException(Exception exp) => MessageBox.Show("Gosh darnit! " + exp.Message, "Something went wrong", MessageBoxButton.OK, MessageBoxImage.Exclamation);
     }
 }

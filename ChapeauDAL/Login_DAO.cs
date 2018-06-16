@@ -32,27 +32,23 @@ namespace ChapeauDAL
 
         private Employee ReadEmployee(DataTable dataTable)
         {
-            Employee employee = new Employee();
-            //try
+            if (dataTable.Rows.Count == 0)
             {
-                foreach (DataRow dr in dataTable.Rows)
-                {
-                    //employee = new Employee
-                    //{
-                    //    ID = (int)dr["emp_id"],
-                    //    Name = $"{dr["emp_firstName"]}  {dr["emp_lastName"]}",
-                    //    Occupation = (Occupation)(int)dr["emp_occupation"]
-                    //};
-                    employee.ID = (int)dr["emp_id"];
-                    employee.Name = $"{dr["emp_firstName"]} {dr["emp_lastName"]}";
-                    employee.Occupation = (Occupation)Int16.Parse(dr["emp_occupation"].ToString());
-                }
-                return employee;
+                throw new NullReferenceException();
             }
-            //catch (Exception)
-            //{
-            //    throw new NullReferenceException();
-            //}      
+            Employee employee = new Employee();
+
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                employee = new Employee
+                {
+                    ID = (int)dr["emp_id"],
+                    Name = $"{dr["emp_firstName"]}  {dr["emp_lastName"]}",
+                    Occupation = (Occupation)Int16.Parse(dr["emp_occupation"].ToString())
+                };
+            }
+            return employee;
+
         }
     }
 }

@@ -12,8 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 using ChapeauLogic;
 using ChapeauModel;
+using WpfAnimatedGif;
+using System.Windows.Threading;
 
 namespace ChapeauUI
 {
@@ -26,14 +29,20 @@ namespace ChapeauUI
         {
             InitializeComponent();
             username_box.Focus();
-            //lock_img.Source = new BitmapImage(new Uri("Images/LockIcon.png", UriKind.Relative));
-            lock_img.Source = new BitmapImage(new Uri("Images/LockAnimation.gif", UriKind.Relative));
+            lock_img.Source = new BitmapImage(new Uri("Images/LockIcon.png", UriKind.Relative));
         }
 
         private void Btn_Login_Click(object sender, RoutedEventArgs e)
         {
-            DirectUser(CheckUserInput());
-
+            Employee employee = CheckUserInput();
+            if (employee.Occupation == null)
+            {
+                return;
+            }
+            else
+            {
+                DirectUser(employee);
+            }
         }
         private Employee CheckUserInput()
         {
@@ -53,43 +62,58 @@ namespace ChapeauUI
         }
         private void DirectUser(Employee employee)
         {
-            switch (employee.Occupation)
+            LockAnimation();
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            timer.Start();
+            timer.Tick += (sender, args) =>
             {
-                case Occupation.Waiter:
-                    NavigationService.Navigate(new Tableview_UI(employee));
-                    LockAnimation();
-                    break;
-                case Occupation.Kitchen:
-                    NavigationService.Navigate(new Kitchenview_UI());
-                    LockAnimation();
-                    break;
-                case Occupation.Bar:
-                    NavigationService.Navigate(new Barview_UI());
-                    LockAnimation();
-                    break;
-                //case Occupation.Manager:
-                //    break;
-                default:
-                    break;
-            }
+                timer.Stop();
+                switch (employee.Occupation)
+                {
+                    case Occupation.Waiter:
+                        NavigationService.Navigate(new Tableview_UI(employee));
+                        break;
+                    case Occupation.Kitchen:
+                        NavigationService.Navigate(new Kitchenview_UI());
+                        break;
+                    case Occupation.Bar:
+                        NavigationService.Navigate(new Barview_UI());
+                        break;
+                    //case Occupation.Manager:
+                    //    break;
+                    default:
+                        break;
+                }
+            };
         }
 
         private void LockAnimation()
         {
-            //BitmapImage image = new BitmapImage(new Uri("Images/LockIcon.png", UriKind.Relative));
-            ////lock_img.Source = new BitmapImage(new Uri("Images/LockAnimation.png", UriKind.Relative));
-            //lock_img.DataContext = image;
 
-            lock_img.Source = new BitmapImage(new Uri("Images/LockAnimation.gif", UriKind.Relative));
-            //lock_img.Dispatcher.BeginInvoke(new Action(() => lock_img.Source = new BitmapImage(new Uri("Images/LockAnimation.png", UriKind.Relative))));
-            System.Threading.Thread.Sleep(2000);
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri("Images/LockAnimation.gif", UriKind.Relative);
+            image.EndInit();
+            ImageBehavior.SetAnimatedSource(lock_img, image);
+
+            // Below it needed to start animation. If not, it is only make visible but animation does not start.
+            ImageBehavior.SetAutoStart(lock_img, true);
+            ImageBehavior.SetRepeatBehavior(lock_img, RepeatBehavior.Forever);
         }
 
         private void LoginPage_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                DirectUser(CheckUserInput());
+                Employee employee = CheckUserInput();
+                if (employee.Occupation == null)
+                {
+                    return;
+                }
+                else
+                {
+                    DirectUser(employee);
+                }
             }
         }
     }

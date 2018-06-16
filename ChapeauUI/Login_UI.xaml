@@ -4,6 +4,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:gif="http://wpfanimatedgif.codeplex.com"
       xmlns:local="clr-namespace:ChapeauUI"
       mc:Ignorable="d" 
       d:DesignHeight="434" d:DesignWidth="698"
@@ -31,7 +32,7 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="lock_img" HorizontalAlignment="Left" Height="34" Margin="248,286,0,0" VerticalAlignment="Top" Width="40" Source="{Binding image}" RenderTransformOrigin="0.5,0.5">
+        <Image x:Name="lock_img" HorizontalAlignment="Left" Height="34" Margin="248,286,0,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
