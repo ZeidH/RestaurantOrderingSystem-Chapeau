@@ -29,11 +29,13 @@ namespace ChapeauUI
         private int tableID;
         private int order_id;
         private int guestCount;
-        public TableSidePanel(Page ParentPage, int tableID, int order_id, int guestCount)
+        private Employee employee;
+        public TableSidePanel(Page ParentPage, int tableID, int order_id, int guestCount, Employee employee)
         {
             InitializeComponent();
             this.order_id = order_id;
             this.tableID = tableID;
+            this.employee = employee;
             this.guestCount = guestCount;
             this.ParentPage = ParentPage;
             lbl_table.Content = $"Table {tableID}";
@@ -42,11 +44,11 @@ namespace ChapeauUI
 
         private void Btn_NewOrder_Click(object sender, RoutedEventArgs e)
         {
-            ParentPage.NavigationService.Navigate(new Orderview_UI(order_id, guestCount, tableID));
+            ParentPage.NavigationService.Navigate(new Orderview_UI(order_id, guestCount, tableID, employee));
         }
         private void Btn_Payment_Click(object sender, RoutedEventArgs e)
         {
-            ParentPage.NavigationService.Navigate(new Payment_UI(order_id, guestCount));
+            ParentPage.NavigationService.Navigate(new Payment_UI(order_id, guestCount, employee));
         }
     }
 }

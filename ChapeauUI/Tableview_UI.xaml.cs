@@ -23,9 +23,11 @@ namespace ChapeauUI
     /// </summary>
     public partial class Tableview_UI : Page
     {
+        private Employee employee;
         public Tableview_UI(Employee employee)
         {
             InitializeComponent();
+            this.employee = employee;
             Animation.AnimateIn(this, 1);
             GetTables();
             lbl_logged_user.Content = employee.Name;
@@ -36,12 +38,14 @@ namespace ChapeauUI
         }
         private void GetTables()
         {
+            table_panel.Children.Clear();
             table_panel.Children.Add(new Table_UC(this));
         }
         internal void GenerateSidePanel(int order_id, int table_id, int nrOfGuests)
         {
-            table_sidePanel.Children.Add(new TableSidePanel(this, table_id, order_id, nrOfGuests));
-            Animation.AnimateSlide(table_sidePanel, -this.WindowWidth, this.WindowWidth);
+            table_sidePanel.Children.Clear();
+            table_sidePanel.Children.Add(new TableSidePanel(this, table_id, order_id, nrOfGuests, employee));
+            Animation.AnimateSlide(table_sidePanel, 500, 200);
         }
         internal void GenerateCreatePanel(int tableID)
         {

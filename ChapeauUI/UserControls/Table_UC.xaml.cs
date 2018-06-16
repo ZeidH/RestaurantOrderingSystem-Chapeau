@@ -144,7 +144,7 @@ namespace ChapeauUI
             }
             else
             {
-
+                table_main.GenerateSidePanel(tables[tableID].OrderID, tables[tableID].ID, tables[tableID].NumberOfGuests);
             }
         }
 
@@ -152,7 +152,7 @@ namespace ChapeauUI
         private int Splitter(string value)
         {
             string[] splitted = value.Split('_');
-            return int.Parse(splitted[2]);
+            return int.Parse(splitted[2])-1;
         }
     }
 }

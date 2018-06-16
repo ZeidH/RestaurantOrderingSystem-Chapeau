@@ -9,8 +9,8 @@
       Title="Tableview_UI"  Width="698" Height="434">
 
     <Grid>
-        <WrapPanel x:Name="table_sidePanel" HorizontalAlignment="Left" Height="434" VerticalAlignment="Top" Width="350" Margin="-365,1,0,-1.4"/>
-        <WrapPanel x:Name="table_panel" HorizontalAlignment="Left" Height="359" Margin="0,65,0,0" VerticalAlignment="Top" Width="688"/>
+        <WrapPanel Panel.ZIndex="10" x:Name="table_sidePanel" HorizontalAlignment="Left" Height="434" VerticalAlignment="Top" Width="350" Margin="-365,1,0,-1.4"/>
+        <WrapPanel Panel.ZIndex="1" x:Name="table_panel" HorizontalAlignment="Left" Height="359" Margin="0,65,0,0" VerticalAlignment="Top" Width="688"/>
         <Label x:Name="lbl_tableview" Content="Table overview" Style="{StaticResource HeaderText}" HorizontalAlignment="Left" Margin="23,10,0,0" VerticalAlignment="Top" Height="50" Width="252" Background="#00000000"/>
         <Image Margin="493,8,173.6,394.6" Source="Images/PersonIcon.png" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>

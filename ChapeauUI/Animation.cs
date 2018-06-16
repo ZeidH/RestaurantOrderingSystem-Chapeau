@@ -30,7 +30,7 @@ namespace ChapeauUI
             var sb = new Storyboard();
             var fadeAnimation = new DoubleAnimation
             {
-                Duration = new Duration(TimeSpan.FromSeconds(1.5)),
+                Duration = new Duration(TimeSpan.FromSeconds(1)),
                 From = 1,
                 To = 0
             };
@@ -44,7 +44,7 @@ namespace ChapeauUI
             var sb = new Storyboard();
             var SlideAnimation = new ThicknessAnimation
             {
-                Duration = new Duration(TimeSpan.FromSeconds(1.5)),
+                Duration = new Duration(TimeSpan.FromSeconds(1)),
                 From = new Thickness(-left, 0, right, 0),
                 To = new Thickness(0),
                 DecelerationRatio = 0.9f
