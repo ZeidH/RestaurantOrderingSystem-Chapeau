@@ -232,9 +232,6 @@
     <Resource Include="Images\ChapeauAnimation.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\ChapeauGifFinal.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\PersonIcon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -242,6 +239,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\LockAnimation.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LoginBackground.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RedirectBackground.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

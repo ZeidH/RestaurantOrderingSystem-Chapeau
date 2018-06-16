@@ -275,7 +275,7 @@ namespace ChapeauDAL
             {
                 return (bool)dataTable.Rows[0]["has_meat_type"];
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("A problem with the database has occured");
             }
