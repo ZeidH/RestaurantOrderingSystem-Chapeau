@@ -18,20 +18,13 @@ using ChapeauModel;
 namespace ChapeauUI
 {
     /// <summary>
-    /// Interaction logic for OrderList.xaml
+    /// Interaction logic for TableSidePanel_UC.xaml
     /// </summary>
-    public partial class OrderList : UserControl
+    public partial class TableSidePanel : UserControl
     {
-        public OrderList(int order_id)
+        public TableSidePanel(int order_id)
         {
             InitializeComponent();
-            FillList(order_id);
-        }
-
-        private void FillList(int order_id)
-        {
-            Payment_Service payment_logic = new Payment_Service();
-            receipt_ListView.ItemsSource = payment_logic.GetReceipt(order_id);
         }
     }
 }

@@ -50,6 +50,7 @@
     <Compile Include="Payment_DAO.cs" />
     <Compile Include="Processing_DAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Table_DAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChapeauModel\ChapeauModel.csproj">
