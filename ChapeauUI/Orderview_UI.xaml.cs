@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using System.Windows.Media.Animation;
 using ChapeauLogic;
 using ChapeauModel;
+using System.Threading.Tasks;
 
 namespace ChapeauUI
 {
@@ -43,6 +44,7 @@ namespace ChapeauUI
             amountDrinks = 0;
             amountLunch = 0;
             amountDinner = 0;
+            Animation.AnimateIn(this, 1);
         }
 
         private void AssignCategoryAmounts(int customerCount, int tableNr)
@@ -393,9 +395,9 @@ namespace ChapeauUI
                 HandleException(new Exception("The application could not complete the order"));
                 return;
             }
+         
             NavigationService.Navigate(new Redirect("Order send!"));
         }
-
         private void BtnReturn_Click(object sender, RoutedEventArgs e)
         {
             itemLogic.DeleteOrderList(order);

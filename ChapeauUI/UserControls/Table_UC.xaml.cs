@@ -23,7 +23,7 @@ namespace ChapeauUI
     /// </summary>
     public partial class Table_UC : UserControl
     {
-        private ObservableCollection<Tafel> tables = new ObservableCollection<Tafel>();
+        public ObservableCollection<Tafel> tables = new ObservableCollection<Tafel>();
         private Tableview_UI table_main;
         public Table_UC(Tableview_UI table_main)
         {
@@ -139,11 +139,12 @@ namespace ChapeauUI
         {
             if (tables[tableID].Status == TableStatus.Free)
             {
-                table_main.GenerateCreatePanel(tableID);
+                table_main.GenerateSidePanel(tables[tableID].OrderID, tables[tableID].ID, tables[tableID].NumberOfGuests);
+                //table_main.GenerateCreatePanel(tableID);
             }
             else
             {
-                table_main.GenerateSidePanel(tables[tableID].OrderID);
+
             }
         }
 

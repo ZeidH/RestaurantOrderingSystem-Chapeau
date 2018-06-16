@@ -8,7 +8,7 @@
       d:DesignHeight="434" d:DesignWidth="698"
       Title="Orderview_UI" Width="698" Height="434">
 
-    <Grid Margin="0,0,0,-95">
+    <Grid x:Name="main_grid" Margin="0,0,0,-95">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="79*"/>
             <ColumnDefinition Width="93*"/>

@@ -24,6 +24,7 @@ namespace ChapeauUI
         public Payment_UI(int order_id, int customer_count)
         {
             InitializeComponent();
+            Animation.AnimateIn(this, 1);
             payment = new Payment(customer_count, order_id);
             FillReceipt();
             lbl_order.Content = $"Order ID: {order_id}";

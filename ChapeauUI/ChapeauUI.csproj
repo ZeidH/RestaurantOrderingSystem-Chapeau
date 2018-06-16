@@ -59,6 +59,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Animation.cs" />
     <Compile Include="Barview_UI.xaml.cs">
       <DependentUpon>Barview_UI.xaml</DependentUpon>
     </Compile>
