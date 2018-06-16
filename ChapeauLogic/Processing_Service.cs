@@ -25,7 +25,7 @@ namespace ChapeauLogic
 
 		public RestaurantStatus GetRestaurantStatus()
 		{
-			RestaurantStatus status = processingDao.Db_get_restaurant_status();
+			RestaurantStatus status = processingDao.Db_get_restaurant_table_status();
 
 			return status;
 		}
