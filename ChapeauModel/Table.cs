@@ -1,11 +1,17 @@
-﻿namespace ChapeauModel
+﻿using System;
+
+namespace ChapeauModel
 {
 
-	public class Table
+	public class Tafel
 	{
-		int Number { get; set; }
-		
-		TableStatus Status { get; set; }
+        public int ID { get; set; }
+		public TableStatus Status { get; set; }
+        public Employee Employee { get; set; }
+        public int NumberOfGuests { get; set; }
+        public DateTime WaitingTime { get; set; }
+        public int OrderID { get; set; }
+
 	}
 
 

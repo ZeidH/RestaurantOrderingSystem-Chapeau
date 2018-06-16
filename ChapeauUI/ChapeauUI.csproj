@@ -68,6 +68,9 @@
     <Compile Include="Redirect.xaml.cs">
       <DependentUpon>Redirect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Table_UC.xaml.cs">
+      <DependentUpon>Table_UC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Orderview_MeatComments.xaml.cs">
       <DependentUpon>Orderview_MeatComments.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Colours.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Table_UC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

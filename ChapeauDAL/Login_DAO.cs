@@ -43,7 +43,7 @@ namespace ChapeauDAL
                 employee = new Employee
                 {
                     ID = (int)dr["emp_id"],
-                    Name = $"{dr["emp_firstName"]}  {dr["emp_lastName"]}",
+                    Name = $"{dr["emp_firstName"]} {dr["emp_lastName"]}",
                     Occupation = (Occupation)Int16.Parse(dr["emp_occupation"].ToString())
                 };
             }

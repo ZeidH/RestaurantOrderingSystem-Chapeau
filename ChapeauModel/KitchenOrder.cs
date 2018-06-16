@@ -2,7 +2,7 @@
 {
 	public class KitchenOrder : Order
 	{
-		Table Table { get; set; }
+		Tafel Table { get; set; }
 	}
 
 
