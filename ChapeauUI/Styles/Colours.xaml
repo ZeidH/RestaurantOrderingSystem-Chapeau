@@ -7,7 +7,7 @@
     <SolidColorBrush x:Key="ListBackgroundLightBrush" Color="{StaticResource ListBackgroundLight}"/>
 
     <!--Yellow-->
-    <Color x:Key="Yellow">#F39C12</Color>
+    <Color x:Key="Yellow">#F4B44E</Color>
     <SolidColorBrush x:Key="YellowBrush" Color="{StaticResource Yellow}"/>
 
     <!--Red-->

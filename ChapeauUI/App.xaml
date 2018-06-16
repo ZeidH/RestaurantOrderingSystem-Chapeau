@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="Styles/Listviews.xaml"/>
                 <ResourceDictionary Source="Styles/Datagrids.xaml"/>
+                <ResourceDictionary Source="Styles/Borders.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary> 
     </Application.Resources>
