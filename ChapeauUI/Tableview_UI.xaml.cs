@@ -25,6 +25,7 @@ namespace ChapeauUI
         public Tableview_UI(Employee employee)
         {
             InitializeComponent();
+            lbl_logged_user.Content = employee.Name;
         }
         public Tableview_UI()
         {

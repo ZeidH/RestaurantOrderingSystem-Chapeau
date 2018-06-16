@@ -46,4 +46,23 @@
     <Style TargetType="{x:Type Label}" x:Key="PaymentHeader" BasedOn="{StaticResource HeaderText}" >
 
     </Style>
+    
+    <!--Tableview status-->
+    <Style TargetType="{x:Type Label}" x:Key="TableviewStatus" BasedOn="{StaticResource HeaderText}" >
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+
+    <!--Tableview waiter-->
+    <Style TargetType="{x:Type Label}" x:Key="TableviewWaiter" BasedOn="{StaticResource OrderviewBase}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <!--Tableview guests-->
+    <Style TargetType="{x:Type Label}" x:Key="TableviewGuest" BasedOn="{StaticResource OrderviewBase}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
 </ResourceDictionary>

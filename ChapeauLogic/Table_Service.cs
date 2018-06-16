@@ -14,7 +14,8 @@ namespace ChapeauLogic
         public ObservableCollection<Tafel> FillTables()
         {
             Table_DAO table_db = new Table_DAO();
-            return table_db.Db_Get_Busy_Table_Info(table_db.Db_Get_All_Tables());
+            ObservableCollection<Tafel> table = table_db.Db_Get_All_Tables();
+            return table_db.Db_Get_Busy_Table_Info(table);
         }
     }
 }

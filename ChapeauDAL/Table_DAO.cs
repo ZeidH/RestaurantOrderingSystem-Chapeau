@@ -23,9 +23,9 @@ namespace ChapeauDAL
         {
             foreach (Tafel table in tables)
             {
-                if (table.Status == TableStatus.Busy)
+                if (table.Status != TableStatus.Free)
                 {
-                    string query = "SELECT o.order_id, o.nr_of_guests e.emp_firstName, e.emp_lastName FROM [ORDER] AS o JOIN EMPLOYEE AS e ON o.emp_id = e.emp_id WHERE o.table_id = @tableid";
+                    string query = "SELECT o.order_id, o.nr_of_guests, concat(e.emp_firstName,' ', e.emp_lastName) as fullname FROM [ORDER] AS o JOIN EMPLOYEE AS e ON o.emp_id = e.emp_id WHERE o.table_id = @tableid";
                     SqlParameter[] sqlParameters = new SqlParameter[1];
                     sqlParameters[0] = new SqlParameter("@tableid", SqlDbType.Int)
                     {
@@ -42,8 +42,8 @@ namespace ChapeauDAL
             foreach (DataRow dr in dataTable.Rows)
             {
                 table.OrderID = (int)dr["order_id"];
-                table.Employee.ID = (int)dr["emp_id"];
-                table.Employee.Name = $"{dr["emp_firstName"]}  {dr["emp_lastName"]}";
+                //table.Employee.ID = (int)dr["emp_id"];
+                table.Employee.Name = dr["fullname"].ToString();
                 table.NumberOfGuests = (int)dr["nr_of_guests"];
             }
         }

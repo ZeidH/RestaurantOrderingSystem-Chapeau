@@ -41,6 +41,17 @@ namespace ChapeauUI
 
         private void InsertTableInfo()
         {
+            Button[] buttons = new Button[10];
+            buttons[0] = btn_Table_1;
+            buttons[1] = btn_Table_2;
+            buttons[2] = btn_Table_3;
+            buttons[3] = btn_Table_4;
+            buttons[4] = btn_Table_5;
+            buttons[5] = btn_Table_6;
+            buttons[6] = btn_Table_7;
+            buttons[7] = btn_Table_8;
+            buttons[8] = btn_Table_9;
+            buttons[9] = btn_Table_10;
             Label[] nrOfGuest = new Label[10];
             nrOfGuest[0] = lbl_NrOfGuests_1;
             nrOfGuest[1] = lbl_NrOfGuests_2;
@@ -75,17 +86,45 @@ namespace ChapeauUI
             waiter[8] = lbl_Waiter_9;
             waiter[9] = lbl_Waiter_10;
 
+            foreach (Label label in status)
+            {
+                label.Style = (Style)FindResource("TableviewStatus");
+            }
+
+            foreach (Label label in waiter)
+            {
+                label.Style = (Style)FindResource("TableviewWaiter");
+            }
+
+            foreach (Label label in nrOfGuest)
+            {
+                label.Style = (Style)FindResource("TableviewGuest");
+            }
+
             for (int i = 0; i < waiter.Length; i++)
             {
                 if (tables[i].Status != TableStatus.Free)
                 {
-                    nrOfGuest[i].Content = tables[i].NumberOfGuests.ToString("P0");
+                    nrOfGuest[i].Content = "P" + tables[i].NumberOfGuests.ToString();
                     waiter[i].Content = tables[i].Employee.Name;
                     status[i].Content = tables[i].Status.ToString();
+                    switch (tables[i].Status)
+                    {
+                        case TableStatus.Running:
+                            buttons[i].Style = (Style)FindResource("Running");
+                            break;
+                        case TableStatus.Busy:
+                            buttons[i].Style = (Style)FindResource("Busy");
+                            break;
+                        case TableStatus.Ready:
+                            buttons[i].Style = (Style)FindResource("Ready");
+                            break;
+                    }
                 }
                 else
                 {
                     status[i].Content = TableStatus.Free.ToString();
+                    buttons[i].Style = (Style)FindResource("Free");
                 }
             }
         }
