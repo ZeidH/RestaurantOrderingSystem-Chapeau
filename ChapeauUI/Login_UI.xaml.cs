@@ -95,8 +95,7 @@ namespace ChapeauUI
             image.UriSource = new Uri("Images/LockAnimation.gif", UriKind.Relative);
             image.EndInit();
             ImageBehavior.SetAnimatedSource(lock_img, image);
-
-            // Below it needed to start animation. If not, it is only make visible but animation does not start.
+            
             ImageBehavior.SetAutoStart(lock_img, true);
             ImageBehavior.SetRepeatBehavior(lock_img, RepeatBehavior.Forever);
         }
