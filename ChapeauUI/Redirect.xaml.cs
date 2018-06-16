@@ -26,9 +26,9 @@ namespace ChapeauUI
 
         public Redirect(string message)
         {
-            DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromMilliseconds(600));
-            BeginAnimation(OpacityProperty, animation);
+
             InitializeComponent();
+            Animation.AnimateIn(redirect_page, 1);
             lblMessage.Content = message;
             dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 3);

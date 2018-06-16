@@ -12,8 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Media.Animation;
 using ChapeauLogic;
 using ChapeauModel;
+using WpfAnimatedGif;
+using System.Windows.Threading;
 
 namespace ChapeauUI
 {
@@ -22,9 +25,28 @@ namespace ChapeauUI
     /// </summary>
     public partial class TableSidePanel : UserControl
     {
-        public TableSidePanel(int order_id)
+        Page ParentPage;
+        private int tableID;
+        private int order_id;
+        private int guestCount;
+        public TableSidePanel(Page ParentPage, int tableID, int order_id, int guestCount)
         {
             InitializeComponent();
+            this.order_id = order_id;
+            this.tableID = tableID;
+            this.guestCount = guestCount;
+            this.ParentPage = ParentPage;
+            lbl_table.Content = $"Table {tableID}";
+            order_list.Children.Add(new OrderList(order_id));
+        }
+
+        private void Btn_NewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            ParentPage.NavigationService.Navigate(new Orderview_UI(order_id, guestCount, tableID));
+        }
+        private void Btn_Payment_Click(object sender, RoutedEventArgs e)
+        {
+            ParentPage.NavigationService.Navigate(new Payment_UI(order_id, guestCount));
         }
     }
 }

@@ -26,6 +26,7 @@ namespace ChapeauUI
         public Tableview_UI(Employee employee)
         {
             InitializeComponent();
+            Animation.AnimateIn(this, 1);
             GetTables();
         }
         public Tableview_UI()
@@ -36,29 +37,14 @@ namespace ChapeauUI
         {
             table_panel.Children.Add(new Table_UC(this));
         }
-        internal void GenerateSidePanel(int order_id)
+        internal void GenerateSidePanel(int order_id, int table_id, int nrOfGuests)
         {
-            table_sidePanel.Children.Add(new TableSidePanel(order_id));
-            this.AnimateIn();
+            table_sidePanel.Children.Add(new TableSidePanel(this, table_id, order_id, nrOfGuests));
+            Animation.AnimateSlide(table_sidePanel, -this.WindowWidth, this.WindowWidth);
         }
         internal void GenerateCreatePanel(int tableID)
         {
-            
-        }
-        private async Task AnimateIn()
-        {
-            var sb = new Storyboard();
-            var SlideAnimation = new ThicknessAnimation { Duration = new Duration(TimeSpan.FromSeconds(1.5)),
-            From = new Thickness(-this.WindowWidth, 0, this.WindowWidth, 0),
-            To = new Thickness(0),
-            DecelerationRatio = 0.9f
-            };
-            Storyboard.SetTargetProperty(SlideAnimation, new PropertyPath("Margin"));
-            Storyboard.SetTargetName(table_sidePanel, "SidePanel");
-            sb.Children.Add(SlideAnimation);
-            sb.Begin(table_sidePanel);
 
-            await Task.Delay(2);
         }
     }
 }

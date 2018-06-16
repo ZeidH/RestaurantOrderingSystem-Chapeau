@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChapeauUI"
-             mc:Ignorable="d" 
-             d:DesignHeight="434" d:DesignWidth="698"
-             Width="698" Height="434">
-    <Grid>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="424" Margin="0,10,0,-0.4" Stroke="Black" VerticalAlignment="Top" Width="554"/>
+             mc:Ignorable="d" d:DesignWidth="335"
+             Width="335" Height="387.6">
+    <Grid Margin="0,0,-0.4,-0.4">
+        <WrapPanel x:Name="order_list" HorizontalAlignment="Left" Height="183" Margin="5,62,0,0" VerticalAlignment="Top" Width="326"/>
+        <Button x:Name="btn_Payment" Content="Payment" Style="{StaticResource Split}" FontSize="19" HorizontalAlignment="Left" Margin="184,311,0,0" VerticalAlignment="Top" Width="127" Height="37" Click="Btn_Payment_Click"/>
+        <Button x:Name="btn_NewOrder" Content="New Order" Style="{StaticResource PaymentFinalize}" HorizontalAlignment="Left" Margin="29,310,0,0" VerticalAlignment="Top" Width="127" Height="37" Click="Btn_NewOrder_Click"/>
+        <Label x:Name="lbl_table" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" Width="167" Height="37"/>
 
     </Grid>
 </UserControl>
