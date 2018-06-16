@@ -8,6 +8,7 @@
              d:DesignHeight="434" d:DesignWidth="698"
              Width="698" Height="434">
     <Grid>
-            
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="424" Margin="0,10,0,-0.4" Stroke="Black" VerticalAlignment="Top" Width="554"/>
+
     </Grid>
 </UserControl>

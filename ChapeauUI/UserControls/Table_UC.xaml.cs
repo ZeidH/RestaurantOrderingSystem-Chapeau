@@ -100,11 +100,12 @@ namespace ChapeauUI
         {
             if (tables[tableID].Status == TableStatus.Free)
             {
-                table_main.GenerateCreatePanel(tableID);
+                table_main.GenerateSidePanel(tables[tableID].OrderID);
+                //table_main.GenerateCreatePanel(tableID);
             }
             else
             {
-                table_main.GenerateSidePanel(tables[tableID].OrderID);
+
             }
         }
 
