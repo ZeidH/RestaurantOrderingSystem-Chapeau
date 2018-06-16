@@ -37,17 +37,55 @@
             </Grid>
         </Grid>
 
-        <ListView Grid.Row="1" Name="ordersListView">
-            <ListView.View>
-                <GridView AllowsColumnReorder="False">
-                    <GridViewColumn Header="Order" DisplayMemberBinding="{Binding Path=Id}"/>
-                    <GridViewColumn Header="Table" DisplayMemberBinding="{Binding Path=TableId}"/>
-                    <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Path=LastOrderTime, StringFormat='hh:mm'}" />
-                    <GridViewColumn Header="Staff" DisplayMemberBinding="{Binding Path=EmployeeName}"/>
-                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=LastOrderStatus}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="0" Name="sidePanelGridColumn"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <ListView Grid.Column="0" Name="orderListView" PreviewMouseLeftButtonUp="SelectOrderFromList" SelectionMode="Single">
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False">
+                        <GridViewColumn Header="Order" DisplayMemberBinding="{Binding Path=Id}"/>
+                        <GridViewColumn Header="Table" DisplayMemberBinding="{Binding Path=TableId}"/>
+                        <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Path=LastOrderTime, StringFormat='hh:mm'}" />
+                        <GridViewColumn Header="Staff" DisplayMemberBinding="{Binding Path=EmployeeName}"/>
+                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=LastOrderStatus}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Name="orderIdLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Name="tableNrLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Name="orderTimeLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Name="employeeNameLabel" TextAlignment="Center"/>
+
+                <ListView Grid.Column="0" Grid.Row="2" Name="orderItemsListView" Grid.ColumnSpan="2">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridViewColumn Header="Item" DisplayMemberBinding="{Binding Path=Item.Name}"/>
+                            <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Path=Amount}"/>
+                            <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Path=Comment}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <Button Grid.Column="0" Grid.Row="3">Ready</Button>
+                <Button Grid.Column="1" Grid.Row="3" Click="CloseSidePanel">Close</Button>
+            </Grid>
+        </Grid>
     </Grid>
 
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ChapeauModel;
 using ChapeauDAL;
+using System;
 
 namespace ChapeauLogic
 {
@@ -15,7 +16,23 @@ namespace ChapeauLogic
 
 		public Order GetOrderDetails(int orderId, OrderStatus status, PreparationLocation location)
 		{
-			return processingDao.Db_get_order_items(orderId, status, location);
+			Order result = processingDao.Db_get_order_items(orderId, status, location);
+
+			// we must find the last order detail item
+
+			DateTime maxTime = DateTime.MinValue;
+			
+			foreach(OrderItem item in result.Items)
+			{
+				if (item.Time > maxTime)
+				{
+					maxTime = item.Time;
+				}
+			}
+
+			result.LastOrderTime = maxTime;
+
+			return result;
 		}
 
 		public void MarkOrderItemAsReady(int orderId, int itemId)

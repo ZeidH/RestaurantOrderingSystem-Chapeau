@@ -2,6 +2,7 @@
 using ChapeauModel;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
@@ -52,7 +53,7 @@ namespace ChapeauUI
 			List<Order> orders = service.GetOrders(status, preparationLocation);
 
 			// bind items in the list view to the orders from the daterbase
-			ordersListView.ItemsSource = orders;
+			orderListView.ItemsSource = orders;
 		}
 
 		private void UpdateClock(object sender, EventArgs args)
@@ -74,6 +75,31 @@ namespace ChapeauUI
 			showRunningOrdersButton.IsChecked = true;
 			showReadyOrdersButton.IsChecked = false;
 			LoadOrders(OrderStatus.Processing);
+		}
+
+		private void SelectOrderFromList(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			Order selectedOrder = (Order)orderListView.SelectedValue;
+
+			Order orderWithDetails = service.GetOrderDetails(
+				selectedOrder.Id,
+				selectedOrder.LastOrderStatus,
+				preparationLocation
+			);
+
+			sidePanelGridColumn.Width = new GridLength(4.0, GridUnitType.Star);
+
+			orderIdLabel.Text = "#" + orderWithDetails.Id;
+			tableNrLabel.Text = "Table: " + orderWithDetails.TableId;
+			orderTimeLabel.Text = orderWithDetails.LastOrderTime.ToString("hh:mm");
+			employeeNameLabel.Text = orderWithDetails.EmployeeName;
+
+			orderItemsListView.ItemsSource = orderWithDetails.Items;
+		}
+
+		private void CloseSidePanel(object sender, RoutedEventArgs e)
+		{
+			sidePanelGridColumn.Width = new GridLength(0);
 		}
 	}
 }
