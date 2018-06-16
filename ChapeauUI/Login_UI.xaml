@@ -11,18 +11,22 @@
       Title="Login" Width="698" Height="434" KeyDown="LoginPage_KeyDown">
 
     <Grid>
-        <Image HorizontalAlignment="Left" Height="117" Margin="214,84,0,0" VerticalAlignment="Top" Width="310" Source="Images/ChapeauLogo.png" Stretch="Fill"/>
-        <TextBox KeyboardNavigation.TabIndex="1" x:Name="username_box" HorizontalAlignment="Left" Height="34" FontSize="24" TextAlignment="Left" Padding="0,3,0,0" Margin="288,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" >
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/LoginBackground.jpg" Opacity="1"/>
+        </Grid.Background>
+
+        <Border Style="{StaticResource RoundCornerBtn}" Background="White" Margin="158,66,140.6,64.6" Opacity="0.9">
+        </Border>
+        <Image Margin="237,81,207.6,0" Source="Images/ChapeauLogo.png" Stretch="Fill" Height="135" VerticalAlignment="Top"/>
+        <TextBox KeyboardNavigation.TabIndex="1" x:Name="username_box" HorizontalAlignment="Left" Height="34" FontSize="24" TextAlignment="Left" Padding="0,3,0,0" Margin="331,221,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" >
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="0,5,5,0"/>
                 </Style>
             </TextBox.Resources>
         </TextBox>
-        <Label Content="Username:" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="167,246,0,0" VerticalAlignment="Top" Width="76"/>
-        <Label Content="Password:" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="169,296,0,0" VerticalAlignment="Top" Width="76"/>
 
-        <Image HorizontalAlignment="Left" Height="34" Margin="248,242,0,0" VerticalAlignment="Top" Width="41" Source="Images/PersonIcon.png" RenderTransformOrigin="0.5,0.5">
+        <Image Margin="291,220,365.6,177.6" Source="Images/PersonIcon.png" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -32,7 +36,9 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Image x:Name="lock_img" HorizontalAlignment="Left" Height="34" Margin="248,286,0,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.5,0.5">
+        <Label Content="Password:" Style="{StaticResource PaymentLabel}" Foreground="Black" FontSize="16" HorizontalAlignment="Left" Margin="185,265,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="Username:" Style="{StaticResource PaymentLabel}" Foreground="Black" FontSize="16" HorizontalAlignment="Left" Margin="185,221,0,0" VerticalAlignment="Top" Width="100"/>
+        <Image x:Name="lock_img" HorizontalAlignment="Left" Height="34" Margin="291,263,0,0" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.5,0.5">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -42,16 +48,15 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-
-        <PasswordBox KeyboardNavigation.TabIndex="2" x:Name="password_box" Panel.ZIndex="2" HorizontalAlignment="Left" FontSize="24" Padding="0,0,5,0" Height="30" Margin="291,288,0,0" VerticalAlignment="Top" Width="198" BorderBrush="White"/>
-        <Button KeyboardNavigation.TabIndex="3" Content="Log in!" Style="{StaticResource PaymentFinalize}" HorizontalAlignment="Left" Margin="291,343,0,0" VerticalAlignment="Top" Width="153" Height="41" Click="Btn_Login_Click"/>
-        <TextBox KeyboardNavigation.TabIndex="4" HorizontalAlignment="Left" IsHitTestVisible="False" FontSize="24" TextAlignment="Left" Padding="0,0,0,0" Height="34" Panel.ZIndex="-2" Margin="288,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" >
+        <Button KeyboardNavigation.TabIndex="3" Content="Log in" Style="{StaticResource PaymentFinalize}" HorizontalAlignment="Left" Margin="287,318,0,0" VerticalAlignment="Top" Width="153" Height="35" Click="Btn_Login_Click"/>
+        <TextBox KeyboardNavigation.TabIndex="4" HorizontalAlignment="Left" IsHitTestVisible="False" FontSize="24" TextAlignment="Left" Padding="0,0,0,0" Height="34"  Margin="331,263,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" >
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="0,5,5,0"/>
                 </Style>
             </TextBox.Resources>
         </TextBox>
+        <PasswordBox KeyboardNavigation.TabIndex="2" x:Name="password_box" Panel.ZIndex="2" HorizontalAlignment="Left" FontSize="24" Padding="0,0,5,0" Margin="333,0,0,139.6" Width="197" BorderBrush="White" Height="30" VerticalAlignment="Bottom"/>
     </Grid>
 
 </Page>

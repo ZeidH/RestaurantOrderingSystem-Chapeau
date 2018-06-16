@@ -10,9 +10,12 @@
       Title="Redirect">
 
     <Grid>
-        <Border Style="{StaticResource RoundCornerBtn}" Background="White" Margin="121,69,122.6,61.6">
-            <Image gif:ImageBehavior.AnimatedSource="Images\ChapeauAnimation.gif" Margin="9.2,9.2,9.6,95.6"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/RedirectBackground.jpg" Opacity="0.7"/>
+        </Grid.Background>
+        <Border Style="{StaticResource RoundCornerBtn}" Background="White" Margin="48,107,315.6,57.6" Opacity="0.9">
         </Border>
-        <Label x:Name="lblMessage" Style="{StaticResource HeaderText}" Foreground="Black" HorizontalAlignment="Left" Margin="121,299,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="38" Width="454"/>
+        <Image gif:ImageBehavior.AnimatedSource="Images\ChapeauAnimation.gif" Margin="48,129,303.6,141.6" Opacity="0.9"/>
+        <Label x:Name="lblMessage" Style="{StaticResource HeaderText}" Foreground="Green" HorizontalAlignment="Left" Margin="48,297,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="38" Width="334"/>
     </Grid>
 </Page>

@@ -34,7 +34,7 @@ namespace ChapeauUI
             try
             {
                 // Get listview from UC
-                order_list.Children.Add(new OrderList(payment));
+                order_list.Children.Add(new OrderList(payment.Order_id));
             }
             catch (Exception)
             {

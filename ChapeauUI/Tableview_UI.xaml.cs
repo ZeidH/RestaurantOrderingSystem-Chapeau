@@ -30,5 +30,17 @@ namespace ChapeauUI
         {
             InitializeComponent();
         }
+        private void GetTables()
+        {
+            table_panel.Children.Add(new Table_UC(this));
+        }
+        internal void GenerateSidePanel(int order_id)
+        {
+            table_sidePanel.Children.Add(new TableSidePanel(order_id));
+        }
+        internal void GenerateCreatePanel(int tableID)
+        {
+            
+        }
     }
 }
