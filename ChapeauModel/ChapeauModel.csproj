@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Employee_Model.cs" />
     <Compile Include="Enumerations\CookingLevelEnum.cs" />
     <Compile Include="BarOrder.cs" />
     <Compile Include="Enumerations\DinnerEnum.cs" />
@@ -51,7 +52,6 @@
     <Compile Include="Enumerations\OccupationEnum.cs" />
     <Compile Include="Enumerations\OrderStatusEnum.cs" />
     <Compile Include="KitchenOrder.cs" />
-    <Compile Include="Login_Model.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem_Model.cs" />
     <Compile Include="Payment_Model.cs" />

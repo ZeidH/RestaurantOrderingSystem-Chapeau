@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ChapeauLogic;
+using ChapeauModel;
 
 namespace ChapeauUI
 {
@@ -20,6 +22,10 @@ namespace ChapeauUI
     /// </summary>
     public partial class Tableview_UI : Page
     {
+        public Tableview_UI(Employee employee)
+        {
+            InitializeComponent();
+        }
         public Tableview_UI()
         {
             InitializeComponent();

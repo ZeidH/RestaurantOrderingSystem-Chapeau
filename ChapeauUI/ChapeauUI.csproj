@@ -207,9 +207,20 @@
       <Name>ChapeauModel</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\ChapeauLogo.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Background.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\PersonIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LockIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LockAnimation.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

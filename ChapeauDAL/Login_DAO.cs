@@ -10,48 +10,50 @@ using ChapeauModel;
 namespace ChapeauDAL
 {
     public class Login_DAO : Base
-    { 
-        public void checkCredentials(Login login)
+    {
+        public Employee ValidateCredentials(string password, string username)
         {
-            string query = "SELECT user_name, pwdHash FROM [LOGIN] WHERE user_name = @username, pwdHash = @password";
+            string query = "SELECT emp_id, emp_firstName, emp_lastName, emp_occupation FROM [EMPLOYEE] WHERE user_name = @username AND pwd_Hash = @password";
 
             SqlParameter[] sqlParameters = new SqlParameter[2];
 
             sqlParameters[0] = new SqlParameter("@username", SqlDbType.NChar)
             {
-                Value = login.username
+                Value = username
             };
 
             sqlParameters[1] = new SqlParameter("@password", SqlDbType.NChar)
             {
-                Value = login.pwdhash
+                Value = password
             };
 
-            ExecuteSelectQuery(query, sqlParameters);
-
-            getId(login);
+            return ReadEmployee(ExecuteSelectQuery(query, sqlParameters));
         }
 
-        public Employee getId(Login login)
+        private Employee ReadEmployee(DataTable dataTable)
         {
-            string query = "SELECT emp_id FROM [LOGIN] WHERE user_name = @username, pwdHash = @password";
-
-            SqlParameter[] sqlParameters = new SqlParameter[2];
-
-            sqlParameters[0] = new SqlParameter("@username", SqlDbType.NChar)
-            {
-                Value = login.username
-            };
-
-            sqlParameters[1] = new SqlParameter("@password", SqlDbType.NChar)
-            {
-                Value = login.pwdhash
-            };
-
             Employee employee = new Employee();
-            employee.id = Convert.ToInt32(ExecuteSelectQuery(query, sqlParameters));
-
-            return employee;
+            //try
+            {
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    //employee = new Employee
+                    //{
+                    //    ID = (int)dr["emp_id"],
+                    //    Name = $"{dr["emp_firstName"]}  {dr["emp_lastName"]}",
+                    //    Occupation = (Occupation)(int)dr["emp_occupation"]
+                    //};
+                    employee.ID = (int)dr["emp_id"];
+                    employee.Name = $"{dr["emp_firstName"]} {dr["emp_lastName"]}";
+                    employee.Occupation = (Occupation)Int16.Parse(dr["emp_occupation"].ToString());
+                }
+                return employee;
+            }
+            //catch (Exception)
+            //{
+            //    throw new NullReferenceException();
+            //}      
         }
     }
 }
+

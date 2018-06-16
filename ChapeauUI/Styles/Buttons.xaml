@@ -143,6 +143,6 @@
     </Style>
 
     <Style TargetType="{x:Type Button}" x:Key="PaymentFinalize" BasedOn="{StaticResource Confirm}">
-	</Style>
-	
+    </Style>
+
 </ResourceDictionary>

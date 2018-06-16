@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 using ChapeauDAL;
 using ChapeauModel;
 
@@ -10,10 +11,43 @@ namespace ChapeauLogic
 {
     public class Login_Service
     {
-        public void GetCredentials(Login login)
+        private readonly string password;
+        private readonly string username;
+        private Login_DAO login_DAO = new Login_DAO();
+
+        public Login_Service(string password, string username)
         {
-            Login_DAO lgnDao = new Login_DAO();
-            lgnDao.checkCredentials(login); //pass the parameters to the database layer
+            this.username = username;
+            this.password = password; //GetStringSha256Hash(password);
+        }
+
+        internal static string GetStringSha256Hash(string pw)
+        {
+            if (String.IsNullOrEmpty(pw))
+                return String.Empty;
+
+            using (var sha = new System.Security.Cryptography.SHA256Managed())
+            {
+                byte[] textData = System.Text.Encoding.UTF8.GetBytes(pw);
+                byte[] hash = sha.ComputeHash(textData);
+                return BitConverter.ToString(hash).Replace("-", String.Empty);
+            }
+        }
+
+        public Employee Validation()
+        {
+            try
+            {
+                return login_DAO.ValidateCredentials(password, username);
+            }
+            catch (SqlException)
+            {
+                throw new Exception("I can't connect to Chapeau!");
+            }
+            catch(NullReferenceException)
+            {
+                throw new Exception("Wrong Password or Username");
+            }
         }
     }
 }
