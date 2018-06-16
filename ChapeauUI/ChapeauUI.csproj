@@ -65,8 +65,14 @@
     <Compile Include="Kitchenview_UI.xaml.cs">
       <DependentUpon>Kitchenview_UI.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\OccupyTable.xaml.cs">
+      <DependentUpon>OccupyTable.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Redirect.xaml.cs">
       <DependentUpon>Redirect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TableSidePanel.xaml.cs">
+      <DependentUpon>TableSidePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Table_UC.xaml.cs">
       <DependentUpon>Table_UC.xaml</DependentUpon>
@@ -116,6 +122,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\OccupyTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Redirect.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,6 +159,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\Colours.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TableSidePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

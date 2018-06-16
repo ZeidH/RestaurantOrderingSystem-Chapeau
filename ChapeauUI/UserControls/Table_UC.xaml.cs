@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 using ChapeauModel;
 using ChapeauLogic;
 
@@ -22,10 +23,12 @@ namespace ChapeauUI
     /// </summary>
     public partial class Table_UC : UserControl
     {
-        private List<Tafel> tables = new List<Tafel>();
-        public Table_UC()
+        private ObservableCollection<Tafel> tables = new ObservableCollection<Tafel>();
+        private Tableview_UI table_main;
+        public Table_UC(Tableview_UI table_main)
         {
             InitializeComponent();
+            this.table_main = table_main;
             GetTableInfo();
             InsertTableInfo();
         }
@@ -87,9 +90,29 @@ namespace ChapeauUI
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        private void Btn_Table_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("I got clicked!");
+            CheckTable(Splitter((sender as Button).Name.ToString()));
+        }
+
+        private void CheckTable(int tableID)
+        {
+            if (tables[tableID].Status == TableStatus.Free)
+            {
+                table_main.GenerateCreatePanel(tableID);
+            }
+            else
+            {
+                table_main.GenerateSidePanel(tables[tableID].OrderID);
+            }
+        }
+
+        // Splits the label/button names to get which row
+        private int Splitter(string value)
+        {
+            string[] splitted = value.Split('_');
+            return int.Parse(splitted[2]);
         }
     }
 }

@@ -12,26 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ChapeauLogic;
-using ChapeauModel;
 
 namespace ChapeauUI
 {
     /// <summary>
-    /// Interaction logic for OrderList.xaml
+    /// Interaction logic for OccupyTable.xaml
     /// </summary>
-    public partial class OrderList : UserControl
+    public partial class OccupyTable : UserControl
     {
-        public OrderList(int order_id)
+        public OccupyTable()
         {
             InitializeComponent();
-            FillList(order_id);
-        }
-
-        private void FillList(int order_id)
-        {
-            Payment_Service payment_logic = new Payment_Service();
-            receipt_ListView.ItemsSource = payment_logic.GetReceipt(order_id);
         }
     }
 }

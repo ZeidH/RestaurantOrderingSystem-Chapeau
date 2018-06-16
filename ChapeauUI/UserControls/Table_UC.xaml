@@ -8,17 +8,16 @@
              d:DesignHeight="434" d:DesignWidth="698"
              Width="698" Height="434">
     <Grid>
-        <Button x:Name="btn_Table_1" Content="Table 1" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="45,79,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Button_Click"/>
-        <Button x:Name="btn_Table_2" Content="Table 2" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="180,79,0,0" VerticalAlignment="Top" Width="93" Height="74"/>
-
-        <Button x:Name="btn_Table_3" Content="Table 3" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="306,79,0,0" VerticalAlignment="Top" Width="93" Height="74"/>
-        <Button x:Name="btn_Table_4" Content="Table 4" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="433,79,0,0" VerticalAlignment="Top" Width="93" Height="74"/>
-        <Button x:Name="btn_Table_5" Content="Table 5" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="564,79,0,0" VerticalAlignment="Top" Width="93" Height="74"/>
-        <Button x:Name="btn_Table_6" Content="Table 6" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="45,238,0,0" VerticalAlignment="Top" Width="93" Height="74"/>
-        <Button x:Name="btn_Table_7" Content="Table 7" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="180,238,0,0" VerticalAlignment="Top" Width="93" Height="74"/>
-        <Button x:Name="btn_Table_8" Content="Table 8" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="306,238,0,0" VerticalAlignment="Top" Width="93" Height="74"/>
-        <Button x:Name="btn_Table_9" Content="Table 9" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="433,238,0,0" VerticalAlignment="Top" Width="93" Height="74"/>
-        <Button x:Name="btn_Table_10" Content="Table 10" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="564,238,0,0" VerticalAlignment="Top" Width="93" Height="74"/>
+        <Button x:Name="btn_Table_1" Content="Table 1" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="45,79,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
+        <Button x:Name="btn_Table_2" Content="Table 2" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="180,79,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
+        <Button x:Name="btn_Table_3" Content="Table 3" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="306,79,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
+        <Button x:Name="btn_Table_4" Content="Table 4" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="433,79,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
+        <Button x:Name="btn_Table_5" Content="Table 5" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="564,79,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
+        <Button x:Name="btn_Table_6" Content="Table 6" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="45,238,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
+        <Button x:Name="btn_Table_7" Content="Table 7" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="180,238,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
+        <Button x:Name="btn_Table_8" Content="Table 8" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="306,238,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
+        <Button x:Name="btn_Table_9" Content="Table 9" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="433,238,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
+        <Button x:Name="btn_Table_10" Content="Table 10" Padding="0,0,0,50" HorizontalAlignment="Left" Margin="564,238,0,0" VerticalAlignment="Top" Width="93" Height="74" Click="Btn_Table_Click"/>
         <Label x:Name="lbl_NrOfGuests_1" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="50,133,0,0" VerticalAlignment="Top" Width="21" Height="15"/>
         <Label x:Name="lbl_Waiter_1" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="86,130,0,0" VerticalAlignment="Top" Height="18" Width="48"/>
         <Label x:Name="lbl_Status_1" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="71,102,0,0" VerticalAlignment="Top" Height="18" Width="40"/>
@@ -53,6 +52,7 @@
         <Label x:Name="lbl_Status_9" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="460,261,0,0" VerticalAlignment="Top" Height="18" Width="40"/>
         <Label x:Name="lbl_Status_10" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="590,261,0,0" VerticalAlignment="Top" Height="18" Width="40"/>
         
-        
+
+
     </Grid>
 </UserControl>

@@ -5,20 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.Collections.ObjectModel;
 using ChapeauModel;
 
 namespace ChapeauDAL
 {
     public class Table_DAO : Base
     {
-        public List<Tafel> Db_Get_All_Tables()
+        public ObservableCollection<Tafel> Db_Get_All_Tables()
         {
             string query = "SELECT table_id, table_status FROM [TABLE]";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
 
-        public List<Tafel> Db_Get_Busy_Table_Info(List<Tafel> tables)
+        public ObservableCollection<Tafel> Db_Get_Busy_Table_Info(ObservableCollection<Tafel> tables)
         {
             foreach (Tafel table in tables)
             {
@@ -47,9 +48,9 @@ namespace ChapeauDAL
             }
         }
 
-        private List<Tafel> ReadTables(DataTable dataTable)
+        private ObservableCollection<Tafel> ReadTables(DataTable dataTable)
         {
-            List<Tafel> tables = new List<Tafel>();
+            ObservableCollection<Tafel> tables = new ObservableCollection<Tafel>();
 
             foreach (DataRow dr in dataTable.Rows)
             {
