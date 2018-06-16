@@ -74,11 +74,11 @@ namespace ChapeauUI
                         NavigationService.Navigate(new Tableview_UI(employee));
                         break;
                     case Occupation.Kitchen:
-                        NavigationService.Navigate(new Kitchenview_UI());
+                        NavigationService.Navigate(new ProcessingView_UI(PreparationLocation.Kitchen));
                         break;
                     case Occupation.Bar:
-                        NavigationService.Navigate(new Barview_UI());
-                        break;
+						NavigationService.Navigate(new ProcessingView_UI(PreparationLocation.Bar));
+						break;
                     //case Occupation.Manager:
                     //    break;
                     default:

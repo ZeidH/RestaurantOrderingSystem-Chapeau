@@ -23,5 +23,12 @@ namespace ChapeauLogic
 			processingDao.Db_mark_order_ready(orderId, itemId);
 		}
 
+		public RestaurantStatus GetRestaurantStatus()
+		{
+			RestaurantStatus status = processingDao.Db_get_restaurant_status();
+
+			return status;
+		}
+
     }
 }

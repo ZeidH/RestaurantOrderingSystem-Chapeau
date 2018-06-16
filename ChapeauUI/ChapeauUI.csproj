@@ -59,11 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Barview_UI.xaml.cs">
-      <DependentUpon>Barview_UI.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Kitchenview_UI.xaml.cs">
-      <DependentUpon>Kitchenview_UI.xaml</DependentUpon>
+    <Compile Include="Processingview_UI.xaml.cs">
+      <DependentUpon>Processingview_UI.xaml</DependentUpon>
     </Compile>
     <Compile Include="Redirect.xaml.cs">
       <DependentUpon>Redirect.xaml</DependentUpon>
@@ -86,11 +83,7 @@
     <Compile Include="Tableview_UI.xaml.cs">
       <DependentUpon>Tableview_UI.xaml</DependentUpon>
     </Compile>
-    <Page Include="Barview_UI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Kitchenview_UI.xaml">
+    <Page Include="Processingview_UI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

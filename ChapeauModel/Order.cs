@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ChapeauModel
 {
@@ -11,9 +12,9 @@ namespace ChapeauModel
 		public int TableId { get; set; }
 
 		public string EmployeeName { get; set; }
+
+		public DateTime LastOrderTime { get; set; }
+
+		public OrderStatus LastOrderStatus { get; set; }
 	}
-
-
-	//public float Tip { get; set; }
-	//public PayMethod PaymentMethod { get; set; }
 }

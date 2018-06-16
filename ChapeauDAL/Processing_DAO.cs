@@ -8,7 +8,28 @@ namespace ChapeauDAL
 {
 	public class Processing_DAO : Base
 	{
-		// todo D: change from datatable to Order
+		public RestaurantStatus Db_get_restaurant_table_status()
+		{
+			string query = @"
+				SELECT
+					-- count items when their status is busy only
+					SUM(CASE table_status WHEN 2 THEN 1 ELSE 0 END) AS busy_table_count,
+					COUNT(table_id) AS table_count
+				FROM [TABLE]
+			";
+
+			DataTable dataTable = ExecuteSelectQuery(query);
+
+			RestaurantStatus status = new RestaurantStatus();
+
+			// there is only one row in the result
+			DataRow row = dataTable.Rows[0];
+
+			status.BusyTables = (int)row["busy_table_count"];
+			status.TotalTables = (int)row["table_count"];
+
+			return status;
+		}
 
 		/// <summary>
 		/// Used to get the kitchen/bar ready/processing order list
@@ -16,13 +37,14 @@ namespace ChapeauDAL
 		public List<Order> Db_get_orders_by_status_and_location(OrderStatus status, PreparationLocation location)
 		{
 			string query = @"
-				SELECT DISTINCT ([ORDER].order_id) AS order_id, table_id, emp_firstName
+				SELECT ([ORDER].order_id) AS order_id, table_id, emp_firstName, order_status as order_status, MAX(order_time) as order_time
 				FROM [ORDER]
 				LEFT JOIN [EMPLOYEE] on [ORDER].emp_id = [EMPLOYEE].emp_id
 				LEFT JOIN [ORDER_LIST] on [ORDER_LIST].order_id = [ORDER].order_id
 				LEFT JOIN [ITEM] on [ORDER_LIST].item_id = [ITEM].item_id
 				WHERE [ORDER_LIST].order_status = @orderstatus
 					AND [ITEM].item_prep_location = @preploc
+				GROUP BY [ORDER].order_id, table_id, emp_firstName, order_status
 			";
 
 			SqlParameter[] sqlParameters = new SqlParameter[2];
@@ -55,8 +77,16 @@ namespace ChapeauDAL
 				order.Id = (int)row["order_id"];
 				order.EmployeeName = (string)row["emp_firstName"];
 				order.TableId = (int)row["table_id"];
-				order.Items = new List<OrderItem>(); // empty because we didn't get them from the db
+				order.LastOrderTime = (DateTime)row["order_time"];
 
+				// column is SmallInt in SQL so we must cast to Int16 first
+				short statusValue = (Int16)row["order_status"];
+
+				// then we can cast from Int16 to the enum which is int
+				order.LastOrderStatus = (OrderStatus)statusValue;
+				
+				order.Items = new List<OrderItem>(); // empty because we didn't get them from the db
+				
 				result.Add(order);
 			}
 
@@ -105,6 +135,13 @@ namespace ChapeauDAL
 
 			DataTable table = ExecuteSelectQuery(query, sqlParameters);
 
+			Order order = ReadSingleOrder(table);
+
+			return order;
+		}
+
+		private Order ReadSingleOrder(DataTable table)
+		{
 			Order order = new Order();
 			order.Items = new List<OrderItem>();
 
@@ -135,14 +172,20 @@ namespace ChapeauDAL
 			OrderItem orderItem = new OrderItem();
 
 			orderItem.Item = item;
-			orderItem.Status = (OrderStatus)row["order_status"];
+
+			// column is SmallInt in SQL so we must cast to Int16 first
+			Int16 statusValue = (Int16)row["order_status"];
+
+			// then we can cast from Int16 to the enum which is int
+			orderItem.Status = (OrderStatus)statusValue;
+
 			orderItem.Comment = (string)row["item_comment"];
 			orderItem.Time = (DateTime)row["order_time"];
 
 			return orderItem;
 		}
 
-		public DataTable Db_mark_order_ready(int orderId, int itemId)
+		public void Db_mark_order_ready(int orderId, int itemId)
 		{
 			string query = @"
 				UPDATE [ORDER_LIST] SET order_status = @orderstatus WHERE order_id = @orderid AND item_id = @itemid
@@ -158,7 +201,7 @@ namespace ChapeauDAL
 				Value = itemId
 			};
 
-			return ExecuteSelectQuery(query, sqlParameters);
+			ExecuteEditQuery(query, sqlParameters);
 		}
 
 	}

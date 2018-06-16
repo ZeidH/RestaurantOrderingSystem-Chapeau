@@ -72,13 +72,12 @@ namespace ChapeauDAL
             }
         }
 
-
-        /* For Select Queries */
-        /// <summary>
-        /// This returns a so called "DataTable", All the data retrieved from db will be stored in this table.
-        /// You will need to read off the information in the datatable and store it in your model. DataTable does NOT leave DAL layer.
-        /// </summary>
-        protected DataTable ExecuteSelectQuery(String query, SqlParameter[] sqlParameters)
+		/* For Select Queries */
+		/// <summary>
+		/// This returns a so called "DataTable", All the data retrieved from db will be stored in this table.
+		/// You will need to read off the information in the datatable and store it in your model. DataTable does NOT leave DAL layer.
+		/// </summary>
+		protected DataTable ExecuteSelectQuery(String query, params SqlParameter[] sqlParameters)
         {
             SqlCommand command = new SqlCommand();
             DataTable dataTable = new DataTable();
