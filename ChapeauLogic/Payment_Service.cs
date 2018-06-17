@@ -25,18 +25,19 @@ namespace ChapeauLogic
             {
                 throw new Exception("Cannot connect to server \nAn error log has been saved in the program folder \n Press 'OK' to retry");
             }
-            //Maybe fix??
-
-            //List<OrderItem> oldList = new List<OrderItem>();
-            //oldList = order;
-            //for (int i = 0; i < order.Count; i++)
-            //{
-            //    if (order[i].Item.Item_id == order[i + 1].Item.Item_id)
-            //    {
-            //        order[i].Amount += order[i+1].Amount;
-            //        order.RemoveAt(i+1);
-            //    }
-            //}
+            //Add amount of the same items from different orders
+            List<OrderItem> distinctOrder = order;
+            for (int i = 0; i < order.Count; i++)
+            {
+                for (int k = 0; k < order.Count; k++)
+                {
+                    if ((order[i].Item.Item_id == order[k].Item.Item_id) && order[i].Time != order[k].Time)
+                    {
+                        order[i].Amount += order[k].Amount;
+                        order.Remove(order[k]);
+                    }
+                }
+            }
             return order;
         }
         public bool InsertPayment(Payment payment)

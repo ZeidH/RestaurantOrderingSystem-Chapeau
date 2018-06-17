@@ -55,7 +55,7 @@ namespace ChapeauDAL
         public List<OrderItem> Db_select_order_items(int order_id)
         {
             //change query
-            string query = string.Format("SELECT i.item_id, i.item_name, i.item_cost, o.item_amount, d.drink_category, l.lunch_category, di.dinner_category, o.item_comment, d.drink_vat " +
+            string query = string.Format("SELECT i.item_id, i.item_name, i.item_cost, o.item_amount, o.order_time, d.drink_category, l.lunch_category, di.dinner_category, o.item_comment, d.drink_vat " +
                                      "FROM((ITEM as i left JOIN drink as d on i.item_id = d.drink_id) " +
                                      "left join LUNCH as l on i.item_id = l.lunch_id) " +
                                      "left join dinner as di on i.item_id = di.dinner_id " +
@@ -105,6 +105,7 @@ namespace ChapeauDAL
                 {
                     Item = item,
                     Amount = (int)dr["item_amount"],
+                    Time = (DateTime)dr["order_time"],
                     Comment = dr["item_comment"].ToString()
                 };
 
