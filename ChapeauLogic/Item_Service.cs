@@ -50,6 +50,7 @@ namespace ChapeauLogic
             {
                 AddFinalProperties(item, date);
             }
+            //Send the orderlist to the DAO
             try
             {
                 itemDAO.DbAddItem(orderItems);
@@ -158,19 +159,17 @@ namespace ChapeauLogic
         } 
         #endregion
 
-        //remove? ask check
         public float GetTotalCost(List<OrderItem> items)
         {
             float totalCost = 0;
             foreach (OrderItem orderItem in items)
             {
-                //payment stuff
-                totalCost += orderItem.Item.Cost * orderItem.Amount;
+                totalCost += orderItem.ReadTotalPrice;
             }
             return totalCost;
         }
 
-        //Check if item is a meat 
+        //Check if item has a meat type
         public bool CheckDinnerItem(Item item)
         {
             if (item.DinnerSubCategory == Dinner.Mains)
