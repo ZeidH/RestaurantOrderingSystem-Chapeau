@@ -4,10 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChapeauUI"
-             mc:Ignorable="d" 
-             d:DesignHeight="434" d:DesignWidth="698"
-             Width="698" Height="434">
-    <Grid>
-            
+             mc:Ignorable="d" d:DesignWidth="335"
+             Width="335" Height="434">
+
+    <Grid Margin="0,0,-0.4,-0.4">
+        <WrapPanel x:Name="inner_panel" HorizontalAlignment="Center" Height="183" Margin="7,62,0,0" VerticalAlignment="Top" Width="335"/>
+        <Button x:Name="btn_Payment" Content="Payment" Style="{StaticResource Split}" FontSize="19" HorizontalAlignment="Left" Margin="184,333,0,0" VerticalAlignment="Top" Width="127" Height="37" Click="Btn_Payment_Click"/>
+        <Button x:Name="btn_NewOrder" Content="New Order" Style="{StaticResource PaymentFinalize}" HorizontalAlignment="Left" Margin="29,332,0,0" VerticalAlignment="Top" Width="127" Height="37" Click="Btn_NewOrder_Click"/>
+        <Label x:Name="lbl_table" Foreground="Black" Style="{StaticResource HeaderText}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" Width="167" Height="37"/>
+        <Rectangle Panel.ZIndex="-200" Fill="{StaticResource LightGrayBrush}" Opacity="0.9"  HorizontalAlignment="Center" Height="434" Margin="1,2,-0.4,-2" Stroke="Black" VerticalAlignment="Top" Width="335"/>
+        <Button x:Name="btn_ClosePanel" Style="{StaticResource ResourceKey=Close}" BorderBrush="DarkGray" FontFamily="Marlett" FontSize="20" Content="3" HorizontalAlignment="Left" Margin="292,6,0,0" VerticalAlignment="Top" Width="30" Height="27" Click="Btn_ClosePanel_Click"/>
+        <Button x:Name="btn_Served" Content="Served" FontSize="22" Style="{StaticResource Delete}" HorizontalAlignment="Left" Margin="107,275,0,0" VerticalAlignment="Top" Width="127" Height="38" Click="Btn_Served_Click"/>
     </Grid>
 </UserControl>

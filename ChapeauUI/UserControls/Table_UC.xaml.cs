@@ -12,9 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 using System.Collections.ObjectModel;
 using ChapeauModel;
 using ChapeauLogic;
+using System.Windows.Threading;
 
 namespace ChapeauUI
 {
@@ -23,7 +25,8 @@ namespace ChapeauUI
     /// </summary>
     public partial class Table_UC : UserControl
     {
-        private ObservableCollection<Tafel> tables = new ObservableCollection<Tafel>();
+        public ObservableCollection<Tafel> tables = new ObservableCollection<Tafel>();
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
         private Tableview_UI table_main;
         public Table_UC(Tableview_UI table_main)
         {
@@ -31,7 +34,35 @@ namespace ChapeauUI
             this.table_main = table_main;
             GetTableInfo();
             InsertTableInfo();
+            dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 3);
+            dispatcherTimer.Start();
         }
+
+
+
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            List<TableStatus> previousTables = new List<TableStatus>();
+            List<TableStatus> newTables = new List<TableStatus>();
+            foreach (Tafel table in tables)
+            {
+                previousTables.Add(table.Status);
+            }
+            GetTableInfo();
+            foreach (Tafel table in tables)
+            {
+                newTables.Add(table.Status);
+            }
+            for (int i = 0; i < previousTables.Count; i++)
+            {
+                if (previousTables[i] != newTables[i])
+                {
+                    InsertTableInfo();
+                }
+            }
+        }
+
 
         private void GetTableInfo()
         {
@@ -41,6 +72,17 @@ namespace ChapeauUI
 
         private void InsertTableInfo()
         {
+            Button[] buttons = new Button[10];
+            buttons[0] = btn_Table_1;
+            buttons[1] = btn_Table_2;
+            buttons[2] = btn_Table_3;
+            buttons[3] = btn_Table_4;
+            buttons[4] = btn_Table_5;
+            buttons[5] = btn_Table_6;
+            buttons[6] = btn_Table_7;
+            buttons[7] = btn_Table_8;
+            buttons[8] = btn_Table_9;
+            buttons[9] = btn_Table_10;
             Label[] nrOfGuest = new Label[10];
             nrOfGuest[0] = lbl_NrOfGuests_1;
             nrOfGuest[1] = lbl_NrOfGuests_2;
@@ -75,17 +117,45 @@ namespace ChapeauUI
             waiter[8] = lbl_Waiter_9;
             waiter[9] = lbl_Waiter_10;
 
-            for (int i = 0; i < waiter.Length; i++)
+            foreach (Label label in status)
+            {
+                label.Style = (Style)FindResource("TableviewStatus");
+            }
+
+            foreach (Label label in waiter)
+            {
+                label.Style = (Style)FindResource("TableviewWaiter");
+            }
+
+            foreach (Label label in nrOfGuest)
+            {
+                label.Style = (Style)FindResource("TableviewGuest");
+            }
+
+            for (int i = 0; i < tables.Count; i++)
             {
                 if (tables[i].Status != TableStatus.Free)
                 {
-                    nrOfGuest[i].Content = tables[i].NumberOfGuests.ToString("P0");
+                    nrOfGuest[i].Content = "P" + tables[i].NumberOfGuests.ToString();
                     waiter[i].Content = tables[i].Employee.Name;
                     status[i].Content = tables[i].Status.ToString();
+                    switch (tables[i].Status)
+                    {
+                        case TableStatus.Running:
+                            buttons[i].Style = (Style)FindResource("Running");
+                            break;
+                        case TableStatus.Busy:
+                            buttons[i].Style = (Style)FindResource("Busy");
+                            break;
+                        case TableStatus.Ready:
+                            buttons[i].Style = (Style)FindResource("Ready");
+                            break;
+                    }
                 }
                 else
                 {
                     status[i].Content = TableStatus.Free.ToString();
+                    buttons[i].Style = (Style)FindResource("Free");
                 }
             }
         }
@@ -100,11 +170,11 @@ namespace ChapeauUI
         {
             if (tables[tableID].Status == TableStatus.Free)
             {
-                table_main.GenerateCreatePanel(tableID);
+                table_main.GenerateCreatePanel(tableID + 1);
             }
             else
             {
-                table_main.GenerateSidePanel(tables[tableID].OrderID);
+                table_main.GenerateSidePanel(tables[tableID]);
             }
         }
 
@@ -112,7 +182,7 @@ namespace ChapeauUI
         private int Splitter(string value)
         {
             string[] splitted = value.Split('_');
-            return int.Parse(splitted[2]);
+            return int.Parse(splitted[2]) - 1;
         }
     }
 }

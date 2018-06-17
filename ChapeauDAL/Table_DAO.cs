@@ -12,6 +12,20 @@ namespace ChapeauDAL
 {
     public class Table_DAO : Base
     {
+        public void Db_Update_Table_Status(TableStatus status, int tableID)
+        {
+            string query = "UPDATE [TABLE] SET table_status = @status WHERE table_id = @table_id";
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@status", SqlDbType.Int)
+            {
+                Value = status
+            };
+            sqlParameters[1] = new SqlParameter("@table_id", SqlDbType.Int)
+            {
+                Value = tableID
+            };
+            ExecuteEditQuery(query, sqlParameters);
+        }
         public ObservableCollection<Tafel> Db_Get_All_Tables()
         {
             string query = "SELECT table_id, table_status FROM [TABLE]";
@@ -23,9 +37,9 @@ namespace ChapeauDAL
         {
             foreach (Tafel table in tables)
             {
-                if (table.Status == TableStatus.Busy)
+                if (table.Status != TableStatus.Free)
                 {
-                    string query = "SELECT o.order_id, o.nr_of_guests e.emp_firstName, e.emp_lastName FROM [ORDER] AS o JOIN EMPLOYEE AS e ON o.emp_id = e.emp_id WHERE o.table_id = @tableid";
+                    string query = "SELECT o.order_id, o.nr_of_guests, concat(e.emp_firstName,' ', e.emp_lastName) as fullname FROM [ORDER] AS o JOIN EMPLOYEE AS e ON o.emp_id = e.emp_id WHERE o.table_id = 5  AND o.order_id NOT in (SELECT order_id from PAYMENT) ";
                     SqlParameter[] sqlParameters = new SqlParameter[1];
                     sqlParameters[0] = new SqlParameter("@tableid", SqlDbType.Int)
                     {
@@ -42,8 +56,8 @@ namespace ChapeauDAL
             foreach (DataRow dr in dataTable.Rows)
             {
                 table.OrderID = (int)dr["order_id"];
-                table.Employee.ID = (int)dr["emp_id"];
-                table.Employee.Name = $"{dr["emp_firstName"]}  {dr["emp_lastName"]}";
+                //table.Employee.ID = (int)dr["emp_id"];
+                table.Employee.Name = dr["fullname"].ToString();
                 table.NumberOfGuests = (int)dr["nr_of_guests"];
             }
         }
@@ -62,6 +76,26 @@ namespace ChapeauDAL
                 tables.Add(table);
             }
             return tables;
+        }
+
+        public int Db_Get_TableID(int order_id)
+        {
+            string query = "SELECT table_id FROM [ORDER] WHERE order_id = @orderID";
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@orderID", SqlDbType.Int)
+            {
+                Value = order_id
+            };
+            return ReadTableID(ExecuteSelectQuery(query, sqlParameters));
+        }
+        private int ReadTableID(DataTable dataTable)
+        {
+            int table_id = 0;
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                table_id = (int)dr["table_id"];
+            }
+            return table_id;
         }
     }
 }

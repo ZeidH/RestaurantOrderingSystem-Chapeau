@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using ChapeauModel;
 
 namespace ChapeauUI
 {
@@ -23,12 +24,12 @@ namespace ChapeauUI
     public partial class Redirect : Page
     {
         DispatcherTimer dispatcherTimer = new DispatcherTimer();
-
-        public Redirect(string message)
+        private Employee employee;
+        public Redirect(string message, Employee employee )
         {
-            DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromMilliseconds(600));
-            BeginAnimation(OpacityProperty, animation);
             InitializeComponent();
+            this.employee = employee;
+            Animation.AnimateIn(redirect_page, 1);
             lblMessage.Content = message;
             dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 3);
@@ -38,7 +39,7 @@ namespace ChapeauUI
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             dispatcherTimer.Stop();
-            NavigationService.Navigate(new Tableview_UI());
+            NavigationService.Navigate(new Tableview_UI(employee));
         }
     }
 }

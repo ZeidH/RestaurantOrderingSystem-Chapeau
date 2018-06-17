@@ -19,11 +19,14 @@ namespace ChapeauUI
         private Payment_Service payment_Logic = new Payment_Service();
         private Payment_Split split;
         private Payment_Tip tip;
+        private Employee employee;
 
         #region Constructor & Initialize OrderList
-        public Payment_UI(int order_id, int customer_count)
+        public Payment_UI(int order_id, int customer_count, Employee employee)
         {
             InitializeComponent();
+            Animation.AnimateIn(this, 1);
+            this.employee = employee;
             payment = new Payment(customer_count, order_id);
             FillReceipt();
             lbl_order.Content = $"Order ID: {order_id}";
@@ -68,8 +71,9 @@ namespace ChapeauUI
             {
                 if (payment_Logic.InsertPayment(payment))
                 {
+                    payment_Logic.SetTableStatus(TableStatus.Free, payment_Logic.GetTableIDFromOrderID(payment.Order_id));
                     // Direct to tableview when order is finalized
-                    NavigationService.Navigate(new Redirect("Payment Complete"));
+                    NavigationService.Navigate(new Redirect("Payment Complete", employee));
                 }
             }
             catch (Exception exp)
@@ -148,7 +152,7 @@ namespace ChapeauUI
         }
         private void BtnReturn_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Tableview_UI());
+            NavigationService.Navigate(new Tableview_UI(employee));
         }
         private void Btn_Undo_Split_Click(object sender, RoutedEventArgs e)
         {

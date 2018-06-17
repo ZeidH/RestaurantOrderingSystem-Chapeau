@@ -8,6 +8,6 @@ namespace ChapeauModel
 {
     public enum TableStatus
     {
-        Free, Running, Busy
+        Free, Running, Busy, Ready
     }
 }

@@ -5,7 +5,7 @@ using ChapeauDAL;
 
 namespace ChapeauLogic
 {
-    public class Item_Service
+    public class Item_Service : Table_Service
     {
         private Item_DAO itemDAO = new Item_DAO();
         public List<Item> GetMenu()

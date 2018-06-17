@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using System.Windows.Media.Animation;
 using ChapeauLogic;
 using ChapeauModel;
+using System.Threading.Tasks;
 
 namespace ChapeauUI
 {
@@ -19,6 +20,7 @@ namespace ChapeauUI
         private int amountDrinks;
         private int amountLunch;
         private int amountDinner;
+        private Employee employee;
         private Orderview_MeatComments meatComments = new Orderview_MeatComments();
         private Item_Service itemLogic = new Item_Service();
         private Item selectedMenuItem;
@@ -27,9 +29,10 @@ namespace ChapeauUI
         private List<Item> menu = new List<Item>();
 
         //Save the given order id and get the menu from the database
-        public Orderview_UI(int orderId, int customerCount, int tableNr)
+        public Orderview_UI(int orderId, int customerCount, int tableNr, Employee employee)
         {
             InitializeComponent();
+            this.employee = employee;
             this.orderId = orderId;
             try
             {
@@ -43,6 +46,7 @@ namespace ChapeauUI
             amountDrinks = 0;
             amountLunch = 0;
             amountDinner = 0;
+            Animation.AnimateIn(this, 1);
         }
 
         private void AssignCategoryAmounts(int customerCount, int tableNr)
@@ -393,13 +397,13 @@ namespace ChapeauUI
                 HandleException(new Exception("The application could not complete the order"));
                 return;
             }
-            NavigationService.Navigate(new Redirect("Order send!"));
+            itemLogic.SetTableStatus(TableStatus.Running, itemLogic.GetTableIDFromOrderID(orderId));
+            NavigationService.Navigate(new Redirect("Order send!", employee));
         }
-
         private void BtnReturn_Click(object sender, RoutedEventArgs e)
         {
             itemLogic.DeleteOrderList(order);
-            NavigationService.Navigate(new Tableview_UI());
+            NavigationService.Navigate(new Tableview_UI(employee));
         }
 
         #region CategoryAmounts

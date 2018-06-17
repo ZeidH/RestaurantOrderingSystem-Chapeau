@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -22,9 +23,14 @@ namespace ChapeauUI
     /// </summary>
     public partial class Tableview_UI : Page
     {
+        private Employee employee;
         public Tableview_UI(Employee employee)
         {
             InitializeComponent();
+            this.employee = employee;
+            Animation.AnimateIn(this, 1);
+            GetTables();
+            lbl_logged_user.Content = employee.Name;
         }
         public Tableview_UI()
         {
@@ -32,15 +38,25 @@ namespace ChapeauUI
         }
         private void GetTables()
         {
+            table_panel.Children.Clear();
             table_panel.Children.Add(new Table_UC(this));
         }
-        internal void GenerateSidePanel(int order_id)
+        internal void GenerateSidePanel(Tafel table)
         {
-            table_sidePanel.Children.Add(new TableSidePanel(order_id));
+            table_sidePanel.Children.Clear();
+            table_sidePanel.Children.Add(new TableSidePanel(this, table));
+            Animation.AnimateSlide(table_sidePanel, 500, 200, 0);
         }
         internal void GenerateCreatePanel(int tableID)
         {
-            
+            table_sidePanel.Children.Clear();
+            table_sidePanel.Children.Add(new TableSidePanel(this, tableID, employee));
+            Animation.AnimateSlide(table_sidePanel, 500, 200, 0);
+        }
+        public void CloseSidePanel()
+        {
+            Animation.AnimateSlide(table_sidePanel, 500, 200, -500);
+            GetTables();
         }
     }
 }

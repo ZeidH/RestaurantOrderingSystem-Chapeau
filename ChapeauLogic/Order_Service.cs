@@ -12,9 +12,9 @@ namespace ChapeauLogic
     public class Order_Service
     {
         Order_DAO order_DAO = new Order_DAO();
-        public void InsertOrder(int emp_id, int table_id)
+        public void InsertOrder(int emp_id, int table_id, uint nrOfGuests)
         {
-            order_DAO.Db_add_order(table_id, emp_id);
+            order_DAO.Db_add_order(table_id, emp_id, nrOfGuests);
         }
 
         public void DeleteOrder(int order_id)

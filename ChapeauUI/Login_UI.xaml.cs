@@ -89,8 +89,7 @@ namespace ChapeauUI
 
         private void LockAnimation()
         {
-
-			BitmapImage image = new BitmapImage();
+            var image = new BitmapImage();
             image.BeginInit();
             image.UriSource = new Uri("Images/LockAnimation.gif", UriKind.Relative);
             image.EndInit();
