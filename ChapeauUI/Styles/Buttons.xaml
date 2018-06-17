@@ -249,7 +249,9 @@
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Regular"/>
     </Style>
-    
+
+    <Image x:Key="Logout" Source="/Images/LogoutV2.png"/>
+
     <!--Busy-->
     <Style TargetType="{x:Type Button}" x:Key="Busy" BasedOn="{StaticResource Tables}">
         <Setter Property="Background" Value="{StaticResource RedBrush}"/>

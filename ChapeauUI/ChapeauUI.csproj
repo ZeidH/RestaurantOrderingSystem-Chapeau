@@ -261,5 +261,11 @@
   <ItemGroup>
     <Resource Include="Images\RedirectBackground.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LogoutV2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
