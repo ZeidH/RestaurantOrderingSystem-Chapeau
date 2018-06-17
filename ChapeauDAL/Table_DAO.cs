@@ -39,7 +39,7 @@ namespace ChapeauDAL
             {
                 if (table.Status != TableStatus.Free)
                 {
-                    string query = "SELECT o.order_id, o.nr_of_guests, concat(e.emp_firstName,' ', e.emp_lastName) as fullname FROM [ORDER] AS o JOIN EMPLOYEE AS e ON o.emp_id = e.emp_id WHERE o.table_id = 5  AND o.order_id NOT in (SELECT order_id from PAYMENT) ";
+                    string query = "SELECT o.order_id, o.nr_of_guests, concat(e.emp_firstName,' ', e.emp_lastName) as fullname FROM [ORDER] AS o JOIN EMPLOYEE AS e ON o.emp_id = e.emp_id WHERE o.table_id = @tableid  AND o.order_id NOT in (SELECT order_id from PAYMENT) ";
                     SqlParameter[] sqlParameters = new SqlParameter[1];
                     sqlParameters[0] = new SqlParameter("@tableid", SqlDbType.Int)
                     {

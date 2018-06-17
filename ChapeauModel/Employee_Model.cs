@@ -24,5 +24,6 @@ namespace ChapeauModel
             }
         }
         public Occupation? Occupation { get; set; }
+
     }
 }

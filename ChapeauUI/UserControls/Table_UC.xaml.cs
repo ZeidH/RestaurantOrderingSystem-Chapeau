@@ -39,8 +39,6 @@ namespace ChapeauUI
             dispatcherTimer.Start();
         }
 
-
-
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             List<TableStatus> previousTables = new List<TableStatus>();
@@ -62,7 +60,6 @@ namespace ChapeauUI
                 }
             }
         }
-
 
         private void GetTableInfo()
         {
@@ -148,7 +145,7 @@ namespace ChapeauUI
                             buttons[i].Style = (Style)FindResource("Busy");
                             break;
                         case TableStatus.Ready:
-                            buttons[i].Style = (Style)FindResource("Ready");
+                            buttons[i].Style = (Style)FindResource("TableReady");
                             break;
                     }
                 }

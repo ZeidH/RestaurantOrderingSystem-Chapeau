@@ -266,7 +266,7 @@
     </Style>
 
     <!--Ready-->
-    <Style TargetType="{x:Type Button}" x:Key="Ready" BasedOn="{StaticResource Tables}">
+    <Style TargetType="{x:Type Button}" x:Key="TableReady" BasedOn="{StaticResource Tables}">
         <Setter Property="Background" Value="{StaticResource LightGreenBrush}"/>
     </Style>
 </ResourceDictionary>
