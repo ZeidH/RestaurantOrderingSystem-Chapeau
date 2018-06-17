@@ -14,7 +14,7 @@ namespace ChapeauDAL
         public void Db_add_order(int table_id, int emp_id, uint nrOfGuests)
         {
             string query = string.Format("INSERT INTO[ORDER] (table_id, emp_id, nr_of_guests) VALUES(@tableid, @empid, @nrOfGuests)");
-            SqlParameter[] sqlParameters = new SqlParameter[2];
+            SqlParameter[] sqlParameters = new SqlParameter[3];
             sqlParameters[0] = new SqlParameter("@tableid", SqlDbType.Int)
             {
                 Value = table_id
@@ -27,7 +27,7 @@ namespace ChapeauDAL
             {
                 Value = nrOfGuests
             };
-            //ExecuteEditQuery(query, sqlParameters);
+            ExecuteEditQuery(query, sqlParameters);
         }
         public DataTable Db_select_order(int order_id)
         {

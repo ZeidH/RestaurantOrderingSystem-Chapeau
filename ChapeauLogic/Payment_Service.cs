@@ -9,7 +9,7 @@ using ChapeauDAL;
 
 namespace ChapeauLogic
 {
-    public class Payment_Service
+    public class Payment_Service :Table_Service
     {
         private Payment_DAO payment_DAO = new Payment_DAO();
 

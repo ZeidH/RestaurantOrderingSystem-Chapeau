@@ -12,9 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 using System.Collections.ObjectModel;
 using ChapeauModel;
 using ChapeauLogic;
+using System.Windows.Threading;
 
 namespace ChapeauUI
 {
@@ -24,6 +26,7 @@ namespace ChapeauUI
     public partial class Table_UC : UserControl
     {
         public ObservableCollection<Tafel> tables = new ObservableCollection<Tafel>();
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
         private Tableview_UI table_main;
         public Table_UC(Tableview_UI table_main)
         {
@@ -31,7 +34,25 @@ namespace ChapeauUI
             this.table_main = table_main;
             GetTableInfo();
             InsertTableInfo();
+            dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 3);
+            dispatcherTimer.Start();
         }
+
+
+
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            ObservableCollection<Tafel> previousTables = tables;
+            GetTableInfo();
+            var firstNotSecond = previousTables.Except(tables).ToList();
+            var secondNotFirst = tables.Except(previousTables).ToList();
+            if (!firstNotSecond.Any() && !secondNotFirst.Any())
+            {
+                InsertTableInfo();
+            }
+        }
+
 
         private void GetTableInfo()
         {
@@ -139,7 +160,7 @@ namespace ChapeauUI
         {
             if (tables[tableID].Status == TableStatus.Free)
             {
-                table_main.GenerateCreatePanel(tableID+1);
+                table_main.GenerateCreatePanel(tableID + 1);
             }
             else
             {
@@ -151,7 +172,7 @@ namespace ChapeauUI
         private int Splitter(string value)
         {
             string[] splitted = value.Split('_');
-            return int.Parse(splitted[2])-1;
+            return int.Parse(splitted[2]) - 1;
         }
     }
 }

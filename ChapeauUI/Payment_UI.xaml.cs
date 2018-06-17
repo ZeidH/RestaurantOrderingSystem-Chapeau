@@ -71,6 +71,7 @@ namespace ChapeauUI
             {
                 if (payment_Logic.InsertPayment(payment))
                 {
+                    payment_Logic.SetTableStatus(TableStatus.Free, payment_Logic.GetTableIDFromOrderID(payment.Order_id));
                     // Direct to tableview when order is finalized
                     NavigationService.Navigate(new Redirect("Payment Complete", employee));
                 }

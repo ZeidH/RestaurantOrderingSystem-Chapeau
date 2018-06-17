@@ -77,5 +77,25 @@ namespace ChapeauDAL
             }
             return tables;
         }
+
+        public int Db_Get_TableID(int order_id)
+        {
+            string query = "SELECT table_id FROM [ORDER] WHERE order_id = @orderID";
+            SqlParameter[] sqlParameters = new SqlParameter[1];
+            sqlParameters[0] = new SqlParameter("@orderID", SqlDbType.Int)
+            {
+                Value = order_id
+            };
+            return ReadTableID(ExecuteSelectQuery(query, sqlParameters));
+        }
+        private int ReadTableID(DataTable dataTable)
+        {
+            int table_id = 0;
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                table_id = (int)dr["table_id"];
+            }
+            return table_id;
+        }
     }
 }

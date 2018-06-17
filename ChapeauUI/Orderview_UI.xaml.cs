@@ -397,7 +397,7 @@ namespace ChapeauUI
                 HandleException(new Exception("The application could not complete the order"));
                 return;
             }
-         
+            itemLogic.SetTableStatus(TableStatus.Running, itemLogic.GetTableIDFromOrderID(orderId));
             NavigationService.Navigate(new Redirect("Order send!", employee));
         }
         private void BtnReturn_Click(object sender, RoutedEventArgs e)

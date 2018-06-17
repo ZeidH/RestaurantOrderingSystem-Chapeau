@@ -21,5 +21,10 @@ namespace ChapeauLogic
         {
             table_db.Db_Update_Table_Status(status, tableID);
         }
+
+        public int GetTableIDFromOrderID(int order_id)
+        {
+            return table_db.Db_Get_TableID(order_id);
+        }
     }
 }
