@@ -103,6 +103,7 @@ namespace ChapeauUI
 
 		private void LogoutButtonClicked(object sender, RoutedEventArgs e)
 		{
+            
 			NavigationService.Navigate(new Login_UI());
 		}
 

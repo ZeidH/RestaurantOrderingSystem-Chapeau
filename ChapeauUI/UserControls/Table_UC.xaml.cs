@@ -26,7 +26,7 @@ namespace ChapeauUI
     public partial class Table_UC : UserControl
     {
         public ObservableCollection<Tafel> tables = new ObservableCollection<Tafel>();
-        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        public static DispatcherTimer dispatcherTimer;
         private Table_Service table_Logic = new Table_Service();
         private Tableview_UI table_main;
         public Table_UC(Tableview_UI table_main)
@@ -35,6 +35,7 @@ namespace ChapeauUI
             this.table_main = table_main;
             GetTableInfo();
             InsertTableInfo();
+            dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 3);
             dispatcherTimer.Start();
@@ -64,7 +65,15 @@ namespace ChapeauUI
 
         private void GetTableInfo()
         {
-            tables = table_Logic.FillTables();
+            try
+            {
+                tables = table_Logic.FillTables();
+            }
+            catch (Exception e)
+            {
+                ErrorMessage(e);
+                return;
+            }
         }
 
         private void InsertTableInfo()
@@ -180,6 +189,10 @@ namespace ChapeauUI
         {
             string[] splitted = value.Split('_');
             return int.Parse(splitted[2]) - 1;
+        }
+        private void ErrorMessage(Exception e)
+        {
+            MessageBox.Show(e.Message, "Woopsie!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
 }

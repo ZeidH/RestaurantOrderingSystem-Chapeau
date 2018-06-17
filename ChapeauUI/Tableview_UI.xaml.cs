@@ -56,6 +56,7 @@ namespace ChapeauUI
         public void CloseSidePanel()
         {
             Animation.AnimateSlide(table_sidePanel, 500, 200, -500);
+            Table_UC.dispatcherTimer.Stop();
             GetTables();
         }
 
@@ -63,6 +64,7 @@ namespace ChapeauUI
         {
             if (MessageBox.Show("Are you sure you want to log out?", "Logging out", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
             {
+                Table_UC.dispatcherTimer.Stop();
                 NavigationService.Navigate(new Login_UI());
             }
         }

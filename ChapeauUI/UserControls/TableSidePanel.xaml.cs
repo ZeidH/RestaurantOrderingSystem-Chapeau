@@ -35,7 +35,22 @@ namespace ChapeauUI
             this.ParentPage = ParentPage;
             this.employee = employee;
             lbl_table.Content = $"Table {table.ID}";
-            inner_panel.Children.Add(new OrderList(table.OrderID));
+            try
+            {
+                inner_panel.Children.Add(new OrderList(table.OrderID));
+            }
+            catch (Exception e)
+            {
+
+                Style style = Application.Current.FindResource("PaymentLabel") as Style;
+                Label warningLabel = new Label()
+                {
+                    Content = e.Message,
+                    Style = style
+                };
+                inner_panel.Children.Add(warningLabel);
+            }
+
             if (table.Status != TableStatus.Ready)
             {
                 btn_Served.Visibility = Visibility.Collapsed;
@@ -54,10 +69,12 @@ namespace ChapeauUI
 
         private void Btn_NewOrder_Click(object sender, RoutedEventArgs e)
         {
+            Table_UC.dispatcherTimer.Stop();
             ParentPage.NavigationService.Navigate(new Orderview_UI(table.OrderID, table.NumberOfGuests, table.ID, employee));
         }
         private void Btn_Payment_Click(object sender, RoutedEventArgs e)
         {
+            Table_UC.dispatcherTimer.Stop();
             ParentPage.NavigationService.Navigate(new Payment_UI(table.OrderID, table.NumberOfGuests, employee));
         }
         private void Btn_ClosePanel_Click(object sender, RoutedEventArgs e)

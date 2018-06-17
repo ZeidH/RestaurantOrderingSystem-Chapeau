@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Width="326" Height="183">
     <Grid Width="326" Height="183">
-        <ListView x:Name="receipt_ListView" HorizontalAlignment="Left" Height="183" VerticalAlignment="Top" Width="326" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
+        <ListView x:Name="receipt_ListView" IsHitTestVisible="False" HorizontalAlignment="Left" Height="183" VerticalAlignment="Top" Width="326" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto"
                   ItemsSource="{Binding order}" Background="{StaticResource ListBackgroundLightBrush}" Foreground="Black">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

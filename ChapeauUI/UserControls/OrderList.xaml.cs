@@ -30,8 +30,16 @@ namespace ChapeauUI
 
         private void FillList(int order_id)
         {
-            Payment_Service payment_logic = new Payment_Service();
-            receipt_ListView.ItemsSource = payment_logic.GetReceipt(order_id);
+            try
+            {
+                Payment_Service payment_logic = new Payment_Service();
+                receipt_ListView.ItemsSource = payment_logic.GetReceipt(order_id);
+            }
+            catch (Exception)
+            {
+                throw new Exception("The Order List could not be loaded");
+            }
+
         }
     }
 }

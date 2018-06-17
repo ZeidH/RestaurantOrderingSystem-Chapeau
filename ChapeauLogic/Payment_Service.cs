@@ -9,7 +9,7 @@ using ChapeauDAL;
 
 namespace ChapeauLogic
 {
-    public class Payment_Service :Table_Service
+    public class Payment_Service : Table_Service
     {
         private Payment_DAO payment_DAO = new Payment_DAO();
 
@@ -43,7 +43,15 @@ namespace ChapeauLogic
         public bool InsertPayment(Payment payment)
         {
             // Insert payment
-            payment_DAO.Db_set_payment(payment);
+            try
+            {
+                payment_DAO.Db_set_payment(payment);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Chapeau can't connect to the internet!");
+            }
+
 
             // On first paying customer
             if (payment.NextCustomer == 0)
@@ -58,7 +66,15 @@ namespace ChapeauLogic
             else
             {
                 // If there are no more customers, set the order and finish payment by returning true
-                payment_DAO.Db_set_order_comment(payment);
+                try
+                {
+                    payment_DAO.Db_set_order_comment(payment);
+                }
+                catch (Exception)
+                {
+                    throw new Exception("Chapeau can't connect to the internet!");
+                }
+
                 return true;
             }
         }
@@ -161,7 +177,7 @@ namespace ChapeauLogic
             {
                 payment.GuestPrice[i] = payment.SplittedPrice;
             }
-        } 
+        }
         #endregion
     }
 }

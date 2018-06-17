@@ -39,7 +39,7 @@ namespace ChapeauUI
             sb.Children.Add(fadeAnimation);
             sb.Begin(page);
         }
-        internal static void AnimateSlide(WrapPanel panel, double left, double right, double to )
+        internal static void AnimateSlide(Panel panel, double left, double right, double to )
         {
             var sb = new Storyboard();
             var SlideAnimation = new ThicknessAnimation
