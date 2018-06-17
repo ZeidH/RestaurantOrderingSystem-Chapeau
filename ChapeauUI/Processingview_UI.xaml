@@ -59,9 +59,17 @@
                 <ColumnDefinition Width="6*" Name="sidePanelGridColumn"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <ListView Grid.Column="0" Margin="10,10,10,10" Name="orderListView" PreviewMouseLeftButtonUp="SelectOrderFromList" SelectionMode="Single" Style="{StaticResource ProcessingListview}">
+            <ListView
+                Grid.Column="0"
+                Margin="10,10,10,10"
+                Name="orderListView"
+                PreviewMouseLeftButtonUp="SelectOrderFromList"
+                SelectionMode="Single"
+                ItemContainerStyle="{StaticResource ProcessingListViewItem}"
+                Style="{StaticResource ProcessingListview}"
+            >
                 <ListView.View>
-                    <GridView AllowsColumnReorder="False" ColumnHeaderContainerStyle="{StaticResource GridViewHeaderStyle}" >
+                    <GridView AllowsColumnReorder="False" ColumnHeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
                         <GridViewColumn Width="45" Header="Order" DisplayMemberBinding="{Binding Path=Id}" />
                         <GridViewColumn Width="45" Header="Table" DisplayMemberBinding="{Binding Path=TableId}"/>
                         <GridViewColumn Width="Auto" Header="Time" DisplayMemberBinding="{Binding Path=LastOrderTime, StringFormat='hh:mm'}" />
@@ -96,7 +104,14 @@
                     <TextBlock Grid.Column="3" Grid.Row="1" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" Name="employeeNameLabel" TextAlignment="Center"/>
                 </Grid>
 
-                <ListView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="orderItemsListView" Style="{StaticResource SelectedOrderListview}">
+                <ListView
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Name="orderItemsListView"
+                    Style="{StaticResource SelectedOrderListview}"
+                    ItemContainerStyle="{StaticResource ProcessingListViewItem}"
+                >
                     <ListView.View>
                         <GridView AllowsColumnReorder="False" ColumnHeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
                             <GridViewColumn Width="Auto" Header="Item" DisplayMemberBinding="{Binding Path=Item.Name}"/>

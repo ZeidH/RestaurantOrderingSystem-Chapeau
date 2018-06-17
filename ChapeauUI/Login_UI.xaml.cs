@@ -63,7 +63,7 @@ namespace ChapeauUI
         private void DirectUser(Employee employee)
         {
             LockAnimation();
-            var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+			DispatcherTimer timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
             timer.Start();
             timer.Tick += (sender, args) =>
             {
@@ -90,7 +90,7 @@ namespace ChapeauUI
         private void LockAnimation()
         {
 
-            var image = new BitmapImage();
+			BitmapImage image = new BitmapImage();
             image.BeginInit();
             image.UriSource = new Uri("Images/LockAnimation.gif", UriKind.Relative);
             image.EndInit();

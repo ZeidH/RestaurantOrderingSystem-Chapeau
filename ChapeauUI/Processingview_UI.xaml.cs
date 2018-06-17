@@ -34,7 +34,7 @@ namespace ChapeauUI
 
 			// start the clock timer (it ticks once a second)
 			DispatcherTimer timer = new DispatcherTimer();
-			timer.Interval = TimeSpan.FromSeconds(5);
+			timer.Interval = TimeSpan.FromSeconds(15);
 
 			// call the ClockTick method every time the timer ticks
 			timer.Tick += ClockTick;
@@ -44,6 +44,7 @@ namespace ChapeauUI
 
 			timer.Start();
 
+			// this is determined by the logged in user, it never changes
 			this.preparationLocation = preparationLocation;
 		}
 
@@ -52,7 +53,12 @@ namespace ChapeauUI
 		private void ClockTick(object sender, EventArgs args)
 		{
 			UpdateClock();
+
+			// reload the list in case someone else did something to it (e.g. placed new order)
 			LoadOrders();
+
+			// reload status in case some one else changed table/order totals
+			UpdateStatusOverview();
 		}
 
 		private void ReadyTabButtonClicked(object sender, RoutedEventArgs e)
@@ -67,8 +73,11 @@ namespace ChapeauUI
 
 		private void SelectOrderFromList(object sender, MouseButtonEventArgs e)
 		{
+			// find the selected order from the list
 			Order selectedOrder = (Order)orderListView.SelectedValue;
 
+			// it could be that the user clicked outside the items, so we don't
+			// have a selected order. In that case we do nothing.
 			if (selectedOrder != null)
 			{
 				ShowSidePanel(selectedOrder.Id, selectedOrder.LastOrderStatus);
@@ -83,8 +92,13 @@ namespace ChapeauUI
 		private void MarkAsReadyClicked(object sender, RoutedEventArgs e)
 		{
 			service.MarkOrderAsReady(openOrder.Id);
+
+			// since the order is now no longer running, we should hide the
+			// side panel and reload the list to remove it (we're still on the
+			// running tab)
 			HideSidePanel();
 			LoadOrders();
+			UpdateStatusOverview();
 		}
 
 		private void LogoutButtonClicked(object sender, RoutedEventArgs e)
@@ -98,29 +112,41 @@ namespace ChapeauUI
 
 		private void ShowReadyOrders()
 		{
+			// make sure the tab checked state is correct
 			showRunningOrdersButton.IsChecked = false;
 			showReadyOrdersButton.IsChecked = true;
 
+			// on the ready view you cannot mark orders as ready, because they already are
 			readyButton.IsEnabled = false;
 
+			// if the side panel was open we should close it
 			HideSidePanel();
 
+			// set the order status for what we're looking at (so the refresh
+			// knows what to load)
 			orderStatus = OrderStatus.Ready;
 
+			// load the order list again
 			LoadOrders();
 		}
 
 		private void ShowRunningOrders()
 		{
+			// make sure the tab checked state is correct
 			showRunningOrdersButton.IsChecked = true;
 			showReadyOrdersButton.IsChecked = false;
 
+			// the ready button is available when looking at running orders
 			readyButton.IsEnabled = true;
 
+			// if the side panel was open we should close it
 			HideSidePanel();
 
+			// set the order status for what we're looking at (so the refresh
+			// knows what to load)
 			orderStatus = OrderStatus.Processing;
 
+			// load the order list again
 			LoadOrders();
 		}
 
@@ -133,45 +159,77 @@ namespace ChapeauUI
 
 		private void ShowSidePanel(int orderId, OrderStatus status)
 		{
+			// fetch the order details from the database
 			Order orderWithDetails = service.GetOrderDetails(
 				orderId,
 				status,
 				preparationLocation
 			);
 
+			// unhide the panel by setting its width to 60%
 			sidePanelGridColumn.Width = new GridLength(6.0, GridUnitType.Star);
 
+			// set order status label values
 			orderIdLabel.Text = "Order: " + orderWithDetails.Id;
 			tableNrLabel.Text = "Table: " + orderWithDetails.TableId;
 			orderTimeLabel.Text = orderWithDetails.LastOrderTime.ToString("hh:mm");
 			employeeNameLabel.Text = orderWithDetails.EmployeeName;
 
+			// set data source for the table
 			orderItemsListView.ItemsSource = orderWithDetails.Items;
 
+			// remember which order is open so we have that information later
 			openOrder = orderWithDetails;
 		}
 
 		private void HideSidePanel()
 		{
+			// we hide the side panel by setting its width to 0
 			sidePanelGridColumn.Width = new GridLength(0);
+			// since the panel is closed there is no open order anymore
 			openOrder = null;
+			// all list items must be unselected
 			orderListView.UnselectAll();
 		}
 
 		private void UpdateStatusOverview()
 		{
-			var status = service.GetRestaurantStatus();
+			RestaurantStatus status = service.GetRestaurantStatus(preparationLocation);
 
-			tableStatusLabel.Text = "Tables: " + status.BusyTables + "/" + status.TotalTables;
-			orderStatusLabel.Text = "Orders: " + status.BusyOrders + "/" + status.TotalOrders;
+			tableStatusLabel.Text = "Tables: " + status.RunningTables + "/" + status.TotalTables;
+			orderStatusLabel.Text = "Orders: " + status.RunningOrders + "/" + status.TotalOrders;
 		}
 
 		private void LoadOrders()
 		{
 			List<Order> orders = service.GetOrders(orderStatus, preparationLocation);
+			int selectedOrderId = -1;
 
-			// bind items in the list view to the orders from the daterbase
+			// since we will change the items, the selection will be lost, so
+			// we remember the item that was selected and find it again after
+			// adding the new ones
+			if (orderListView.SelectedValue != null)
+			{
+				selectedOrderId = ((Order)orderListView.SelectedValue).Id;
+			}
+
+			// bind items in the list view to the orders from the database
 			orderListView.ItemsSource = orders;
+
+			// see if we can find an order that has the same id as the one
+			// that was selected before
+			foreach (Order order in orders)
+			{
+				if (order.Id == selectedOrderId)
+				{
+					// we found an order with the same id as the one that was
+					// selected before, so we select it again
+					orderListView.SelectedValue = order;
+
+					// there should only be one so we just break
+					break;
+				}
+			}
 		}
 
 		#endregion

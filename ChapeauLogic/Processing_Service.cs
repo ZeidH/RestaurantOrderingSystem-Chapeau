@@ -40,9 +40,15 @@ namespace ChapeauLogic
 			processingDao.Db_mark_order_ready(orderId);
 		}
 
-		public RestaurantStatus GetRestaurantStatus()
+		public RestaurantStatus GetRestaurantStatus(PreparationLocation location)
 		{
-			RestaurantStatus status = processingDao.Db_get_restaurant_table_status();
+			RestaurantStatus status = new RestaurantStatus();
+
+			status.TotalTables = processingDao.Db_get_number_of_tables();
+			status.RunningTables = processingDao.Db_get_number_of_running_tables();
+
+			status.TotalOrders = processingDao.Db_get_number_of_orders(location);
+			status.RunningOrders = processingDao.Db_get_number_of_running_orders(location);
 
 			return status;
 		}

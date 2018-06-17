@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using ChapeauDAL;
 using ChapeauModel;
+using System.Security.Cryptography;
 
 namespace ChapeauLogic
 {
@@ -26,7 +27,7 @@ namespace ChapeauLogic
             if (String.IsNullOrEmpty(pw))
                 return String.Empty;
 
-            using (var sha = new System.Security.Cryptography.SHA256Managed())
+            using (SHA256Managed sha = new System.Security.Cryptography.SHA256Managed())
             {
                 byte[] textData = System.Text.Encoding.UTF8.GetBytes(pw);
                 byte[] hash = sha.ComputeHash(textData);

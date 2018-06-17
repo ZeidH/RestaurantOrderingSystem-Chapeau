@@ -7,7 +7,7 @@
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Background" Value="{StaticResource ListBackgroundLightBrush}"/>
     </Style>
-    
+
     <!--Orderview listview-->
     <Style TargetType="{x:Type ListView}" x:Key="MenuListview" BasedOn="{StaticResource BaseListview}">
         <Setter Property="FontSize" Value="13"/>
@@ -16,6 +16,24 @@
     <!--Processing listview-->
     <Style TargetType="{x:Type ListView}" x:Key="ProcessingListview" BasedOn="{StaticResource BaseListview}">
         <Setter Property="FontSize" Value="21" />
+    </Style>
+
+    <Style TargetType="{x:Type ListViewItem}" x:Key="ProcessingListViewItem">
+        <!-- based on: https://stackoverflow.com/a/26857458 -->
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Trigger.Setters>
+                    <Setter Property="Background" Value="{StaticResource YellowBrush}" />
+                    <Setter Property="BorderBrush" Value="{StaticResource YellowBrush}" />
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger.Setters>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource YellowBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource YellowBrush}" />
+                <Setter Property="Foreground" Value="Black"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <!--SelectedOrder listview-->

@@ -8,27 +8,70 @@ namespace ChapeauDAL
 {
 	public class Processing_DAO : Base
 	{
-		public RestaurantStatus Db_get_restaurant_table_status()
+		public int Db_get_number_of_tables()
+		{
+			string query = "SELECT COUNT(table_id) as number FROM [TABLE]";
+			DataTable table = ExecuteSelectQuery(query);
+
+			return ReadNumberResult(table);
+		}
+
+		public int Db_get_number_of_running_tables()
+		{
+			string query = "SELECT COUNT(table_id) as number FROM [TABLE] WHERE table_status = 1";
+			DataTable table = ExecuteSelectQuery(query);
+
+			return ReadNumberResult(table);
+		}
+
+		public int Db_get_number_of_orders(PreparationLocation preparationLocation)
 		{
 			string query = @"
-				SELECT
-					-- count items when their status is busy only
-					SUM(CASE table_status WHEN 2 THEN 1 ELSE 0 END) AS busy_table_count,
-					COUNT(table_id) AS table_count
-				FROM [TABLE]
+				SELECT COUNT(DISTINCT order_id) as number
+				FROM[ORDER_LIST]
+				JOIN[ITEM] ON[ORDER_LIST].item_id = [ITEM].item_id
+				WHERE item_prep_location = @preploc
 			";
 
-			DataTable dataTable = ExecuteSelectQuery(query);
+			SqlParameter prepLocParameter = new SqlParameter("@preploc", SqlDbType.SmallInt)
+			{
+				Value = preparationLocation
+			};
 
-			RestaurantStatus status = new RestaurantStatus();
+			DataTable table = ExecuteSelectQuery(query, prepLocParameter);
 
-			// there is only one row in the result
-			DataRow row = dataTable.Rows[0];
+			return ReadNumberResult(table);
+		}
 
-			status.BusyTables = (int)row["busy_table_count"];
-			status.TotalTables = (int)row["table_count"];
+		public int Db_get_number_of_running_orders(PreparationLocation preparationLocation)
+		{
+			string query = @"
+				SELECT COUNT(DISTINCT order_id) as number
+				FROM[ORDER_LIST]
+				JOIN[ITEM] ON[ORDER_LIST].item_id = [ITEM].item_id
+				WHERE item_prep_location = @preploc
+					AND order_status = 0
+			";
 
-			return status;
+			SqlParameter prepLocParameter = new SqlParameter("@preploc", SqlDbType.SmallInt)
+			{
+				Value = preparationLocation
+			};
+
+			DataTable table = ExecuteSelectQuery(query, prepLocParameter);
+
+			return ReadNumberResult(table);
+		}
+
+		private int ReadNumberResult(DataTable resultSet)
+		{
+			// there is only one row
+			DataRow row = resultSet.Rows[0];
+
+			// there is only one value
+			int count = (int)row["number"];
+
+			return count;
 		}
 
 		/// <summary>
