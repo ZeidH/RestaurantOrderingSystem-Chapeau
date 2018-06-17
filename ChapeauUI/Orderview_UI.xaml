@@ -31,6 +31,7 @@
         <ListView x:Name="listviewMenu" Style="{StaticResource MenuListview}" HorizontalAlignment="Left" Height="197" Margin="3,89,0,0" VerticalAlignment="Top" Width="359" ItemsSource="{Binding subMenu}" SelectionChanged="ListviewMenu_SelectionChanged" MouseDoubleClick="ListviewMenu_MouseDoubleClick" HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Grid.Column="1">
             <ListView.ItemContainerStyle>
                 <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="true">
                             <Setter Property="Background" Value="White"/>
@@ -38,17 +39,16 @@
                         <Trigger Property="IsMouseOver" Value="true">
                             <Setter Property="Background" Value="White"/>
                         </Trigger>
-                        <DataTrigger Binding="{Binding Path=Stock}" Value="0">
+                        <DataTrigger Binding="{Binding Stock}" Value="0">
                             <Setter Property="Background" Value="#C7CBCF"/>
                             <Setter Property="Foreground" Value="White"/>
                         </DataTrigger>
                     </Style.Triggers>
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
-                    <GridViewColumn Header="Item name" DisplayMemberBinding="{Binding Path=Name}" Width="280"/>
+                    <GridViewColumn Header="Item name" DisplayMemberBinding="{Binding Name}" Width="280"/>
                     <GridViewColumn Header="Price" Width="75">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -68,21 +68,24 @@
                 </Style>
             </StackPanel.Resources>
         </StackPanel>
-        <DataGrid x:Name="dataGridOrder" Style="{StaticResource OrderDataGrid}" HorizontalAlignment="Left" Height="240" Margin="10,46,0,0" VerticalAlignment="Top" Width="304" AutoGenerateColumns="False" VerticalGridLinesBrush="#FFC8C8C8" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGridOrder_SelectionChanged" CanUserResizeColumns="False" CanUserReorderColumns="False" GridLinesVisibility="Horizontal" AreRowDetailsFrozen="True" HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalGridLinesBrush="#FF969696" VerticalScrollBarVisibility="Hidden">
+        <DataGrid x:Name="dataGridOrder" HorizontalAlignment="Left" Height="240" Margin="10,46,0,0" VerticalAlignment="Top" Width="304" AutoGenerateColumns="False" VerticalGridLinesBrush="#FFC8C8C8" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGridOrder_SelectionChanged" CanUserResizeColumns="False" CanUserReorderColumns="False" GridLinesVisibility="Horizontal" AreRowDetailsFrozen="True" HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalGridLinesBrush="#FF969696" VerticalScrollBarVisibility="Hidden">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Triggers>
-                        <Trigger Property="DataGridCell.IsSelected" Value="True">
+                        <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="White" />
                             <Setter Property="Foreground" Value="Black"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
             </DataGrid.Resources>
+            <DataGrid.Style>
+                <StaticResource ResourceKey="OrderDataGrid"/>
+            </DataGrid.Style>
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=NameAndComment}" CanUserReorder="False" CanUserResize="False" Header="Item name" SortDirection="Descending" Width="217">
+                <DataGridTextColumn Binding="{Binding NameAndComment}" CanUserReorder="False" CanUserResize="False" Header="Item name" SortDirection="Descending" Width="217">
                     <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="White"/>
                             <Setter Property="BorderBrush" Value="DarkGray"/>
                             <Setter Property="BorderThickness" Value="1,0,1,1"/>
@@ -90,9 +93,9 @@
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Path=Amount}" CanUserReorder="False" CanUserResize="False" Header="QTY" SortDirection="Descending" Width="37">
+                <DataGridTextColumn Binding="{Binding Amount}" CanUserReorder="False" CanUserResize="False" Header="QTY" SortDirection="Descending" Width="37">
                     <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="White"/>
                             <Setter Property="BorderBrush" Value="DarkGray"/>
                             <Setter Property="BorderThickness" Value="0,0,1,1"/>
@@ -105,9 +108,9 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Path=ReadTotalPrice, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" Header="Price" SortDirection="Descending" Width="48">
+                <DataGridTextColumn Binding="{Binding ReadTotalPrice, StringFormat=N2}" CanUserReorder="False" CanUserResize="False" Header="Price" SortDirection="Descending" Width="48">
                     <DataGridTextColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="Background" Value="White"/>
                             <Setter Property="BorderBrush" Value="DarkGray"/>
                             <Setter Property="BorderThickness" Value="0,0,1,1"/>
@@ -126,9 +129,7 @@
 
         <Border x:Name="categoryAmountBar" BorderThickness="0" Grid.Row="0"
                 
-        CornerRadius="0,0,5,5" BorderBrush="Black" Background="{StaticResource MidDarkGrayBrush}" Margin="10,286,6.8,218.6" RenderTransformOrigin="0.5,0.5" Height="24">
-
-        </Border>
+        CornerRadius="0,0,5,5" BorderBrush="Black" Background="{StaticResource MidDarkGrayBrush}" Margin="10,286,6.8,218.6" RenderTransformOrigin="0.5,0.5" Height="24"/>
         <Label x:Name="lblAmountDrinks" Style="{StaticResource CategoryCounter}" Margin="14,286,273.8,218.6" HorizontalContentAlignment="Center" Height="24" />
         <Label x:Name="lblAmountCustomers1" Style="{StaticResource CategoryCounter}" Margin="34,286,261.8,218.6" Height="24" Width="25"/>
         <Label Content="Drinks" Style="{StaticResource CategoryCounterCategory}" HorizontalAlignment="Left" Margin="57,286,0,0" VerticalAlignment="Top" Height="24" Width="47"/>

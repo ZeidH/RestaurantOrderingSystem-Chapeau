@@ -58,5 +58,13 @@ namespace ChapeauUI
             Animation.AnimateSlide(table_sidePanel, 500, 200, -500);
             GetTables();
         }
+
+        private void Btn_logout_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to log out?", "Logging out", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+            {
+                NavigationService.Navigate(new Login_UI());
+            }
+        }
     }
 }
