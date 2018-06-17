@@ -28,9 +28,10 @@ namespace ChapeauUI
 		public ProcessingView_UI(PreparationLocation preparationLocation)
 		{
 			InitializeComponent();
-			
-			// start the clock timer (it ticks once a second)
-			DispatcherTimer timer = new DispatcherTimer();
+            Animation.AnimateIn(this, 1);
+
+            // start the clock timer (it ticks once a second)
+            DispatcherTimer timer = new DispatcherTimer();
 			timer.Interval = TimeSpan.FromSeconds(15);
 
 			// call the ClockTick method every time the timer ticks
