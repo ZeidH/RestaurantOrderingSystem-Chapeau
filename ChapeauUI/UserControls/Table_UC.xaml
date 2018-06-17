@@ -37,17 +37,17 @@
         <Label x:Name="lbl_Waiter_3" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="351,97,0,0" VerticalAlignment="Top" Height="30" Width="58"/>
         <Label x:Name="lbl_Waiter_4" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="481,97,0,0" VerticalAlignment="Top" Height="30" Width="62"/>
         <Label x:Name="lbl_Waiter_5" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="618,97,0,0" VerticalAlignment="Top" Height="30" Width="58"/>
-        <Label x:Name="lbl_Waiter_6" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="212,285,0,0" VerticalAlignment="Top" Height="31" Width="57"/>
-        <Label x:Name="lbl_Waiter_7" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="348,285,0,0" VerticalAlignment="Top" Height="31" Width="56"/>
-        <Label x:Name="lbl_Waiter_8" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="481,285,0,0" VerticalAlignment="Top" Height="31" Width="62"/>
-        <Label x:Name="lbl_Waiter_9" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="618,285,0,0" VerticalAlignment="Top" Height="31" Width="58"/>
-        <Label x:Name="lbl_Waiter_10" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="75,285,0,0" VerticalAlignment="Top" Height="31" Width="60"/>
+        <Label x:Name="lbl_Waiter_6" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="78,285,0,0" VerticalAlignment="Top" Height="31" Width="57"/>
+        <Label x:Name="lbl_Waiter_7" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="213,285,0,0" VerticalAlignment="Top" Height="31" Width="56"/>
+        <Label x:Name="lbl_Waiter_8" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="343,285,0,0" VerticalAlignment="Top" Height="31" Width="62"/>
+        <Label x:Name="lbl_Waiter_9" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="481,285,0,0" VerticalAlignment="Top" Height="31" Width="58"/>
+        <Label x:Name="lbl_Waiter_10" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="613,285,0,0" VerticalAlignment="Top" Height="31" Width="60"/>
 
         <Label x:Name="lbl_Status_2" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="170,56,0,0" VerticalAlignment="Top" Height="41" Width="90"/>
         <Label x:Name="lbl_Status_3" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="307,56,0,0" VerticalAlignment="Top" Height="41" Width="92"/>
         <Label x:Name="lbl_Status_4" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="438,56,0,0" VerticalAlignment="Top" Height="41" Width="94"/>
         <Label x:Name="lbl_Status_5" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="570,56,0,0" VerticalAlignment="Top" Height="41" Width="96"/>
-        <Label x:Name="lbl_Status_6" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="37,244,0,0" VerticalAlignment="Top" Height="41" Width="84"/>
+        <Label x:Name="lbl_Status_6" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="43,244,0,0" VerticalAlignment="Top" Height="41" Width="84"/>
         <Label x:Name="lbl_Status_7" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="174,244,0,0" VerticalAlignment="Top" Height="41" Width="84"/>
         <Label x:Name="lbl_Status_8" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="309,244,0,0" VerticalAlignment="Top" Height="41" Width="84"/>
         <Label x:Name="lbl_Status_9" IsHitTestVisible="False" HorizontalAlignment="Left" Margin="443,244,0,0" VerticalAlignment="Top" Height="41" Width="84"/>
