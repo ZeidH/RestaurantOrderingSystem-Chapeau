@@ -44,7 +44,7 @@ namespace ChapeauUI
         internal void GenerateSidePanel(Tafel table)
         {
             table_sidePanel.Children.Clear();
-            table_sidePanel.Children.Add(new TableSidePanel(this, table));
+            table_sidePanel.Children.Add(new TableSidePanel(this, table, employee));
             Animation.AnimateSlide(table_sidePanel, 500, 200, 0);
         }
         internal void GenerateCreatePanel(int tableID)

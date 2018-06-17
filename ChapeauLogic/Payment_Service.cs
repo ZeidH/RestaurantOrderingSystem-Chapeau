@@ -25,16 +25,18 @@ namespace ChapeauLogic
             {
                 throw new Exception("Cannot connect to server \nAn error log has been saved in the program folder \n Press 'OK' to retry");
             }
+            //Maybe fix??
 
-
-            for (int i = 0; i < order.Count - 1; i++)
-            {
-                while (order[i].Item.Item_id == order[i + 1].Item.Item_id)
-                {
-                    order[i].Amount += order[i + 1].Amount;
-                    order.RemoveAt(i + 1);
-                }
-            }
+            //List<OrderItem> oldList = new List<OrderItem>();
+            //oldList = order;
+            //for (int i = 0; i < order.Count; i++)
+            //{
+            //    if (order[i].Item.Item_id == order[i + 1].Item.Item_id)
+            //    {
+            //        order[i].Amount += order[i+1].Amount;
+            //        order.RemoveAt(i+1);
+            //    }
+            //}
             return order;
         }
         public bool InsertPayment(Payment payment)

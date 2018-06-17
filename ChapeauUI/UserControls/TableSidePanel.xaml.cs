@@ -28,11 +28,12 @@ namespace ChapeauUI
         Tableview_UI ParentPage;
         private Tafel table;
         private Employee employee;
-        public TableSidePanel(Tableview_UI ParentPage, Tafel table)
+        public TableSidePanel(Tableview_UI ParentPage, Tafel table, Employee employee)
         {
             InitializeComponent();
             this.table = table;
             this.ParentPage = ParentPage;
+            this.employee = employee;
             lbl_table.Content = $"Table {table.ID}";
             inner_panel.Children.Add(new OrderList(table.OrderID));
             if (table.Status != TableStatus.Ready)
