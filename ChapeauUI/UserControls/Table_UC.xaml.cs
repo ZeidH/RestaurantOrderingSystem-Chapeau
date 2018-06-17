@@ -132,7 +132,7 @@ namespace ChapeauUI
                 label.Style = (Style)FindResource("TableviewGuest");
             }
 
-            for (int i = 0; i < waiter.Length; i++)
+            for (int i = 0; i < tables.Count; i++)
             {
                 if (tables[i].Status != TableStatus.Free)
                 {
@@ -174,7 +174,7 @@ namespace ChapeauUI
             }
             else
             {
-                table_main.GenerateSidePanel(tables[tableID].OrderID, tables[tableID].ID, tables[tableID].NumberOfGuests);
+                table_main.GenerateSidePanel(tables[tableID]);
             }
         }
 

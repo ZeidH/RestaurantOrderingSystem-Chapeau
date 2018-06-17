@@ -24,9 +24,11 @@ namespace ChapeauUI
         private uint nrOfGuests = 1;
         private int emp_id;
         private int table_id;
-        public OccupyTable(int emp_id, int table_id)
+        private Tableview_UI ParentPage;
+        public OccupyTable(Tableview_UI ParentPage,int emp_id, int table_id)
         {
             InitializeComponent();
+            this.ParentPage = ParentPage;
             this.emp_id = emp_id;
             this.table_id = table_id;
             RefreshLabel();
@@ -51,6 +53,7 @@ namespace ChapeauUI
             Table_Service logic = new Table_Service();
             logic.InsertOrder(emp_id, table_id, nrOfGuests);
             logic.SetTableStatus(ChapeauModel.TableStatus.Busy, table_id);
+            ParentPage.CloseSidePanel();
         }
         private void RefreshLabel()
         {
