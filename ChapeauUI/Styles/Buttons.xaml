@@ -145,4 +145,17 @@
     <Style TargetType="{x:Type Button}" x:Key="PaymentFinalize" BasedOn="{StaticResource Confirm}">
     </Style>
 
+    
+    <!--Processingview Ready-->
+    <Style TargetType="{x:Type Button}" x:Key="Ready" BasedOn="{StaticResource Orderview}">
+        <Setter Property="Background" Value="{StaticResource RegularGreenBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
+    <!--Processingview Close-->
+    <Style TargetType="{x:Type Button}" x:Key="CloseOrder" BasedOn="{StaticResource Orderview}">
+        <Setter Property="Background" Value="{StaticResource RedBrush}"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
 </ResourceDictionary>

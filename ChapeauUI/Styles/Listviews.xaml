@@ -13,4 +13,18 @@
         <Setter Property="FontSize" Value="13"/>
     </Style>
 
+    <!--Processing listview-->
+    <Style TargetType="{x:Type ListView}" x:Key="ProcessingListview" BasedOn="{StaticResource BaseListview}">
+        <Setter Property="FontSize" Value="23"/>
+    </Style>
+
+    <!--HeaderContainerStyle-->
+    <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="GridViewHeaderStyle">
+        <Setter Property="Background" Value="{StaticResource DarkBlueBrush}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
 </ResourceDictionary>
