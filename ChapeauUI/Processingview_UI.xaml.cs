@@ -28,10 +28,7 @@ namespace ChapeauUI
 		public ProcessingView_UI(PreparationLocation preparationLocation)
 		{
 			InitializeComponent();
-
-			ShowRunningOrders();
-			UpdateStatusOverview();
-
+			
 			// start the clock timer (it ticks once a second)
 			DispatcherTimer timer = new DispatcherTimer();
 			timer.Interval = TimeSpan.FromSeconds(15);
@@ -46,6 +43,9 @@ namespace ChapeauUI
 
 			// this is determined by the logged in user, it never changes
 			this.preparationLocation = preparationLocation;
+
+			ShowRunningOrders();
+			UpdateStatusOverview();
 		}
 
 		#region event handlers
@@ -91,7 +91,7 @@ namespace ChapeauUI
 
 		private void MarkAsReadyClicked(object sender, RoutedEventArgs e)
 		{
-			service.MarkOrderAsReady(openOrder.Id);
+			service.MarkOrderAsReady(openOrder);
 
 			// since the order is now no longer running, we should hide the
 			// side panel and reload the list to remove it (we're still on the

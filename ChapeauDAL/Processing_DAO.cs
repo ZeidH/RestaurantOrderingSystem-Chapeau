@@ -222,24 +222,33 @@ namespace ChapeauDAL
 			// then we can cast from Int16 to the enum which is int
 			orderItem.Status = (OrderStatus)statusValue;
 
+			orderItem.Amount = (int)row["item_amount"];
+
 			orderItem.Comment = (string)row["item_comment"];
 			orderItem.Time = (DateTime)row["order_time"];
 
 			return orderItem;
 		}
 
-		public void Db_mark_order_ready(int orderId)
+		public void Db_mark_order_ready(int orderId, int itemId)
 		{
 			string query = @"
-				UPDATE [ORDER_LIST] SET order_status = @orderstatus WHERE order_id = @orderid AND order_status = 0 -- processing
+				UPDATE [ORDER_LIST] SET order_status = @orderstatus
+				WHERE order_id = @orderid
+				AND order_status = 0 -- processing
+				AND item_id = @itemid
 			";
 
-			SqlParameter[] sqlParameters = new SqlParameter[2];
+			SqlParameter[] sqlParameters = new SqlParameter[3];
 			sqlParameters[0] = new SqlParameter("@orderid", SqlDbType.Int)
 			{
 				Value = orderId
 			};
-			sqlParameters[1] = new SqlParameter("@orderstatus", SqlDbType.SmallInt)
+			sqlParameters[1] = new SqlParameter("@itemid", SqlDbType.Int)
+			{
+				Value = itemId
+			};
+			sqlParameters[2] = new SqlParameter("@orderstatus", SqlDbType.SmallInt)
 			{
 				Value = (Int16)OrderStatus.Ready
 			};

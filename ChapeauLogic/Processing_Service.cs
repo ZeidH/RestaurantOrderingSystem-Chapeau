@@ -35,9 +35,12 @@ namespace ChapeauLogic
 			return result;
 		}
 
-		public void MarkOrderAsReady(int orderId)
+		public void MarkOrderAsReady(Order order)
 		{
-			processingDao.Db_mark_order_ready(orderId);
+			foreach(OrderItem item in order.Items)
+			{
+				processingDao.Db_mark_order_ready(order.Id, item.Item.Item_id);
+			}
 		}
 
 		public RestaurantStatus GetRestaurantStatus(PreparationLocation location)
