@@ -82,8 +82,8 @@
                     </ListView.View>
                 </ListView>
 
-                <Button Grid.Column="0" Grid.Row="3" Style="{StaticResource Ready}">Ready</Button>
-                <Button Grid.Column="1" Grid.Row="3" Click="CloseSidePanel" Style="{StaticResource CloseOrder}">Close</Button>
+                <Button Grid.Column="0" Grid.Row="3" Click="MarkItemsAsReady" Style="{StaticResource Ready}" Name="readyButton">Ready</Button>
+                <Button Grid.Column="1" Grid.Row="3" Click="CloseButtonClicked" Style="{StaticResource CloseOrder}">Close</Button>
             </Grid>
         </Grid>
     </Grid>

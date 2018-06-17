@@ -185,10 +185,10 @@ namespace ChapeauDAL
 			return orderItem;
 		}
 
-		public void Db_mark_order_ready(int orderId, int itemId)
+		public void Db_mark_order_ready(int orderId)
 		{
 			string query = @"
-				UPDATE [ORDER_LIST] SET order_status = @orderstatus WHERE order_id = @orderid AND item_id = @itemid
+				UPDATE [ORDER_LIST] SET order_status = @orderstatus WHERE order_id = @orderid AND order_status = 0 -- processing
 			";
 
 			SqlParameter[] sqlParameters = new SqlParameter[2];
@@ -196,9 +196,9 @@ namespace ChapeauDAL
 			{
 				Value = orderId
 			};
-			sqlParameters[1] = new SqlParameter("@itemid", SqlDbType.Int)
+			sqlParameters[1] = new SqlParameter("@orderstatus", SqlDbType.SmallInt)
 			{
-				Value = itemId
+				Value = (Int16)OrderStatus.Ready
 			};
 
 			ExecuteEditQuery(query, sqlParameters);
