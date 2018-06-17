@@ -68,7 +68,7 @@
                 </Style>
             </StackPanel.Resources>
         </StackPanel>
-        <DataGrid x:Name="dataGridOrder" HorizontalAlignment="Left" Height="240" Margin="10,46,0,0" VerticalAlignment="Top" Width="304" AutoGenerateColumns="False" VerticalGridLinesBrush="#FFC8C8C8" CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGridOrder_SelectionChanged" CanUserResizeColumns="False" CanUserReorderColumns="False" GridLinesVisibility="Horizontal" AreRowDetailsFrozen="True" HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalGridLinesBrush="#FF969696" VerticalScrollBarVisibility="Hidden">
+        <DataGrid x:Name="dataGridOrder" HorizontalAlignment="Left" Height="240" Margin="10,46,0,0" VerticalAlignment="Top" Width="304" AutoGenerateColumns="False"  CanUserResizeRows="False" IsReadOnly="True" SelectionChanged="DataGridOrder_SelectionChanged" CanUserResizeColumns="False" CanUserReorderColumns="False" GridLinesVisibility="Horizontal" AreRowDetailsFrozen="True" HorizontalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalGridLinesBrush="#FF969696" VerticalGridLinesBrush="#FF969696" VerticalScrollBarVisibility="Hidden">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                     <Style.Triggers>
