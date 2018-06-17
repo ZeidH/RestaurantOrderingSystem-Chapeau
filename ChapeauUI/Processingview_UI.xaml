@@ -14,75 +14,76 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid VerticalAlignment="Top" Name="menuGrid" Grid.Row="0">
+        <Grid VerticalAlignment="Top" Name="menuGrid" Grid.Row="0" Height="45">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <ToggleButton Grid.Column="0" Content="Running" Click="ShowRunningOrders" Name="showRunningOrdersButton"/>
-            <ToggleButton Grid.Column="1"  Content="Ready" Click="ShowReadyOrders" Name="showReadyOrdersButton"/>
+            <ToggleButton Grid.Column="0" Margin="10,10,5,0" Content="Running" Click="RunningTabButtonClicked" Name="showRunningOrdersButton"/>
+            <ToggleButton Grid.Column="1" Margin="5,10,5,0" Content="Ready" Click="ReadyTabButtonClicked" Name="showReadyOrdersButton"/>
+            <Button Grid.Column="2" Margin="5,10,10,0" Content="X" Click="LogoutButtonClicked"/>
 
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="3" Background="{StaticResource ListBackgroundLightBrush}" Margin="0,10,10,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" HorizontalAlignment="Center" Name="tableStatusLabel" TextAlignment="Center"/>
-                <TextBlock Grid.Column="1" HorizontalAlignment="Center" Name="orderStatusLabel" TextAlignment="Center"/>
-                <TextBlock Grid.Column="2" HorizontalAlignment="Center" Name="timeLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Name="tableStatusLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="orderStatusLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Name="timeLabel" TextAlignment="Center"/>
             </Grid>
         </Grid>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
                 <ColumnDefinition Width="0" Name="sidePanelGridColumn"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-    
-                <ListView Grid.Column="0" Name="orderListView" PreviewMouseLeftButtonUp="SelectOrderFromList" SelectionMode="Single" Style="{StaticResource ProcessingListview}">
+
+            <ListView Grid.Column="0" Margin="10,10,10,10" Name="orderListView" PreviewMouseLeftButtonUp="SelectOrderFromList" SelectionMode="Single" Style="{StaticResource ProcessingListview}">
                 <ListView.View>
                     <GridView AllowsColumnReorder="False" ColumnHeaderContainerStyle="{StaticResource GridViewHeaderStyle}" >
-                        <GridViewColumn Header="Order" DisplayMemberBinding="{Binding Path=Id}" />
-                        <GridViewColumn Header="Table" DisplayMemberBinding="{Binding Path=TableId}"/>
-                        <GridViewColumn Header="Time" DisplayMemberBinding="{Binding Path=LastOrderTime, StringFormat='hh:mm'}" />
-                        <GridViewColumn Header="Staff" DisplayMemberBinding="{Binding Path=EmployeeName}"/>
-                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Path=LastOrderStatus}"/>
+                        <GridViewColumn Width="45" Header="Order" DisplayMemberBinding="{Binding Path=Id}" />
+                        <GridViewColumn Width="45" Header="Table" DisplayMemberBinding="{Binding Path=TableId}"/>
+                        <GridViewColumn Width="Auto" Header="Time" DisplayMemberBinding="{Binding Path=LastOrderTime, StringFormat='hh:mm'}" />
+                        <GridViewColumn Width="Auto" Header="Staff" DisplayMemberBinding="{Binding Path=EmployeeName}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Margin="0,10,10,10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Name="orderIdLabel" TextAlignment="Center"/>
-                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Name="tableNrLabel" TextAlignment="Center"/>
-                <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" Name="orderTimeLabel" TextAlignment="Center"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Name="employeeNameLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="0" Grid.Row="1" Height="20" HorizontalAlignment="Center" Name="orderIdLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="1" Height="20" HorizontalAlignment="Center" Name="tableNrLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" Height="20" HorizontalAlignment="Center" Name="orderTimeLabel" TextAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="2" Height="20" HorizontalAlignment="Center" Name="employeeNameLabel" TextAlignment="Center"/>
 
-                <ListView Grid.Column="0" Grid.Row="2" Name="orderItemsListView" Grid.ColumnSpan="2">
+                <ListView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="orderItemsListView" Style="{StaticResource SelectedOrderListview}">
                     <ListView.View>
-                        <GridView AllowsColumnReorder="False">
-                            <GridViewColumn Header="Item" DisplayMemberBinding="{Binding Path=Item.Name}"/>
-                            <GridViewColumn Header="Amount" DisplayMemberBinding="{Binding Path=Amount}"/>
-                            <GridViewColumn Header="Comment" DisplayMemberBinding="{Binding Path=Comment}"/>
+                        <GridView AllowsColumnReorder="False" ColumnHeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
+                            <GridViewColumn Width="Auto" Header="Item" DisplayMemberBinding="{Binding Path=Item.Name}"/>
+                            <GridViewColumn Width="50" Header="#" DisplayMemberBinding="{Binding Path=Amount}"/>
+                            <GridViewColumn Width="Auto" Header="Comment" DisplayMemberBinding="{Binding Path=Comment}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
 
-                <Button Grid.Column="0" Grid.Row="3" Click="MarkItemsAsReady" Style="{StaticResource Ready}" Name="readyButton">Ready</Button>
+                <Button Grid.Column="0" Grid.Row="3" Click="MarkAsReadyClicked" Style="{StaticResource Ready}" Name="readyButton">Ready</Button>
                 <Button Grid.Column="1" Grid.Row="3" Click="CloseButtonClicked" Style="{StaticResource CloseOrder}">Close</Button>
             </Grid>
         </Grid>

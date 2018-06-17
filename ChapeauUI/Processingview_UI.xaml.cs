@@ -29,61 +29,40 @@ namespace ChapeauUI
 		{
 			InitializeComponent();
 
-			// don't use the arguments so just pass null for them
-			ShowRunningOrders(null, null);
-
+			ShowRunningOrders();
 			UpdateStatusOverview();
 
 			// start the clock timer (it ticks once a second)
 			DispatcherTimer timer = new DispatcherTimer();
-			timer.Interval = TimeSpan.FromSeconds(1);
+			timer.Interval = TimeSpan.FromSeconds(5);
 
-			// call the UpdateClock method every time the timer ticks
-			timer.Tick += UpdateClock;
+			// call the ClockTick method every time the timer ticks
+			timer.Tick += ClockTick;
 
 			// call it right away otherwise it won't show for a second
-			// don't use the arguments so just pass null for them
-			UpdateClock(null, null);
+			UpdateClock();
 
 			timer.Start();
+
 			this.preparationLocation = preparationLocation;
 		}
 
 		#region event handlers
 
-		private void UpdateClock(object sender, EventArgs args)
+		private void ClockTick(object sender, EventArgs args)
 		{
-			// get date+time in current timezone
-			DateTime time = DateTime.Now;
-			timeLabel.Text = time.ToString("dd-MM-yy\nhh:mm");
-		}
-
-		private void ShowReadyOrders(object sender, RoutedEventArgs e)
-		{
-			showRunningOrdersButton.IsChecked = false;
-			showReadyOrdersButton.IsChecked = true;
-
-			readyButton.IsEnabled = false;
-
-			HideSidePanel();
-
-			orderStatus = OrderStatus.Ready;
-
+			UpdateClock();
 			LoadOrders();
 		}
 
-		private void ShowRunningOrders(object sender, RoutedEventArgs e)
+		private void ReadyTabButtonClicked(object sender, RoutedEventArgs e)
 		{
-			showRunningOrdersButton.IsChecked = true;
-			showReadyOrdersButton.IsChecked = false;
+			ShowReadyOrders();
+		}
 
-			readyButton.IsEnabled = true;
-
-			HideSidePanel();
-
-			orderStatus = OrderStatus.Processing;
-
-			LoadOrders();
+		private void RunningTabButtonClicked(object sender, RoutedEventArgs e)
+		{
+			ShowRunningOrders();
 		}
 
 		private void SelectOrderFromList(object sender, MouseButtonEventArgs e)
@@ -101,16 +80,56 @@ namespace ChapeauUI
 			HideSidePanel();
 		}
 
-		private void MarkItemsAsReady(object sender, RoutedEventArgs e)
+		private void MarkAsReadyClicked(object sender, RoutedEventArgs e)
 		{
 			service.MarkOrderAsReady(openOrder.Id);
 			HideSidePanel();
 			LoadOrders();
 		}
 
+		private void LogoutButtonClicked(object sender, RoutedEventArgs e)
+		{
+
+		}
+
 		#endregion
 
 		#region state changes
+
+		private void ShowReadyOrders()
+		{
+			showRunningOrdersButton.IsChecked = false;
+			showReadyOrdersButton.IsChecked = true;
+
+			readyButton.IsEnabled = false;
+
+			HideSidePanel();
+
+			orderStatus = OrderStatus.Ready;
+
+			LoadOrders();
+		}
+
+		private void ShowRunningOrders()
+		{
+			showRunningOrdersButton.IsChecked = true;
+			showReadyOrdersButton.IsChecked = false;
+
+			readyButton.IsEnabled = true;
+
+			HideSidePanel();
+
+			orderStatus = OrderStatus.Processing;
+
+			LoadOrders();
+		}
+
+		private void UpdateClock()
+		{
+			// get date+time in current timezone
+			DateTime time = DateTime.Now;
+			timeLabel.Text = time.ToString("dd-MM-yy\nhh:mm");
+		}
 
 		private void ShowSidePanel(int orderId, OrderStatus status)
 		{
@@ -120,7 +139,7 @@ namespace ChapeauUI
 				preparationLocation
 			);
 
-			sidePanelGridColumn.Width = new GridLength(4.0, GridUnitType.Star);
+			sidePanelGridColumn.Width = new GridLength(6.0, GridUnitType.Star);
 
 			orderIdLabel.Text = "#" + orderWithDetails.Id;
 			tableNrLabel.Text = "Table: " + orderWithDetails.TableId;
@@ -136,6 +155,7 @@ namespace ChapeauUI
 		{
 			sidePanelGridColumn.Width = new GridLength(0);
 			openOrder = null;
+			orderListView.UnselectAll();
 		}
 
 		private void UpdateStatusOverview()

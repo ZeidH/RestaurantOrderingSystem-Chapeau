@@ -15,7 +15,12 @@
 
     <!--Processing listview-->
     <Style TargetType="{x:Type ListView}" x:Key="ProcessingListview" BasedOn="{StaticResource BaseListview}">
-        <Setter Property="FontSize" Value="23"/>
+        <Setter Property="FontSize" Value="21" />
+    </Style>
+
+    <!--SelectedOrder listview-->
+    <Style TargetType="{x:Type ListView}" x:Key="SelectedOrderListview" BasedOn="{StaticResource BaseListview}">
+        <Setter Property="FontSize" Value="19"/>
     </Style>
 
     <!--HeaderContainerStyle-->
