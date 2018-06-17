@@ -89,7 +89,7 @@ namespace ChapeauUI
 
 		private void LogoutButtonClicked(object sender, RoutedEventArgs e)
 		{
-
+			NavigationService.Navigate(new Login_UI());
 		}
 
 		#endregion
@@ -141,7 +141,7 @@ namespace ChapeauUI
 
 			sidePanelGridColumn.Width = new GridLength(6.0, GridUnitType.Star);
 
-			orderIdLabel.Text = "#" + orderWithDetails.Id;
+			orderIdLabel.Text = "Order: " + orderWithDetails.Id;
 			tableNrLabel.Text = "Table: " + orderWithDetails.TableId;
 			orderTimeLabel.Text = orderWithDetails.LastOrderTime.ToString("hh:mm");
 			employeeNameLabel.Text = orderWithDetails.EmployeeName;

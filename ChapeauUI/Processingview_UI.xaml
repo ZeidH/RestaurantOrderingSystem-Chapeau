@@ -22,9 +22,23 @@
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <ToggleButton Grid.Column="0" Margin="10,10,5,0" Content="Running" Click="RunningTabButtonClicked" Name="showRunningOrdersButton"/>
-            <ToggleButton Grid.Column="1" Margin="5,10,5,0" Content="Ready" Click="ReadyTabButtonClicked" Name="showReadyOrdersButton"/>
-            <Button Grid.Column="2" Margin="5,10,10,0" Content="X" Click="LogoutButtonClicked"/>
+            <ToggleButton
+                Grid.Column="0"
+                Margin="10,10,5,0"
+                Content="Running"
+                Click="RunningTabButtonClicked"
+                Name="showRunningOrdersButton"
+                Style="{StaticResource ProcessingTabButton}"
+            />
+            <ToggleButton
+                Grid.Column="1"
+                Margin="5,10,5,0"
+                Content="Ready"
+                Click="ReadyTabButtonClicked"
+                Name="showReadyOrdersButton"
+                Style="{StaticResource ProcessingTabButton}"
+            />
+            <Button Grid.Column="2" Margin="5,10,10,0" Content="X" Click="LogoutButtonClicked" Style="{StaticResource CloseButton}"/>
 
             <Grid Grid.Column="3" Background="{StaticResource ListBackgroundLightBrush}" Margin="0,10,10,0">
                 <Grid.ColumnDefinitions>
@@ -42,7 +56,7 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*"></ColumnDefinition>
-                <ColumnDefinition Width="0" Name="sidePanelGridColumn"></ColumnDefinition>
+                <ColumnDefinition Width="6*" Name="sidePanelGridColumn"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
             <ListView Grid.Column="0" Margin="10,10,10,10" Name="orderListView" PreviewMouseLeftButtonUp="SelectOrderFromList" SelectionMode="Single" Style="{StaticResource ProcessingListview}">
@@ -57,21 +71,30 @@
             </ListView>
 
             <Grid Grid.Column="1" Margin="0,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                </Grid.RowDefinitions>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
 
-                <TextBlock Grid.Column="0" Grid.Row="1" Height="20" HorizontalAlignment="Center" Name="orderIdLabel" TextAlignment="Center"/>
-                <TextBlock Grid.Column="1" Grid.Row="1" Height="20" HorizontalAlignment="Center" Name="tableNrLabel" TextAlignment="Center"/>
-                <TextBlock Grid.Column="0" Grid.Row="2" Height="20" HorizontalAlignment="Center" Name="orderTimeLabel" TextAlignment="Center"/>
-                <TextBlock Grid.Column="1" Grid.Row="2" Height="20" HorizontalAlignment="Center" Name="employeeNameLabel" TextAlignment="Center"/>
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,10,0,10"  Background="{StaticResource ListBackgroundLightBrush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" Name="orderIdLabel" TextAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" Name="tableNrLabel" TextAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="1" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" Name="orderTimeLabel" TextAlignment="Center"/>
+                    <TextBlock Grid.Column="3" Grid.Row="1" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" Name="employeeNameLabel" TextAlignment="Center"/>
+                </Grid>
 
                 <ListView Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="orderItemsListView" Style="{StaticResource SelectedOrderListview}">
                     <ListView.View>
@@ -83,8 +106,8 @@
                     </ListView.View>
                 </ListView>
 
-                <Button Grid.Column="0" Grid.Row="3" Click="MarkAsReadyClicked" Style="{StaticResource Ready}" Name="readyButton">Ready</Button>
-                <Button Grid.Column="1" Grid.Row="3" Click="CloseButtonClicked" Style="{StaticResource CloseOrder}">Close</Button>
+                <Button Grid.Column="0" Grid.Row="2" Margin="0,0,5,0" Click="MarkAsReadyClicked" Style="{StaticResource Ready}" Name="readyButton">Ready</Button>
+                <Button Grid.Column="1" Grid.Row="2" Margin="5,0,0,0" Click="CloseButtonClicked" Style="{StaticResource CloseButton}">Close</Button>
             </Grid>
         </Grid>
     </Grid>
