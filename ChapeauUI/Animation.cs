@@ -39,14 +39,14 @@ namespace ChapeauUI
             sb.Children.Add(fadeAnimation);
             sb.Begin(page);
         }
-        internal static void AnimateSlide(WrapPanel panel, double left, double right )
+        internal static void AnimateSlide(WrapPanel panel, double left, double right, double to )
         {
             var sb = new Storyboard();
             var SlideAnimation = new ThicknessAnimation
             {
                 Duration = new Duration(TimeSpan.FromSeconds(1)),
                 From = new Thickness(-left, 0, right, 0),
-                To = new Thickness(0),
+                To = new Thickness(to),
                 DecelerationRatio = 0.9f
             };
             Storyboard.SetTargetProperty(SlideAnimation, new PropertyPath("Margin"));

@@ -13,6 +13,6 @@
         <Button x:Name="btn_NewOrder" Content="New Order" Style="{StaticResource PaymentFinalize}" HorizontalAlignment="Left" Margin="29,310,0,0" VerticalAlignment="Top" Width="127" Height="37" Click="Btn_NewOrder_Click"/>
         <Label x:Name="lbl_table" Foreground="Black" Style="{StaticResource HeaderText}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top" Width="167" Height="37"/>
         <Rectangle Panel.ZIndex="-200" Fill="{StaticResource LightGrayBrush}" Opacity="0.9"  HorizontalAlignment="Center" Height="434" Margin="1,2,-0.4,-2" Stroke="Black" VerticalAlignment="Top" Width="335"/>
-
+        <Button x:Name="btn_logout" Style="{StaticResource ResourceKey=Close}" BorderBrush="DarkGray" FontFamily="Marlett" FontSize="20" Content="3" HorizontalAlignment="Left" Margin="292,6,0,0" VerticalAlignment="Top" Width="30" Height="27" Click="Btn_logout_Click"/>
     </Grid>
 </UserControl>

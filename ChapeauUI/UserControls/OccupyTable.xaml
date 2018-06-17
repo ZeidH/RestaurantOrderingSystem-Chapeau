@@ -5,9 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ChapeauUI"
              mc:Ignorable="d" 
-             d:DesignHeight="434" d:DesignWidth="698"
-             Width="698" Height="434">
+             d:DesignHeight="183" d:DesignWidth="326"
+             Width="326" Height="183">
     <Grid>
-            
+        <Border Style="{StaticResource RoundCornerBtn}" Background="White" Margin="0,0,0.4,0.2" Opacity="0.9"/>
+        <Button x:Name="btn_Occupy" Style="{StaticResource Confirm}" Content="Occupy Table" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Margin="93,118,0,0" Height="46" Click="Btn_Occupy_Click"/>
+        <Button x:Name="btn_Decrement" Content="-" Style="{StaticResource Split}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Margin="27,41,0,0" Height="55" Click="Btn_Decrement_Click"/>
+        <Button x:Name="btn_Increment" Content="+" Style="{StaticResource Split}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" Margin="238,41,0,0" Height="55" Click="Btn_Increment_Click" />
+        <Label x:Name="lbl_nrOfGuests" HorizontalAlignment="Left" Style="{StaticResource HeaderText}" HorizontalContentAlignment="Center" Foreground="Black" VerticalAlignment="Top" Margin="117,41,0,0" Height="55" Width="91"/>
+
     </Grid>
 </UserControl>

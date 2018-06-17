@@ -25,12 +25,12 @@ namespace ChapeauUI
     /// </summary>
     public partial class TableSidePanel : UserControl
     {
-        Page ParentPage;
+        Tableview_UI ParentPage;
         private int tableID;
         private int order_id;
         private int guestCount;
         private Employee employee;
-        public TableSidePanel(Page ParentPage, int tableID, int order_id, int guestCount, Employee employee)
+        public TableSidePanel(Tableview_UI ParentPage, int tableID, int order_id, int guestCount, Employee employee)
         {
             InitializeComponent();
             this.order_id = order_id;
@@ -41,6 +41,15 @@ namespace ChapeauUI
             lbl_table.Content = $"Table {tableID}";
             order_list.Children.Add(new OrderList(order_id));
         }
+        public TableSidePanel(Tableview_UI ParentPage, int tableID, Employee employee)
+        {
+            InitializeComponent();
+            this.ParentPage = ParentPage;
+            btn_NewOrder.Visibility = Visibility.Collapsed;
+            btn_Payment.Visibility = Visibility.Collapsed;
+            lbl_table.Content = $"Table {tableID}";
+            order_list.Children.Add(new OccupyTable(employee.ID, tableID));
+        }
 
         private void Btn_NewOrder_Click(object sender, RoutedEventArgs e)
         {
@@ -49,6 +58,11 @@ namespace ChapeauUI
         private void Btn_Payment_Click(object sender, RoutedEventArgs e)
         {
             ParentPage.NavigationService.Navigate(new Payment_UI(order_id, guestCount, employee));
+        }
+
+        private void Btn_logout_Click(object sender, RoutedEventArgs e)
+        {
+            ParentPage.CloseSidePanel();
         }
     }
 }

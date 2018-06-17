@@ -12,6 +12,20 @@ namespace ChapeauDAL
 {
     public class Table_DAO : Base
     {
+        public void Db_Update_Table_Status(TableStatus status, int tableID)
+        {
+            string query = "UPDATE [TABLE] SET table_status = @status WHERE table_id = @table_id";
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@status", SqlDbType.Int)
+            {
+                Value = status
+            };
+            sqlParameters[1] = new SqlParameter("@table_id", SqlDbType.Int)
+            {
+                Value = tableID
+            };
+            ExecuteEditQuery(query, sqlParameters);
+        }
         public ObservableCollection<Tafel> Db_Get_All_Tables()
         {
             string query = "SELECT table_id, table_status FROM [TABLE]";
@@ -25,7 +39,7 @@ namespace ChapeauDAL
             {
                 if (table.Status != TableStatus.Free)
                 {
-                    string query = "SELECT o.order_id, o.nr_of_guests, concat(e.emp_firstName,' ', e.emp_lastName) as fullname FROM [ORDER] AS o JOIN EMPLOYEE AS e ON o.emp_id = e.emp_id WHERE o.table_id = @tableid";
+                    string query = "SELECT o.order_id, o.nr_of_guests, concat(e.emp_firstName,' ', e.emp_lastName) as fullname FROM [ORDER] AS o JOIN EMPLOYEE AS e ON o.emp_id = e.emp_id WHERE o.table_id = 5  AND o.order_id NOT in (SELECT order_id from PAYMENT) ";
                     SqlParameter[] sqlParameters = new SqlParameter[1];
                     sqlParameters[0] = new SqlParameter("@tableid", SqlDbType.Int)
                     {

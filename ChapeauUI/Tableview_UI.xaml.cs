@@ -45,11 +45,17 @@ namespace ChapeauUI
         {
             table_sidePanel.Children.Clear();
             table_sidePanel.Children.Add(new TableSidePanel(this, table_id, order_id, nrOfGuests, employee));
-            Animation.AnimateSlide(table_sidePanel, 500, 200);
+            Animation.AnimateSlide(table_sidePanel, 500, 200, 0);
         }
         internal void GenerateCreatePanel(int tableID)
         {
-
+            table_sidePanel.Children.Clear();
+            table_sidePanel.Children.Add(new TableSidePanel(this, tableID, employee));
+            Animation.AnimateSlide(table_sidePanel, 500, 200, 0);
+        }
+        public void CloseSidePanel()
+        {
+            Animation.AnimateSlide(table_sidePanel, 500, 200, -500);
         }
     }
 }
