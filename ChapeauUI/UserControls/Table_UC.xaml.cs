@@ -43,13 +43,23 @@ namespace ChapeauUI
 
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
-            ObservableCollection<Tafel> previousTables = tables;
-            GetTableInfo();
-            var firstNotSecond = previousTables.Except(tables).ToList();
-            var secondNotFirst = tables.Except(previousTables).ToList();
-            if (!firstNotSecond.Any() && !secondNotFirst.Any())
+            List<TableStatus> previousTables = new List<TableStatus>();
+            List<TableStatus> newTables = new List<TableStatus>();
+            foreach (Tafel table in tables)
             {
-                InsertTableInfo();
+                previousTables.Add(table.Status);
+            }
+            GetTableInfo();
+            foreach (Tafel table in tables)
+            {
+                newTables.Add(table.Status);
+            }
+            for (int i = 0; i < previousTables.Count; i++)
+            {
+                if (previousTables[i] != newTables[i])
+                {
+                    InsertTableInfo();
+                }
             }
         }
 
