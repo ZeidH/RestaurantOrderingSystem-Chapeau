@@ -28,7 +28,7 @@ namespace ChapeauUI
         private List<OrderItem> order = new List<OrderItem>();
         private List<Item> menu = new List<Item>();
 
-        //Save the given order id and get the menu from the database
+        //Save the given order id and employee, get the menu from the database
         public Orderview_UI(int orderId, int customerCount, int tableNr, Employee employee)
         {
             InitializeComponent();
@@ -49,6 +49,7 @@ namespace ChapeauUI
             Animation.AnimateIn(this, 1);
         }
 
+        //Assign values to the labels
         private void AssignCategoryAmounts(int customerCount, int tableNr)
         {
             lblTableNr.Content = $"table {tableNr}";
@@ -63,6 +64,7 @@ namespace ChapeauUI
         #region MenuButtons
         private void BtnLunch_Click(object sender, RoutedEventArgs e)
         {
+            //Warn user if lunch is clicked outside of lunchtime (11h-15h)
             if (!itemLogic.CheckLunchTime())
             {
                 HandleException(new Exception("It is not lunch time!"));
@@ -101,17 +103,6 @@ namespace ChapeauUI
             SizeStackPanelChildren();
         }
 
-        //Size the buttons inside the stackpanel
-        private void SizeStackPanelChildren()
-        {
-            double buttonWidth = stackPanelSubCategory.Width / stackPanelSubCategory.Children.Count;
-            foreach (Button button in stackPanelSubCategory.Children)
-            {
-                button.Click += new RoutedEventHandler(ButtonSubCategory_Click);
-                button.Width = buttonWidth - 3;
-            }
-        }
-
         //Create buttons, add them to stackpanel and assign .Click event handler
         private void CreateSubCategoryButtons(string subCategory)
         {
@@ -127,6 +118,17 @@ namespace ChapeauUI
             stackPanelSubCategory.Children.Add(button);
             DoubleAnimation animation = new DoubleAnimation(1, TimeSpan.FromMilliseconds(600));
             button.BeginAnimation(Button.OpacityProperty, animation);
+        }
+
+        //Size the sub menu buttons inside the stackpanel
+        private void SizeStackPanelChildren()
+        {
+            double buttonWidth = stackPanelSubCategory.Width / stackPanelSubCategory.Children.Count;
+            foreach (Button button in stackPanelSubCategory.Children)
+            {
+                button.Click += new RoutedEventHandler(ButtonSubCategory_Click);
+                button.Width = buttonWidth - 3;
+            }
         }
 
         private void ClearStackPanelChildren()
@@ -149,6 +151,7 @@ namespace ChapeauUI
             }
         }
 
+        //Get the menu according to the clicked sub menu button
         public void ButtonSubCategory_Click(object sender, RoutedEventArgs e)
         {
             UndoSubButtonClickedColours();
@@ -176,9 +179,10 @@ namespace ChapeauUI
                 selectedMenuItem = (Item)listviewMenu.SelectedItem;
                 try
                 {
+                    //If a meattype can be chosen for selected item, show the buttons from user control
                     if (itemLogic.CheckDinnerItem(selectedMenuItem))
                     {
-                        lblComments.Margin = new Thickness(left: 34.2, top: 333, right: 0, bottom: 0);
+                        lblComments.Margin = new Thickness(34.2, 333, 0, 0);
                         meatComments = new Orderview_MeatComments();
                         wrappanelMeatComment.Children.Add(meatComments);
                     }
@@ -254,20 +258,27 @@ namespace ChapeauUI
 
         private bool VerifySelectedItemStock(Item selectedMenuItem)
         {
-            if (!itemLogic.VerifyStock(selectedMenuItem))
+            try
             {
-                HandleException(new Exception("This item is out of stock!"));
-                try
+                if (!itemLogic.VerifyStock(selectedMenuItem))
                 {
-                    menu = itemLogic.RefreshStock(menu);
+                    HandleException(new Exception("This item is out of stock!"));
+                    try
+                    {
+                        menu = itemLogic.RefreshStock(menu);
+                    }
+                    catch (Exception)
+                    {
+                        HandleException(new Exception("The application could not refresh the stock"));
+                    }
+                    listviewMenu.Items.Refresh();
+                    btnAddOrderItem.IsEnabled = false;
+                    return false;
                 }
-                catch (Exception)
-                {
-                    HandleException(new Exception("The application could not refresh the stock"));
-                }
-                listviewMenu.Items.Refresh();
-                btnAddOrderItem.IsEnabled = false;
-                return false;
+            }
+            catch (Exception)
+            {
+                HandleException(new Exception("The application could not verify the stock"));
             }
             return true;
         }
@@ -275,16 +286,13 @@ namespace ChapeauUI
         private void ClearMeatCommentPanel()
         {
             wrappanelMeatComment.Children.Clear();
-            lblComments.Margin = new Thickness(left: 34.2, top: 364, right: 0, bottom: 0);
+            lblComments.Margin = new Thickness(34.2, 364, 0, 0);
         }
 
-        //Get the total price including VAT from the payment logic layer
+        //Get the total price including VAT
         private void UpdateOrder(OrderItem orderItem)
         {
-            Payment_Service paymentLogic = new Payment_Service();
-            Payment payment = new Payment();
-            paymentLogic.GetTotalPrice(order, payment);
-            lblTotalPrice.Content = payment.TotalPrice.ToString("€ 0.00");
+            lblTotalPrice.Content = itemLogic.GetTotalCost(order).ToString("€ 0.00");
             txtComments.Text = "";
             btnCompleteOrder.IsEnabled = true;
             listviewMenu.UnselectAll();
@@ -310,10 +318,12 @@ namespace ChapeauUI
         {
             if (dataGridOrder.SelectedItem != null)
             {
+                //Set the selectedOrderItem and check if the in/decrease buttons should be enabled
                 selectedOrderItem = (OrderItem)dataGridOrder.SelectedItems[0];
                 CheckIncreaseDecreaseButton(selectedOrderItem);
                 btnRemoveItem.IsEnabled = true;
             }
+            //If nothing is selected, disable buttons
             else
             {
                 DisableButtons();
@@ -321,7 +331,6 @@ namespace ChapeauUI
         }
 
         #region IncreaseDecreaseButtons
-        //Increase the amount of the selected item, recalculate total price, refresh datagrid and check which buttons should be enabled
         private void BtnIncreaseItem_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -330,18 +339,20 @@ namespace ChapeauUI
                 {
                     return;
                 }
+                //Increase the amount of the selected item
                 itemLogic.IncreaseAmount(selectedOrderItem);
             }
             catch (Exception)
             {
                 HandleException(new Exception("The application could not increase the items amount"));
             }
+            // recalculate total price and refresh datagrid
             lblTotalPrice.Content = itemLogic.GetTotalCost(order).ToString("€ 0.00");
             dataGridOrder.Items.Refresh();
 
+            //Check which buttons should be enabled
             CheckIncreaseDecreaseButton(selectedOrderItem);
             IncreaseCategoryAmount(selectedOrderItem.Item.Category);
-
             UpdateRefreshStock(selectedOrderItem);
             listviewMenu.Items.Refresh();
         }
@@ -356,6 +367,7 @@ namespace ChapeauUI
             {
                 HandleException(new Exception("The application could not decrease the items amount"));
             }
+            //Get total costs, refresh datagrid,stock and listview and check enabled/disabled buttons
             lblTotalPrice.Content = itemLogic.GetTotalCost(order).ToString("€ 0.00");
             dataGridOrder.Items.Refresh();
             CheckIncreaseDecreaseButton(selectedOrderItem);
@@ -380,7 +392,6 @@ namespace ChapeauUI
             lblTotalPrice.Content = itemLogic.GetTotalCost(order).ToString("€ 0.00");
             btnCompleteOrder.IsEnabled = itemLogic.CheckOrderCount(order);
             RemoveCategoryAmount(selectedOrderItem);
-
             UpdateRefreshStock(selectedOrderItem);
             listviewMenu.Items.Refresh();
         }
@@ -391,15 +402,17 @@ namespace ChapeauUI
             try
             {
                 itemLogic.CompleteOrder(order);
+                itemLogic.SetTableStatus(TableStatus.Running, itemLogic.GetTableIDFromOrderID(orderId));
             }
             catch (Exception)
             {
                 HandleException(new Exception("The application could not complete the order"));
                 return;
             }
-            itemLogic.SetTableStatus(TableStatus.Running, itemLogic.GetTableIDFromOrderID(orderId));
+            //If order is completed, navigate to the redirect screen
             NavigationService.Navigate(new Redirect("Order send!", employee));
         }
+
         private void BtnReturn_Click(object sender, RoutedEventArgs e)
         {
             itemLogic.DeleteOrderList(order);
