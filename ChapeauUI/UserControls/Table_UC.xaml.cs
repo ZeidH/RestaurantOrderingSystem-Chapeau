@@ -26,7 +26,8 @@ namespace ChapeauUI
     public partial class Table_UC : UserControl
     {
         public ObservableCollection<Tafel> tables = new ObservableCollection<Tafel>();
-        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        private Table_Service table_Logic = new Table_Service();
         private Tableview_UI table_main;
         public Table_UC(Tableview_UI table_main)
         {
@@ -63,7 +64,6 @@ namespace ChapeauUI
 
         private void GetTableInfo()
         {
-            Table_Service table_Logic = new Table_Service();
             tables = table_Logic.FillTables();
         }
 

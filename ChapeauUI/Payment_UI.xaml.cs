@@ -52,7 +52,7 @@ namespace ChapeauUI
             vat_price.Content = $"Vat Price: {payment.ReadVat.ToString("0.00 €")}";
             btn_Payment_Finish.IsEnabled = false;
 
-            if (payment.CustomerCount < 2 && payment.CustomerCount > 4)
+            if (payment.CustomerCount < 2 || payment.CustomerCount > 4)
             {
                 btn_Split.IsEnabled = false;
             }
@@ -147,6 +147,7 @@ namespace ChapeauUI
 
             RefreshTip();
             btn_Split.Visibility = Visibility.Hidden;
+            split_Box.Visibility = Visibility.Visible;
             btn_Undo_Split.Visibility = Visibility.Visible;
             btn_even_split.Visibility = Visibility.Visible;
         }
@@ -161,7 +162,7 @@ namespace ChapeauUI
             receipt_panel.Children.Clear();
             RefreshTip();
             btn_Payment_Finish.Content = "Finalize";
-
+            split_Box.Visibility = Visibility.Collapsed;
             btn_Undo_Split.Visibility = Visibility.Hidden;
             btn_even_split.Visibility = Visibility.Hidden;
             btn_Split.Visibility = Visibility.Visible;

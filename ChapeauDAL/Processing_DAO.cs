@@ -63,7 +63,47 @@ namespace ChapeauDAL
 			return ReadNumberResult(table);
 		}
 
-		private int ReadNumberResult(DataTable resultSet)
+        //Table Readier stuff
+        public void Db_check_table_ready(int tableId)
+        {
+            string query = "UPDATE [TABLE] SET table_status = @tableStatus WHERE table_id = @tableId";
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@tableStatus", SqlDbType.SmallInt)
+            {
+                Value = TableStatus.Ready
+            };
+            sqlParameters[1] = new SqlParameter("@tableId", SqlDbType.Int)
+            {
+                Value = tableId
+            };
+            ExecuteEditQuery(query, sqlParameters);
+        }
+        public bool Db_is_table_ready(int order_id)
+        {
+            string query = "SELECT order_status FROM [ORDER_LIST] WHERE order_id = @order_id";
+
+            SqlParameter prepLocParameter = new SqlParameter("@order_id", SqlDbType.SmallInt)
+            {
+                Value = order_id
+            };
+
+            return CheckStatus(ExecuteSelectQuery(query, prepLocParameter));
+        }
+
+
+        private bool CheckStatus(DataTable dataTable)
+        {
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                if ((OrderStatus)Int16.Parse(dr["order_status"].ToString()) != OrderStatus.Ready)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        //End Table Readier stuff
+        private int ReadNumberResult(DataTable resultSet)
 		{
 			// there is only one row
 			DataRow row = resultSet.Rows[0];

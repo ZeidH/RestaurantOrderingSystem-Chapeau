@@ -41,9 +41,19 @@ namespace ChapeauLogic
 			{
 				processingDao.Db_mark_order_ready(order.Id, item.Item.Item_id);
 			}
+            CheckTableReady(order);
 		}
 
-		public RestaurantStatus GetRestaurantStatus(PreparationLocation location)
+        private void CheckTableReady(Order order)
+        {
+            if (processingDao.Db_is_table_ready(order.Id))
+            {
+                processingDao.Db_check_table_ready(order.TableId);
+            }
+
+        }
+
+        public RestaurantStatus GetRestaurantStatus(PreparationLocation location)
 		{
 			RestaurantStatus status = new RestaurantStatus();
 

@@ -121,7 +121,7 @@
                     </ListView.View>
                 </ListView>
 
-                <Button Grid.Column="0" Grid.Row="2" Margin="0,0,5,0" Click="MarkAsReadyClicked" Style="{StaticResource Ready}" Name="readyButton">Ready</Button>
+                <Button Grid.Column="0" Grid.Row="2" Margin="0,0.2,5,-0.2" Click="MarkAsReadyClicked" Style="{StaticResource Ready}" Name="readyButton" Height="40" VerticalAlignment="Top">Ready</Button>
                 <Button Grid.Column="1" Grid.Row="2" Margin="5,0,0,0" Click="CloseButtonClicked" Style="{StaticResource CloseButton}">Close</Button>
             </Grid>
         </Grid>
