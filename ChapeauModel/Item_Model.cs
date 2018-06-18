@@ -20,8 +20,7 @@ namespace ChapeauModel
             }
             set
             {
-                value = value * Payment.CONVERTION;
-                ReadCost = (int)value;
+                ReadCost = (int)(value * Payment.CONVERTION);
             }
         }
         public int ReadCost { get; private set; }

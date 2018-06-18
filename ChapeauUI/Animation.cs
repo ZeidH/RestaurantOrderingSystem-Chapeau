@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 
 namespace ChapeauUI
 {
-    public static class Animation
+    class Animation
     {
         // For Pages
         internal static void AnimateIn(Page page, int duration)

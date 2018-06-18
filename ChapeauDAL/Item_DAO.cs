@@ -208,7 +208,6 @@ namespace ChapeauDAL
 
         public bool DbSelectMeatType(int item_id)
         {
-            Print print = new Print();
             string query = "SELECT has_meat_type FROM dinner where dinner_id = @itemid";
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@itemid", SqlDbType.Int)

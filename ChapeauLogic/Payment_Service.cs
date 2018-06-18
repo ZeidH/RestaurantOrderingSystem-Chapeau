@@ -72,7 +72,7 @@ namespace ChapeauLogic
                 try
                 {
                     payment_DAO.Db_set_order_comment(payment);
-                    payment_DAO.Db_set_item_status(payment.Order_id, OrderStatus.Served)
+                    payment_DAO.Db_set_item_status(payment.Order_id, OrderStatus.Served);
                 }
                 catch (Exception)
                 {

@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 
 namespace ChapeauLogic
 {
-    public class Item_Service : Table_Service
+    public class Item_Service
     {
         private Item_DAO itemDAO = new Item_DAO();
         public List<Item> GetMenu()

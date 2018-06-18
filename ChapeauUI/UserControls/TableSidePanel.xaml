@@ -7,7 +7,7 @@
              mc:Ignorable="d" d:DesignWidth="335"
              Width="335" Height="434">
 
-    <Grid Margin="0,0,-0.4,-0.4">
+    <Grid Margin="0,0,-0.4,-0.4" >
         <WrapPanel x:Name="inner_panel" HorizontalAlignment="Center" Height="183" Margin="7,62,0,0" VerticalAlignment="Top" Width="335"/>
         <Button x:Name="btn_Payment" Content="Payment" Style="{StaticResource Split}" FontSize="19" HorizontalAlignment="Left" Margin="184,333,0,0" VerticalAlignment="Top" Width="127" Height="37" Click="Btn_Payment_Click"/>
         <Button x:Name="btn_NewOrder" Content="New Order" Style="{StaticResource PaymentFinalize}" HorizontalAlignment="Left" Margin="29,332,0,0" VerticalAlignment="Top" Width="127" Height="37" Click="Btn_NewOrder_Click"/>

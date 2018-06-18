@@ -410,7 +410,8 @@ namespace ChapeauUI
             }
             try
             {
-                itemLogic.SetTableStatus(TableStatus.Running, itemLogic.GetTableIDFromOrderID(orderId));
+                Table_Service tableLogic = new Table_Service();
+                tableLogic.SetTableStatus(TableStatus.Running, tableLogic.GetTableIDFromOrderID(orderId));
             }
             catch (Exception exp)
             {

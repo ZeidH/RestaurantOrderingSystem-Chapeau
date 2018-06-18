@@ -79,8 +79,7 @@ namespace ChapeauDAL
         protected DataTable ExecuteSelectQuery(String query, params SqlParameter[] sqlParameters)
         {
             SqlCommand command = new SqlCommand();
-            DataTable dataTable = new DataTable();
-            dataTable = null;
+            DataTable dataTable;
             DataSet dataSet = new DataSet();
 
             try

@@ -234,10 +234,7 @@ namespace ChapeauUI
             {
                 if (i < payment.GuestPrice.Count)
                 {
-                    Label lbl_price = new Label() { Content = ((float)payment.GuestPrice[i] / Payment.CONVERTION).ToString("0.00"), HorizontalContentAlignment = HorizontalAlignment.Right, Style = guest.Style, Margin = guest.Margin, Height = guest.Height, Width = guest.Width };
-
-                    guest.Content = $"Guest {i + 1} Price:  € ";
-                    
+                    guest.Content = $"Guest {i + 1} Price:  € {((float)payment.GuestPrice[i] / Payment.CONVERTION).ToString("0.00")}";
                     i++;
                 }
             }
