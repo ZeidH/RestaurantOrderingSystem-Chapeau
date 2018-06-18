@@ -72,7 +72,7 @@
                     <GridView AllowsColumnReorder="False" ColumnHeaderContainerStyle="{StaticResource GridViewHeaderStyle}">
                         <GridViewColumn Width="45" Header="Order" DisplayMemberBinding="{Binding Path=Id}" />
                         <GridViewColumn Width="45" Header="Table" DisplayMemberBinding="{Binding Path=TableId}"/>
-                        <GridViewColumn Width="Auto" Header="Time" DisplayMemberBinding="{Binding Path=LastOrderTime, StringFormat='hh:mm'}" />
+                        <GridViewColumn Width="Auto" Header="Time" DisplayMemberBinding="{Binding Path=LastOrderTime, StringFormat='HH:mm'}" />
                         <GridViewColumn Width="Auto" Header="Staff" DisplayMemberBinding="{Binding Path=EmployeeName}"/>
                     </GridView>
                 </ListView.View>

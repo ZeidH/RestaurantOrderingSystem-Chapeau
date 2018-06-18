@@ -24,27 +24,24 @@ namespace ChapeauUI
 
 		// if we have order side panel open, which order?
 		private Order openOrder;
-        private DispatcherTimer timer;
-        public ProcessingView_UI(PreparationLocation preparationLocation)
+
+		private DispatcherTimer timer;
+
+		public ProcessingView_UI(PreparationLocation preparationLocation)
 		{
 			InitializeComponent();
-            Animation.AnimateIn(this, 1);
+			Animation.AnimateIn(this, 1);
 
-            // start the clock timer (it ticks once a second)
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(15);
-
-			// call the ClockTick method every time the timer ticks
+			// start the clock timer (it ticks once a second)
+			timer = new DispatcherTimer();
+			timer.Interval = TimeSpan.FromSeconds(15);
 			timer.Tick += ClockTick;
-
-			// call it right away otherwise it won't show for a second
-			UpdateClock();
-
 			timer.Start();
 
 			// this is determined by the logged in user, it never changes
 			this.preparationLocation = preparationLocation;
 
+			UpdateClock();
 			ShowRunningOrders();
 			UpdateStatusOverview();
 		}
@@ -77,11 +74,11 @@ namespace ChapeauUI
 			// find the selected order from the list
 			Order selectedOrder = (Order)orderListView.SelectedValue;
 
-			// it could be that the user clicked outside the items, so we don't
-			// have a selected order. In that case we do nothing.
+			// it could be that the user clicked outside the items, then there is no
+			// selected order. In that case - do nothing.
 			if (selectedOrder != null)
 			{
-				ShowSidePanel(selectedOrder.Id, selectedOrder.LastOrderStatus);
+				ShowSidePanel(selectedOrder.Id);
 			}
 		}
 
@@ -92,10 +89,10 @@ namespace ChapeauUI
 
 		private void MarkAsReadyClicked(object sender, RoutedEventArgs e)
 		{
-			service.MarkOrderAsReady(openOrder);
+			service.MarkOrderAndTableAsReady(openOrder);
 
-			// since the order is now no longer running, we should hide the
-			// side panel and reload the list to remove it (we're still on the
+			// since the order is now no longer running, hide the
+			// side panel and reload the list to remove it (user is still on the
 			// running tab)
 			HideSidePanel();
 			LoadOrders();
@@ -104,13 +101,35 @@ namespace ChapeauUI
 
 		private void LogoutButtonClicked(object sender, RoutedEventArgs e)
 		{
-            timer.Stop();
-            NavigationService.Navigate(new Login_UI());
+			timer.Stop();
+			NavigationService.Navigate(new Login_UI());
 		}
 
 		#endregion
 
 		#region state changes
+		
+		private void ShowRunningOrders()
+		{
+			// make sure the tab checked state is correct (when clicking
+			// the same button twice, by default it gets unchecked, but
+			// that's not correct in this case)
+			showRunningOrdersButton.IsChecked = true;
+			showReadyOrdersButton.IsChecked = false;
+
+			// the ready button is available when looking at running orders
+			readyButton.IsEnabled = true;
+
+			// if the side panel was open we should close it
+			HideSidePanel();
+
+			// set the order status for what we're looking at (so the refresh
+			// knows what to load)
+			orderStatus = OrderStatus.Processing;
+
+			// load the order list again
+			LoadOrders();
+		}
 
 		private void ShowReadyOrders()
 		{
@@ -132,41 +151,31 @@ namespace ChapeauUI
 			LoadOrders();
 		}
 
-		private void ShowRunningOrders()
-		{
-			// make sure the tab checked state is correct
-			showRunningOrdersButton.IsChecked = true;
-			showReadyOrdersButton.IsChecked = false;
-
-			// the ready button is available when looking at running orders
-			readyButton.IsEnabled = true;
-
-			// if the side panel was open we should close it
-			HideSidePanel();
-
-			// set the order status for what we're looking at (so the refresh
-			// knows what to load)
-			orderStatus = OrderStatus.Processing;
-
-			// load the order list again
-			LoadOrders();
-		}
-
 		private void UpdateClock()
 		{
 			// get date+time in current timezone
 			DateTime time = DateTime.Now;
-			timeLabel.Text = time.ToString("dd-MM-yy\nhh:mm");
+			timeLabel.Text = time.ToString("dd-MM-yy\nHH:mm");
 		}
 
-		private void ShowSidePanel(int orderId, OrderStatus status)
+		private void ShowSidePanel(int orderId)
 		{
+			Order orderWithDetails;
+
 			// fetch the order details from the database
-			Order orderWithDetails = service.GetOrderDetails(
-				orderId,
-				status,
-				preparationLocation
-			);
+			try
+			{
+				orderWithDetails = service.GetOrderDetails(
+				   orderId,
+				   orderStatus,
+				   preparationLocation
+			   );
+			}
+			catch (ApplicationException ex)
+			{
+				ShowErrorMessage(ex);
+				return;
+			}
 
 			// unhide the panel by setting its width to 60%
 			sidePanelGridColumn.Width = new GridLength(6.0, GridUnitType.Star);
@@ -174,7 +183,7 @@ namespace ChapeauUI
 			// set order status label values
 			orderIdLabel.Text = "Order: " + orderWithDetails.Id;
 			tableNrLabel.Text = "Table: " + orderWithDetails.TableId;
-			orderTimeLabel.Text = orderWithDetails.LastOrderTime.ToString("hh:mm");
+			orderTimeLabel.Text = orderWithDetails.LastOrderTime.ToString("HH:mm");
 			employeeNameLabel.Text = orderWithDetails.EmployeeName;
 
 			// set data source for the table
@@ -186,17 +195,29 @@ namespace ChapeauUI
 
 		private void HideSidePanel()
 		{
-			// we hide the side panel by setting its width to 0
+			// hide the side panel by setting its width to 0
 			sidePanelGridColumn.Width = new GridLength(0);
+
 			// since the panel is closed there is no open order anymore
 			openOrder = null;
+
 			// all list items must be unselected
 			orderListView.UnselectAll();
 		}
 
 		private void UpdateStatusOverview()
 		{
-			RestaurantStatus status = service.GetRestaurantStatus(preparationLocation);
+			RestaurantStatus status;
+
+			try
+			{
+				status = service.GetRestaurantStatus(preparationLocation);
+			}
+			catch (ApplicationException ex)
+			{
+				ShowErrorMessage(ex);
+				return;
+			}
 
 			tableStatusLabel.Text = "Tables: " + status.RunningTables + "/" + status.TotalTables;
 			orderStatusLabel.Text = "Orders: " + status.RunningOrders + "/" + status.TotalOrders;
@@ -204,36 +225,66 @@ namespace ChapeauUI
 
 		private void LoadOrders()
 		{
-			List<Order> orders = service.GetOrders(orderStatus, preparationLocation);
-			int selectedOrderId = -1;
+			List<Order> orders;
+
+			try
+			{
+				orders = service.GetOrders(orderStatus, preparationLocation);
+			}
+			catch (ApplicationException ex)
+			{
+				ShowErrorMessage(ex);
+				return;
+			}
 
 			// since we will change the items, the selection will be lost, so
 			// we remember the item that was selected and find it again after
 			// adding the new ones
-			if (orderListView.SelectedValue != null)
-			{
-				selectedOrderId = ((Order)orderListView.SelectedValue).Id;
-			}
+
+			int selectedOrderId = GetSelectedOrderId();
 
 			// bind items in the list view to the orders from the database
 			orderListView.ItemsSource = orders;
 
+			ReselectOrder(orders, selectedOrderId);
+		}
+
+		private int GetSelectedOrderId()
+		{
+			int selectedOrderId = -1;
+
+			if (orderListView.SelectedValue != null)
+			{
+				Order selectedOrder = (Order)orderListView.SelectedValue;
+				selectedOrderId = selectedOrder.Id;
+			}
+
+			return selectedOrderId;
+		}
+
+		private void ReselectOrder(List<Order> orders, int selectedOrderId)
+		{
 			// see if we can find an order that has the same id as the one
 			// that was selected before
 			foreach (Order order in orders)
 			{
 				if (order.Id == selectedOrderId)
 				{
-					// we found an order with the same id as the one that was
+					// found an order with the same id as the one that was
 					// selected before, so we select it again
 					orderListView.SelectedValue = order;
 
-					// there should only be one so we just break
+					// there should only be one so break
 					break;
 				}
 			}
 		}
 
 		#endregion
+
+		private void ShowErrorMessage(Exception error)
+		{
+			MessageBox.Show(error.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+		}
 	}
 }

@@ -28,8 +28,8 @@ namespace ChapeauDAL
 		{
 			string query = @"
 				SELECT COUNT(DISTINCT order_id) as number
-				FROM[ORDER_LIST]
-				JOIN[ITEM] ON[ORDER_LIST].item_id = [ITEM].item_id
+				FROM [ORDER_LIST]
+				JOIN [ITEM] ON[ORDER_LIST].item_id = [ITEM].item_id
 				WHERE item_prep_location = @preploc
 			";
 
@@ -47,8 +47,8 @@ namespace ChapeauDAL
 		{
 			string query = @"
 				SELECT COUNT(DISTINCT order_id) as number
-				FROM[ORDER_LIST]
-				JOIN[ITEM] ON[ORDER_LIST].item_id = [ITEM].item_id
+				FROM [ORDER_LIST]
+				JOIN [ITEM] ON [ORDER_LIST].item_id = [ITEM].item_id
 				WHERE item_prep_location = @preploc
 					AND order_status = 0
 			";
