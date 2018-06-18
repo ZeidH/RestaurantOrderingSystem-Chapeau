@@ -417,7 +417,7 @@ namespace ChapeauUI
                 HandleException(exp);
             }
             //If order is completed, navigate to the redirect screen
-            NavigationService.Navigate(new Redirect("Order send!", employee));
+            NavigationService.Navigate(new Redirect("Order sent!", employee));
         }
 
         private void BtnReturn_Click(object sender, RoutedEventArgs e)

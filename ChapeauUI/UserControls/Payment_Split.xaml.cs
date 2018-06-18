@@ -234,7 +234,7 @@ namespace ChapeauUI
             {
                 if (i < payment.GuestPrice.Count)
                 {
-                    guest.Content = $"Guest {i + 1} Price:  {((float)payment.GuestPrice[i]/10000).ToString("0.00 €")}";
+                    guest.Content = $"Guest {i + 1} Price:  {((float)payment.GuestPrice[i]/Payment.CONVERTION).ToString("0.00 €")}";
                     i++;
                 }
             }

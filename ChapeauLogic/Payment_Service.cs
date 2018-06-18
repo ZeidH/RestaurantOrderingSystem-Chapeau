@@ -74,7 +74,6 @@ namespace ChapeauLogic
                 {
                     throw new Exception("Chapeau can't connect to the internet!");
                 }
-
                 return true;
             }
         }

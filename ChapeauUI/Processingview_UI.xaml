@@ -38,7 +38,7 @@
                 Name="showReadyOrdersButton"
                 Style="{StaticResource ProcessingTabButton}"
             />
-            <Button Grid.Column="2" Margin="5,10,10,0" Content="X" Click="LogoutButtonClicked" Style="{StaticResource CloseButton}"/>
+            <Button Grid.Column="2" Margin="0,10,9.6,0" Content="X" Click="LogoutButtonClicked" Style="{StaticResource CloseButton}" HorizontalAlignment="Right" Width="35" Height="35" VerticalAlignment="Top"/>
 
             <Grid Grid.Column="3" Background="{StaticResource ListBackgroundLightBrush}" Margin="0,10,10,0">
                 <Grid.ColumnDefinitions>

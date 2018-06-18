@@ -25,6 +25,7 @@ namespace ChapeauUI
     /// </summary>
     public partial class Login_UI : Page
     {
+        private bool buttonIsClicked = false;
         public Login_UI()
         {
             InitializeComponent();
@@ -34,6 +35,11 @@ namespace ChapeauUI
 
         private void Btn_Login_Click(object sender, RoutedEventArgs e)
         {
+            if (!buttonIsClicked)
+                Login();
+        }
+        private void Login()
+        {
             Employee employee = CheckUserInput();
             if (employee.Occupation == null)
             {
@@ -41,6 +47,7 @@ namespace ChapeauUI
             }
             else
             {
+                buttonIsClicked = true;
                 DirectUser(employee);
             }
         }
@@ -67,6 +74,7 @@ namespace ChapeauUI
             timer.Start();
             timer.Tick += (sender, args) =>
             {
+                buttonIsClicked = false;
                 timer.Stop();
                 switch (employee.Occupation)
                 {
@@ -91,7 +99,7 @@ namespace ChapeauUI
         {
             var image = new BitmapImage();
             image.BeginInit();
-            image.UriSource = new Uri("Images/LockAnimation.gif", UriKind.Relative);
+            image.UriSource = new Uri("Images/LockAnimationV2.gif", UriKind.Relative);
             image.EndInit();
             ImageBehavior.SetAnimatedSource(lock_img, image);
             
@@ -101,17 +109,9 @@ namespace ChapeauUI
 
         private void LoginPage_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter && !buttonIsClicked)
             {
-                Employee employee = CheckUserInput();
-                if (employee.Occupation == null)
-                {
-                    return;
-                }
-                else
-                {
-                    DirectUser(employee);
-                }
+                Login();
             }
         }
     }

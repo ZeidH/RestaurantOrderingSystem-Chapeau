@@ -8,6 +8,7 @@ namespace ChapeauModel
 {
     public class Payment
     {
+        public static readonly int CONVERTION = 10000;
         public int Order_id { get; set; }
         public int SetPrice { get; set; }
         public int Vat { get; set; }
@@ -25,9 +26,9 @@ namespace ChapeauModel
             get
             {
                 if (SplitPayment == true)
-                    return (float)GuestPrice[NextCustomer] / 10000;
+                    return (float)GuestPrice[NextCustomer] / CONVERTION;
                 else
-                    return ((float)SetPrice / 10000);
+                    return ((float)SetPrice / CONVERTION);
             }
             set
             {
@@ -38,14 +39,14 @@ namespace ChapeauModel
         {
             get
             {
-                return (float)Vat / 10000;
+                return (float)Vat / CONVERTION;
             }
         }
         public float TotalPrice
         {
             get
             {
-                return (float)(SetPrice + Vat) / 10000;
+                return (float)(SetPrice + Vat) / CONVERTION;
             }
         }
         public int SplittedPrice

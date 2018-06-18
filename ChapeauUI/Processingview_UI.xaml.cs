@@ -24,15 +24,15 @@ namespace ChapeauUI
 
 		// if we have order side panel open, which order?
 		private Order openOrder;
-
-		public ProcessingView_UI(PreparationLocation preparationLocation)
+        private DispatcherTimer timer;
+        public ProcessingView_UI(PreparationLocation preparationLocation)
 		{
 			InitializeComponent();
             Animation.AnimateIn(this, 1);
 
             // start the clock timer (it ticks once a second)
-            DispatcherTimer timer = new DispatcherTimer();
-			timer.Interval = TimeSpan.FromSeconds(15);
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(15);
 
 			// call the ClockTick method every time the timer ticks
 			timer.Tick += ClockTick;
@@ -104,8 +104,8 @@ namespace ChapeauUI
 
 		private void LogoutButtonClicked(object sender, RoutedEventArgs e)
 		{
-            
-			NavigationService.Navigate(new Login_UI());
+            timer.Stop();
+            NavigationService.Navigate(new Login_UI());
 		}
 
 		#endregion

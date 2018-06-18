@@ -41,7 +41,6 @@ namespace ChapeauUI
             }
             catch (Exception e)
             {
-
                 Style style = Application.Current.FindResource("PaymentLabel") as Style;
                 Label warningLabel = new Label()
                 {
@@ -54,6 +53,10 @@ namespace ChapeauUI
             if (table.Status != TableStatus.Ready)
             {
                 btn_Served.Visibility = Visibility.Collapsed;
+            }
+            if (table.Status == TableStatus.Running)
+            {
+                btn_Payment.IsEnabled = false;
             }
         }
         public TableSidePanel(Tableview_UI ParentPage, int tableID, Employee employee)
