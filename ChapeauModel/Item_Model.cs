@@ -9,7 +9,6 @@ namespace ChapeauModel
 {
     public class Item
     {
-        //protected readonly int CONVERTION = 10000;
         public int Order_id { get; set; }
         public string Name { get; set; }
 
@@ -17,11 +16,11 @@ namespace ChapeauModel
         {
             get
             {
-                return (float)ReadCost / 10000;
+                return (float)ReadCost / Payment.CONVERTION;
             }
             set
             {
-                value = value * 10000;
+                value = value * Payment.CONVERTION;
                 ReadCost = (int)value;
             }
         }

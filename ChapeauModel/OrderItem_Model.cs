@@ -27,7 +27,7 @@ namespace ChapeauModel
         {
             get
             {
-                return (float)TotalPrice / 10000;
+                return (float)TotalPrice / Payment.CONVERTION;
             }
         }
         public int VatPrice

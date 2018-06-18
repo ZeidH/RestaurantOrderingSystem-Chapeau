@@ -63,7 +63,7 @@ namespace ChapeauUI
         {
             // Get information from textbox
             payment.Comment = comment_Box.Text;
-
+            btn_Return.IsEnabled = false;
             SplitButtonCheck();
 
             // Send information to db, if there are no payments left then go to tableview

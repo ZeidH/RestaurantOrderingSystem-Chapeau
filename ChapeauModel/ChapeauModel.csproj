@@ -56,7 +56,6 @@
     <Compile Include="Enumerations\PayMethodEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestaurantStatus.cs" />
-    <Compile Include="Singleton.cs" />
     <Compile Include="Enumerations\TableStatusEnum.cs" />
     <Compile Include="Enumerations\VatEnum.cs" />
     <Compile Include="Table.cs" />
