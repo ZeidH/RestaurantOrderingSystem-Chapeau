@@ -28,8 +28,8 @@ namespace ChapeauDAL
 		{
 			string query = @"
 				SELECT COUNT(DISTINCT order_id) as number
-				FROM[ORDER_LIST]
-				JOIN[ITEM] ON[ORDER_LIST].item_id = [ITEM].item_id
+				FROM [ORDER_LIST]
+				JOIN [ITEM] ON[ORDER_LIST].item_id = [ITEM].item_id
 				WHERE item_prep_location = @preploc
 			";
 
@@ -47,8 +47,8 @@ namespace ChapeauDAL
 		{
 			string query = @"
 				SELECT COUNT(DISTINCT order_id) as number
-				FROM[ORDER_LIST]
-				JOIN[ITEM] ON[ORDER_LIST].item_id = [ITEM].item_id
+				FROM [ORDER_LIST]
+				JOIN [ITEM] ON [ORDER_LIST].item_id = [ITEM].item_id
 				WHERE item_prep_location = @preploc
 					AND order_status = 0
 			";
@@ -63,46 +63,6 @@ namespace ChapeauDAL
 			return ReadNumberResult(table);
 		}
 
-        //Table Readier stuff Can me simplifided, insert tablestatus <
-        public void Db_check_table_ready(int tableId)
-        {
-            string query = "UPDATE [TABLE] SET table_status = @tableStatus WHERE table_id = @tableId";
-            SqlParameter[] sqlParameters = new SqlParameter[2];
-            sqlParameters[0] = new SqlParameter("@tableStatus", SqlDbType.SmallInt)
-            {
-                Value = TableStatus.Ready
-            };
-            sqlParameters[1] = new SqlParameter("@tableId", SqlDbType.Int)
-            {
-                Value = tableId
-            };
-            ExecuteEditQuery(query, sqlParameters);
-        }
-        public bool Db_is_table_ready(int order_id)
-        {
-            string query = "SELECT order_status FROM [ORDER_LIST] WHERE order_id = @order_id";
-
-            SqlParameter sqlParameter = new SqlParameter("@order_id", SqlDbType.SmallInt)
-            {
-                Value = order_id
-            };
-
-            return CheckStatus(ExecuteSelectQuery(query, sqlParameter));
-        }
-
-
-        private bool CheckStatus(DataTable dataTable)
-        {
-            foreach (DataRow dr in dataTable.Rows)
-            {
-                if ((OrderStatus)Int16.Parse(dr["order_status"].ToString()) != OrderStatus.Ready)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-        //End Table Readier stuff
         private int ReadNumberResult(DataTable resultSet)
 		{
 			// there is only one row
@@ -114,13 +74,54 @@ namespace ChapeauDAL
 			return count;
 		}
 
+		public void Db_check_table_ready(int tableId)
+		{
+			string query = "UPDATE [TABLE] SET table_status = @tableStatus WHERE table_id = @tableId";
+			SqlParameter[] sqlParameters = new SqlParameter[2];
+			sqlParameters[0] = new SqlParameter("@tableStatus", SqlDbType.SmallInt)
+			{
+				Value = TableStatus.Ready
+			};
+			sqlParameters[1] = new SqlParameter("@tableId", SqlDbType.Int)
+			{
+				Value = tableId
+			};
+			ExecuteEditQuery(query, sqlParameters);
+		}
+
+		public bool Db_is_table_ready(int order_id)
+		{
+			string query = "SELECT order_status FROM [ORDER_LIST] WHERE order_id = @order_id";
+
+			SqlParameter orderIdParameter = new SqlParameter("@order_id", SqlDbType.SmallInt)
+			{
+				Value = order_id
+			};
+
+			return CheckStatus(ExecuteSelectQuery(query, orderIdParameter));
+		}
+		
+		private bool CheckStatus(DataTable dataTable)
+		{
+			foreach (DataRow row in dataTable.Rows)
+			{
+				Int16 statusValue = (Int16)row["order_status"];
+
+				if ((OrderStatus)statusValue != OrderStatus.Ready)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+
 		/// <summary>
 		/// Used to get the kitchen/bar ready/processing order list
 		/// </summary>
 		public List<Order> Db_get_orders_by_status_and_location(OrderStatus status, PreparationLocation location)
 		{
 			string query = @"
-				SELECT ([ORDER].order_id) AS order_id, table_id, emp_firstName, order_status as order_status, MAX(order_time) as order_time
+				SELECT ([ORDER].order_id) AS order_id, table_id, emp_firstName, order_status AS order_status, MAX(order_time) AS order_time
 				FROM [ORDER]
 				LEFT JOIN [EMPLOYEE] on [ORDER].emp_id = [EMPLOYEE].emp_id
 				LEFT JOIN [ORDER_LIST] on [ORDER_LIST].order_id = [ORDER].order_id
