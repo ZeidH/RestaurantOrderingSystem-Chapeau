@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ChapeauUI"
         mc:Ignorable="d"
         WindowStyle="None"
+        ResizeMode="NoResize"
         Title="Chapeau" Height="434" Width="698">
     <Window.Background>
         <ImageBrush ImageSource="Images/Background.jpg" Stretch="Fill"/>
