@@ -7,10 +7,10 @@ using System.IO;
 
 namespace ChapeauDAL
 {
-    class ErrorFilePrint
+    class Print
     {
         //Create new file or if it exists, write the exception message, stacktrace, date time
-        public void ErrorLog(Exception e)
+        public static void ErrorLog(Exception e)
         {
             string logPath = @"..\ErrorLog.txt";
 

@@ -48,37 +48,20 @@ namespace ChapeauDAL
                 }
                 tran.Commit();
             }
+            catch (InvalidOperationException e)
+            {
+                Print.ErrorLog(e);
+                throw;
+            }
             catch (SqlException e)
             {
-                try
-                {
-                    tran.Rollback();
-                }
-                catch (Exception)
-                {
-                    ErrorFilePrint print = new ErrorFilePrint();
-                    print.ErrorLog(e);
-                    throw new Exception("The application has send an incomplete order, please contact the manager");
-                }
-                ErrorFilePrint print2 = new ErrorFilePrint();
-                print2.ErrorLog(e);
-                throw new Exception("The application was unable to connect to the database");
+                Print.ErrorLog(e);
+                throw;
             }
             catch (Exception e)
             {
-                try
-                {
-                    tran.Rollback();
-                }
-                catch (Exception)
-                {
-                    ErrorFilePrint print = new ErrorFilePrint();
-                    print.ErrorLog(e);
-                    throw new Exception("The application has send an incomplete order, please contact the manager");
-                }
-                ErrorFilePrint print2 = new ErrorFilePrint();
-                print2.ErrorLog(e);
-                throw new Exception("A problem with the database has occured");
+                Print.ErrorLog(e);
+                throw;
             }
         }
 
@@ -94,30 +77,21 @@ namespace ChapeauDAL
             {
                 return VerifyStock(ExecuteSelectQuery(query, sqlParameters));
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
-                throw new Exception("The application was unable to connect to the database");
+                Print.ErrorLog(e);
+                throw;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new Exception("A problem with the database has occured");
+                Print.ErrorLog(e);
+                throw;
             }
         }
 
         private int VerifyStock(DataTable dataTable)
         {
-            try
-            {
-                return (int)dataTable.Rows[0]["item_stock"];
-            }
-            catch (SqlException)
-            {
-                throw new Exception("The application was unable to connect to the database");
-            }
-            catch (Exception)
-            {
-                throw new Exception("A problem with the database has occured");
-            }
+            return (int)dataTable.Rows[0]["item_stock"];
         }
 
         public List<int> DbRefreshStock()
@@ -128,36 +102,27 @@ namespace ChapeauDAL
             {
                 return RefreshStock(ExecuteSelectQuery(query, sqlParameters));
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
-                throw new Exception("The application was unable to connect to the database");
+                Print.ErrorLog(e);
+                throw;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new Exception("A problem with the database has occured");
+                Print.ErrorLog(e);
+                throw;
             }
         }
 
         private List<int> RefreshStock(DataTable dataTable)
         {
             List<int> stocks = new List<int>();
-            try
+            foreach (DataRow dr in dataTable.Rows)
             {
-                foreach (DataRow dr in dataTable.Rows)
-                {
-                    int stock = (int)dr["item_stock"];
-                    stocks.Add(stock);
-                }
-                return stocks;
+                int stock = (int)dr["item_stock"];
+                stocks.Add(stock);
             }
-            catch (SqlException)
-            {
-                throw new Exception("The application was unable to connect to the database");
-            }
-            catch (Exception)
-            {
-                throw new Exception("A problem with the database has occured");
-            }
+            return stocks;
         }
 
         public void DbUpdateStock(OrderItem orderItem)
@@ -176,13 +141,15 @@ namespace ChapeauDAL
             {
                 ExecuteEditQuery(query, sqlParameters);
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
-                throw new Exception("The application was unable to connect to the database");
+                Print.ErrorLog(e);
+                throw;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new Exception("A problem with the database has occured");
+                Print.ErrorLog(e);
+                throw;
             }
         }
 
@@ -191,62 +158,57 @@ namespace ChapeauDAL
             string query = "SELECT i.item_id, i.item_name, i.item_cost, i.item_stock, d.drink_category, l.lunch_category, di.dinner_category, d.drink_vat " +
                            "FROM((ITEM as i left JOIN drink as d on i.item_id = d.drink_id) left join LUNCH as l on i.item_id = l.lunch_id) left join dinner as di on i.item_id = di.dinner_id";
             SqlParameter[] sqlParameters = new SqlParameter[0];
-           try
+            try
             {
                 return ReadMenu(ExecuteSelectQuery(query, sqlParameters));
             }
-            catch (SqlException)
+            catch (SqlException e)
             {
-                throw new Exception("The application was unable to connect to the database");
+                Print.ErrorLog(e);
+                throw;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new Exception("A problem with the database has occured");
+                Print.ErrorLog(e);
+                throw;
             }
         }
         private List<Item> ReadMenu(DataTable dataTable)
         {
             List<Item> menu = new List<Item>();
-            try
+            foreach (DataRow dr in dataTable.Rows)
             {
-                foreach (DataRow dr in dataTable.Rows)
+                Item item = new Item()
                 {
-                    Item item = new Item()
-                    {
-                        Item_id = (int)dr["item_id"],
-                        Name = dr["item_name"].ToString(),
-                        Cost = (float)(double)dr["item_cost"],
-                        Stock = (int)dr["item_stock"],
-                    };
-                    if (!dr.IsNull("drink_category"))
-                    {
-                        item.Category = MenuCategory.Drink;
-                        item.DrinkSubCategory = (Drink)Int16.Parse(dr["drink_category"].ToString());
-                        item.Vat = (Vat)Int16.Parse(dr["drink_vat"].ToString());
-                    }
-                    if (!dr.IsNull("lunch_category"))
-                    {
-                        item.Category = MenuCategory.Lunch;
-                        item.LunchSubCategory = (Lunch)Int16.Parse(dr["lunch_category"].ToString());
-                    }
-                    if (!dr.IsNull("dinner_category"))
-                    {
-                        item.Category = MenuCategory.Dinner;
-                        item.DinnerSubCategory = (Dinner)Int16.Parse(dr["dinner_category"].ToString());
-                    }
-                    menu.Add(item);
+                    Item_id = (int)dr["item_id"],
+                    Name = dr["item_name"].ToString(),
+                    Cost = (float)(double)dr["item_cost"],
+                    Stock = (int)dr["item_stock"],
+                };
+                if (!dr.IsNull("drink_category"))
+                {
+                    item.Category = MenuCategory.Drink;
+                    item.DrinkSubCategory = (Drink)Int16.Parse(dr["drink_category"].ToString());
+                    item.Vat = (Vat)Int16.Parse(dr["drink_vat"].ToString());
                 }
-                return menu;
+                if (!dr.IsNull("lunch_category"))
+                {
+                    item.Category = MenuCategory.Lunch;
+                    item.LunchSubCategory = (Lunch)Int16.Parse(dr["lunch_category"].ToString());
+                }
+                if (!dr.IsNull("dinner_category"))
+                {
+                    item.Category = MenuCategory.Dinner;
+                    item.DinnerSubCategory = (Dinner)Int16.Parse(dr["dinner_category"].ToString());
+                }
+                menu.Add(item);
             }
-            catch (Exception)
-            {
-                throw new Exception("A problem with the database has occured");
-            }
+            return menu;
         }
 
         public bool DbSelectMeatType(int item_id)
         {
-            ErrorFilePrint print = new ErrorFilePrint();
+            Print print = new Print();
             string query = "SELECT has_meat_type FROM dinner where dinner_id = @itemid";
             SqlParameter[] sqlParameters = new SqlParameter[1];
             sqlParameters[0] = new SqlParameter("@itemid", SqlDbType.Int)
@@ -259,26 +221,19 @@ namespace ChapeauDAL
             }
             catch (SqlException e)
             {
-                print.ErrorLog(e);
-                throw new Exception("The application was unable to connect to the database");
+                Print.ErrorLog(e);
+                throw;
             }
             catch (Exception e)
             {
-                print.ErrorLog(e);
-                throw new Exception("A problem with the database has occured");
+                Print.ErrorLog(e);
+                throw;
             }
         }
 
         private bool ReadMeatType(DataTable dataTable)
         {
-            try
-            {
-                return (bool)dataTable.Rows[0]["has_meat_type"];
-            }
-            catch (Exception)
-            {
-                throw new Exception("A problem with the database has occured");
-            }
+            return (bool)dataTable.Rows[0]["has_meat_type"];
         }
     }
 }

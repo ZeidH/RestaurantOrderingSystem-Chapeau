@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using ChapeauModel;
 using ChapeauDAL;
+using System.Data.SqlClient;
 
 namespace ChapeauLogic
 {
@@ -14,9 +15,13 @@ namespace ChapeauLogic
             {
                 return itemDAO.DbSelectMenu();
             }
+            catch (SqlException)
+            {
+                throw new Exception("The application could not connect to the database to receive the menu");
+            }
             catch (Exception)
             {
-                throw new Exception("The application could not receive the menu");
+                throw new Exception("There was a problem receiving the menu, please try again");
             }
         }
 
@@ -55,9 +60,17 @@ namespace ChapeauLogic
             {
                 itemDAO.DbAddItem(orderItems);
             }
+            catch (InvalidOperationException)
+            {
+                throw new Exception("A problem occured while sending the order to the database");
+            }
+            catch (SqlException)
+            {
+                throw new Exception("A problem occured with the database");
+            }
             catch (Exception)
             {
-                throw new Exception("The application could not complete the order");
+                throw new Exception("A problem has occured while completing the order");
             }
         }
 
@@ -65,7 +78,7 @@ namespace ChapeauLogic
         {
             orderItem.Time = date;
             orderItem.Status = OrderStatus.Processing;
-        } 
+        }
         #endregion
 
         public bool CheckLunchTime()
@@ -85,6 +98,10 @@ namespace ChapeauLogic
                 }
                 return menu;
             }
+            catch (SqlException)
+            {
+                throw new Exception("The application could not connect to the database to refresh the stock");
+            }
             catch (Exception)
             {
                 throw new Exception("The application could not refresh the stock");
@@ -97,6 +114,10 @@ namespace ChapeauLogic
             {
                 return itemDAO.DbVerifyStock(item) > 0;
             }
+            catch (SqlException)
+            {
+                throw new Exception("The application could not connect to the database to verify the stock");
+            }
             catch (Exception)
             {
                 throw new Exception("The application could not verify the stock");
@@ -108,6 +129,10 @@ namespace ChapeauLogic
             try
             {
                 itemDAO.DbUpdateStock(orderItem);
+            }
+            catch (SqlException)
+            {
+                throw new Exception("The application could not connect to the database to update the stock");
             }
             catch (Exception)
             {
@@ -156,7 +181,7 @@ namespace ChapeauLogic
                 orderItem.Item.Stock += orderItem.Amount;
                 UpdateStock(orderItem);
             }
-        } 
+        }
         #endregion
 
         public float GetTotalCost(List<OrderItem> items)
@@ -177,6 +202,10 @@ namespace ChapeauLogic
                 try
                 {
                     return itemDAO.DbSelectMeatType(item.Item_id);
+                }
+                catch (SqlException)
+                {
+                    throw new Exception("The application could not connect to the database to check is the meat can be ordered rare, medium or well-done");
                 }
                 catch (Exception)
                 {

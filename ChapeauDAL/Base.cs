@@ -9,10 +9,8 @@ namespace ChapeauDAL
     {
         private SqlDataAdapter adapter;
         private SqlConnection conn;
-        private ErrorFilePrint print;
         public Base()
         {
-            print = new ErrorFilePrint();
             conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ChapeauDatabase"].ConnectionString);
             adapter = new SqlDataAdapter();
         }
@@ -43,7 +41,7 @@ namespace ChapeauDAL
             }
             catch (Exception e)
             {
-                print.ErrorLog(e);
+                Print.ErrorLog(e);
                 throw;
             }
         }
@@ -63,7 +61,7 @@ namespace ChapeauDAL
             }
             catch (SqlException e)
             {
-                print.ErrorLog(e);
+                Print.ErrorLog(e);
                 throw;
             }
             finally
@@ -96,9 +94,9 @@ namespace ChapeauDAL
             }
             catch (SqlException e)
             {
-                print.ErrorLog(e);
+                Print.ErrorLog(e);
                 return null;
-                throw e;
+                throw;
             }
             finally
             {
