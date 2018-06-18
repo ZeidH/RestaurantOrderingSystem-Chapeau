@@ -50,7 +50,6 @@ namespace ChapeauLogic
             {
                 processingDao.Db_check_table_ready(order.TableId);
             }
-
         }
 
         public RestaurantStatus GetRestaurantStatus(PreparationLocation location)

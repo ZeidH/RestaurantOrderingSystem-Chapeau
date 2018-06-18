@@ -13,7 +13,6 @@ namespace ChapeauLogic
     {
         private Payment_DAO payment_DAO = new Payment_DAO();
 
-        // Main Payment View
         public List<OrderItem> GetReceipt(int order_id)
         {
             List<OrderItem> order;
@@ -25,7 +24,13 @@ namespace ChapeauLogic
             {
                 throw new Exception("Cannot connect to server \nAn error log has been saved in the program folder \n Press 'OK' to retry");
             }
-            //Add amount of the same items from different orders
+
+            //Add amount of the same items from DIFFERENT orders
+            return AddDuplicates(order);
+        }
+
+        private List<OrderItem> AddDuplicates(List<OrderItem> order)
+        {
             List<OrderItem> distinctOrder = order;
             for (int i = 0; i < order.Count; i++)
             {
@@ -42,7 +47,6 @@ namespace ChapeauLogic
         }
         public bool InsertPayment(Payment payment)
         {
-            // Insert payment
             try
             {
                 payment_DAO.Db_set_payment(payment);
@@ -51,7 +55,6 @@ namespace ChapeauLogic
             {
                 throw new Exception("Chapeau can't connect to the internet!");
             }
-
 
             // On first paying customer
             if (payment.NextCustomer == 0)
@@ -65,10 +68,11 @@ namespace ChapeauLogic
             }
             else
             {
-                // If there are no more customers, set the order and finish payment by returning true
+                // If there are no more paying customers left, set the order and finish payment by returning true
                 try
                 {
                     payment_DAO.Db_set_order_comment(payment);
+                    payment_DAO.Db_set_item_status(payment.Order_id, OrderStatus.Served)
                 }
                 catch (Exception)
                 {

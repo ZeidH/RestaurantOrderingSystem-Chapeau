@@ -24,8 +24,8 @@
         <RadioButton x:Name="cash_rBtn" Foreground="White" Content="Cash" HorizontalAlignment="Left" Margin="216,81,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked" Panel.ZIndex="10" Height="15"/>
         <Label Content="Order Comment" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="32,235,0,0" VerticalAlignment="Top" Panel.ZIndex="9999" Height="25"/>
         <Label x:Name="lbl_order" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="0,-1,0,0" VerticalAlignment="Top" Height="31" Width="88"/>
-        <Label x:Name="total_price" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="376,252,0,0" VerticalAlignment="Top" Height="28" Width="109"/>
-        <Label x:Name="vat_price" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="377,233,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.375,-1.667" Height="32" Width="109"/>
+        <Label Content="Total Price   €" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="518,248,0,0" VerticalAlignment="Top" Height="28" Width="99"/>
+        <Label Content="Vat Price      €" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="519,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.375,-1.667" Height="32" Width="98"/>
         <WrapPanel Name="receipt_panel" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="347,280,31,-22" Panel.ZIndex="999"/>
 
         <WrapPanel x:Name="order_list" HorizontalAlignment="Left" Height="180" Margin="341,42,0,0" VerticalAlignment="Top" Width="326"/>
@@ -47,5 +47,7 @@
                 
             BorderBrush="White" Background="{StaticResource MidDarkGrayBrush}" Margin="338,274,18,9" RenderTransformOrigin="0.5,0.5" Panel.ZIndex="-999"/>
         <Label x:Name="lbl_tip" Content="Only when payment method is Cash" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,164,0,0" Width="284" HorizontalContentAlignment="Center" Height="25"/>
+        <Label x:Name="vat_price" Style="{StaticResource PaymentLabel}" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="603,227,0,0" VerticalAlignment="Top" Height="24" Width="41"/>
+        <Label x:Name="total_price" Style="{StaticResource PaymentLabel}" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="603,248,0,0" VerticalAlignment="Top" Height="24" Width="41"/>
     </Grid>
 </Page>

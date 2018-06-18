@@ -29,7 +29,7 @@ namespace ChapeauDAL
             conn.Close();
         }
 
-        //For Insert/Update/Delete Queries with transaction
+        /* For Insert/Update/Delete Queries with transaction */
         protected void ExecuteEditTranQuery(String query, SqlParameter[] sqlParameters, SqlTransaction sqlTransaction)
         {
             SqlCommand command = new SqlCommand(query, conn, sqlTransaction);
@@ -46,7 +46,7 @@ namespace ChapeauDAL
             }
         }
 
-        //For Insert/Update/Delete Queries
+        /* For Insert/Update/Delete Queries */
         protected void ExecuteEditQuery(String query, SqlParameter[] sqlParameters)
         {
             SqlCommand command = new SqlCommand();
@@ -70,12 +70,13 @@ namespace ChapeauDAL
             }
         }
 
-		/* For Select Queries */
-		/// <summary>
-		/// This returns a so called "DataTable", All the data retrieved from db will be stored in this table.
-		/// You will need to read off the information in the datatable and store it in your model. DataTable does NOT leave DAL layer.
-		/// </summary>
-		protected DataTable ExecuteSelectQuery(String query, params SqlParameter[] sqlParameters)
+
+        /// <summary>
+        /// This returns "DataTable", All the data retrieved from db will be stored in this table.
+        /// You will need to read off the information in the datatable and store it in your model. DataTable does NOT leave DAL layer.
+        /// </summary>
+        /* For Select Queries */
+        protected DataTable ExecuteSelectQuery(String query, params SqlParameter[] sqlParameters)
         {
             SqlCommand command = new SqlCommand();
             DataTable dataTable = new DataTable();

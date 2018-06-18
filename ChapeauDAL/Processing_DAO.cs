@@ -63,7 +63,7 @@ namespace ChapeauDAL
 			return ReadNumberResult(table);
 		}
 
-        //Table Readier stuff
+        //Table Readier stuff Can me simplifided, insert tablestatus <
         public void Db_check_table_ready(int tableId)
         {
             string query = "UPDATE [TABLE] SET table_status = @tableStatus WHERE table_id = @tableId";
@@ -82,12 +82,12 @@ namespace ChapeauDAL
         {
             string query = "SELECT order_status FROM [ORDER_LIST] WHERE order_id = @order_id";
 
-            SqlParameter prepLocParameter = new SqlParameter("@order_id", SqlDbType.SmallInt)
+            SqlParameter sqlParameter = new SqlParameter("@order_id", SqlDbType.SmallInt)
             {
                 Value = order_id
             };
 
-            return CheckStatus(ExecuteSelectQuery(query, prepLocParameter));
+            return CheckStatus(ExecuteSelectQuery(query, sqlParameter));
         }
 
 
@@ -295,6 +295,5 @@ namespace ChapeauDAL
 
 			ExecuteEditQuery(query, sqlParameters);
 		}
-
 	}
 }

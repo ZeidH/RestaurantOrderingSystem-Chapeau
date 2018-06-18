@@ -11,6 +11,7 @@ namespace ChapeauUI
 {
     public static class Animation
     {
+        // For Pages
         internal static void AnimateIn(Page page, int duration)
         {
             var sb = new Storyboard();
@@ -25,7 +26,24 @@ namespace ChapeauUI
             sb.Children.Add(fadeAnimation);
             sb.Begin(page);
         }
-        internal static void AnimateOut(Page page)
+        // For Controls
+        internal static void AnimateIn(Control control, int duration)
+        {
+            var sb = new Storyboard();
+            var fadeAnimation = new DoubleAnimation
+            {
+                Duration = new Duration(TimeSpan.FromMilliseconds(duration)),
+                From = 0,
+                To = 1
+            };
+            Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath("Opacity"));
+            Storyboard.SetTargetName(control, "page");
+            sb.Children.Add(fadeAnimation);
+            sb.Begin(control);
+        }
+
+        // Controls only, if needed for pages copy and replace 'Control' with Page
+        internal static void AnimateOut(Control control)
         {
             var sb = new Storyboard();
             var fadeAnimation = new DoubleAnimation
@@ -35,10 +53,12 @@ namespace ChapeauUI
                 To = 0
             };
             Storyboard.SetTargetProperty(fadeAnimation, new PropertyPath("Opacity"));
-            Storyboard.SetTargetName(page, "page");
+            Storyboard.SetTargetName(control, "page");
             sb.Children.Add(fadeAnimation);
-            sb.Begin(page);
+            sb.Begin(control);
         }
+
+        // Panels only
         internal static void AnimateSlide(Panel panel, double left, double right, double to )
         {
             var sb = new Storyboard();

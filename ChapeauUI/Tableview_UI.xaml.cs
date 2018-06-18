@@ -41,18 +41,21 @@ namespace ChapeauUI
         {
             table_sidePanel.Children.Clear();
             table_sidePanel.Children.Add(new TableSidePanel(this, table, employee));
+            Animation.AnimateOut(lbl_tableview);
             Animation.AnimateSlide(table_sidePanel, 500, 200, 0);
         }
         internal void GenerateCreatePanel(int tableID)
         {
             table_sidePanel.Children.Clear();
             table_sidePanel.Children.Add(new TableSidePanel(this, tableID, employee));
+            Animation.AnimateOut(lbl_tableview);
             Animation.AnimateSlide(table_sidePanel, 500, 200, 0);
         }
         public void CloseSidePanel()
         {
             Animation.AnimateSlide(table_sidePanel, 500, 200, -500);
             Table_UC.dispatcherTimer.Stop();
+            Animation.AnimateIn(lbl_tableview, 50);
             GetTables();
         }
 

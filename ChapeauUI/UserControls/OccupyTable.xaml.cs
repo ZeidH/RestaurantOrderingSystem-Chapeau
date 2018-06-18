@@ -31,21 +31,25 @@ namespace ChapeauUI
             this.ParentPage = ParentPage;
             this.emp_id = emp_id;
             this.table_id = table_id;
+            btn_Decrement.IsEnabled = false;
             RefreshLabel();
         }
 
         private void Btn_Decrement_Click(object sender, RoutedEventArgs e)
         {
-            if (nrOfGuests > 1)
-            {
-                nrOfGuests--;
-            }
+            nrOfGuests--;
+            if (nrOfGuests <= 1)
+                btn_Decrement.IsEnabled = false;
+            btn_Increment.IsEnabled = true;
             RefreshLabel();
         }
 
         private void Btn_Increment_Click(object sender, RoutedEventArgs e)
         {
             nrOfGuests++;
+            if (nrOfGuests >= 9)
+                btn_Increment.IsEnabled = false;
+            btn_Decrement.IsEnabled = true;
             RefreshLabel();
         }
         private void Btn_Occupy_Click(object sender, RoutedEventArgs e)

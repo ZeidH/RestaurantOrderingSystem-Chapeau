@@ -36,6 +36,20 @@ namespace ChapeauDAL
 
             ExecuteEditQuery(query, sqlParameters);
         }
+        public void Db_set_item_status(int order_id, OrderStatus status)
+        {
+            string query = string.Format("UPDATE [ORDER_LIST] SET order_status = @status WHERE order_id = @order_id");
+            SqlParameter[] sqlParameters = new SqlParameter[2];
+            sqlParameters[0] = new SqlParameter("@status", SqlDbType.SmallInt)
+            {
+                Value = (Int16)status
+            };
+            sqlParameters[1] = new SqlParameter("@order_id", SqlDbType.Int)
+            {
+                Value = order_id
+            };
+            ExecuteEditQuery(query, sqlParameters);
+        }
         public void Db_set_order_comment(Payment payment)
         {
             string query = string.Format("UPDATE [ORDER] SET order_comment = @comment WHERE order_id = @orderid");
@@ -113,32 +127,5 @@ namespace ChapeauDAL
             }
             return orderItems;
         }
-
-        #region Commented -> Get Drink Vat
-        //public Vat Db_get_drink_vat(int item_id)
-        //{
-        //    string query = string.Format("SELECT drink_vat FROM DRINK WHERE drink_id = @item_id");
-
-        //    SqlParameter[] sqlParameters = new SqlParameter[1];
-        //    sqlParameters[0] = new SqlParameter("@item_id", SqlDbType.Int)
-        //    {
-        //        Value = item_id
-        //    };
-
-        //    return ReadVat(ExecuteSelectQuery(query, sqlParameters));
-        //}
-
-        //private Vat ReadVat(DataTable table)
-        //{
-        //    Vat vat = Vat.High;
-        //    foreach (DataRow dr in table.Rows)
-        //    {
-        //        vat = (Vat)Int16.Parse(dr["drink_vat"].ToString());
-        //    }
-        //    return vat;
-        //}
-        ////change query 
-        #endregion
-
     }
 }

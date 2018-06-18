@@ -184,7 +184,7 @@ namespace ChapeauUI
                 }
                 else if(previousPrice < payment.GuestPrice[i])
                 {
-                    SplitException(new Exception("Unexpected Behavior has occured, the splitted prices will now even."));
+                    SplitException(new InvalidOperationException("Unexpected Behavior has occured, the splitted prices will now even."));
                     int cellNumber = btnGrid.Children.Count - 1;
                     for (int x = 0; x < cellNumber; x++)
                     {
@@ -219,10 +219,10 @@ namespace ChapeauUI
             }
             if (alive == 1)
             {
-                SplitException(new Exception("There's no point in using split if only one person is paying."));
+                SplitException(new InvalidOperationException("There's no point in using split if only one person is paying."));
             }
         }
-        private void SplitException(Exception exp)
+        private void SplitException(InvalidOperationException exp)
         {
             MessageBox.Show(exp.Message,"Warning",MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
@@ -234,7 +234,10 @@ namespace ChapeauUI
             {
                 if (i < payment.GuestPrice.Count)
                 {
-                    guest.Content = $"Guest {i + 1} Price:  {((float)payment.GuestPrice[i]/Payment.CONVERTION).ToString("0.00 €")}";
+                    Label lbl_price = new Label() { Content = ((float)payment.GuestPrice[i] / Payment.CONVERTION).ToString("0.00"), HorizontalContentAlignment = HorizontalAlignment.Right, Style = guest.Style, Margin = guest.Margin, Height = guest.Height, Width = guest.Width };
+
+                    guest.Content = $"Guest {i + 1} Price:  € ";
+                    
                     i++;
                 }
             }
