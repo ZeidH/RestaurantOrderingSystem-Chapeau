@@ -32,10 +32,6 @@ namespace ChapeauUI
             GetTables();
             lbl_logged_user.Content = employee.Name;
         }
-        public Tableview_UI()
-        {
-            InitializeComponent();
-        }
         private void GetTables()
         {
             table_panel.Children.Clear();
