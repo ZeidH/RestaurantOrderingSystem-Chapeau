@@ -7,7 +7,6 @@ using System.Windows.Navigation;
 using System.Windows.Media.Animation;
 using ChapeauLogic;
 using ChapeauModel;
-using System.Threading.Tasks;
 
 namespace ChapeauUI
 {

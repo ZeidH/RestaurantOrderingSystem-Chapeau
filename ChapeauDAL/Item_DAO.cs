@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using ChapeauModel;
-/// <summary>
-/// We need to stop making queries for ourselves and make them so that everyone can be able to use it. Get whole menu query instead of get part of menu query.
-/// </summary>
+
 namespace ChapeauDAL
 {
     public class Item_DAO : Base
@@ -97,10 +95,9 @@ namespace ChapeauDAL
         public List<int> DbRefreshStock()
         {
             string query = "SELECT item_stock FROM ITEM";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
             try
             {
-                return RefreshStock(ExecuteSelectQuery(query, sqlParameters));
+                return RefreshStock(ExecuteSelectQuery(query));
             }
             catch (SqlException e)
             {
@@ -157,10 +154,9 @@ namespace ChapeauDAL
         {
             string query = "SELECT i.item_id, i.item_name, i.item_cost, i.item_stock, d.drink_category, l.lunch_category, di.dinner_category, d.drink_vat " +
                            "FROM((ITEM as i left JOIN drink as d on i.item_id = d.drink_id) left join LUNCH as l on i.item_id = l.lunch_id) left join dinner as di on i.item_id = di.dinner_id";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
             try
             {
-                return ReadMenu(ExecuteSelectQuery(query, sqlParameters));
+                return ReadMenu(ExecuteSelectQuery(query));
             }
             catch (SqlException e)
             {
