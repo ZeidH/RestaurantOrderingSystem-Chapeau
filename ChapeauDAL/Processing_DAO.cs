@@ -144,12 +144,12 @@ namespace ChapeauDAL
 
 			DataTable dataTable = ExecuteSelectQuery(query, sqlParameters);
 
-			List<Order> result = ReadOrders(dataTable);
+		    ReadOrders(dataTable);
 
-			return result;
+			return ReadOrders(dataTable); 
 		}
 
-		private static List<Order> ReadOrders(DataTable dataTable)
+		private List<Order> ReadOrders(DataTable dataTable)
 		{
 			List<Order> result = new List<Order>();
 
