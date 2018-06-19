@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
-using System.Transactions;
 using ChapeauModel;
 
 namespace ChapeauDAL
@@ -65,7 +61,6 @@ namespace ChapeauDAL
             ExecuteEditQuery(query, sqlParameters);
         }
 
-        //Where to place?
         public List<OrderItem> Db_select_order_items(int order_id)
         {
             string query = string.Format("SELECT i.item_id, i.item_name, i.item_cost, o.item_amount, o.order_time, d.drink_category, l.lunch_category, di.dinner_category, o.item_comment, d.drink_vat " +
@@ -123,7 +118,6 @@ namespace ChapeauDAL
                 };
 
                 orderItems.Add(orderItem);
-
             }
             return orderItems;
         }
