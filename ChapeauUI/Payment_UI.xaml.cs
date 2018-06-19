@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using System.Windows.Media.Animation;
-using System.Data;
 using ChapeauLogic;
 using ChapeauModel;
 using System;
