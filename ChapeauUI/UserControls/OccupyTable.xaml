@@ -13,6 +13,6 @@
         <Button x:Name="btn_Decrement" Content="-" Style="{StaticResource Split}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="52" Margin="41,47,0,0" Height="46" Click="Btn_Decrement_Click"/>
         <Button x:Name="btn_Increment" Content="+" Style="{StaticResource Split}" FontSize="25" HorizontalAlignment="Left" VerticalAlignment="Top" Width="52" Margin="235,47,0,0" Height="46" Click="Btn_Increment_Click" />
         <Label x:Name="lbl_nrOfGuests" HorizontalAlignment="Left" Style="{StaticResource HeaderText}" HorizontalContentAlignment="Center" Foreground="Black" VerticalAlignment="Top" Margin="117,41,0,0" Height="55" Width="91"/>
-
+        <Label Content="Amount of guests" Style="{StaticResource PaymentLabel}" Foreground="Black" HorizontalAlignment="Left" Margin="110,10,0,0" VerticalAlignment="Top" Width="118"/>
     </Grid>
 </UserControl>
