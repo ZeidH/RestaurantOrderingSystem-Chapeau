@@ -20,7 +20,6 @@ namespace ChapeauModel
         public int NextCustomer { get; set; }
         public bool SplitPayment { get; set; }
 
-        //Computational Properties
         public float Price
         {
             get
@@ -35,6 +34,8 @@ namespace ChapeauModel
                 SetPrice = (int)value;
             }
         }
+
+        //Computational Properties
         public float ReadVat
         {
             get

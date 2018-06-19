@@ -97,5 +97,24 @@ namespace ChapeauDAL
             }
             return table_id;
         }
+
+        public void Db_add_order(int table_id, int emp_id, uint nrOfGuests)
+        {
+            string query = string.Format("INSERT INTO[ORDER] (table_id, emp_id, nr_of_guests) VALUES(@tableid, @empid, @nrOfGuests)");
+            SqlParameter[] sqlParameters = new SqlParameter[3];
+            sqlParameters[0] = new SqlParameter("@tableid", SqlDbType.Int)
+            {
+                Value = table_id
+            };
+            sqlParameters[1] = new SqlParameter("@empid", SqlDbType.Int)
+            {
+                Value = emp_id
+            };
+            sqlParameters[2] = new SqlParameter("@nrOfGuests", SqlDbType.Int)
+            {
+                Value = nrOfGuests
+            };
+            ExecuteEditQuery(query, sqlParameters);
+        }
     }
 }

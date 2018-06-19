@@ -9,7 +9,7 @@ using ChapeauModel;
 
 namespace ChapeauLogic
 {
-    public class Table_Service : Order_Service
+    public class Table_Service
     {
         Table_DAO table_db = new Table_DAO();
         public ObservableCollection<Tafel> FillTables()
@@ -42,6 +42,19 @@ namespace ChapeauLogic
             try
             {
                 return table_db.Db_Get_TableID(order_id);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Chapeau couldn't connect to the internet :c");
+            }
+        }
+
+        public void InsertOrder(int emp_id, int table_id, uint nrOfGuests)
+        {
+            try
+            {
+                table_db.Db_add_order(table_id, emp_id, nrOfGuests);
+
             }
             catch (Exception)
             {

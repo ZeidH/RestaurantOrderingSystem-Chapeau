@@ -85,6 +85,5 @@ namespace ChapeauLogic
 				throw new ApplicationException("Cannot connect to server\nAn error log has been saved in the program folder \n Press 'OK' to retry", ex);
 			}
 		}
-
 	}
 }

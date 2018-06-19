@@ -235,7 +235,7 @@ namespace ChapeauDAL
 				order.TableId = (int)row["table_id"];
 				order.Id = (int)row["order_id"];
 				order.EmployeeName = (string)row["emp_firstName"];
-
+                order.LastOrderTime = (DateTime)row["order_time"];
 				OrderItem item = ReadOrderitem(row);
 				order.Items.Add(item);
 			}
