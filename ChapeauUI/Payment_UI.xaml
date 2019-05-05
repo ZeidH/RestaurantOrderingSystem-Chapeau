@@ -23,7 +23,7 @@
         <RadioButton x:Name="credit_rBtn" Foreground="White" Content="Credit" HorizontalAlignment="Left" Margin="121,81,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked" Panel.ZIndex="10" Height="15"/>
         <RadioButton x:Name="cash_rBtn" Foreground="White" Content="Cash" HorizontalAlignment="Left" Margin="216,81,0,0" VerticalAlignment="Top" Checked="Radio_Btn_Checked" Panel.ZIndex="10" Height="15"/>
         <Label Content="Order Comment" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="32,235,0,0" VerticalAlignment="Top" Panel.ZIndex="9999" Height="25"/>
-        <Label x:Name="lbl_order" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="0,-1,0,0" VerticalAlignment="Top" Height="31" Width="88"/>
+        <Label x:Name="lbl_order" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="0,-1,0,0" VerticalAlignment="Top" Height="31" Width="106"/>
         <Label Content="Total Price   €" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="510,248,0,0" VerticalAlignment="Top" Height="28" Width="99"/>
         <Label Content="Vat Price      €" Style="{StaticResource PaymentLabel}" HorizontalAlignment="Left" Margin="511,227,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.375,-1.667" Height="32" Width="98"/>
         <WrapPanel Name="receipt_panel" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="347,280,31,-22" Panel.ZIndex="999"/>
